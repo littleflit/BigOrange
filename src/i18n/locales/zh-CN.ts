@@ -1494,7 +1494,6 @@ export default {
     "appLanguageSystem": "跟随系统",
     "appLanguageZhCN": "简体中文",
     "appLanguageEnUS": "English",
-    "appLanguageInID": "Indonesian",
     "appLanguageSystemHint": "跟随浏览器或系统语言。当前生效：{{language}}",
     "playbackEntryView": "播放后进入的视图",
     "playbackEntryViewDesc": "点击播放后默认打开哪个视图。",

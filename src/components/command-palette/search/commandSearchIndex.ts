@@ -1,7 +1,6 @@
 import { PINYIN_BY_PHRASE } from 'virtual:folia-command-pinyin';
 import en from '../../../i18n/locales/en';
 import zhCN from '../../../i18n/locales/zh-CN';
-import ind from '../../../i18n/locales/in';
 import type { CommandPaletteCommand } from '../types';
 import { normalizeSearchText, splitWords } from './normalize';
 
@@ -21,7 +20,6 @@ type LocaleCommandText = Record<string, { title?: string; description?: string }
 const LOCALE_COMMAND_TEXT: Record<string, LocaleCommandText> = {
     en: ((en as any).commandPalette?.commands ?? {}) as LocaleCommandText,
     'zh-CN': ((zhCN as any).commandPalette?.commands ?? {}) as LocaleCommandText,
-    in: ((ind as any).commandPalette?.commands ?? {}) as LocaleCommandText,
 };
 
 const CJK = /[一-鿿㐀-䶿]/;

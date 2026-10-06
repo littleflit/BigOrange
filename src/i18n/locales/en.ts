@@ -1495,7 +1495,6 @@ export default {
     "appLanguageSystem": "Follow system",
     "appLanguageZhCN": "Simplified Chinese",
     "appLanguageEnUS": "English",
-    "appLanguageInID": "Indonesian",
     "appLanguageSystemHint": "Follow the browser or system language. Current: {{language}}",
     "playbackEntryView": "View opened by Play",
     "playbackEntryViewDesc": "Which view opens by default after you press play.",

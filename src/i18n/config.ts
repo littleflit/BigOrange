@@ -3,7 +3,6 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import en from './locales/en.ts';
 import zhCN from './locales/zh-CN.ts';
-import ind from './locales/in.ts';
 import { resolveMissingTranslation } from './missingTranslation';
 
 /*
@@ -26,20 +25,16 @@ function flattenLocale(obj: Record<string, any>, prefix = ''): Record<string, st
 
 const ZH_FALLBACKS: Record<string, string> = flattenLocale(zhCN);
 
-export type AppLanguagePreference = 'system' | 'en' | 'zh-CN' | 'in';
+export type AppLanguagePreference = 'system' | 'en' | 'zh-CN';
 export const APP_LANGUAGE_STORAGE_KEY = 'folia_app_language';
 
 const isSupportedManualLanguage = (value: string | null | undefined): value is Exclude<AppLanguagePreference, 'system'> => (
-  value === 'en' || value === 'zh-CN' || value === 'in'
+  value === 'en' || value === 'zh-CN'
 );
 
 const normalizeSupportedLanguage = (value: string | null | undefined): Exclude<AppLanguagePreference, 'system'> => {
   if (!value) {
     return 'en';
-  }
-
-  if (value === 'in' || value.toLowerCase().startsWith('id')) {
-    return 'in';
   }
 
   if (value.toLowerCase().startsWith('zh')) {
@@ -91,16 +86,13 @@ i18n
       },
       'zh-CN': {
         translation: zhCN
-      },
-      in: {
-        translation: ind
       }
     },
     fallbackLng: 'en',
     parseMissingKeyHandler: (key: string, defaultValue?: string): string => (
       resolveMissingTranslation(ZH_FALLBACKS, key, defaultValue)
     ),
-    supportedLngs: ['en', 'zh-CN', 'in'],
+    supportedLngs: ['en', 'zh-CN'],
     ...(initialLanguagePreference !== 'system' ? { lng: initialLanguagePreference } : {}),
     detection: {
       order: ['localStorage', 'navigator', 'htmlTag'],

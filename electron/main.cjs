@@ -1626,31 +1626,9 @@ const mainLocale = {
     crashOpenFolder: 'Open Log Folder',
     crashClose: 'Close',
   },
-  in: {
-    trayShowWindow: 'Tampilkan Jendela',
-    trayHideWindow: 'Sembunyikan Jendela',
-    trayOpenRemote: 'Jendela Remote',
-    trayUnlockRemote: 'Buka Kunci Jendela Remote',
-    trayTransparentBackground: 'Latar Belakang Transparan',
-    trayToggleClickThrough: 'Click-Through',
-    trayAlwaysOnTop: 'Selalu di Atas',
-    trayHideTaskbar: 'Sembunyikan Ikon Taskbar',
-    trayDesktopLyricMode: 'Lirik Desktop',
-    trayToggleWallpaperMode: 'Mode Wallpaper',
-    trayResetWindow: 'Atur Ulang Jendela',
-    trayQuit: 'Keluar',
-    dialogImportTitle: 'Tidak dapat mengimpor folder ini',
-    dialogImportMessage: 'Folder sistem atau folder pengguna umum tidak dapat diimpor langsung.\nPilih folder khusus untuk menyimpan musik.',
-    dialogChooseOther: 'Pilih Folder Lain',
-    dialogCancel: 'Batal',
-    crashTitle: 'Folia mengalami masalah',
-    crashMessage: 'Aplikasi mengalami crash dan log telah disimpan. Mengirimkannya ke pengembang membantu menemukan masalahnya.',
-    crashOpenFolder: 'Buka Folder Log',
-    crashClose: 'Tutup',
-  },
 };
 
-// Maps an arbitrary BCP 47 tag onto one of the three locales the main process ships.
+// Maps an arbitrary BCP 47 tag onto one of the two locales the main process ships.
 // Returns null for unsupported tags so callers can keep walking the preference list.
 function normalizeMainLocaleKey(value) {
   if (typeof value !== 'string' || !value) {
@@ -1658,9 +1636,6 @@ function normalizeMainLocaleKey(value) {
   }
 
   const lowered = value.toLowerCase();
-  if (lowered === 'in' || lowered.startsWith('id')) {
-    return 'in';
-  }
   if (lowered.startsWith('zh')) {
     return 'zh-CN';
   }
@@ -1705,7 +1680,7 @@ function detectSystemLocaleKey() {
 // modules with their own dialog copy (the mod loader) can ask for the key.
 function getMainLocaleKey() {
   const stored = store.get(APP_LOCALE_KEY);
-  if (stored === 'zh-CN' || stored === 'en' || stored === 'in') {
+  if (stored === 'zh-CN' || stored === 'en') {
     return stored;
   }
   return detectSystemLocaleKey();
@@ -5676,7 +5651,7 @@ ipcMain.handle('playback-display-sleep-set-active', (event, active) => {
 });
 
 ipcMain.handle('set-app-locale', (event, localeKey) => {
-  if (localeKey === 'zh-CN' || localeKey === 'en' || localeKey === 'in') {
+  if (localeKey === 'zh-CN' || localeKey === 'en') {
     store.set(APP_LOCALE_KEY, localeKey);
     refreshTrayMenu();
   }

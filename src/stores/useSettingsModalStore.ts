@@ -102,7 +102,6 @@ export const useSettingsModalStore = create<SettingsModalUiState>((set, get) => 
         const getLanguageLabel = (pref: AppLanguagePreference): string => {
             switch (pref) {
                 case 'zh-CN': return i18n.t('options.appLanguageZhCN', { lng: 'zh-CN' });
-                case 'in': return i18n.t('options.appLanguageInID', { lng: 'in' });
                 case 'en': return i18n.t('options.appLanguageEnUS', { lng: 'en' });
                 default: return '';
             }

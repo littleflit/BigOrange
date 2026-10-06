@@ -2,14 +2,13 @@ import { describe, expect, it } from 'vitest';
 import { PONDER_TARGET_LIST } from '@/components/ponder/ponderRegistry';
 import en from '@/i18n/locales/en';
 import zhCN from '@/i18n/locales/zh-CN';
-import id from '@/i18n/locales/in';
 import type { PonderStep } from '@/types/ponder';
 
 // test/unit/ponder/ponderLocaleCoverage.test.ts
 // 场景文案缺键不会报任何错，只会把 "ponder.captions.panelSlide.intro" 原样画进教程里。
-// 命令注册表那套契约测试管不到这些 key，这是唯一会发现它的地方 —— 印尼语那份尤其容易漏。
+// 命令注册表那套契约测试管不到这些 key，这是唯一会发现它的地方。
 
-const LOCALES = { en, 'zh-CN': zhCN, in: id } as const;
+const LOCALES = { en, 'zh-CN': zhCN } as const;
 
 const lookup = (bundle: unknown, key: string): unknown =>
     key.split('.').reduce<unknown>(
@@ -60,7 +59,7 @@ describe('ponder locale coverage', () => {
         expect(missing, `${localeName} 缺少：${missing.join(', ')}`).toEqual([]);
     });
 
-    it('三份 locale 的思索 key 集合完全一致', () => {
+    it('两份 locale 的思索 key 集合完全一致', () => {
         const flatten = (node: unknown, prefix = ''): string[] => {
             if (typeof node === 'string') return [prefix];
             if (!node || typeof node !== 'object') return [];

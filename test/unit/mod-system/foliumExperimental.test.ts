@@ -194,8 +194,6 @@ describe('ponder.targets', () => {
         expect(i18n.t(localized.action!.labelKey)).toBe('Docs: open');
         expect(i18n.t(caption.textKey, { mod: '⌘' })).toBe('Press ⌘ + K to open');
         // A language the label does not name falls back like every other mod label.
-        await i18n.changeLanguage('in');
-        expect(i18n.t(localized.titleKey)).toBe('认识面板');
         await i18n.changeLanguage('en');
 
         expect(localized.anchors.box.labelKey).toBeUndefined();

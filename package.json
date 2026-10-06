@@ -65,8 +65,7 @@
     "afterPack": "build/afterPack.cjs",
     "electronLanguages": [
       "en-US",
-      "zh-CN",
-      "id"
+      "zh-CN"
     ],
     "generateUpdatesFilesForAllChannels": true,
     "directories": {

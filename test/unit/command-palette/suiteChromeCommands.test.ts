@@ -12,7 +12,6 @@ import type { LibrarySuiteChromeHandle } from '../../../src/library/core/contrac
 import { installLibrarySuiteChromeCommands } from '../../../src/library/app/installLibrarySuiteChromeCommands';
 import en from '../../../src/i18n/locales/en';
 import zhCN from '../../../src/i18n/locales/zh-CN';
-import id from '../../../src/i18n/locales/in';
 import { findKeywordOffenders, findUntranslatedCommands, withCommandText, type CommandText } from './commandContractChecks';
 
 // test/unit/command-palette/suiteChromeCommands.test.ts
@@ -213,18 +212,13 @@ describe('command contract over a fixture suite\'s chrome actions', () => {
             'fixture-wall-seam-spine': { title: '缝：书脊', description: '把信息条收成书脊' },
             'fixture-wall-locate-playing': { title: '定位正在播放', description: '把正在播放的歌移进视野' },
         },
-        in: {
-            'fixture-wall-seam-spine': { title: 'Celah: punggung', description: 'Lipat strip info menjadi punggung' },
-            'fixture-wall-locate-playing': { title: 'Temukan yang diputar', description: 'Tampilkan lagu yang sedang diputar' },
-        },
     };
     const LOCALES = {
         en: withCommandText(en, TEXT.en),
         'zh-CN': withCommandText(zhCN, TEXT['zh-CN']),
-        in: withCommandText(id, TEXT.in),
     };
 
-    it('enumerates the declared actions and finds them translated in all three locales', () => {
+    it('enumerates the declared actions and finds them translated in both locales', () => {
         for (const locale of Object.values(LOCALES)) {
             expect(findUntranslatedCommands(commands, locale)).toEqual([]);
         }

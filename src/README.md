@@ -104,7 +104,7 @@ App.tsx
 - 设置总入口：`components/modal/SettingsModal.tsx`；分区在 `components/modal/settings/`：`Appearance`、`General`、`Playback`、`Integration`、`Storage`、`Desktop`、`Lab`、`PinnedCommand`。
 - 视觉配置 import/export：`AppearanceSettingsSubview.tsx` 的 `buildCurrentConfig`、`compressConfig`、`decompressConfig`、`validKeys`、`handleImportConfig`。
 - 命令注册：`components/command-palette/commandRegistry.ts`；上下文和命令类型在 `types.ts`。
-- 本地化：`i18n/locales/en.ts`、`zh-CN.ts`、`in.ts`，配置在 `i18n/config.ts`。
+- 本地化：`i18n/locales/en.ts`、`zh-CN.ts`，配置在 `i18n/config.ts`。
 - 共享产品类型：`types.ts`；领域类型在 `types/appPlayback.ts`、`localLibrary.ts`、`navidrome.ts`、`obsBrowserSource.ts`、`onlineMusic.ts`、`playerCap.ts`、`remoteControl.ts`、`videoExport.ts`、`webLyricSource.ts`。
 
 ## External and server boundaries
@@ -122,4 +122,4 @@ App.tsx
 4. 请求、缓存、解析、provider 和播放流程改 `services`；纯计算改 `utils`。
 5. 在线歌曲先经过 `services/onlineMusic/omni.ts`；不要从组件直接调用 provider adapter。
 6. visualizer 只消费解析后的 `LyricData` / `Line` / `Word`，不要把格式解析或 provider 逻辑塞进模式组件。
-7. 新用户可见文案同步 `en.ts`、`zh-CN.ts`、`in.ts`；新增设置同时检查视觉导入导出和 command palette。
+7. 新用户可见文案同步 `en.ts`、`zh-CN.ts`；新增设置同时检查视觉导入导出和 command palette。

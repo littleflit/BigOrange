@@ -43,7 +43,7 @@ Use the desktop target version consistently:
 2. In every locale returned by `rg -l '"releaseNotes"' src/i18n/locales`:
    - add a new `vA_B_C` object without deleting historical releases;
    - add `intro` plus matching `title` and `description` keys for every card ID;
-   - write in that locale's existing language and tone. The current locales are `en.ts`, `in.ts`, and `zh-CN.ts`.
+   - write in that locale's existing language and tone. The current locales are `en.ts` and `zh-CN.ts`.
 3. Set `USER_GUIDE_AUTO_OPEN_VERSION` in `src/components/modal/userGuideContent.ts` to `A.B.C`.
 
 Keep card IDs identical across the release definition and all locales. Preserve comments, especially `@note` comments.

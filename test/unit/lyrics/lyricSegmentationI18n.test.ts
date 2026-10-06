@@ -1,17 +1,16 @@
 import { describe, expect, it } from 'vitest';
 import en from '../../../src/i18n/locales/en';
 import zhCN from '../../../src/i18n/locales/zh-CN';
-import id from '../../../src/i18n/locales/in';
 
 // test/unit/lyrics/lyricSegmentationI18n.test.ts
-// Every key the segmentation surface asks for must exist in all three locales.
+// Every key the segmentation surface asks for must exist in both locales.
 //
 // This exists because two keys were silently added to the wrong block: `t()` fell through to the
 // English fallback string baked into the call, so the UI looked right in English and was never
 // translated anywhere else. Nothing failed — a wrong-block key is not a duplicate and not a type
 // error. Listing the keys the code actually uses is the only thing that catches it.
 
-const LOCALES = { en, 'zh-CN': zhCN, in: id } as Record<string, Record<string, unknown>>;
+const LOCALES = { en, 'zh-CN': zhCN } as Record<string, Record<string, unknown>>;
 
 /** Mirrors the t() calls in LyricSegmentationSurfaceView and lyricSegmentationCommand. */
 const REQUIRED_KEYS = [
