@@ -1,6 +1,6 @@
 {
   "name": "folia-major",
-  "productName": "Folia",
+  "productName": "BigOrange",
   "desktopName": "folia-major.desktop",
   "description": "Lyrics Reimagine",
   "author": {
@@ -60,7 +60,7 @@
   },
   "build": {
     "appId": "top.izuna.foliamajor",
-    "productName": "Folia",
+    "productName": "BigOrange",
     "beforePack": "build/beforePack.cjs",
     "afterPack": "build/afterPack.cjs",
     "electronLanguages": [

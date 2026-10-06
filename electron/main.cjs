@@ -1,4 +1,8 @@
 const { app, BrowserWindow, ipcMain, session, screen, dialog, shell, nativeImage, desktopCapturer, Menu, Tray, nativeTheme, powerSaveBlocker, safeStorage, protocol, crashReporter, net: electronNet } = require('electron');
+
+// BigOrange owns its data directory (~/.config/BigOrange on Linux): pin the app name
+// before anything reads app.getPath('userData').
+app.setName('BigOrange');
 const fs = require('fs');
 const http = require('http');
 const path = require('path');
