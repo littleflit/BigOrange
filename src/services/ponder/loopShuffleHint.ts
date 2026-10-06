@@ -6,13 +6,13 @@ import { setStatusMessage, useStatusMessageStore } from '../../stores/useStatusM
 // src/services/ponder/loopShuffleHint.ts
 // 连点循环按钮时的「想找随机播放吗」提示。
 //
-// 别的播放器把随机做成循环按钮上的一档，于是找随机的人会在循环按钮上一直点。Folia 没有随机
+// 别的播放器把随机做成循环按钮上的一档，于是找随机的人会在循环按钮上一直点。BigOrange 没有随机
 // 模式，所以连点到第三下就弹一条不打断操作的提示，点它进 queue-shuffle 思索。
 // 提示只弹两次：看过两次还在点的人，不是在找随机。
 // 凑满三下后不立刻弹，而是等连点停下（MAX_PRESS_GAP_MS 内没有新的一下）再弹，
 // 否则会被后续每一下点击带出的循环模式 toast 盖掉。
 
-const HINT_COUNT_STORAGE_KEY = 'folia_loop_shuffle_hint_count';
+const HINT_COUNT_STORAGE_KEY = 'bigorange_loop_shuffle_hint_count';
 const PRESSES_TO_TRIGGER = 3;
 /** 两下之间超过这个间隔就不算连点，从头数。 */
 const MAX_PRESS_GAP_MS = 1500;

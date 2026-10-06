@@ -199,7 +199,7 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({
             autoCorrect="off"
             autoCapitalize="none"
             spellCheck={false}
-            name="folia-command-palette-query"
+            name="bigorange-command-palette-query"
             role="combobox"
             aria-autocomplete="list"
             aria-expanded={matches.length > 0}
@@ -382,7 +382,7 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({
         <AnimatePresence>
             {isOpen && (
                 <motion.div
-                    data-folia-keyboard-window="true"
+                    data-bigorange-keyboard-window="true"
                     className={`fixed inset-0 z-[150] flex items-start justify-center px-4 pt-[18vh] ${hasClearBackdrop ? '' : 'backdrop-blur-md'}`}
                     style={{
                         backgroundColor: hasClearBackdrop

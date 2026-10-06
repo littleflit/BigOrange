@@ -17,7 +17,7 @@ const { createModApi, createModDataStore } = require('../../../electron/modSyste
 const temporaryDirectories: string[] = [];
 
 const tempDir = () => {
-    const dataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'folia-mod-api-'));
+    const dataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bigorange-mod-api-'));
     temporaryDirectories.push(dataDir);
     return dataDir;
 };
@@ -26,7 +26,7 @@ const createApi = (permissions: string[], overrides: Record<string, unknown> = {
     modId: 'test-mod',
     manifest: { id: 'test-mod', permissions },
     dataStore: createModDataStore(tempDir()),
-    hostInfo: { folium: { major: 1, minor: 0 }, folia: '0.7.8' },
+    hostInfo: { folium: { major: 1, minor: 0 }, bigorange: '0.7.8' },
     emitLog: () => {},
     getPlaybackSnapshot: () => ({ song: null }),
     registerDisposer: () => {},
@@ -135,7 +135,7 @@ describe('mod api rpc and host info', () => {
 
     it('exposes the frozen host version info', () => {
         const api = createApi([]);
-        expect(api.host).toEqual({ folium: { major: 1, minor: 0 }, folia: '0.7.8' });
+        expect(api.host).toEqual({ folium: { major: 1, minor: 0 }, bigorange: '0.7.8' });
         expect(Object.isFrozen(api.host)).toBe(true);
     });
 

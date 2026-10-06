@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "folia-major",
+  "name": "bigorange",
   "main": "./worker/index.ts",
   "compatibility_date": "2026-04-02",
   "define": {

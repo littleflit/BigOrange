@@ -44,8 +44,8 @@ export const useThemeQuickEditorContext = ({
             }
         };
 
-        window.addEventListener('folia-themes-synced', handleSyncCompleted);
-        return () => window.removeEventListener('folia-themes-synced', handleSyncCompleted);
+        window.addEventListener('bigorange-themes-synced', handleSyncCompleted);
+        return () => window.removeEventListener('bigorange-themes-synced', handleSyncCompleted);
     }, [currentSong, restoreCachedThemeForSong]);
 
     useEffect(() => {

@@ -1,7 +1,7 @@
-// public/folia-cover-sw.js
+// public/bigorange-cover-sw.js
 // Serves validated content-addressed local cover files directly from OPFS.
 
-const COVER_PATH_PREFIX = '/__folia_cover/';
+const COVER_PATH_PREFIX = '/__bigorange_cover/';
 const ASSET_ID_PATTERN = /^sha256:([0-9a-f]{64})$/;
 const THUMBNAIL_SIZES = new Set([512, 1024]);
 const thumbnailJobs = new Map();
@@ -98,8 +98,8 @@ const getCoverResponse = async (requestUrl) => {
 
   try {
     const root = await navigator.storage.getDirectory();
-    const foliaRoot = await root.getDirectoryHandle('folia-cache');
-    const directory = await foliaRoot.getDirectoryHandle('local-cover-assets');
+    const bigorangeRoot = await root.getDirectoryHandle('bigorange-cache');
+    const directory = await bigorangeRoot.getDirectoryHandle('local-cover-assets');
     const [file, rawDescriptor] = await Promise.all([
       directory.getFileHandle(`${match[1]}.bin`).then(handle => handle.getFile()),
       directory.getFileHandle(`${match[1]}.json`).then(handle => handle.getFile()).then(value => value.text()),

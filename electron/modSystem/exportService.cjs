@@ -22,11 +22,11 @@ const EXPORT_LIMITS = {
     maxDurationSec: 15 * 60, // Guard against accidental full-album renders eating disk.
 };
 
-const sanitizeFileName = (value) => String(value ?? 'folia-export')
+const sanitizeFileName = (value) => String(value ?? 'bigorange-export')
     .replace(/[<>:"/\\|?*\u0000-\u001f]/g, '_')
     .replace(/\s+/g, ' ')
     .trim()
-    .slice(0, 80) || 'folia-export';
+    .slice(0, 80) || 'bigorange-export';
 
 const isElectronDevRuntime = () => process.env.ELECTRON_DEV === 'true' || process.env.NODE_ENV === 'development';
 
@@ -40,7 +40,7 @@ const isElectronDevRuntime = () => process.env.ELECTRON_DEV === 'true' || proces
 const createExportService = ({ app, BrowserWindow, resolveFfmpeg, getModClients }) => {
     let activeSession = null;
 
-    const getExportDirectory = () => path.join(app.getPath('videos'), 'Folia Exports');
+    const getExportDirectory = () => path.join(app.getPath('videos'), 'BigOrange Exports');
 
     /*
      * Builds the render spec from two sources that never mix:
@@ -131,7 +131,7 @@ const createExportService = ({ app, BrowserWindow, resolveFfmpeg, getModClients 
         const deadline = Date.now() + timeoutMs;
         while (Date.now() < deadline) {
             try {
-                const ready = await win.webContents.executeJavaScript('Boolean(window.__foliaModExport)');
+                const ready = await win.webContents.executeJavaScript('Boolean(window.__bigorangeModExport)');
                 if (ready) {
                     return true;
                 }
@@ -164,7 +164,7 @@ const createExportService = ({ app, BrowserWindow, resolveFfmpeg, getModClients 
     };
 
     const renderFrame = (win, tSec) => win.webContents.executeJavaScript(
-        `window.__foliaModExport.renderFrame(${tSec})`,
+        `window.__bigorangeModExport.renderFrame(${tSec})`,
         true
     );
 
@@ -314,7 +314,7 @@ const createExportService = ({ app, BrowserWindow, resolveFfmpeg, getModClients 
             // modules); executeJavaScript resolves it, so the first frame is
             // only rendered once the requested mode is actually registered.
             await exportWindow.webContents.executeJavaScript(
-                `window.__foliaModExport.configure(${injected})`,
+                `window.__bigorangeModExport.configure(${injected})`,
                 true
             );
 
@@ -481,7 +481,7 @@ const createExportService = ({ app, BrowserWindow, resolveFfmpeg, getModClients 
     const settleTeardown = (exportWindow, ffmpegProcess, outputPath, keepOutput) => {
         if (exportWindow && !exportWindow.isDestroyed()) {
             try {
-                exportWindow.webContents.executeJavaScript('window.__foliaModExport && window.__foliaModExport.dispose?.()');
+                exportWindow.webContents.executeJavaScript('window.__bigorangeModExport && window.__bigorangeModExport.dispose?.()');
             } catch {
                 // The page may already be gone; disposal is best-effort only.
             }

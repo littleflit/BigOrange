@@ -1,7 +1,7 @@
-# folia-wallpaper-helper
+# bigorange-wallpaper-helper
 
 Windows 桌面壁纸模式的辅助进程。由 Electron 主进程（`electron/windowsWallpaperController.cjs`）
-spawn，负责把 Folia 主窗口挂入桌面图标层之下的 WorkerW 层、转发桌面鼠标输入，并在 explorer
+spawn，负责把 BigOrange 主窗口挂入桌面图标层之下的 WorkerW 层、转发桌面鼠标输入，并在 explorer
 重启 / WorkerW 重建时自行重挂。
 
 协议（详见 `src/cli.rs` 与 `src/events.rs`）：
@@ -31,7 +31,7 @@ spawn，负责把 Folia 主窗口挂入桌面图标层之下的 WorkerW 层、�
 
 ## 代码来源与许可
 
-本 crate 随 Folia 以 **AGPL-3.0** 发布。取用的上游实现：
+本 crate 随 BigOrange 以 **AGPL-3.0** 发布。取用的上游实现：
 
 | 模块 | 来源 | 许可证 |
 | --- | --- | --- |

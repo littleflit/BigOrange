@@ -29,7 +29,7 @@ export const waitForLocalCoverServiceWorkerReady = async (
 export const initializeLocalCoverRuntime = async (): Promise<void> => {
   if (isLocalCoverWebRuntimeSupported() && 'serviceWorker' in navigator) {
     try {
-      await navigator.serviceWorker.register('/folia-cover-sw.js', { scope: '/' });
+      await navigator.serviceWorker.register('/bigorange-cover-sw.js', { scope: '/' });
       await waitForLocalCoverServiceWorkerReady(navigator.serviceWorker.ready);
     } catch (error) {
       console.error('[LocalCoverAsset] Failed to initialize the local cover service worker', error);

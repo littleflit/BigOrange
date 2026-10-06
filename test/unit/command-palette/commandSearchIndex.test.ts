@@ -5,7 +5,7 @@ import {
     getCommandSearchIndex,
 } from '../../../src/components/command-palette/search/commandSearchIndex';
 import { COMMAND_PALETTE_COMMANDS } from '../../../src/components/command-palette/commandRegistry';
-import { PINYIN_BY_PHRASE } from 'virtual:folia-command-pinyin';
+import { PINYIN_BY_PHRASE } from 'virtual:bigorange-command-pinyin';
 import type { CommandPaletteCommand } from '../../../src/components/command-palette/types';
 
 // test/unit/command-palette/commandSearchIndex.test.ts

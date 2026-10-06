@@ -12,7 +12,7 @@ import type { PonderAnchorSource, PonderSceneScript, PonderSurfaceKind, PonderTa
 // 还会被整体缩放，进教程那一刻量到的多半不是要讲的那个形态。几何见 ponderSurfaceGeometry，
 // 合成界面和这里的锚点共用同一组数。
 //
-// 章节也不再按「槽位里此刻放着什么」筛：随机和音量是 Folia 和别的播放器差得最远的两处，
+// 章节也不再按「槽位里此刻放着什么」筛：随机和音量是 BigOrange 和别的播放器差得最远的两处，
 // 恰恰是没把它们放进槽位的人更需要知道它们存在。合成界面里直接把按钮换成要讲的那个。
 
 const bar = {

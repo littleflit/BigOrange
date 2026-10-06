@@ -79,8 +79,8 @@ describe('analysis host deadline', () => {
         // The initial fork plus at least the one retry, and the retry must carry the force-CPU flag so a
         // fresh worker does not pick the provider that just hung and hang again.
         expect(forks.length).toBeGreaterThanOrEqual(2);
-        expect(forks[0].options.env.FOLIA_ANALYSIS_FORCE_CPU).toBeUndefined();
-        expect(forks.at(-1)!.options.env.FOLIA_ANALYSIS_FORCE_CPU).toBe('1');
+        expect(forks[0].options.env.BIGORANGE_ANALYSIS_FORCE_CPU).toBeUndefined();
+        expect(forks.at(-1)!.options.env.BIGORANGE_ANALYSIS_FORCE_CPU).toBe('1');
 
         // And the next request still works: a worker that DOES reply is served normally.
         const grid = { beat: [new Float32Array(1)], downbeat: [new Float32Array(1)] };

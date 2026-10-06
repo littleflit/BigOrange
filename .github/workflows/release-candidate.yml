@@ -121,7 +121,7 @@ jobs:
           if [ "${CURRENT_VERSION}" != "${TARGET_VERSION}" ]; then
             npm version "${TARGET_VERSION}" --no-git-tag-version
           fi
-          node -e "const fs=require('fs'); const pkg=require('./package.json'); pkg.foliaReleaseChannel='internal'; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');"
+          node -e "const fs=require('fs'); const pkg=require('./package.json'); pkg.bigorangeReleaseChannel='internal'; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');"
 
       - name: Generate pre-release notes from template
         shell: bash

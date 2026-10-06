@@ -71,13 +71,13 @@ describe('coverUrl utilities', () => {
     });
 
     it('uses bounded thumbnail buckets for Electron local covers', () => {
-        expect(getSizedCoverUrl(`folia-cover://asset/sha256%3A${'a'.repeat(64)}`, 300))
-            .toBe(`folia-cover://asset/sha256%3A${'a'.repeat(64)}?size=512`);
+        expect(getSizedCoverUrl(`bigorange-cover://asset/sha256%3A${'a'.repeat(64)}`, 300))
+            .toBe(`bigorange-cover://asset/sha256%3A${'a'.repeat(64)}?size=512`);
     });
 
     it('keeps Web local cover thumbnails at least 512px', () => {
-        expect(getSizedCoverUrl(`/__folia_cover/sha256%3A${'b'.repeat(64)}`, 50))
-            .toBe(`/__folia_cover/sha256%3A${'b'.repeat(64)}?size=512`);
+        expect(getSizedCoverUrl(`/__bigorange_cover/sha256%3A${'b'.repeat(64)}`, 50))
+            .toBe(`/__bigorange_cover/sha256%3A${'b'.repeat(64)}?size=512`);
     });
 
     it('rounds a box up to the smallest step that still covers it', () => {
@@ -94,7 +94,7 @@ describe('coverUrl utilities', () => {
     it('keeps every step on a variant the providers actually serve', () => {
         const netease = 'https://p1.music.126.net/abc/109951.jpg';
         const qq = 'https://y.gtimg.cn/music/photo_new/T002M000album-mid.jpg';
-        const local = `folia-cover://asset/sha256%3A${'a'.repeat(64)}`;
+        const local = `bigorange-cover://asset/sha256%3A${'a'.repeat(64)}`;
 
         expect(COVER_SIZE_STEPS.map(step => getSizedCoverUrl(netease, step))).toEqual([
             'https://p1.music.126.net/abc/109951.jpg?param=256y256',
@@ -123,9 +123,9 @@ describe('coverUrl utilities', () => {
             .toEqual({ provider: 'qq', requestedSize: 800 });
         expect(describeCoverUrl('https://music.test/rest/getCoverArt.view?id=cover-1&size=256'))
             .toEqual({ provider: 'navidrome', requestedSize: 256 });
-        expect(describeCoverUrl(`folia-cover://asset/sha256%3A${'a'.repeat(64)}?size=1024`))
+        expect(describeCoverUrl(`bigorange-cover://asset/sha256%3A${'a'.repeat(64)}?size=1024`))
             .toEqual({ provider: 'local', requestedSize: 1024 });
-        expect(describeCoverUrl(`/__folia_cover/sha256%3A${'b'.repeat(64)}?size=512`))
+        expect(describeCoverUrl(`/__bigorange_cover/sha256%3A${'b'.repeat(64)}?size=512`))
             .toEqual({ provider: 'local', requestedSize: 512 });
     });
 

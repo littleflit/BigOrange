@@ -1,7 +1,7 @@
 import type { HexGridCoord } from './hexViewport';
 import { HEX_CARD_MIN_OPACITY_DEFAULT, HEX_CARD_MIN_SCALE_DEFAULT } from '../../../../utils/hexCardFalloff';
 
-// Computes and applies frame-local styles for draggable folia hex card wrappers.
+// Computes and applies frame-local styles for draggable bigorange hex card wrappers.
 export type HexCardPointerEvents = 'auto' | 'none';
 
 export interface HexCardFrameOptions {

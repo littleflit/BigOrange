@@ -18,7 +18,7 @@ import type { PonderTargetDefinition } from '../types/ponder';
 
 const HOVER_DELAY_MS = 600;
 
-const BLOCKING_WINDOW_SELECTOR = '[data-folia-keyboard-window="true"]';
+const BLOCKING_WINDOW_SELECTOR = '[data-bigorange-keyboard-window="true"]';
 
 /** 返回当前悬停元素的 ref，长按那条链要用它判断是否落在模态内部。 */
 export const usePonderHoverProbe = () => {

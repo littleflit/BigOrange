@@ -33,7 +33,7 @@ export const frameInsets = (width: number, height: number) => ({
 const FRAME_CLEARANCE_X = 0.04;
 const FRAME_CLEARANCE_TOP = 0.035;
 /**
- * 底部给共享字幕（翻译 / 下一句）让出的高度（高度单位）：folia 的字幕层 bottom 约 112px（基线 32 + 净空 80），
+ * 底部给共享字幕（翻译 / 下一句）让出的高度（高度单位）：bigorange 的字幕层 bottom 约 112px（基线 32 + 净空 80），
  * 再加一行字高，900px 高的窗口里字幕上沿约在 0.83；再留 0.03 给行的漂移、绕行与运镜推近。
  */
 const SUBTITLE_CLEARANCE = 0.2;

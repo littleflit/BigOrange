@@ -82,7 +82,7 @@ describe('transcode cache pinning', () => {
     };
 
     beforeEach(async () => {
-        userData = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'folia-transcode-pin-'));
+        userData = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'bigorange-transcode-pin-'));
         service = createTranscodeService({ app: { getPath: () => userData }, protocol: {}, net: {} });
     });
 

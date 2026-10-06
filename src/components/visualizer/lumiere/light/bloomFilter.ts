@@ -203,7 +203,7 @@ export const createBloomFilter = (pixi: PixiModule, initial: BloomOptions): Bloo
             for (let level = 1; level <= count; level += 1) {
                 const resolution = baseResolution / 2 ** level;
                 if (Math.min(width, height) * resolution < 2) break;
-                // 用位置参数的签名：folia 装的 Pixi 8.20 还没有对象形式（8.21 起对象形式为主、位置参数仍可用）。
+                // 用位置参数的签名：bigorange 装的 Pixi 8.20 还没有对象形式（8.21 起对象形式为主、位置参数仍可用）。
                 const target = TexturePool.getOptimalTexture(width, height, resolution, false);
                 const params = downUniforms.uniforms.uParams as Float32Array;
                 params[0] = threshold;

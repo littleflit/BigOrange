@@ -7,7 +7,7 @@ import type { ParagraphBoundary, ParagraphKind, StructureLine } from './lumiereK
 // src/components/visualizer/lumiere/lumiereStructure.ts
 // 绘光的分段：与 tempera / sonnet 的分段规则相同（空隙中位数 × 2.5 定阈值、元数据变化切段、超限段落在
 // 最大空隙处切开、按副歌标记 / 时长 / 词数 / 标点分类），取自 lumisynth 编译器的 structure 步骤。
-// 唯一的差别是超限段落的左半部分也继续切（lumisynth 的 recursiveSplit，folia 原版只切右半部分）。
+// 唯一的差别是超限段落的左半部分也继续切（lumisynth 的 recursiveSplit，bigorange 原版只切右半部分）。
 // tempera / sonnet 的分段函数是模块私有的，所以这里带一份。
 
 export interface LumiereStructureParams {

@@ -40,7 +40,7 @@ describe('parseMicrophoneConsentStoreInUse', () => {
             { subKey: 'Microsoft.Windows.ShellExperienceHost_cw5n1h2txyewy', start: '0x1dc1234abcd0000', stop: '0x0' },
         ]);
 
-        expect(parseMicrophoneConsentStoreInUse(output, 'C:\\Apps\\Folia.exe')).toBe(true);
+        expect(parseMicrophoneConsentStoreInUse(output, 'C:\\Apps\\BigOrange.exe')).toBe(true);
     });
 
     it('ignores apps whose capture session already ended', () => {
@@ -48,7 +48,7 @@ describe('parseMicrophoneConsentStoreInUse', () => {
             { subKey: 'Microsoft.Windows.ShellExperienceHost_cw5n1h2txyewy', start: '0x1dc1234abcd0000', stop: '0x1dc1234abce0000' },
         ]);
 
-        expect(parseMicrophoneConsentStoreInUse(output, 'C:\\Apps\\Folia.exe')).toBe(false);
+        expect(parseMicrophoneConsentStoreInUse(output, 'C:\\Apps\\BigOrange.exe')).toBe(false);
     });
 
     it('ignores entries that never started capturing', () => {
@@ -56,29 +56,29 @@ describe('parseMicrophoneConsentStoreInUse', () => {
             { subKey: 'Some.Packaged.App_abc123', start: '0x0', stop: '0x0' },
         ]);
 
-        expect(parseMicrophoneConsentStoreInUse(output, 'C:\\Apps\\Folia.exe')).toBe(false);
+        expect(parseMicrophoneConsentStoreInUse(output, 'C:\\Apps\\BigOrange.exe')).toBe(false);
     });
 
-    it('excludes the Folia process itself from NonPackaged entries', () => {
+    it('excludes the BigOrange process itself from NonPackaged entries', () => {
         const output = buildRegOutput([
-            { subKey: 'NonPackaged\\C:#Program Files#Folia#Folia.exe', start: '0x1dc1234abcd0000', stop: '0x0' },
+            { subKey: 'NonPackaged\\C:#Program Files#BigOrange#BigOrange.exe', start: '0x1dc1234abcd0000', stop: '0x0' },
         ]);
 
-        expect(parseMicrophoneConsentStoreInUse(output, 'C:\\Program Files\\Folia\\Folia.exe')).toBe(false);
+        expect(parseMicrophoneConsentStoreInUse(output, 'C:\\Program Files\\BigOrange\\BigOrange.exe')).toBe(false);
     });
 
-    it('still reports other apps capturing alongside the Folia process', () => {
+    it('still reports other apps capturing alongside the BigOrange process', () => {
         const output = buildRegOutput([
-            { subKey: 'NonPackaged\\C:#Program Files#Folia#Folia.exe', start: '0x1dc1234abcd0000', stop: '0x0' },
+            { subKey: 'NonPackaged\\C:#Program Files#BigOrange#BigOrange.exe', start: '0x1dc1234abcd0000', stop: '0x0' },
             { subKey: 'NonPackaged\\C:#IME#sogou#SogouVoice.exe', start: '0x1dc1234abcd0000', stop: '0x0' },
         ]);
 
-        expect(parseMicrophoneConsentStoreInUse(output, 'C:\\Program Files\\Folia\\Folia.exe')).toBe(true);
+        expect(parseMicrophoneConsentStoreInUse(output, 'C:\\Program Files\\BigOrange\\BigOrange.exe')).toBe(true);
     });
 
     it('treats empty or malformed output as not in use', () => {
-        expect(parseMicrophoneConsentStoreInUse('', 'C:\\Apps\\Folia.exe')).toBe(false);
-        expect(parseMicrophoneConsentStoreInUse('ERROR: The system was unable to find the specified registry key or value.', 'C:\\Apps\\Folia.exe')).toBe(false);
+        expect(parseMicrophoneConsentStoreInUse('', 'C:\\Apps\\BigOrange.exe')).toBe(false);
+        expect(parseMicrophoneConsentStoreInUse('ERROR: The system was unable to find the specified registry key or value.', 'C:\\Apps\\BigOrange.exe')).toBe(false);
     });
 });
 
@@ -102,7 +102,7 @@ describe('createVoiceInputPauseMonitor', () => {
         const monitor = createVoiceInputPauseMonitor({
             getMainWindow: () => win,
             isEnabled: () => enabled,
-            getOwnExePath: () => 'C:\\Apps\\Folia.exe',
+            getOwnExePath: () => 'C:\\Apps\\BigOrange.exe',
             isSupported: true,
             pollIntervalMs: 1000,
             queryInUse: async () => inUse,
@@ -192,7 +192,7 @@ describe('createVoiceInputPauseMonitor', () => {
         const monitor = createVoiceInputPauseMonitor({
             getMainWindow: () => null,
             isEnabled: () => true,
-            getOwnExePath: () => 'C:\\Apps\\Folia.exe',
+            getOwnExePath: () => 'C:\\Apps\\BigOrange.exe',
             isSupported: false,
             pollIntervalMs: 1000,
             queryInUse: async () => {

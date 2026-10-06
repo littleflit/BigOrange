@@ -186,7 +186,7 @@ describe('the debug log writer', () => {
     let root: string;
 
     beforeEach(() => {
-        root = fs.mkdtempSync(path.join(os.tmpdir(), 'folia-debug-'));
+        root = fs.mkdtempSync(path.join(os.tmpdir(), 'bigorange-debug-'));
     });
 
     afterEach(() => {

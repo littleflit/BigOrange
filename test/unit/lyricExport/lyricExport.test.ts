@@ -259,7 +259,7 @@ describe('buildLyricExportArchive', () => {
             new Date(2026, 0, 2, 3, 4, 5),
         );
 
-        expect(archive.fileName).toBe('folia-lyrics-2026-01-02-03-04-05.zip');
+        expect(archive.fileName).toBe('bigorange-lyrics-2026-01-02-03-04-05.zip');
         const files = unzipSync(new Uint8Array(await archive.blob.arrayBuffer()));
         expect(Object.keys(files).sort()).toEqual([
             'fia/online/T - A (2).fia',
@@ -268,7 +268,7 @@ describe('buildLyricExportArchive', () => {
             'lrc/online/T - A.lrc',
             'manifest.json',
         ]);
-        expect(JSON.parse(strFromU8(files['fia/online/T - A.fia'])).format).toBe('folia-lyricdata');
+        expect(JSON.parse(strFromU8(files['fia/online/T - A.fia'])).format).toBe('bigorange-lyricdata');
         expect(strFromU8(files['lrc/online/T - A.lrc'])).toContain('[00:01.00]<00:01.000>hello<00:02.000>');
         const manifest = JSON.parse(strFromU8(files['manifest.json']));
         expect(manifest.exported).toHaveLength(2);

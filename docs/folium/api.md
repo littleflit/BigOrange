@@ -41,7 +41,7 @@ The host, for runtime feature detection (`folium.host`).
 | 成员 | 类型 | 说明 |
 | --- | --- | --- |
 | `folium` | `{ major: number; minor: number }` | The Folium version (`major`, `minor`). |
-| `folia` | `string \| null` | Folia app version, or null when the host cannot tell. |
+| `bigorange` | `string \| null` | BigOrange app version, or null when the host cannot tell. |
 
 ### FoliumStorage
 
@@ -94,7 +94,7 @@ The object a client entry's `activate(folium)` receives.
 | `readonly lyrics` | `FoliumLyricsHelpers` | Folium 1.3. |
 | `readonly theme` | `FoliumThemeHelpers` | Folium 1.3. |
 | `readonly experimental` | `Readonly<Record<string, unknown>>` | Unfrozen surfaces; each requires the matching manifest `experimental` opt-in. |
-| `readonly internals` | `Readonly<Record<string, unknown>>` | Host internals with no compatibility promise. Only available when the manifest pins host versions with `"folia"`; otherwise accessing it throws. |
+| `readonly internals` | `Readonly<Record<string, unknown>>` | Host internals with no compatibility promise. Only available when the manifest pins host versions with `"bigorange"`; otherwise accessing it throws. |
 
 相关：[FoliumHostInfo](#foliumhostinfo) · [FoliumContextKind](#foliumcontextkind) · [FoliumLogger](#foliumlogger) · [FoliumRegistries](#foliumregistries) · [FoliumEvents](#foliumevents) · [FoliumPlaybackService](#foliumplaybackservice) · [FoliumUiService](#foliumuiservice) · [FoliumNetService](#foliumnetservice) · [FoliumStorage](#foliumstorage) · [FoliumRpc](#foliumrpc) · [FoliumLyricsHelpers](#foliumlyricshelpers) · [FoliumThemeHelpers](#foliumthemehelpers)
 
@@ -672,7 +672,7 @@ A local file the user picked for this mod.
 
 | 成员 | 类型 | 说明 |
 | --- | --- | --- |
-| `url` | `string` | folia-mod:// URL usable as a media/img src for this session. |
+| `url` | `string` | bigorange-mod:// URL usable as a media/img src for this session. |
 | `name` | `string` | File name. |
 | `size` | `number` | Size in bytes. |
 | `grantId?` | `string` | Folium 1.1: opaque id of a persisted grant (pickFile with `persist`, or restoreFile). Store it to get the file back after a restart. |
@@ -1215,7 +1215,7 @@ module.exports = function activate(api) {
 | 成员 | 说明 |
 | --- | --- |
 | `api.manifest` | 冻结的清单副本 |
-| `api.host` | `{ folium: { major, minor }, folia }`，与客户端的 `folium.host` 相同 |
+| `api.host` | `{ folium: { major, minor }, bigorange }`，与客户端的 `folium.host` 相同 |
 | `api.log.info / warn / error(message, details?)` | 写入模组日志；`error` 会显示在模组面板 |
 | `api.storage.data.get / set / has / delete / keys` | 异步；需要 `filesystem.data`；与客户端 `folium.storage` 共用同一个数据文件（上限 1 MB） |
 | `api.lifecycle.onDeactivate(fn)` | 模组被停用、重载或应用退出时调用；`activate` 返回的函数效果相同 |

@@ -8,7 +8,7 @@
 
 # disclaimer
 
-文件夹中的图片人物为 Folia 拟人形象(folia-chan)，任何与已有人物的相似之处纯属巧合。
+文件夹中的图片人物为 BigOrange 拟人形象(bigorange-chan)，任何与已有人物的相似之处纯属巧合。
 
 这些头像图片皆为 GPT Image2 模型生成，即AI生成的图片。
 

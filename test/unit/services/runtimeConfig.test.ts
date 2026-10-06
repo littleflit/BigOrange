@@ -10,7 +10,7 @@ describe('getWebAiProvider', () => {
 
     it('prefers the Docker runtime provider', () => {
         vi.stubGlobal('window', {
-            __FOLIA_RUNTIME_CONFIG__: { aiProvider: 'openai' },
+            __BIGORANGE_RUNTIME_CONFIG__: { aiProvider: 'openai' },
         });
 
         expect(getWebAiProvider()).toBe('openai');
@@ -18,7 +18,7 @@ describe('getWebAiProvider', () => {
 
     it('accepts the Docker gemini provider', () => {
         vi.stubGlobal('window', {
-            __FOLIA_RUNTIME_CONFIG__: { aiProvider: 'gemini' },
+            __BIGORANGE_RUNTIME_CONFIG__: { aiProvider: 'gemini' },
         });
 
         expect(getWebAiProvider()).toBe('gemini');

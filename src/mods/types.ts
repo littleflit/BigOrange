@@ -71,9 +71,9 @@ export interface ModRuntimeInfo {
     /** Origins `folium.ui.embed` may load (manifest `embedOrigins`). */
     embedOrigins: string[];
     /** Host version range; present only on mods that use `folium.internals`. */
-    folia: string | null;
+    bigorange: string | null;
     hasMain: boolean;
-    /** folia-mod:// URL of the client entry, versioned by content digest; null unless loaded. */
+    /** bigorange-mod:// URL of the client entry, versioned by content digest; null unless loaded. */
     clientUrl: string | null;
     /** Position in the main process's dependency-resolved load plan; null when not in the plan. */
     loadOrder?: number | null;

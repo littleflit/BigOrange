@@ -34,8 +34,8 @@
 | 被依赖量级 | 模块 |
 | --- | --- |
 | 512+ | `src/types.ts` |
-| 128+ | `src/types/onlineMusic.ts` |
 | 64+ | `src/components/command-palette/types.ts` |
+| 64+ | `src/types/onlineMusic.ts` |
 | 64+ | `src/types/ponder.ts` |
 | 64+ | `src/utils/appPlaybackGuards.ts` |
 | 32+ | `dev/probes/definition.ts` |
@@ -113,11 +113,11 @@
 ### `src/components/ponder/ponderRegistry.ts`
 
 - `src/components/ponder/targets/audioEqualizer.target.ts`
+- `src/components/ponder/targets/bigorangeDesktop.target.ts`
+- `src/components/ponder/targets/bigorangeShortcuts.target.ts`
+- `src/components/ponder/targets/bigorangeTransport.target.ts`
 - `src/components/ponder/targets/commandPalette.target.ts`
 - `src/components/ponder/targets/customShortcutSettings.target.ts`
-- `src/components/ponder/targets/foliaDesktop.target.ts`
-- `src/components/ponder/targets/foliaShortcuts.target.ts`
-- `src/components/ponder/targets/foliaTransport.target.ts`
 - `src/components/ponder/targets/grid3dCardStyle.target.ts`
 - `src/components/ponder/targets/gridActionButton.target.ts`
 - `src/components/ponder/targets/gridPage.target.ts`

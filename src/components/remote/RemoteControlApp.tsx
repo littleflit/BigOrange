@@ -37,7 +37,7 @@ const formatTime = (seconds: number) => {
     return `${minutes}:${String(rest).padStart(2, '0')}`;
 };
 
-const REMOTE_CONTROL_DOCUMENT_TITLE = 'Folia Remote';
+const REMOTE_CONTROL_DOCUMENT_TITLE = 'BigOrange Remote';
 const REMOTE_VIDEO_EXPORT_PRESET_VALUES_STORAGE_KEY = 'remote_video_export_preset_values';
 const REMOTE_BACKGROUND_MODE_STORAGE_KEY = 'remote_background_mode';
 
@@ -268,7 +268,7 @@ const RemoteControlApp: React.FC = () => {
     const likeUnavailableReason = snapshot.likeUnavailableProvider
         ? t('status.providerLikeUnavailable', { provider: snapshot.likeUnavailableProvider })
         : undefined;
-    const title = snapshot.title || 'Folia';
+    const title = snapshot.title || 'BigOrange';
     const artist = snapshot.artist || (snapshot.hasTrack ? 'Unknown artist' : 'No active track');
 
     const {

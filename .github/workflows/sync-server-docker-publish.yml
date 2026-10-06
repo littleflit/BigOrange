@@ -22,7 +22,7 @@ concurrency:
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/folia-sync-server
+  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/bigorange-sync-server
 
 jobs:
   prepare:
@@ -107,8 +107,8 @@ jobs:
             org.opencontainers.image.revision=${{ github.sha }}
             org.opencontainers.image.version=${{ needs.prepare.outputs.version }}
             org.opencontainers.image.created=${{ needs.prepare.outputs.created }}
-          cache-from: type=gha,scope=folia-sync-server-${{ matrix.arch }}
-          cache-to: type=gha,mode=max,scope=folia-sync-server-${{ matrix.arch }}
+          cache-from: type=gha,scope=bigorange-sync-server-${{ matrix.arch }}
+          cache-to: type=gha,mode=max,scope=bigorange-sync-server-${{ matrix.arch }}
 
   promote:
     name: Promote sync-server tags

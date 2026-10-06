@@ -12,7 +12,7 @@ import type { PersonalFmRequestOptions } from '../types/onlineMusic';
 // from here, so every existing `omni.getPersonalFm()` caller — the home card, the radio grid and
 // the queue's near-end refill — stays on the selected mode without threading a parameter through.
 
-const STORAGE_KEY = 'folia.personalFm.selection';
+const STORAGE_KEY = 'bigorange.personalFm.selection';
 
 const readStoredSelection = (): PersonalFmSelection => {
     try {

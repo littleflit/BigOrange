@@ -116,7 +116,7 @@ export default {
     "closeToQuit": "Closing the window will quit the app",
     "wallpaperModeOn": "Wallpaper mode enabled",
     "wallpaperModeOff": "Wallpaper mode disabled",
-    "macWallpaperInputMonitoringNeeded": "Wallpaper mode needs Input Monitoring: allow Folia in System Settings → Privacy & Security → Input Monitoring, then toggle wallpaper mode again",
+    "macWallpaperInputMonitoringNeeded": "Wallpaper mode needs Input Monitoring: allow BigOrange in System Settings → Privacy & Security → Input Monitoring, then toggle wallpaper mode again",
     "macWallpaperAutohideDockOn": "Auto-hide Dock enabled",
     "macWallpaperAutohideDockOff": "Auto-hide Dock disabled",
     "voiceInputPauseOn": "Pause on voice input enabled",
@@ -479,9 +479,9 @@ export default {
       "settings-local-lyrics-priority": { "title": "Local song lyrics priority", "description": "Choose whether local songs prefer local or online lyrics" },
       "settings-local-lyric-format-order": { "title": "Local lyric file format priority", "description": "Choose which format wins when a track has several lyric files" },
       "settings-integration": { "title": "Integration settings", "description": "Open Stage, Now Playing, and Navidrome settings" },
-      "automix-toggle": { "title": "Smart transition", "description": "Turn FOLIA smart transitions on or off" },
-      "transition-mode-crossfade": { "title": "Transition mode: Folia Crossfade", "description": "Use the simple one-out one-in crossfade" },
-      "transition-mode-automix": { "title": "Transition mode: Folia Automix", "description": "Analyse both tracks and mix them automatically" },
+      "automix-toggle": { "title": "Smart transition", "description": "Turn BIGORANGE smart transitions on or off" },
+      "transition-mode-crossfade": { "title": "Transition mode: BigOrange Crossfade", "description": "Use the simple one-out one-in crossfade" },
+      "transition-mode-automix": { "title": "Transition mode: BigOrange Automix", "description": "Analyse both tracks and mix them automatically" },
       "transition-performance-toggle": { "title": "Transition performance mode", "description": "Toggle the more aggressive transition (needs the stem model)" },
       "settings-discord-presence": { "title": "Discord playback status", "description": "Open Discord Rich Presence settings" },
       "lyric-staff-policy-cycle": { "title": "Opening credits handling", "description": "Cycle how the credit block at the start of the lyrics is handled" },
@@ -494,7 +494,7 @@ export default {
       "settings-r2-sync": { "title": "Sync server settings", "description": "Open sync server settings" },
       "sync-now": { "title": "Sync now", "description": "Sync AI themes" },
       "export-lyric-cache": { "title": "Export cached lyrics", "description": "Save every lyric on this device as .fia and enhanced LRC in one zip" },
-      "export-current-lyrics-fia": { "title": "Export current lyrics as .fia", "description": "Save this song’s lyrics in Folia’s lossless format, saved word segmentation included" },
+      "export-current-lyrics-fia": { "title": "Export current lyrics as .fia", "description": "Save this song’s lyrics in BigOrange’s lossless format, saved word segmentation included" },
       "export-current-lyrics-lrc": { "title": "Export current lyrics as LRC", "description": "Save this song’s lyrics as an enhanced LRC other players can read" },
       "settings-local-library-watch": { "title": "Local folder watch settings", "description": "Open the auto scan settings for imported local folders" },
       "local-library-auto-scan-toggle": { "title": "Auto scan local folders", "description": "Turn automatic rescanning of imported local folders on or off" },
@@ -580,7 +580,7 @@ export default {
       "settings-netease-scrobble": { "title": "NetEase listening report", "description": "Jump to whether finished plays are reported to NetEase Cloud Music" },
       "netease-scrobble-toggle": { "title": "NetEase listening report", "description": "Turn reporting of finished NetEase plays on or off" },
       "settings-audio-output": { "title": "Audio output", "description": "Jump to the audio output device and format settings" },
-      "settings-transition": { "title": "Smart transition", "description": "Jump to the FOLIA transition settings" },
+      "settings-transition": { "title": "Smart transition", "description": "Jump to the BIGORANGE transition settings" },
       "settings-navidrome": { "title": "Navidrome server", "description": "Jump to the Navidrome server connection" },
       "settings-stage-mode": { "title": "Stage mode", "description": "Jump to the Stage external player settings" },
       "settings-media-cache": { "title": "Media cache", "description": "Jump to the downloaded audio cache" },
@@ -821,10 +821,10 @@ export default {
     "scopeOnlineDesc": "Lyrics cached for online songs you have played",
     "scopeLocal": "Local library",
     "scopeLocalDesc": "Lyrics matched online for local songs, named after each audio file in its original folder, ready to drop beside it",
-    "formatFia": ".fia (Folia, lossless)",
-    "formatFiaDesc": "Keeps word timing, translations, background vocals and your saved segmentation; imports straight back into Folia",
+    "formatFia": ".fia (BigOrange, lossless)",
+    "formatFiaDesc": "Keeps word timing, translations, background vocals and your saved segmentation; imports straight back into BigOrange",
     "formatLrc": "Enhanced LRC",
-    "formatLrcDesc": "Readable by other players; Folia-only data such as background vocals and segmentation is dropped",
+    "formatLrcDesc": "Readable by other players; BigOrange-only data such as background vocals and segmentation is dropped",
     "includeTranslationDesc": "Written as the next line with the same timestamp as the original",
     "includeRomanizationDesc": "Written after the translation",
     "resolveOnline": "Look up missing titles online",
@@ -854,7 +854,7 @@ export default {
     "descriptionExportOnly": "Save the lyrics on screen for this song as a file.",
     "importHeading": "Import",
     "importChoose": "Choose a lyric file",
-    "importFormats": "lrc, vtt, ttml, qrc, yrc, krc, txt, or a .fia exported from Folia",
+    "importFormats": "lrc, vtt, ttml, qrc, yrc, krc, txt, or a .fia exported from BigOrange",
     "exportHeading": "Export this song",
     "batchTitle": "Export every lyric on this device",
     "batchDesc": "Opens the batch export in the command palette"
@@ -912,7 +912,7 @@ export default {
     },
     "reload": "Reload",
     "ffmpegMissing": "ffmpeg not found",
-    "ffmpegMissingHint": "Transparent video export needs ffmpeg. Set FOLIA_FFMPEG_PATH or place ffmpeg in the ffmpeg-8.1.2 folder next to the app.",
+    "ffmpegMissingHint": "Transparent video export needs ffmpeg. Set BIGORANGE_FFMPEG_PATH or place ffmpeg in the ffmpeg-8.1.2 folder next to the app.",
     "empty": "No mods discovered",
     "enabled": "Enabled",
     "disabled": "Disabled",
@@ -958,12 +958,12 @@ export default {
       "install-too-many-files": "The mod package has too many files (2000 max)",
       "install-main-missing": "The package is missing the main file declared in mod.json",
       "install-client-missing": "The package is missing the client file declared in mod.json",
-      "host-version-mismatch": "This mod uses internal APIs and does not support this Folia version",
+      "host-version-mismatch": "This mod uses internal APIs and does not support this BigOrange version",
       "enable-failed": "Could not enable the mod: {{value}}",
       "mod-not-found": "Mod not found",
       "mod-content-unverifiable": "The mod's files could not be verified (too many or too large), so it will not be enabled",
       "install-failed": "Install failed: {{value}}",
-      "export-ffmpeg-not-found": "ffmpeg was not found; install it or set FOLIA_FFMPEG_PATH",
+      "export-ffmpeg-not-found": "ffmpeg was not found; install it or set BIGORANGE_FFMPEG_PATH",
       "export-already-running": "Another export is already running",
       "export-no-lyrics": "The current song has no lyrics to render",
       "export-invalid-duration": "Invalid export time range",
@@ -1089,7 +1089,7 @@ export default {
     "statusFailed": "Failed to switch the Personal FM mode"
   },
   "home": {
-    "welcome": "Welcome to Folia",
+    "welcome": "Welcome to BigOrange",
     "lattice": "Queue collage",
     "latticeLabel": "Queue collage",
     "latticeBack": "The top-left button returns. {{mod}} + B also closes Lattice; Escape first collapses a poster or clears keyboard focus, then returns on the next press.",
@@ -1152,7 +1152,7 @@ export default {
     "qrDiagnosticsCopied": "Copied",
     "qrDiagnosticsCopyFailed": "Copy failed",
     "qrDiagnosticsReport": "Report on GitHub",
-    "qrDiagnosticsPasteHint": "Paste the diagnostics Folia copied here, and briefly describe what happened (network, whether a proxy was on, etc.).",
+    "qrDiagnosticsPasteHint": "Paste the diagnostics BigOrange copied here, and briefly describe what happened (network, whether a proxy was on, etc.).",
     "closeLogin": "Close login",
     "logout": "Logout",
     "backToPlayer": "Back to Player",
@@ -1192,7 +1192,7 @@ export default {
     "gridFolderRemoveSelectedTitle": "Remove selected tracks?",
     "gridFolderRemoveSelectedDescription": "Remove {{count}} tracks. Roots are removed; fully selected subfolders are ignored during scans. Disk files stay unchanged.",
     "gridFolderRemoveRootTitle": "Remove imported root?",
-    "gridFolderRemoveRootDescription": "Remove {{path}} and all its tracks from Folia? Files on disk will not be deleted.",
+    "gridFolderRemoveRootDescription": "Remove {{path}} and all its tracks from BigOrange? Files on disk will not be deleted.",
     "login": "Login",
     "welcomeBack": "Welcome Back",
     "guestTitle": "Try searching a few songs first",
@@ -1272,7 +1272,7 @@ export default {
     "releaseNotes": "What's new",
     "releaseNotesDescription": "Review the changes in this version",
     "ponder": "Ponder Help",
-    "ponderDescription": "Learn Folia's basic controls and operating model",
+    "ponderDescription": "Learn BigOrange's basic controls and operating model",
     "version": "version"
   },
   "lyricProvider": {
@@ -1398,12 +1398,12 @@ export default {
     "replayGainSettings": "Audio gain",
     "replayGainMode": "ReplayGain mode( Loudness Balancing )",
     "replayGainModeDesc": "Normalize playback loudness using track or album ReplayGain metadata when available.",
-    "transitionSettings": "Folia transitions",
+    "transitionSettings": "BigOrange transitions",
     "transitionEnable": "Blend",
     "transitionMode": "Transition mode",
-    "transitionCrossfade": "Folia Crossfade",
+    "transitionCrossfade": "BigOrange Crossfade",
     "transitionCrossfadeDesc": "One fade out into one fade in.",
-    "transitionAutomix": "Folia Automix",
+    "transitionAutomix": "BigOrange Automix",
     "transitionAutomixDesc": "Analyses both tracks and mixes them automatically.",
     "transitionActive": "Active",
     "transitionFellBack": "Using crossfade",
@@ -1451,7 +1451,7 @@ export default {
     "modelManualCode": "Code",
     "modelManualCodeCopied": "Copied",
     "modelReminderTitle": "The analysis models are not downloaded",
-    "modelReminderDesc": "The full Folia transition engine needs its neural network models, about 249MB together.",
+    "modelReminderDesc": "The full BigOrange transition engine needs its neural network models, about 249MB together.",
     "modelReminderDownload": "Download",
     "modelReminderLater": "Got it",
     "modelReminderNever": "Don't remind me",
@@ -1484,7 +1484,7 @@ export default {
     "desktopSettingsPanelDesc": "Desktop window behavior, update checks, auto-update, and AI configuration.",
     "languageSettings": "Language",
     "appLanguage": "Interface language",
-    "appLanguageDesc": "Manually set Folia's interface language, or switch back to following the system.",
+    "appLanguageDesc": "Manually set BigOrange's interface language, or switch back to following the system.",
     "appLanguageSystem": "Follow system",
     "appLanguageZhCN": "Simplified Chinese",
     "appLanguageEnUS": "English",
@@ -1621,7 +1621,7 @@ export default {
     "memoryByProcess": "By process",
     "memorySeriesUnavailable": "Not reported on this platform",
     "reduceMotionSection": "Reduce motion",
-    "reduceMotionSectionDesc": "Folia plays its full animation by default and no longer follows the system animation setting on its own. Turn down whichever surface you want quieter.",
+    "reduceMotionSectionDesc": "BigOrange plays its full animation by default and no longer follows the system animation setting on its own. Turn down whichever surface you want quieter.",
     "reduceMotionFollowSystem": "Follow system setting",
     "reduceMotionFollowSystemDesc": "Let the operating system's animation setting reduce motion everywhere, the way earlier versions always did.",
     "reduceMotionForcedBySystem": "Currently reduced by the system setting above.",
@@ -1703,11 +1703,11 @@ export default {
     "hidePlayerTranslationSubtitleDesc": "Does not affect visualizer modes that render standalone subtitles.",
     "hidePlayerRightPanelButton": "Hide player right-side button",
     "transparentPlayerBackground": "Transparent player background",
-    "transparentPlayerBackgroundDesc": "Only applies on the player page. When enabled, Folia switches to transparent window mode for OBS browser sources or chroma key overlays.",
+    "transparentPlayerBackgroundDesc": "Only applies on the player page. When enabled, BigOrange switches to transparent window mode for OBS browser sources or chroma key overlays.",
     "enablePlayerPageNativeBlur": "Enable Player Page Native Blur",
     "enablePlayerPageNativeBlurDesc": "When enabled, theme, image, Monet, and other player backgrounds are hidden and replaced by the system native blur. Applies only in non-transparent mode on desktop; the native effect uses more resources and may lag while moving the window.",
     "nativeBlurConfirmTitle": "System glass effect",
-    "nativeBlurConfirmDesc": "This changes the window to a translucent background using the system glass effect. Folia backgrounds will not be shown.",
+    "nativeBlurConfirmDesc": "This changes the window to a translucent background using the system glass effect. BigOrange backgrounds will not be shown.",
     "nativeBlurConfirmAction": "I understand",
     "nativeBlurBackgroundNotice": "Native glassmorphism blur is enabled; lyrics animation background settings are currently overridden.",
     "autoHidePlayerChrome": "Auto-hide player controls",
@@ -1762,9 +1762,9 @@ export default {
     "openPlayerOnLaunchDesc": "Opens the playback view when the app starts. Follows \"View opened by Play\": with Lattice selected, launch opens the queue collage.",
     "wallpaperMode": "Wallpaper mode",
     "wallpaperModeDesc": "Sink the app window to the bottom of the desktop and keep it always visible as a lyrics wallpaper. Keyboard input is unavailable.",
-    "wallpaperModeMacPermissionHint": "Mac wallpaper mode needs Input Monitoring: enable Folia in System Settings → Privacy & Security → Input Monitoring, then restart the app.",
+    "wallpaperModeMacPermissionHint": "Mac wallpaper mode needs Input Monitoring: enable BigOrange in System Settings → Privacy & Security → Input Monitoring, then restart the app.",
     "wallpaperEnterConfirmTitle": "Enter wallpaper mode?",
-    "wallpaperEnterConfirmDesc": "The window will sink to the bottom of the desktop and stay there as a lyrics wallpaper. It can no longer be closed, minimized or moved, and the keyboard cannot reach the app.\n\nTo leave, open the Folia menu in the system tray (the menu bar on macOS) and click \"Wallpaper Mode\" again.",
+    "wallpaperEnterConfirmDesc": "The window will sink to the bottom of the desktop and stay there as a lyrics wallpaper. It can no longer be closed, minimized or moved, and the keyboard cannot reach the app.\n\nTo leave, open the BigOrange menu in the system tray (the menu bar on macOS) and click \"Wallpaper Mode\" again.",
     "wallpaperEnterConfirmAction": "Enter wallpaper mode",
     "wallpaperMacAutohideDock": "Auto-hide Dock",
     "wallpaperMacAutohideDockDesc": "Dock auto-hides during wallpaper mode",
@@ -1816,7 +1816,7 @@ export default {
     "stageNotRunning": "Please start the now-playing service on this machine and ensure the player is playing.",
     "discordRichPresence": "Discord Rich Presence",
     "enableDiscordRichPresence": "Enable Discord playback status",
-    "discordRichPresenceDesc": "Show the current Folia track in Discord desktop. Folia connects with its built-in application identity.",
+    "discordRichPresenceDesc": "Show the current BigOrange track in Discord desktop. BigOrange connects with its built-in application identity.",
     "discordPresenceDisabled": "Disabled",
     "discordPresenceConnected": "Connected",
     "discordPresenceDisconnected": "Disconnected",
@@ -1829,7 +1829,7 @@ export default {
     "obsBrowserSourceGuideStep1": "In OBS, add a Browser source under Sources.",
     "obsBrowserSourceGuideStep2": "Paste the OBS URL above into the URL field.",
     "obsBrowserSourceGuideStep3": "Set the size to 1920x1080 (1080x1920 for portrait). A larger size such as 3840x2160 scales the layout up proportionally for sharper text.",
-    "obsBrowserSourceGuideStep4": "The browser source only renders the picture and plays no sound. To capture audio, use OBS desktop audio or application audio capture on Folia.",
+    "obsBrowserSourceGuideStep4": "The browser source only renders the picture and plays no sound. To capture audio, use OBS desktop audio or application audio capture on BigOrange.",
     "obsBrowserSourceGuideStep5": "Visual settings such as theme, fonts and animation are synced to OBS. The OBS background is transparent when the main window uses a transparent player background or the native blur player background.",
     "obsBrowserSourceGuideStep6": "A client count above 0 means OBS is connected. Regenerating the token invalidates the old URL, so update it in OBS.",
     "obsBrowserSourceAddress": "OBS URL",
@@ -2442,7 +2442,7 @@ export default {
     "monetGroupFiltersPostProcessing": "Filters & Post-processing",
     "monetGroupColorTintWash": "Color Tint & Wash",
     "importExportTitle": "Backup & Import",
-    "importExportDesc": "Import or export custom themes and visual settings using standard JSON or Folia-specific shortcodes.",
+    "importExportDesc": "Import or export custom themes and visual settings using standard JSON or BigOrange-specific shortcodes.",
     "importPlaceholder": "Paste a config code, JSON, or an OBS URL here...",
     "importBtn": "Import Config",
     "exportBtn": "Copy Current Config",
@@ -2556,7 +2556,7 @@ export default {
     "goToGithubRelease": "Go to GitHub release page",
     "chinaDownloadHint": "Note: GitHub downloads may be slow in China. Use Quark Drive or Baidu Drive instead.",
     "macManualUpdateNotice": "Note: macOS requires downloading the full installer manually to update.",
-    "linuxManualUpdateNotice": "Linux does not support automatic updates. Download the complete deb, rpm, or tar.gz package to upgrade manually; only stable AUR installations should upgrade folia-major-bin through the package manager.",
+    "linuxManualUpdateNotice": "Linux does not support automatic updates. Download the complete deb, rpm, or tar.gz package to upgrade manually; only stable AUR installations should upgrade bigorange-bin through the package manager.",
     "manualUpdateNotice": "Note: Automatic update is not supported on this platform. Please download the package manually.",
     "versionCopiedHint": "Click to copy version info",
     "versionCopiedToast": "Copied",
@@ -2599,8 +2599,8 @@ export default {
     "v0_7_1": {
       "intro": "Welcome to 0.7.1, the Pleiades Update—a major release spanning playback, extensions, desktop integration, and visuals.",
       "pleiadesAutomix": {
-        "title": "Folia Automix Smart Transitions",
-        "description": "Folia analyzes beats, tempo, key, loudness, and song sections to choose beat cuts, bass swaps, tail rides, or blends. Desktop users can download optional models for precise beat grids, stem handoffs, and Performance mode."
+        "title": "BigOrange Automix Smart Transitions",
+        "description": "BigOrange analyzes beats, tempo, key, loudness, and song sections to choose beat cuts, bass swaps, tail rides, or blends. Desktop users can download optional models for precise beat grids, stem handoffs, and Performance mode."
       },
       "modsPlatform": {
         "title": "Forge-style Mods (Experimental)",
@@ -2608,7 +2608,7 @@ export default {
       },
       "windowsWallpaper": {
         "title": "Windows Desktop Wallpaper Mode",
-        "description": "Folia can now sit beneath desktop icons on Windows as a persistent lyrics wallpaper, with tray and command-palette controls, mouse forwarding, and automatic failure recovery. Keyboard input is unavailable in this mode."
+        "description": "BigOrange can now sit beneath desktop icons on Windows as a persistent lyrics wallpaper, with tray and command-palette controls, mouse forwarding, and automatic failure recovery. Keyboard input is unavailable in this mode."
       },
       "sleepTimer": {
         "title": "Restart-safe Sleep Timer",
@@ -2677,7 +2677,7 @@ export default {
       },
       "macWallpaperMode": {
         "title": "Wallpaper Mode on macOS",
-        "description": "Mac can now sink Folia below the desktop icons as a lyric wallpaper, switching in place without relaunching, with an option to auto-hide the Dock while it is on. Mouse forwarding needs Folia enabled under System Settings → Privacy & Security → Input Monitoring; the keyboard stays unavailable in this mode."
+        "description": "Mac can now sink BigOrange below the desktop icons as a lyric wallpaper, switching in place without relaunching, with an option to auto-hide the Dock while it is on. Mouse forwarding needs BigOrange enabled under System Settings → Privacy & Security → Input Monitoring; the keyboard stays unavailable in this mode."
       },
       "transcodeFallback": {
         "title": "Undecodable Audio Plays Anyway",
@@ -2685,7 +2685,7 @@ export default {
       },
       "localFolderAutoScan": {
         "title": "Imported Folders Rescan Themselves",
-        "description": "Turn it on and Folia watches your imported local folders, running an incremental scan whenever files are added, changed, or removed — no more manual re-import. It is off by default, and storage settings show the watch state per folder; some environments can only watch the top level of a folder."
+        "description": "Turn it on and BigOrange watches your imported local folders, running an incremental scan whenever files are added, changed, or removed — no more manual re-import. It is off by default, and storage settings show the watch state per folder; some environments can only watch the top level of a folder."
       },
       "lyricFilterPersistence": {
         "title": "Lyric Filter Patterns Stick Around",
@@ -2700,7 +2700,7 @@ export default {
       "intro": "Version 0.7.5 gives you more control over where playback opens, brings grid and settings actions into the command palette, and improves desktop reliability.",
       "playbackEntryChoice": {
         "title": "Choose Where Playback Opens",
-        "description": "Choose whether pressing Play opens the visualizer player or the Lattice queue collage. Folia asks once after the release notes, and the choice remains available in Interface settings. Personal FM still opens the standard player because Lattice cannot host it."
+        "description": "Choose whether pressing Play opens the visualizer player or the Lattice queue collage. BigOrange asks once after the release notes, and the choice remains available in Interface settings. Personal FM still opens the standard player because Lattice cannot host it."
       },
       "commandPaletteGridActions": {
         "title": "Grid Actions in the Command Palette",
@@ -2716,7 +2716,7 @@ export default {
       },
       "desktopReliability": {
         "title": "Clearer Desktop Updates and Crash Reports",
-        "description": "macOS and Linux builds can now check for new versions and lead you to a full installer or AUR, while Windows keeps automatic updating. When Folia crashes it saves a diagnostic log and can open its folder; the Windows uninstaller can also remove user data on request."
+        "description": "macOS and Linux builds can now check for new versions and lead you to a full installer or AUR, while Windows keeps automatic updating. When BigOrange crashes it saves a diagnostic log and can open its folder; the Windows uninstaller can also remove user data on request."
       },
       "visualizerRefinements": {
         "title": "Lighter, Clearer Visualizers",
@@ -2754,7 +2754,7 @@ export default {
       },
       "motionControls": {
         "title": "Per-Surface Motion Controls",
-        "description": "Folia now plays its full animations by default instead of collapsing them into instant jumps when the system animation setting is off. A new Reduce motion section in Lab settings lets you tone down the queue lattice, automix transitions, the collection opening transition, Monet background drift, interface micro-motion, and smooth scrolling in Settings individually. Turn on Follow system setting if you prefer the previous behavior."
+        "description": "BigOrange now plays its full animations by default instead of collapsing them into instant jumps when the system animation setting is off. A new Reduce motion section in Lab settings lets you tone down the queue lattice, automix transitions, the collection opening transition, Monet background drift, interface micro-motion, and smooth scrolling in Settings individually. Turn on Follow system setting if you prefer the previous behavior."
       },
       "wallpaperMultiMonitor": {
         "title": "Wallpaper Mode on Any Monitor",
@@ -2988,7 +2988,7 @@ export default {
     "exportPlaylist": "Export M3U8",
     "playlistImportSuccess": "Imported “{{name}}” with {{count}} track(s).",
     "playlistImportPartial": "Imported {{count}} track(s) into “{{name}}”; {{skipped}} path(s) were missing or ambiguous.",
-    "playlistImportNoMatches": "No playlist paths matched the local songs currently imported into Folia.",
+    "playlistImportNoMatches": "No playlist paths matched the local songs currently imported into BigOrange.",
     "playlistImportFailed": "Playlist import failed. Make sure the file is a valid M3U or M3U8 playlist.",
     "playlistExportSuccess": "Exported “{{name}}”.",
     "entityInfo": "{{kind}} Info",
@@ -3119,8 +3119,8 @@ export default {
     "cloudDriveDesc": "NetEase Cloud Music Drive",
   },
   "unifiedPanel": {
-    "nowPlayingStageDescription": "Now Playing is being controlled by an external player. Folia is only responsible for displaying lyrics and visual effects.",
-    "stageLocalInputDescription": "Stage is in local single-input mode. External devices can push lyrics or media, but playback and display are controlled by Folia itself.",
+    "nowPlayingStageDescription": "Now Playing is being controlled by an external player. BigOrange is only responsible for displaying lyrics and visual effects.",
+    "stageLocalInputDescription": "Stage is in local single-input mode. External devices can push lyrics or media, but playback and display are controlled by BigOrange itself.",
   },
   "artistGrid": {
     "localArtist": "Local Artist: {{artistName}}",
@@ -3134,8 +3134,8 @@ export default {
     "noTopSongsToQueue": "No top songs available to queue",
   },
   "obs": {
-    "connecting": "Connecting to Folia",
-    "waitingForPlayback": "Waiting for Folia playback"
+    "connecting": "Connecting to BigOrange",
+    "waitingForPlayback": "Waiting for BigOrange playback"
   },
   "queue": {
     "remove": "Remove from queue",
@@ -3210,7 +3210,7 @@ export default {
     }
   },
   "userGuide": {
-    "title": "Welcome to Folia",
+    "title": "Welcome to BigOrange",
     "subtitle": "Here are some tips to help you navigate.",
     "commandPalette": {
       "title": "Command Palette",
@@ -3232,15 +3232,15 @@ export default {
     },
     "theme": {
       "title": "Color themes",
-      "desc": "Customize Folia with your own light and dark color themes, or generate an AI theme from the current song.",
+      "desc": "Customize BigOrange with your own light and dark color themes, or generate an AI theme from the current song.",
       "customDesc": "Open Theme Park from visual settings or the command palette to edit and save custom light and dark colors.",
-      "aiDesc": "When AI theme settings are configured, Folia can create song-aware colors and optionally auto-apply cached song themes."
+      "aiDesc": "When AI theme settings are configured, BigOrange can create song-aware colors and optionally auto-apply cached song themes."
     },
     "clickThrough": {
       "title": "Click-through recovery",
       "desc": "When click-through is enabled, you can use the system tray icon to switch it if the window controls are hidden or hard to reach.",
       "trayTitle": "Use the tray icon",
-      "trayDesc": "Right-click the Folia system tray icon, then choose the click-through option to turn it on or off.",
+      "trayDesc": "Right-click the BigOrange system tray icon, then choose the click-through option to turn it on or off.",
       "lockTitle": "Use the lock button",
       "lockDesc": "You can also move to the top titlebar hotspot to reveal the lock button, then click it to turn click-through off."
     },
@@ -3259,7 +3259,7 @@ export default {
     "commandsDesc": "You can trigger commands by typing English, Chinese characters, or Pinyin.",
     "ready": {
       "title": "Ready to Go",
-      "subtitle": "Enjoy your music journey with Folia."
+      "subtitle": "Enjoy your music journey with BigOrange."
     }
   },
   "remote": {
@@ -3329,21 +3329,21 @@ export default {
   "aiHelp": {
     "openButton": "Need help?",
     "title": "Need help?",
-    "description": "Check the Folia documentation first. If the issue remains unresolved, copy the prompt below and ask an AI model for help.",
-    "docsTitle": "Read the Folia documentation",
+    "description": "Check the BigOrange documentation first. If the issue remains unresolved, copy the prompt below and ask an AI model for help.",
+    "docsTitle": "Read the BigOrange documentation",
     "docsDescription": "Find usage instructions, configuration details, and troubleshooting guidance.",
     "openDocs": "Open docs",
     "discordTitle": "Ask in the Discord community",
     "discordDescription": "Troubleshoot with other users and the developers, and hear about new releases first.",
     "openDiscord": "Join",
     "askAiTitle": "Still need help? Ask AI",
-    "askAiDescription": "Describe your issue, then paste this prompt so the AI can use Folia documentation and source code as context.",
+    "askAiDescription": "Describe your issue, then paste this prompt so the AI can use BigOrange documentation and source code as context.",
     "usageHint": "How to use it: open the official site for the model you use, describe your specific problem first, then paste this prompt below your question and send both together.",
     "copyPrompt": "Copy prompt",
     "copyPromptTitle": "1. Copy AI Prompt",
     "copyPromptDesc": "Copy the prompt and paste it into any AI model to generate your theme.",
     "importJsonTitle": "2. Paste JSON Result",
-    "prompt": "I am using the folia-major music player on GitHub and need help with a problem.\n\nFolia Guide: {{guideUrl}}\nFolia repository: {{repoUrl}}\n\nPlease use these references as context, then help me understand and solve the problem I describe next. If any information is missing, ask what I should provide before making uncertain assumptions."
+    "prompt": "I am using the bigorange music player on GitHub and need help with a problem.\n\nBigOrange Guide: {{guideUrl}}\nBigOrange repository: {{repoUrl}}\n\nPlease use these references as context, then help me understand and solve the problem I describe next. If any information is missing, ask what I should provide before making uncertain assumptions."
   },
   "ponder": {
     "openPage": "Ponder this page",
@@ -3355,7 +3355,7 @@ export default {
       "seen": "Already watched"
     },
     "summaries": {
-      "queue_shuffle": "Folia has no shuffle mode; it shuffles the queue instead. Here are the four ways to do it.",
+      "queue_shuffle": "BigOrange has no shuffle mode; it shuffles the queue instead. Here are the four ways to do it.",
       "audio_equalizer": "Ten bands and an effect chain \u2014 and one drag rewrites a custom slot.",
       "vis_playground": "Three invisible click regions sit on the preview.",
       "lyric_style": "Each style's own settings, hiding Monet's extras, pairing backgrounds, and the shared subtitle.",
@@ -3365,9 +3365,9 @@ export default {
       "replay_gain_settings": "The same value as the three-way on the source tab.",
       "import_export_settings": "It carries the look, not your library \u2014 and import asks first.",
       "command_palette": "Search it out, pass an argument, colon for execute mode.",
-      "folia_desktop": "Wallpaper mode, system tray and the remote window — none of them inside the app.",
-      "folia_shortcuts": "Where K, P, B and G each take you.",
-      "folia_transport": "System media keys work from anywhere; inside, Space and {{mod}}+←/→.",
+      "bigorange_desktop": "Wallpaper mode, system tray and the remote window — none of them inside the app.",
+      "bigorange_shortcuts": "Where K, P, B and G each take you.",
+      "bigorange_transport": "System media keys work from anywhere; inside, Space and {{mod}}+←/→.",
       "grid3d_card_style": "Cover-only or polaroid cards on the home poster wall.",
       "grid_action_button": "The bottom-right button: a tap opens the list, a left slide is the second action.",
       "grid_page": "How the poster wall is organised, and how to move, open and search.",
@@ -3808,7 +3808,7 @@ export default {
         "palette": "Command palette"
       },
       "grid": {
-        "help": "Folia and Help entry",
+        "help": "BigOrange and Help entry",
         "tabs": "Content source tabs",
         "search": "Song search",
         "map": "All-collections map",
@@ -3875,11 +3875,11 @@ export default {
       "panelQueueTab": "Panel \u00b7 Queue tab",
       "panelAccountTab": "Panel \u00b7 Account tab",
       "latticePage": "Lattice page",
-      "helpPage": "Getting to know Folia",
+      "helpPage": "Getting to know BigOrange",
       "ponderBasics": "How Ponder works",
-      "foliaTransport": "Playback and media keys",
-      "foliaShortcuts": "The shortcuts you will use",
-      "foliaDesktop": "Desktop-only features",
+      "bigorangeTransport": "Playback and media keys",
+      "bigorangeShortcuts": "The shortcuts you will use",
+      "bigorangeDesktop": "Desktop-only features",
       "queueCommandSurface": "The queue window",
       "transitionSettings": "Transitions and automix",
       "localLibraryWatch": "Local folder watch",
@@ -3996,9 +3996,9 @@ export default {
       "helpPageOverview": "Ponder complex controls and components",
       "helpPageCommandPalette": "The command palette",
       "helpPageCommandExamples": "Common operation examples",
-      "foliaDesktopWallpaper": "Wallpaper mode",
-      "foliaDesktopTray": "System tray",
-      "foliaDesktopRemote": "Remote window",
+      "bigorangeDesktopWallpaper": "Wallpaper mode",
+      "bigorangeDesktopTray": "System tray",
+      "bigorangeDesktopRemote": "Remote window",
       "transitionSettingsEnable": "The switch and the two modes",
       "transitionSettingsFallback": "Selected is not the same as running",
       "localLibraryWatchRoots": "The watch list and the row that stopped working",
@@ -4027,7 +4027,7 @@ export default {
     },
     "captions": {
       "queueShuffle": {
-        "noMode": "Folia has no traditional shuffle mode, and the loop button never switches to one. To listen in random order, shuffle the current queue.",
+        "noMode": "BigOrange has no traditional shuffle mode, and the loop button never switches to one. To listen in random order, shuffle the current queue.",
         "once": "Shuffling is a single action: the current queue is reordered in place and plays in the new order. Shuffle again for a different order.",
         "command": "The quickest way is a command: with the command window closed and no text field focused, press the colon key to open execute mode, then press r. You can also search “Shuffle queue” in the command window.",
         "slot": "If you use it often, choose “Shuffle queue” under “Progress bar buttons” in Settings · General settings to get a shuffle button on the control bar.",
@@ -4093,7 +4093,7 @@ export default {
       "customShortcut": {
         "alt": "The left half of this row is two key caps, and only the second one is yours. Alt is drawn already pressed because it cannot be changed: this shortcut is always Alt plus one letter, so there is no way to record Ctrl+Shift+X or any other chord here.",
         "capture": "Click the second cap and it starts listening; the next key you press becomes the letter. Modifiers held on the way there are ignored, and Esc backs out without recording anything.",
-        "taken": "A letter that already opens something is refused on the spot, with the reason in red under the caps. S and Ctrl+K belong to the command window itself, and every hotkey in the registry reserves its own \u2014 so the list of taken letters grows on its own as Folia gains shortcuts.",
+        "taken": "A letter that already opens something is refused on the spot, with the reason in red under the caps. S and Ctrl+K belong to the command window itself, and every hotkey in the registry reserves its own \u2014 so the list of taken letters grows on its own as BigOrange gains shortcuts.",
         "clear": "Once a letter is recorded, a small \u2715 appears beside the caps. It clears the binding, and the shortcut then runs nothing until you record another one.",
         "filtered": "The select on the right does not list every command. A shortcut fires from anywhere, so only commands that work anywhere may be bound to one \u2014 anything that needs a particular page or panel is left out. That is why a command you can find in the command window may simply not be here, and nothing on screen explains the gap.",
         "goesQuiet": "The same check runs when the key is pressed, not only when you pick. If a command later grows a requirement, or the registry claims your letter, the binding goes quiet rather than doing something else \u2014 so a shortcut that stopped working is worth re-picking here."
@@ -4106,14 +4106,14 @@ export default {
         "empty": "So the two are worth using for different things: the list handles whatever you happen to need, the three buttons handle what you want in the same place every time."
       },
       "replayGain": {
-        "off": "ReplayGain is a loudness tag written into the file itself. With this off, Folia ignores it and plays every song at whatever level it was mastered at \u2014 which is why one album can be far louder than the next.",
+        "off": "ReplayGain is a loudness tag written into the file itself. With this off, BigOrange ignores it and plays every song at whatever level it was mastered at \u2014 which is why one album can be far louder than the next.",
         "trackAlbum": "\u201cPer track\u201d levels every song against every other song, so a shuffled queue stays even. \u201cPer album\u201d applies one figure to the whole album, keeping the quiet track quiet and the loud one loud the way the record was mixed. Neither re-encodes anything \u2014 it is playback volume only.",
         "sameValue": "The control panel\u2019s source tab carries the same three buttons, and they are not a second setting: both read and write one value, so changing it in either place changes it everywhere. Neither place says so.",
         "summary": "What the source tab has in addition is this line: the current song\u2019s own tags, as T and A in dB, or \u201cunavailable\u201d when the file carries none. When a mode is selected but nothing sounds different, this is where you find out why \u2014 no tag, nothing to apply."
       },
       "importExport": {
-        "scope": "This section carries the way Folia looks: the colour theme, the lyric animation and every renderer\u2019s tuning, subtitles and fonts, the background, and the track card. That is the whole list.",
-        "notBackup": "So despite the name, it is not a backup of Folia. Playlists, the local library, playback settings, shortcuts and accounts are all outside it \u2014 restoring from one of these and expecting your music back is the mistake the name invites.",
+        "scope": "This section carries the way BigOrange looks: the colour theme, the lyric animation and every renderer\u2019s tuning, subtitles and fonts, the background, and the track card. That is the whole list.",
+        "notBackup": "So despite the name, it is not a backup of BigOrange. Playlists, the local library, playback settings, shortcuts and accounts are all outside it \u2014 restoring from one of these and expecting your music back is the mistake the name invites.",
         "themeChoice": "Before exporting, pick which theme rides along: the AI one, the one you built yourself, or none at all. \u201cNone\u201d still carries the visual settings and leaves your colours out, which is what you want when sharing a lyric animation setup rather than a palette.",
         "clipboard": "The buttons copy rather than save a file: one gives a short code, the other the same thing as readable JSON. Paste it anywhere \u2014 a message, a note \u2014 and that is the whole config.",
         "paste": "Importing goes the other way through the same box: paste someone\u2019s code here and the import button on the right lights up.",
@@ -4136,13 +4136,13 @@ export default {
         "hold": "Keep holding and the wipe fills the capsule from left to right; when it reaches the end you are inside that component\u2019s tutorial \u2014 a full screen like this one. Let go too early and it cancels with nothing happening.",
         "wholePage": "You do not have to find a component: hold Ctrl + G anywhere and you get the whole page \u2014 what is on it, where each thing sits, what you can do with it.",
         "touchBulb": "A touch screen has no hover, so that whole route is unavailable. In its place is this lightbulb in the top-right corner, and it only appears on touch devices \u2014 not finding it with a mouse is expected. It shows itself for a few seconds when you land or change pages and then folds away so it is not in the way; tap the top-right corner to call it back.",
-        "mediaKeys": "Playback goes through the system media session \u2014 SMTC on Windows, MPRIS on Linux. That means the play / previous / next keys on your keyboard work directly, so you never have to switch back to Folia while you are working in another window. The system media popup shows the current track too.",
+        "mediaKeys": "Playback goes through the system media session \u2014 SMTC on Windows, MPRIS on Linux. That means the play / previous / next keys on your keyboard work directly, so you never have to switch back to BigOrange while you are working in another window. The system media popup shows the current track too.",
         "inAppTransport": "Inside the app: Space plays and pauses, {{mod}} + \u2190 / \u2192 move between tracks. On the player page the bare arrow keys seek five seconds. Everything else lives in the command window, or a colon away in execute mode.",
-        "shortcutK": "{{mod}} + K opens the command window. Folia keeps the whole of \u201cfinding a feature\u201d in here \u2014 commands and settings are both searchable by name, so you never have to remember which level something is filed under.",
+        "shortcutK": "{{mod}} + K opens the command window. BigOrange keeps the whole of \u201cfinding a feature\u201d in here \u2014 commands and settings are both searchable by name, so you never have to remember which level something is filed under.",
         "shortcutP": "{{mod}} + P opens the play queue. It is a command window too: the input line is the queue\u2019s search box, and things like @artist: narrow it down before a bulk action.",
         "shortcutB": "{{mod}} + B goes to Lattice, which lays the whole play queue out as a poster wall. Press it inside Lattice and it goes back.",
         "shortcutG": "Ctrl + G is what you just did: it opens the tutorial for the current page. Whenever you are lost, press it first.",
-        "hintSettings": "Know your way around Folia already? You can turn the Ponder hints off in settings, or keep them only where you have not looked yet \u2014 the switch is under Settings \u00b7 General, \u201cPonder tutorial hints\u201d, with three positions: always show, only where you have not looked yet, and off. The button below takes you straight there.",
+        "hintSettings": "Know your way around BigOrange already? You can turn the Ponder hints off in settings, or keep them only where you have not looked yet \u2014 the switch is under Settings \u00b7 General, \u201cPonder tutorial hints\u201d, with three positions: always show, only where you have not looked yet, and off. The button below takes you straight there.",
         "docs": "These four chapters are only the opening. Commands, shortcuts, online sources, the local library, visualizers and themes all have fuller write-ups on the docs site \u2014 the button below opens it."
       },
       "pages": {
@@ -4183,7 +4183,7 @@ export default {
         "playerCommandArgument": "A command that needs an argument does not run immediately. Type its name, press space, and it folds into a pill in the input line with the cursor waiting behind it. Fill in the argument, then Enter.",
         "playerExecuteCloseFirst": "Execute mode is entered with the command window closed. Press Esc to close it first: with the window open, a colon only lands in the input line.",
         "playerExecuteMode": "Back on the player page, with focus outside any text box, press the colon key: the command window opens straight into execute mode. Inside, one key runs one command: r shuffles the queue, v volume, o settings, h help.",
-        "playerShuffleNoSwitch": "Folia has no shuffle switch. You cannot find one on the control bar because shuffle is not a mode that stays on \u2014 it is a single action: deal the current queue again, in place.",
+        "playerShuffleNoSwitch": "BigOrange has no shuffle switch. You cannot find one on the control bar because shuffle is not a mode that stays on \u2014 it is a single action: deal the current queue again, in place.",
         "playerShuffleHow": "The quickest route is to open nothing at all: press the colon key on the player page \u2014 the window opens in execute mode \u2014 then press r. The new order then stands; run it again for another one.",
         "playerShuffleSlot": "If you use it often, put \u201cShuffle queue\u201d in one of the two places on the right of the control bar and it becomes one press.",
         "lattice": "Lattice lays the play queue out as one poster field. Move through the field to inspect the queue, and select a poster to act on that song.",
@@ -4197,15 +4197,15 @@ export default {
         "latticeLights": "Lights Off dims the wall while retaining its structure. It is only a display setting: playback and queue order are unchanged.",
         "latticePosterKeys": "Enter or Space expands a closed poster. Once open, Enter plays or pauses, Space toggles controls, and Escape collapses and clears focus first.",
         "latticePageKeys": ": + C focuses the current song, {{mod}} + P opens the queue, {{mod}} + B goes back, {{mod}} + K opens the command window; arrow keys move poster focus.",
-        "help": "Folia separates browsing, playback, commands, and options. Ctrl+G explains the page currently in front of you; component guides appear separately when that component has special behavior.",
+        "help": "BigOrange separates browsing, playback, commands, and options. Ctrl+G explains the page currently in front of you; component guides appear separately when that component has special behavior.",
         "helpCommands": "{{mod}} + K searches every command and setting. For options buried deep, searching the name is usually faster than remembering which level it sits on.",
         "helpOperatingModel": "Choose music in a grid, then playback continues independently in Player or Lattice. The bottom bar controls transport everywhere; Help and Options are overlays above the current page.",
         "settings": "The left side groups options by appearance, interface, playback, interaction, integrations, storage, desktop, graphics, mods, and labs. The right side contains the settings in the selected group.",
-        "settingsDirectNavigation": "You rarely need to browse every category: search the setting name in the command palette and Folia opens the exact section and anchor."
+        "settingsDirectNavigation": "You rarely need to browse every category: search the setting name in the command palette and BigOrange opens the exact section and anchor."
       },
       "playerBar": {
         "basicsAutoExpand": "It is not only hover that opens it. Whenever playback is paused and you are somewhere other than the home screen, the capsule stays expanded on its own \u2014 the moment you are most likely to want the controls is the moment it stops hiding them. Start playing again, or go back home, and it slims down.",
-        "basicsIntro": "Folia's playback controls are this one capsule. The permanent row other players put along the bottom — previous, next, shuffle, repeat, volume — has no fixed place here at all.",
+        "basicsIntro": "BigOrange's playback controls are this one capsule. The permanent row other players put along the bottom — previous, next, shuffle, repeat, volume — has no fixed place here at all.",
         "basicsPlay": "The only button that is always present is play / pause. On a wide window it sits at the far left; when the row is too narrow for one line it moves to the middle of a second row, with the two slots on either side.",
         "basicsTitle": "Changing tracks goes through the title, not a button. Hover it and arrows appear on both sides, previewing the previous and next track names — you pick where to go by reading it, not by pressing blind.",
         "basicsProgress": "Drag or click the progress bar to seek. Clicking anywhere else on the capsule does not pause: it opens the player page, or on Lattice pulls the view back to the current song.",
@@ -4217,7 +4217,7 @@ export default {
         "slotsIntro": "These two buttons to the right of the progress bar are not fixed, and each slot is independent.",
         "slotsWhere": "Choose in settings: loop, shuffle, like, queue, volume, sleep timer and four more, applied the moment you pick.",
         "shuffleIntro": "This shuffle is not what it is elsewhere - it is not a mode that stays on.",
-        "shuffleOnce": "Press it and Folia shuffles the current queue in place, once; that order then stands. Want another? Press again.",
+        "shuffleOnce": "Press it and BigOrange shuffles the current queue in place, once; that order then stands. Want another? Press again.",
         "volumeIntro": "The bottom control bar has no permanent volume slider.",
         "volumeOpens": "Pressing here opens the volume surface inside the command palette, rather than a little slider in place."
       },
@@ -4257,7 +4257,7 @@ export default {
         "sourceLyrics": "Two small icons at the right of the lyrics row: one imports or exports a lyric file (lrc / vtt / ttml / qrc / yrc / krc / txt / fia), one goes and matches online. The strip below says which one is in use; once you have imported, a second cell appears to switch back.",
         "sourceOffset": "\u201cTimeline offset\u201d at the bottom steps by 250ms, or takes a typed number; positive values make lyrics appear later. It is temporary for this playback only \u2014 for a lasting change there is a global offset in settings, and the two add up.",
         "sourceLyricsFile": "The left icon on the lyrics row is import / export: both live in one window, so you pick once it opens.",
-        "sourceExportFormats": "The top of the window imports: lrc, vtt, ttml, qrc, yrc, krc, txt and the .fia files Folia exports. Navidrome songs cannot import, so their window only exports. The two tiles below save this song: .fia keeps word timing, translations, background vocals and your saved segmentation and imports straight back; .lrc is enhanced LRC that other players read, but those Folia-only details are dropped.",
+        "sourceExportFormats": "The top of the window imports: lrc, vtt, ttml, qrc, yrc, krc, txt and the .fia files BigOrange exports. Navidrome songs cannot import, so their window only exports. The two tiles below save this song: .fia keeps word timing, translations, background vocals and your saved segmentation and imports straight back; .lrc is enhanced LRC that other players read, but those BigOrange-only details are dropped.",
         "sourceExportBatch": "The bottom row is the batch export: it opens the export page in the command palette and saves every lyric cached on this device at once. The lyrics row in Settings · Storage has the same entry.",
         "coverTab": "The artwork tab holds the current song's text: title, artist and album, centred in a column. The large cover is not part of this tab \u2014 it is always up at the top of the panel.",
         "coverTabDetail": "Artist and album are both links into their collections. Clicking the title copies \u201ctitle - artist - album\u201d together with the source page link; Ctrl-click opens this song's page on its source platform instead.",
@@ -4275,7 +4275,7 @@ export default {
         "notice": "The usual reason is that the media cache automix needs is off. This amber strip says exactly that, and the underlined text inside it turns the cache on right there, without going to storage settings."
       },
       "libraryWatch": {
-        "enable": "With this on, Folia keeps an eye on the local folders you imported and runs an incremental scan whenever their files change \u2014 no going back to re-scan by hand every time you add music.",
+        "enable": "With this on, BigOrange keeps an eye on the local folders you imported and runs an incremental scan whenever their files change \u2014 no going back to re-scan by hand every time you add music.",
         "roots": "The list only unfolds below the switch, one row per watched root folder, with its real path in the small line underneath.",
         "warning": "Look at the icon on the left of each row: an eye means it is watching; an amber triangle means the watch on that folder has stopped working \u2014 a path that went away, permissions that changed. After that the scans simply stop happening, and this icon is the only sign.",
         "recheck": "When you see a triangle, press \u201cre-check\u201d on the right; it re-attaches to every imported folder. The small line beside it is when the last automatic scan ran."
@@ -4285,7 +4285,7 @@ export default {
         "next": "Switch to \u201cafter the current song\u201d and what you add slots in right behind whatever is playing, so it is up next. This changes every add-to-queue entry point in the app \u2014 the button on a card, the one that appears on a queue row, the command in the palette."
       },
       "lyricsSource": {
-        "autoBest": "With \u201cpick the best automatically\u201d on, Folia searches NetEase, AMLLDB, QQ and KuGou for this song and takes a perfectly matched word-by-word version when one exists. The cost is that it overrides the source you picked by hand on the source tab \u2014 if a manual pick did not stick, this is usually why.",
+        "autoBest": "With \u201cpick the best automatically\u201d on, BigOrange searches NetEase, AMLLDB, QQ and KuGou for this song and takes a perfectly matched word-by-word version when one exists. The cost is that it overrides the source you picked by hand on the source tab \u2014 if a manual pick did not stick, this is usually why.",
         "priority": "The two cards below decide whether local or online lyrics win. When a local file carries lyrics and an online match also exists, this is what settles it.",
         "globalOffset": "\u201cGlobal timeline offset\u201d opens a full-screen ruler that shifts every song\u2019s lyrics earlier or later \u2014 usually to compensate for a fixed sound-card or Bluetooth delay.",
         "offsetSum": "It shares a name with the \u00b1250ms offset on the source tab but is not the same thing: that one is for the current song only and is gone when you change tracks, this one is global and lasting. The two add up, so when one song is badly out, check both."
@@ -4297,7 +4297,7 @@ export default {
       "lyricExport": {
         "whatItIs": "This page packs the lyrics already on this device into one zip. It does not download new lyrics.",
         "effective": "The online cache covers online songs you have played, exported as playback shows them, so lyrics you imported or matched by hand win. The local library exports only lyrics matched online: each file is named after its audio file and placed in the zip\u2019s local folder in the library\u2019s own folder tree, so extracting it into the folder that holds your library puts every file beside its song. Instrumentals and songs without lyrics are skipped and listed in manifest.json.",
-        "formats": ".fia is lossless and imports straight back into Folia; LRC works anywhere but drops background vocals and segmentation. Tick both and the zip holds two folders.",
+        "formats": ".fia is lossless and imports straight back into BigOrange; LRC works anywhere but drops background vocals and segmentation. Tick both and the zip holds two folders.",
         "names": "The online lyric cache carries no song titles of its own. Songs you play record their titles as they play, and that comes first; after that, names come from playlists and queues cached on this device, and only then from the music service online, with the answer remembered for next time. With the lookup off, songs without a known title are named by ID.",
         "running": "Once started, progress shows here and the button turns into Cancel. Closing the palette cancels too: the export does not keep running in the background."
       },
@@ -4313,7 +4313,7 @@ export default {
         "windowNormal": "The biggest difference between the desktop build and the browser is these three, and none of them live inside the app: one changes where the window sits on the desktop, one lives in the system tray, and one is a second window. Start from this ordinary main window.",
         "wallpaper": "Wallpaper mode sinks it to the very bottom of the desktop: border and title bar gone, lyrics laid straight onto the desktop, with icons and other windows stacking over them as usual. The cost is the line in settings \u2014 the keyboard no longer reaches it in this mode.",
         "wallpaperExit": "Which means you cannot leave wallpaper mode by clicking the window. Use \u201cWallpaper Mode\u201d in the tray menu, or search the same command in the command window.",
-        "trayIcon": "This one in the corner of the taskbar is Folia\u2019s tray icon. Settings \u00b7 Desktop can make minimising go straight to the tray \u2014 the main window leaves the taskbar, but playback does not stop and the system media keys keep working.",
+        "trayIcon": "This one in the corner of the taskbar is BigOrange\u2019s tray icon. Settings \u00b7 Desktop can make minimising go straight to the tray \u2014 the main window leaves the taskbar, but playback does not stop and the system media keys keep working.",
         "trayMenu": "Clicking the tray icon opens this column: everything you can do without opening the main window \u2014 show/hide window, open the remote window, transparent background, click-through, always on top, hide the taskbar icon, desktop lyrics, wallpaper mode, reset window, quit. In wallpaper mode it is the only way out.",
         "remote": "The remote window is a second small window; search \u201cremote window\u201d in the command window to open it, or use the tray menu. It stays on top even while the main window is minimised, or sunk into the wallpaper.",
         "remoteChrome": "It carries its own set of window switches: always on top, transparent background, click-through (the mouse passes straight through to whatever is underneath), hide the taskbar icon, and auto-hiding UI. Being a separate window rather than a corner of the main one is exactly what lets those switches be independent."
@@ -4340,8 +4340,8 @@ export default {
       },
       "localGridControls": {
         "sources": "This row switches the local library between folders, albums, artists and your local playlists. It changes what the Grid3D rail contains; it does not switch to an online provider.",
-        "foldersAndPlaylists": "Folders preserve the imported directory structure. Local playlists are stored by Folia and are separate from online and Navidrome playlists.",
-        "imports": "Import folder adds music from a directory. Import playlist reads an M3U or M3U8 file and creates a local playlist from tracks Folia can resolve.",
+        "foldersAndPlaylists": "Folders preserve the imported directory structure. Local playlists are stored by BigOrange and are separate from online and Navidrome playlists.",
+        "imports": "Import folder adds music from a directory. Import playlist reads an M3U or M3U8 file and creates a local playlist from tracks BigOrange can resolve.",
         "refresh": "Refresh rescans imported roots for added, changed and missing files. It does not create another copy of the library."
       },
       "onlineCollectionActions": {

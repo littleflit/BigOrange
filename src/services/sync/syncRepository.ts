@@ -37,7 +37,7 @@ import type {
 // High-level sync operations for settings and row-addressed AI theme records.
 
 const DUAL_THEME_CACHE_PREFIX = 'dual_theme_';
-const THEME_SYNC_WATERMARK_KEY = 'folia_sync_theme_watermark_v1';
+const THEME_SYNC_WATERMARK_KEY = 'bigorange_sync_theme_watermark_v1';
 const THEME_BATCH_SIZE = 100;
 const THEME_BUCKET_FETCH_SIZE = 32;
 const LIST_PAGE_SIZE = 500;

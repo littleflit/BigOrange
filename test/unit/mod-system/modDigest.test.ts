@@ -16,7 +16,7 @@ const { computeModDigest, shortDigest, DIGEST_LIMITS } = require('../../../elect
 const temporaryDirectories: string[] = [];
 
 const makeModDirectory = (files: Record<string, string>): string => {
-    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'folia-mod-digest-'));
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'bigorange-mod-digest-'));
     temporaryDirectories.push(root);
     Object.entries(files).forEach(([relative, contents]) => {
         const absolute = path.join(root, relative);
@@ -59,7 +59,7 @@ describe('computeModDigest', () => {
     });
 
     it('returns null for a missing directory', () => {
-        expect(computeModDigest(path.join(os.tmpdir(), 'folia-mod-digest-does-not-exist'))).toBeNull();
+        expect(computeModDigest(path.join(os.tmpdir(), 'bigorange-mod-digest-does-not-exist'))).toBeNull();
         expect(computeModDigest('')).toBeNull();
         expect(computeModDigest(null)).toBeNull();
     });

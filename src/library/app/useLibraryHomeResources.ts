@@ -21,11 +21,11 @@ import { createLibraryHomePort } from './createLibraryHomePort';
 // 让 Navidrome 概览与文件夹树作废，并关掉打开着的目录（目录会话随之丢掉）；离开 Navidrome / 本地页签时让那个页签的
 // 数据作废。首页动作的端口经 ref 现读最新的 surface。
 //
-// 「收藏专辑变了」的通知仍是窗口事件 `folia-refresh-favorite-albums`（变更端口在订阅 / 取消订阅专辑后派发，
+// 「收藏专辑变了」的通知仍是窗口事件 `bigorange-refresh-favorite-albums`（变更端口在订阅 / 取消订阅专辑后派发，
 // 应用里别处与探针也派发它）：在这里保留一个兼容的监听，收到就让收藏专辑资源重新读。监听放在宿主而不是某个
 // suite 的首页里，换 suite 不会漏掉通知；资源本身不碰 window，单测不需要 DOM 事件。
 
-export const FAVORITE_ALBUMS_CHANGED_EVENT = 'folia-refresh-favorite-albums';
+export const FAVORITE_ALBUMS_CHANGED_EVENT = 'bigorange-refresh-favorite-albums';
 
 export const useLibraryHomeResources = (
     surface: HomeSurfaceProps,

@@ -7,8 +7,8 @@ ENV PORT=3000
 
 COPY deploy/docker/kugou-api/package.json deploy/docker/kugou-api/package-lock.json ./
 RUN npm ci --omit=dev
-COPY deploy/docker/scripts/patch-music-api-client-ip.mjs /usr/local/lib/folia/patch-music-api-client-ip.mjs
-RUN node /usr/local/lib/folia/patch-music-api-client-ip.mjs kugou
+COPY deploy/docker/scripts/patch-music-api-client-ip.mjs /usr/local/lib/bigorange/patch-music-api-client-ip.mjs
+RUN node /usr/local/lib/bigorange/patch-music-api-client-ip.mjs kugou
 
 USER node
 EXPOSE 3000

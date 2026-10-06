@@ -37,7 +37,7 @@ describe('validateManifest', () => {
             expect(result.value.client).toBeNull();
             expect(result.value.experimental).toEqual([]);
             expect(result.value.embedOrigins).toEqual([]);
-            expect(result.value.folia).toBeNull();
+            expect(result.value.bigorange).toBeNull();
         }
     });
 
@@ -173,8 +173,8 @@ describe('validateManifest Folium entries and opt-ins', () => {
     });
 
     it('validates the host version range syntax', () => {
-        expect(validateManifest({ ...validManifest, folia: '>=0.7.0 <0.8.0' }).ok).toBe(true);
-        expect(validateManifest({ ...validManifest, folia: '~0.7' }).ok).toBe(false);
+        expect(validateManifest({ ...validManifest, bigorange: '>=0.7.0 <0.8.0' }).ok).toBe(true);
+        expect(validateManifest({ ...validManifest, bigorange: '~0.7' }).ok).toBe(false);
     });
 });
 

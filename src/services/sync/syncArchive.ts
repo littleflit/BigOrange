@@ -6,7 +6,7 @@ import { SYNC_SCHEMA_VERSION } from './syncTypes';
 // src/services/sync/syncArchive.ts
 // Builds and reads multi-file zip backups for the local-first sync library export.
 
-const ARCHIVE_KIND = 'folia-sync-zip';
+const ARCHIVE_KIND = 'bigorange-sync-zip';
 const encodeJson = (value: unknown) => strToU8(JSON.stringify(value, null, 2));
 
 const parseZipJson = (files: Record<string, Uint8Array>, path: string): unknown => {
@@ -40,18 +40,18 @@ export const readSyncLibraryZipFile = async (file: File): Promise<SyncLibraryExp
     const files = unzipSync(new Uint8Array(await file.arrayBuffer()));
     const meta = parseZipJson(files, 'meta.json') as { kind?: unknown; schemaVersion?: unknown; exportedAt?: unknown } | null;
     if (!meta || meta.kind !== ARCHIVE_KIND || meta.schemaVersion !== SYNC_SCHEMA_VERSION || typeof meta.exportedAt !== 'string') {
-        throw new Error('Invalid Folia sync zip export');
+        throw new Error('Invalid BigOrange sync zip export');
     }
 
     const bundle = parseSyncLibraryExportBundle({
-        kind: 'folia-sync-export',
+        kind: 'bigorange-sync-export',
         schemaVersion: SYNC_SCHEMA_VERSION,
         exportedAt: meta.exportedAt,
         settings: files['settings/current.json'] ? parseZipJson(files, 'settings/current.json') : null,
         themes: parseZipJson(files, 'themes/themes.json'),
     });
     if (!bundle) {
-        throw new Error('Invalid Folia sync zip export');
+        throw new Error('Invalid BigOrange sync zip export');
     }
     return bundle;
 };

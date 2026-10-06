@@ -5,7 +5,7 @@ const { Readable } = require('stream');
 
 // Serves only cache entries resolved by opaque keys, including media-element Range requests.
 
-const TRANSCODE_PROTOCOL_SCHEME = 'folia-transcode';
+const TRANSCODE_PROTOCOL_SCHEME = 'bigorange-transcode';
 const CACHE_KEY_PATTERN = /^[a-f0-9]{64}$/;
 
 const parseRangeHeader = (value, size) => {

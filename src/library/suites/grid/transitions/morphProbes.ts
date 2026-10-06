@@ -46,7 +46,7 @@ export const rectOfElement = (el: Element | null): CollectionMorphRect | null =>
 };
 
 /**
- * 一张卡片的标题行。优先读 `data-folia-card-title`（PolaroidCard 写入的显式契约）；
+ * 一张卡片的标题行。优先读 `data-bigorange-card-title`（PolaroidCard 写入的显式契约）；
  * 类名子串只是给还没接上契约的卡片兜底，并且刻意不再用 `[class*="title"]` ——
  * 那一条会先命中标题的外层 `group/song-title` 包裹层，量到的是包裹盒而不是文字盒。
  */
@@ -258,8 +258,8 @@ export const captureClickedCard = (target: Element): CollectionMorphCapture | nu
     const sourceKey = target instanceof HTMLElement
         ? (target.dataset.grid3dIndex !== undefined
             ? `grid3d:${target.dataset.grid3dIndex}`
-            : target.dataset.foliaGridItemId !== undefined
-                ? `item:${target.dataset.foliaGridItemId}`
+            : target.dataset.bigorangeGridItemId !== undefined
+                ? `item:${target.dataset.bigorangeGridItemId}`
                 : null)
         : null;
     return {

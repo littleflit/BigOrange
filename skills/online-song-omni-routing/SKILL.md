@@ -1,6 +1,6 @@
 ---
 name: online-song-omni-routing
-description: Standardize Folia online-song data access around the Omni facade, including search, playback, lyrics, catalogs, libraries, recommendations, account actions, mutations, provider identity, and explicit cross-provider flows. Use when adding, refactoring, reviewing, or testing online music features, when deciding whether a caller may use a provider adapter directly, or when implementing provider aggregation, fallback, comparison, or migration.
+description: Standardize BigOrange online-song data access around the Omni facade, including search, playback, lyrics, catalogs, libraries, recommendations, account actions, mutations, provider identity, and explicit cross-provider flows. Use when adding, refactoring, reviewing, or testing online music features, when deciding whether a caller may use a provider adapter directly, or when implementing provider aggregation, fallback, comparison, or migration.
 ---
 
 # Online Song Omni Routing

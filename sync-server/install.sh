@@ -9,7 +9,7 @@ BOLD="\033[1m"
 RESET="\033[0m"
 
 echo -e "${CYAN}${BOLD}==========================================${RESET}"
-echo -e "${CYAN}${BOLD}       Folia 同步服务端安装向导           ${RESET}"
+echo -e "${CYAN}${BOLD}       BigOrange 同步服务端安装向导           ${RESET}"
 echo -e "${CYAN}${BOLD}==========================================${RESET}"
 echo ""
 
@@ -17,9 +17,9 @@ print_sync_token_reminder() {
     local token="$1"
     if [ -n "$token" ]; then
         echo -e "${CYAN}==========================================${RESET}"
-        echo -e "${BOLD}${YELLOW}[!] 请注意：Folia 客户端连接密码 (SYNC_TOKEN) 为：${RESET}"
+        echo -e "${BOLD}${YELLOW}[!] 请注意：BigOrange 客户端连接密码 (SYNC_TOKEN) 为：${RESET}"
         echo -e "${BOLD}${GREEN}[!] $token${RESET}"
-        echo -e "${BOLD}${RED}[!] 这是你在 Folia 客户端中连接同步服务端所需的密码。${RESET}"
+        echo -e "${BOLD}${RED}[!] 这是你在 BigOrange 客户端中连接同步服务端所需的密码。${RESET}"
         echo -e "${BOLD}${RED}[!] 由于安全原因，这是最后一次在此显示，请务必妥善保存！${RESET}"
         echo -e "${CYAN}==========================================${RESET}"
     fi
@@ -44,7 +44,7 @@ setup_env_token() {
         echo "SYNC_TOKEN=$sync_token" > .env
         echo "DASHBOARD_TOKEN=$dashboard_token" >> .env
         echo "PORT=3000" >> .env
-        echo "DB_PATH=./folia-sync.db" >> .env
+        echo "DB_PATH=./bigorange-sync.db" >> .env
         echo -e "${GREEN}[*] .env 文件创建成功。${RESET}"
         echo -e "${CYAN}==========================================${RESET}"
         echo -e "${BOLD}${YELLOW}[!] 系统已为你自动生成网页看板 DASHBOARD_TOKEN：${RESET}"
@@ -111,8 +111,8 @@ case $deploy_choice in
 
         echo -e "${CYAN}[*] 正在使用 PM2 启动服务...${RESET}"
         # Delete the existing process if it exists, to restart it cleanly
-        pm2 delete folia-sync-server 2>/dev/null || true
-        pm2 start dist/node.js --name "folia-sync-server"
+        pm2 delete bigorange-sync-server 2>/dev/null || true
+        pm2 start dist/node.js --name "bigorange-sync-server"
 
         echo -e "${CYAN}[*] 正在配置 PM2 日志轮转...${RESET}"
         pm2 install pm2-logrotate || true
@@ -126,7 +126,7 @@ case $deploy_choice in
         echo -e "${GREEN}${BOLD}    部署完成！                            ${RESET}"
         echo -e "${GREEN}${BOLD}==========================================${RESET}"
         echo -e "${CYAN}你的同步服务端已在 3000 端口运行。${RESET}"
-        echo -e "使用此命令查看日志： ${BOLD}pm2 logs folia-sync-server${RESET}"
+        echo -e "使用此命令查看日志： ${BOLD}pm2 logs bigorange-sync-server${RESET}"
         echo -e "若要确保开机自启，请运行： ${BOLD}pm2 startup${RESET}"
         
         local_sync_token=""
@@ -160,7 +160,7 @@ case $deploy_choice in
         echo -e "${GREEN}${BOLD}    部署完成！                            ${RESET}"
         echo -e "${GREEN}${BOLD}==========================================${RESET}"
         echo -e "${CYAN}你的同步服务端已映射到本地 13000 端口（容器内 3000）。${RESET}"
-        echo -e "使用此命令查看日志： ${BOLD}docker logs -f folia-sync${RESET}"
+        echo -e "使用此命令查看日志： ${BOLD}docker logs -f bigorange-sync${RESET}"
         
         local_sync_token=""
         if [ -f .env ]; then
@@ -181,13 +181,13 @@ case $deploy_choice in
         echo -e "${CYAN}[*] 正在安装项目依赖...${RESET}"
         npm install
         
-        echo -e "${CYAN}[*] 正在检查或创建 D1 数据库 'folia-sync' (可能要求跳转浏览器登录)...${RESET}"
-        d1_output=$(npx wrangler d1 create folia-sync -c wrangler.toml 2>&1 || true)
+        echo -e "${CYAN}[*] 正在检查或创建 D1 数据库 'bigorange-sync' (可能要求跳转浏览器登录)...${RESET}"
+        d1_output=$(npx wrangler d1 create bigorange-sync -c wrangler.toml 2>&1 || true)
         
         # If it already exists, fetch its info instead to grab the ID
         if echo "$d1_output" | grep -q "already exists"; then
-            echo -e "${YELLOW}[*] 数据库 'folia-sync' 已存在。正在获取它的 ID...${RESET}"
-            db_id=$(npx wrangler d1 list --json 2>/dev/null | node -e "const d = JSON.parse(require('fs').readFileSync(0, 'utf-8')); console.log(d.find(x => x.name === 'folia-sync')?.uuid || '')" 2>/dev/null)
+            echo -e "${YELLOW}[*] 数据库 'bigorange-sync' 已存在。正在获取它的 ID...${RESET}"
+            db_id=$(npx wrangler d1 list --json 2>/dev/null | node -e "const d = JSON.parse(require('fs').readFileSync(0, 'utf-8')); console.log(d.find(x => x.name === 'bigorange-sync')?.uuid || '')" 2>/dev/null)
         else
             echo "$d1_output"
             # Extract the UUID database_id

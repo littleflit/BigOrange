@@ -280,34 +280,34 @@ contextBridge.exposeInMainWorld('electron', {
     },
     debugGetRenderedFonts: (selector) => ipcRenderer.invoke('debug-get-rendered-fonts', selector),
     mods: {
-        listMods: () => ipcRenderer.invoke('folia-mods:list'),
-        setModEnabled: (modId, enabled) => ipcRenderer.invoke('folia-mods:set-enabled', modId, enabled),
-        reloadMods: () => ipcRenderer.invoke('folia-mods:reload'),
-        invokeModRpc: (modId, name, args) => ipcRenderer.invoke('folia-mods:rpc', modId, name, args),
-        invokeModStorage: (modId, operation, key, value) => ipcRenderer.invoke('folia-mods:storage', modId, operation, key, value),
-        invokeModNetFetch: (modId, url, init) => ipcRenderer.invoke('folia-mods:net-fetch', modId, url, init),
-        invokeModPickFile: (modId, accept, persist) => ipcRenderer.invoke('folia-mods:pick-file', modId, accept, persist),
-        invokeModRestoreFile: (modId, grantId) => ipcRenderer.invoke('folia-mods:restore-file', modId, grantId),
-        invokeModReleaseFile: (modId, grantId) => ipcRenderer.invoke('folia-mods:release-file', modId, grantId),
-        cancelExport: () => ipcRenderer.invoke('folia-mods:export-cancel'),
-        pushRuntimeSnapshot: (snapshot) => ipcRenderer.invoke('folia-mods:push-runtime-snapshot', snapshot),
-        getFfmpegStatus: () => ipcRenderer.invoke('folia-mods:ffmpeg-status'),
-        openModsDirectory: () => ipcRenderer.invoke('folia-mods:open-directory'),
-        installModFromZip: (zipPath) => ipcRenderer.invoke('folia-mods:install-zip', zipPath),
+        listMods: () => ipcRenderer.invoke('bigorange-mods:list'),
+        setModEnabled: (modId, enabled) => ipcRenderer.invoke('bigorange-mods:set-enabled', modId, enabled),
+        reloadMods: () => ipcRenderer.invoke('bigorange-mods:reload'),
+        invokeModRpc: (modId, name, args) => ipcRenderer.invoke('bigorange-mods:rpc', modId, name, args),
+        invokeModStorage: (modId, operation, key, value) => ipcRenderer.invoke('bigorange-mods:storage', modId, operation, key, value),
+        invokeModNetFetch: (modId, url, init) => ipcRenderer.invoke('bigorange-mods:net-fetch', modId, url, init),
+        invokeModPickFile: (modId, accept, persist) => ipcRenderer.invoke('bigorange-mods:pick-file', modId, accept, persist),
+        invokeModRestoreFile: (modId, grantId) => ipcRenderer.invoke('bigorange-mods:restore-file', modId, grantId),
+        invokeModReleaseFile: (modId, grantId) => ipcRenderer.invoke('bigorange-mods:release-file', modId, grantId),
+        cancelExport: () => ipcRenderer.invoke('bigorange-mods:export-cancel'),
+        pushRuntimeSnapshot: (snapshot) => ipcRenderer.invoke('bigorange-mods:push-runtime-snapshot', snapshot),
+        getFfmpegStatus: () => ipcRenderer.invoke('bigorange-mods:ffmpeg-status'),
+        openModsDirectory: () => ipcRenderer.invoke('bigorange-mods:open-directory'),
+        installModFromZip: (zipPath) => ipcRenderer.invoke('bigorange-mods:install-zip', zipPath),
         onModsStateChanged: (callback) => {
             const listener = (_event, mods) => callback(mods);
-            ipcRenderer.on('folia-mods:state-changed', listener);
-            return () => ipcRenderer.removeListener('folia-mods:state-changed', listener);
+            ipcRenderer.on('bigorange-mods:state-changed', listener);
+            return () => ipcRenderer.removeListener('bigorange-mods:state-changed', listener);
         },
         onExportProgress: (callback) => {
             const listener = (_event, progress) => callback(progress);
-            ipcRenderer.on('folia-mods:export-progress', listener);
-            return () => ipcRenderer.removeListener('folia-mods:export-progress', listener);
+            ipcRenderer.on('bigorange-mods:export-progress', listener);
+            return () => ipcRenderer.removeListener('bigorange-mods:export-progress', listener);
         },
         onModLog: (callback) => {
             const listener = (_event, entry) => callback(entry);
-            ipcRenderer.on('folia-mods:log', listener);
-            return () => ipcRenderer.removeListener('folia-mods:log', listener);
+            ipcRenderer.on('bigorange-mods:log', listener);
+            return () => ipcRenderer.removeListener('bigorange-mods:log', listener);
         },
     },
 });

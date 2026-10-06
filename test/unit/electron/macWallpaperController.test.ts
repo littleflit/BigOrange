@@ -80,7 +80,7 @@ function createDockHarness(overrides: {
   autohideDelay?: string | null;
   storeInitial?: Record<string, unknown>;
 } = {}): DockHarness {
-  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'folia-macwallpaper-'));
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bigorange-macwallpaper-'));
   const markerFile = path.join(tempDir, '.wallpaper-dock-autohidden');
   const execCalls: ExecCall[] = [];
   const execSyncCalls: ExecCall[] = [];
@@ -253,12 +253,12 @@ describe('isDockAtBottom', () => {
 describe('isMacWallpaperTestMode', () => {
   it('honours the env switch', () => {
     expect(isMacWallpaperTestMode({})).toBe(false);
-    expect(isMacWallpaperTestMode({ FOLIA_MAC_WALLPAPER_SELFTEST: '1' })).toBe(true);
-    expect(isMacWallpaperTestMode({ FOLIA_MAC_WALLPAPER_SELFTEST: '0' })).toBe(false);
+    expect(isMacWallpaperTestMode({ BIGORANGE_MAC_WALLPAPER_SELFTEST: '1' })).toBe(true);
+    expect(isMacWallpaperTestMode({ BIGORANGE_MAC_WALLPAPER_SELFTEST: '0' })).toBe(false);
   });
 
   it('honours an injected flag over the env', () => {
-    expect(isMacWallpaperTestMode({ FOLIA_MAC_WALLPAPER_SELFTEST: '1' }, false)).toBe(false);
+    expect(isMacWallpaperTestMode({ BIGORANGE_MAC_WALLPAPER_SELFTEST: '1' }, false)).toBe(false);
     expect(isMacWallpaperTestMode({}, true)).toBe(true);
   });
 });

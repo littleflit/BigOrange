@@ -23,7 +23,7 @@ describe('transcode cache', () => {
     const source = { kind: 'local', songKey: 'local:1', sourceRevision: '1:8:10' };
 
     beforeEach(async () => {
-        root = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'folia-transcode-cache-'));
+        root = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'bigorange-transcode-cache-'));
         temporaryAudioPath = path.join(root, 'output.flac');
         await fs.promises.writeFile(temporaryAudioPath, Buffer.alloc(256));
     });

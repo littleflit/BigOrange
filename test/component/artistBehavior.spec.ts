@@ -143,7 +143,7 @@ const watchEmptyState = (page: Page) => page.evaluate(() => {
     }).observe(document.body, { childList: true, subtree: true, characterData: true });
 });
 const emptyStateSeen = (page: Page) => page.evaluate(() => Boolean((window as unknown as { __artistEmptySeen?: boolean }).__artistEmptySeen));
-const songCard = (page: Page, songId: string) => artistLayer(page).locator(`[data-folia-grid-item-id="${songId}"]`);
+const songCard = (page: Page, songId: string) => artistLayer(page).locator(`[data-bigorange-grid-item-id="${songId}"]`);
 /** TUI 的热门歌曲行（条目键 song:<playback key>，与网格写进会话的同一个键）。 */
 const tuiSongRow = (page: Page, playbackKey: string) => artistLayer(page).locator(`[data-library-entry="song:${playbackKey}"]`);
 
@@ -859,7 +859,7 @@ test.describe('[switch] artist page between suites', () => {
 
     // P4.5：在 TUI 里点了返回（完成），网格那份歌手页布局记录也一起忘掉——下次在网格里打开从头开始。
     test('the TUI back button also drops the grid artist layout record', async ({ mount, page }) => {
-        const record = () => page.evaluate(key => sessionStorage.getItem(`folia_artist_grid_state:v2:${key}`), mainSessionKey);
+        const record = () => page.evaluate(key => sessionStorage.getItem(`bigorange_artist_grid_state:v2:${key}`), mainSessionKey);
         await mountProbe(mount, page);
         await openArtist(page, 'artist-main');
         await waitForArtist(page, main.albumCount);

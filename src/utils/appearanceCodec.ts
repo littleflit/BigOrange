@@ -15,7 +15,7 @@ import {
 import { normalizeLumiereTuning } from './lumiereTuning';
 
 // src/utils/appearanceCodec.ts
-// The shareable appearance config codec: theme + visual settings <-> the minified `folia-theme://`
+// The shareable appearance config codec: theme + visual settings <-> the minified `bigorange-theme://`
 // shortcode carried by config codes and by the OBS URL's cfg param. Lifted out of the settings
 // subview so the OBS URL builder and the overlay parser can read it without importing a React
 // component. Keep it a leaf: no store, no services, no components.
@@ -564,18 +564,18 @@ export const compressConfig = (config: any): string => {
     const bytes = new TextEncoder().encode(jsonStr);
     const binaryString = Array.from(bytes, byte => String.fromCharCode(byte)).join('');
     const base64 = btoa(binaryString);
-    return `folia-theme://${base64}`;
+    return `bigorange-theme://${base64}`;
 };
 
 /**
- * Decodes and restores a configuration object from either raw JSON or a compressed base64 string starting with 'folia-theme://'.
+ * Decodes and restores a configuration object from either raw JSON or a compressed base64 string starting with 'bigorange-theme://'.
  */
 export const decompressConfig = (str: string): any => {
     let parsed: any = null;
     const trimmed = str.trim();
-    const isCompressedShortcode = trimmed.startsWith('folia-theme://');
+    const isCompressedShortcode = trimmed.startsWith('bigorange-theme://');
     if (isCompressedShortcode) {
-        const base64 = trimmed.slice('folia-theme://'.length);
+        const base64 = trimmed.slice('bigorange-theme://'.length);
         const binaryString = atob(base64);
         const bytes = Uint8Array.from(binaryString, char => char.charCodeAt(0));
         const jsonStr = new TextDecoder().decode(bytes);

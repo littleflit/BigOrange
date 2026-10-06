@@ -26,10 +26,10 @@ export const isTextEntryTarget = (target: EventTarget | null) => {
  * 当前有没有模态窗口声明自己接管了键盘。
  *
  * 用 DOM 属性而不是共享 state，是这个仓库既有的约定：每个模态自己挂
- * data-folia-keyboard-window="true"，全局热键查一次属性即可让路，不需要谁去订阅谁。
+ * data-bigorange-keyboard-window="true"，全局热键查一次属性即可让路，不需要谁去订阅谁。
  */
 export const hasBlockingWindow = () => Boolean(
-    document.querySelector('[data-folia-keyboard-window="true"]')
+    document.querySelector('[data-bigorange-keyboard-window="true"]')
 );
 
 /**

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { PINYIN_BY_PHRASE, PINYIN_PHRASE_COUNT } from 'virtual:folia-command-pinyin';
+import { PINYIN_BY_PHRASE, PINYIN_PHRASE_COUNT } from 'virtual:bigorange-command-pinyin';
 import { COMMAND_PALETTE_COMMANDS } from '../../../src/components/command-palette/commandRegistry';
 import { buildSuiteChromeCommands } from '../../../src/components/command-palette/commands/suiteChromeCommands';
 import { listLibrarySuites } from '../../../src/library/registry';

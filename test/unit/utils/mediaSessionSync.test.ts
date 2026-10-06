@@ -47,7 +47,7 @@ describe('mediaSessionSync', () => {
         expect(getSupportedMediaSessionArtworkUrl('blob:http://localhost/cover-id')).toBe('blob:http://localhost/cover-id');
         expect(getSupportedMediaSessionArtworkUrl('/cover.png', 'https://music.example/player'))
             .toBe('https://music.example/cover.png');
-        expect(getSupportedMediaSessionArtworkUrl('folia-cover://asset/sha256%3Aabc')).toBe('');
+        expect(getSupportedMediaSessionArtworkUrl('bigorange-cover://asset/sha256%3Aabc')).toBe('');
     });
 
     it('publishes a valid position before replacing metadata', () => {
@@ -94,7 +94,7 @@ describe('mediaSessionSync', () => {
                 title: 'local track',
                 artist: 'artist',
                 album: 'album',
-                artworkUrl: 'folia-cover://asset/sha256%3Aabc',
+                artworkUrl: 'bigorange-cover://asset/sha256%3Aabc',
             },
             init => {
                 metadata = init;

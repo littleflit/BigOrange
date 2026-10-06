@@ -70,7 +70,7 @@ describe('online playback recovery bounds', () => {
         expect(getOnlineRecoveryKey(streamUrl('one'))).toBe(getOnlineRecoveryKey(streamUrl('two')));
         expect(getOnlineRecoveryKey(streamUrl('one')))
             .toBe('http://isure.stream.qqmusic.qq.com/M800004Th6td4LaoZs004Th6td4LaoZs.mp3');
-        expect(getOnlineRecoveryKey('blob:folia/abc')).toBe('blob:folia/abc');
+        expect(getOnlineRecoveryKey('blob:bigorange/abc')).toBe('blob:bigorange/abc');
         expect(getOnlineRecoveryKey(null)).toBeNull();
     });
 

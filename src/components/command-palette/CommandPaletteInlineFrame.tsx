@@ -57,7 +57,7 @@ const CommandPaletteInlineFrame: React.FC<CommandPaletteInlineFrameProps> = ({
         {isOpen && (
             <motion.div
                 {...gridSearchPanelMotion}
-                data-folia-keyboard-window="true"
+                data-bigorange-keyboard-window="true"
                 data-testid="command-palette-filter"
                 className="absolute top-24 left-1/2 z-[85] w-[min(28rem,calc(100%-2rem))] -translate-x-1/2 pointer-events-auto"
             >

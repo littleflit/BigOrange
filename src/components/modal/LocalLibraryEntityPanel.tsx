@@ -14,7 +14,7 @@ import {
 import { EntityEditorWorkspace } from '../local-library-entity/EntityEditorWorkspace';
 
 // src/components/modal/LocalLibraryEntityPanel.tsx
-// Orchestrates entity mutations in Folia's context-aware editor.
+// Orchestrates entity mutations in BigOrange's context-aware editor.
 
 interface LocalLibraryEntityPanelProps {
   entity: LocalLibraryEntity;
@@ -70,7 +70,7 @@ export const LocalLibraryEntityPanel = ({
 
   return (
     <div
-      data-folia-keyboard-window="true"
+      data-bigorange-keyboard-window="true"
       className="fixed inset-0 z-[120] flex items-center justify-center bg-black/60 p-3 backdrop-blur-xl md:p-6"
       onMouseDown={event => {
         if (event.target === event.currentTarget) onClose();

@@ -56,7 +56,7 @@ describe('release update channels', () => {
     });
 
     it('opens rolling prereleases instead of manufacturing a semver tag', () => {
-        const releasesUrl = 'https://github.com/chthollyphile/folia-major/releases';
+        const releasesUrl = 'https://github.com/littleflit/BigOrange/releases';
 
         expect(getReleaseUrl('limo', '0.7.0-beta.123', releasesUrl)).toBe(`${releasesUrl}/tag/limo`);
         expect(getReleaseUrl('cielo', '0.7.0-alpha.123', releasesUrl)).toBe(`${releasesUrl}/tag/cielo`);
@@ -64,17 +64,17 @@ describe('release update channels', () => {
     });
 
     it('reads rolling prerelease metadata directly instead of using the GitHub release feed', () => {
-        const github = { owner: 'chthollyphile', repo: 'folia-major' };
+        const github = { owner: 'littleflit', repo: 'BigOrange' };
 
         expect(getUpdateProviderConfig(resolveReleaseChannel('0.7.0-beta.123', 'limo'), github)).toEqual({
             provider: 'generic',
-            url: 'https://github.com/chthollyphile/folia-major/releases/download/limo/',
+            url: 'https://github.com/littleflit/BigOrange/releases/download/limo/',
             channel: 'beta',
             useMultipleRangeRequest: false,
         });
         expect(getUpdateProviderConfig(resolveReleaseChannel('0.7.0-alpha.123', 'cielo'), github)).toEqual({
             provider: 'generic',
-            url: 'https://github.com/chthollyphile/folia-major/releases/download/cielo/',
+            url: 'https://github.com/littleflit/BigOrange/releases/download/cielo/',
             channel: 'alpha',
             useMultipleRangeRequest: false,
         });
@@ -83,25 +83,25 @@ describe('release update channels', () => {
     it('restores the GitHub provider after switching back to Realeco', () => {
         expect(getUpdateProviderConfig(
             resolveReleaseChannel('0.7.0', 'realeco'),
-            { owner: 'chthollyphile', repo: 'folia-major' },
+            { owner: 'littleflit', repo: 'BigOrange' },
         )).toEqual({
             provider: 'github',
-            owner: 'chthollyphile',
-            repo: 'folia-major',
+            owner: 'littleflit',
+            repo: 'BigOrange',
             channel: 'latest',
         });
     });
 
     it('builds discovery endpoints for stable and rolling channels', () => {
-        const github = { owner: 'chthollyphile', repo: 'folia-major' };
+        const github = { owner: 'littleflit', repo: 'BigOrange' };
 
         expect(getUpdateDiscoveryConfig(resolveReleaseChannel('0.7.3', 'realeco'), github)).toEqual({
             format: 'yaml',
-            url: 'https://github.com/chthollyphile/folia-major/releases/latest/download/latest.yml',
+            url: 'https://github.com/littleflit/BigOrange/releases/latest/download/latest.yml',
         });
         expect(getUpdateDiscoveryConfig(resolveReleaseChannel('0.7.4-beta.1', 'limo'), github)).toEqual({
             format: 'yaml',
-            url: 'https://github.com/chthollyphile/folia-major/releases/download/limo/beta.yml',
+            url: 'https://github.com/littleflit/BigOrange/releases/download/limo/beta.yml',
         });
     });
 
@@ -114,7 +114,7 @@ describe('release update channels', () => {
     });
 
     it('reads the version from electron-builder channel metadata', () => {
-        expect(parseUpdateMetadataVersion("version: 0.7.4-beta.1788851094\nfiles:\n  - url: Folia.exe\n"))
+        expect(parseUpdateMetadataVersion("version: 0.7.4-beta.1788851094\nfiles:\n  - url: BigOrange.exe\n"))
             .toBe('0.7.4-beta.1788851094');
     });
 });

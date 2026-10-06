@@ -265,7 +265,7 @@ const PonderStage: React.FC<PonderStageProps> = ({ theme, isDaylight }) => {
             transition={calm ? OVERLAY_CALM_TRANSITION : OVERLAY_TRANSITION}
             // 接管键盘：底下那些全局热键靠这个属性让路，这也是 G 不会在教程里再次触发的原因。
             // 退场期间就该摘掉 —— 教程已经关了，底下的热键不必再等这 280ms。
-            data-folia-keyboard-window={isLeaving ? undefined : 'true'}
+            data-bigorange-keyboard-window={isLeaving ? undefined : 'true'}
             data-testid="ponder-stage"
             // z-[220]：压过状态 toast（210），教程是全屏接管，不该被任何东西盖住。
             // backdrop-blur 让底下的真实界面退成一团轮廓而不是仍然可读的文字：

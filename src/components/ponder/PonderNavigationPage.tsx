@@ -12,13 +12,13 @@ import type { Theme } from '../../types';
 // 思索导航页：一屏列完所有能单独讲的东西，按分类分组。
 //
 // 它存在的理由是总览不能无限长。原先帮助页那颗按钮直接开一段六章的教程，于是
-// 「Folia 大致怎么转」和「壁纸模式怎么用」被排在同一条线上 —— 想看后者得先看完前者。
+// 「BigOrange 大致怎么转」和「壁纸模式怎么用」被排在同一条线上 —— 想看后者得先看完前者。
 // 拆开之后，总览只剩一章（Ctrl+G 就是它），具体那一条从这里挑。
 //
 // 每张卡都挂 data-ponder-nav-target：悬停满 600ms 出提示、长按 G 进去，和在真实组件上
 // 的操作完全一样；触屏点一下直接进。这两条路由 resolveHoveredPonderTarget 统一认。
 //
-// 挂 data-folia-keyboard-window 是为了让底下的全局热键让路；思索的悬停提示不受影响 ——
+// 挂 data-bigorange-keyboard-window 是为了让底下的全局热键让路；思索的悬停提示不受影响 ——
 // ponderHintGate 对「目标就在这个窗口内部」的情况是放行的，而这里正是那种情况。
 
 type PonderNavigationPageProps = {
@@ -67,7 +67,7 @@ const PonderNavigationPage: React.FC<PonderNavigationPageProps> = ({ theme, isDa
                 <motion.div
                     // 页面级 Ctrl+G 在这一屏上打开的是总览，不是底下那一页。
                     data-ponder-page-scope="help-page"
-                    data-folia-keyboard-window="true"
+                    data-bigorange-keyboard-window="true"
                     data-testid="ponder-navigation"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}

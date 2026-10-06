@@ -10,7 +10,7 @@
     <g transform="matrix(19.099731,0,0,19.099731,-2718.266786,-4847.375199)">
         <g transform="matrix(12,0,0,12,168.490548,271.420795)">
         </g>
-        <text x="142.481px" y="271.421px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:12px;fill:white;">Folia</text>
+        <text x="142.481px" y="271.421px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:12px;fill:white;">BigOrange</text>
     </g>
     <g transform="matrix(19.099731,0,0,19.099731,-2718.266786,-4847.375199)">
         <defs>
@@ -23,7 +23,7 @@
         <g mask="url(#Mask)">
             <g transform="matrix(12,0,0,12,168.490548,271.420795)">
             </g>
-            <text x="142.481px" y="271.421px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:12px;">Folia</text>
+            <text x="142.481px" y="271.421px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:12px;">BigOrange</text>
         </g>
     </g>
     <defs>

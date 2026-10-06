@@ -25,7 +25,7 @@ export const LocalFolderSongInfoPanel = ({ folderName, songs, assignments, isDay
     const panelTheme = isDaylight ? 'border-black/10 bg-white/90 text-zinc-900' : 'border-white/10 bg-zinc-950/90 text-white';
 
     return (
-        <div data-folia-keyboard-window="true" className="fixed inset-0 z-[120] flex items-center justify-center bg-black/60 p-3 backdrop-blur-xl md:p-6">
+        <div data-bigorange-keyboard-window="true" className="fixed inset-0 z-[120] flex items-center justify-center bg-black/60 p-3 backdrop-blur-xl md:p-6">
             <div role="dialog" aria-modal="true" className={`${panelTheme} flex max-h-[88vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border shadow-2xl`}>
                 <header className="flex items-center justify-between gap-4 border-b border-current/10 px-6 py-5">
                     <div className="min-w-0">

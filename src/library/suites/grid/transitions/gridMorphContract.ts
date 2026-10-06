@@ -11,17 +11,17 @@
 export const GRID3D_CARD_INDEX_ATTR = 'data-grid3d-index';
 
 /** 详情网格卡片的稳定 id（GridView / ArtistGridView 写入）。 */
-export const GRID_CARD_ITEM_ID_ATTR = 'data-folia-grid-item-id';
+export const GRID_CARD_ITEM_ID_ATTR = 'data-bigorange-grid-item-id';
 
 /** 卡片标题行（PolaroidCard 写入）；形变的第三件套就是它。 */
-export const CARD_TITLE_ATTR = 'data-folia-card-title';
+export const CARD_TITLE_ATTR = 'data-bigorange-card-title';
 
 /** 活动中的详情网格根（GridView / ArtistGridView 用 useIsPresent 写入）。
  * 出栈的旧网格在退出动画期间仍留在 DOM 里且带同样的卡片属性，靠它可以只量新网格。 */
-export const ACTIVE_GRID_ATTR = 'data-folia-active-grid';
+export const ACTIVE_GRID_ATTR = 'data-bigorange-active-grid';
 
 /** 歌手页 intro cluster（圆形头像与简介卡）的标记：它们不是可搬运的卡片。 */
-export const ARTIST_INTRO_ATTR = 'data-folia-morph-intro';
+export const ARTIST_INTRO_ATTR = 'data-bigorange-morph-intro';
 
 /** 歌手页圆形头像（形变落点）。 */
 export const ARTIST_AVATAR_ATTR = 'data-artist-avatar';

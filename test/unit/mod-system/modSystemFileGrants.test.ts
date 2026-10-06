@@ -6,7 +6,7 @@ import path from 'path';
 
 // test/unit/mod-system/modSystemFileGrants.test.ts
 // folium.ui.pickFile({ persist }) / restoreFile / releaseFile end to end
-// through the loader's IPC handlers and the folia-mod:// protocol, with
+// through the loader's IPC handlers and the bigorange-mod:// protocol, with
 // Electron replaced by fakes: a persisted pick survives a restart (a new
 // loader over the same store), resolves only for its own mod, and serves the
 // picked file's bytes.
@@ -86,7 +86,7 @@ const fetchModUrl = async (url: string) => {
 };
 
 beforeEach(() => {
-    root = fs.mkdtempSync(path.join(os.tmpdir(), 'folia-mod-grants-'));
+    root = fs.mkdtempSync(path.join(os.tmpdir(), 'bigorange-mod-grants-'));
     persisted.clear();
     writeMod('mod-a');
     writeMod('mod-b');

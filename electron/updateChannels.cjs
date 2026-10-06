@@ -111,7 +111,7 @@ function normalizeVersion(value) {
   return typeof value === 'string' ? value.trim().replace(/^v/i, '') : '';
 }
 
-// Compares the stable and timestamped prerelease versions used by all three Folia channels.
+// Compares the stable and timestamped prerelease versions used by all three BigOrange channels.
 function compareVersions(leftValue, rightValue) {
   const parse = (value) => {
     const normalized = normalizeVersion(value).split('+', 1)[0];

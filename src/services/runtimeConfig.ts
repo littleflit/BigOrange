@@ -8,7 +8,7 @@ const normalizeAiProvider = (value: unknown): WebAiProvider => (
 
 export const getWebAiProvider = (): WebAiProvider => {
     if (typeof window !== 'undefined') {
-        const runtimeValue = window.__FOLIA_RUNTIME_CONFIG__?.aiProvider;
+        const runtimeValue = window.__BIGORANGE_RUNTIME_CONFIG__?.aiProvider;
         if (runtimeValue) return normalizeAiProvider(runtimeValue);
     }
 

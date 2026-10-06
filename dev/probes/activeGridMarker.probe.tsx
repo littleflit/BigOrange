@@ -71,7 +71,7 @@ const ActiveGridMarkerProbe: React.FC = () => {
 const definition: ProbeDefinition = {
     id: 'activeGridMarker',
     title: '活动网格标记（移形换影的测量范围）',
-    description: '两层网格同时在 DOM 里时，data-folia-active-grid 只落在正在进入的那一层上。',
+    description: '两层网格同时在 DOM 里时，data-bigorange-active-grid 只落在正在进入的那一层上。',
     Component: ActiveGridMarkerProbe,
 };
 

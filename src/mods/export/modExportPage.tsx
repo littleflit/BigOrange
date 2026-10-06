@@ -15,7 +15,7 @@ import { NO_LYRIC_LINES } from '@/utils/lyrics/noLyricLines';
 // src/mods/export/modExportPage.tsx
 // Standalone hidden renderer for mod video export. It drives a chosen
 // visualizer on a synthetic clock (no real audio): the main process steps
-// time forward through window.__foliaModExport.renderFrame and captures the
+// time forward through window.__bigorangeModExport.renderFrame and captures the
 // transparent window after every frame has settled.
 
 interface ExportPageConfig {
@@ -122,13 +122,13 @@ const ModExportPage: React.FC = () => {
     frameApiRef.current.configure = configure;
 
     React.useEffect(() => {
-        (window as any).__foliaModExport = {
+        (window as any).__bigorangeModExport = {
             renderFrame: (tSec: number) => frameApiRef.current.renderFrame(tSec),
             configure: (nextConfig: ExportPageConfig) => frameApiRef.current.configure(nextConfig),
             dispose: () => {},
         };
         return () => {
-            delete (window as any).__foliaModExport;
+            delete (window as any).__bigorangeModExport;
         };
     }, []);
 

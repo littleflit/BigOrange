@@ -57,7 +57,7 @@ function buildDiscordActivity(snapshot) {
   const title = String(snapshot.title).slice(0, 128);
   const artist = typeof snapshot.artist === 'string' && snapshot.artist.trim()
     ? snapshot.artist.trim().slice(0, 128)
-    : 'Folia';
+    : 'BigOrange';
   const playerState = snapshot.playerState === 'PLAYING' ? 'PLAYING' : 'PAUSED';
   const duration = Number(snapshot.duration);
   const currentTime = Math.max(0, Number(snapshot.currentTime) || 0);
@@ -65,11 +65,11 @@ function buildDiscordActivity(snapshot) {
   const coverImageUrl = normalizeDiscordImageUrl(snapshot.coverUrl);
 
   const activity = {
-    name: 'Folia',
+    name: 'BigOrange',
     type: DISCORD_ACTIVITY_TYPE_LISTENING,
     details: title,
     state: playerState === 'PLAYING' ? artist : `Paused - ${artist}`,
-    largeImageText: coverImageUrl ? title : 'Folia',
+    largeImageText: coverImageUrl ? title : 'BigOrange',
     smallImageText: playerState === 'PLAYING' ? 'Playing' : 'Paused',
     instance: false,
   };

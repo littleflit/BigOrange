@@ -1,5 +1,5 @@
 import type { SongResult } from '../../types';
-import type { FoliaLyricDocumentSong } from '../../utils/lyrics/foliaLyricDocument';
+import type { BigOrangeLyricDocumentSong } from '../../utils/lyrics/bigorangeLyricDocument';
 import { saveToCache } from '../db';
 import { getSongResourceCacheKey } from '../onlineMusic/resourceKeys';
 import { getSongAlbumLabel, getSongArtistLabel, getSongDurationMs } from '../onlineMusic/songMetadata';
@@ -22,9 +22,9 @@ export const LYRIC_CACHE_META_SUFFIX = '_meta';
  * always the id inside the cache key: QQ keys lyrics by songMid but the song's `id` is the numeric
  * songId. Without it the batch export could not find a QQ song's offset.
  */
-export type LyricCacheSongMetadata = FoliaLyricDocumentSong & { songId?: string | number };
+export type LyricCacheSongMetadata = BigOrangeLyricDocumentSong & { songId?: string | number };
 
-export const songToExportMetadata = (song: SongResult): FoliaLyricDocumentSong => {
+export const songToExportMetadata = (song: SongResult): BigOrangeLyricDocumentSong => {
     const durationMs = getSongDurationMs(song);
     return {
         title: song.name || undefined,

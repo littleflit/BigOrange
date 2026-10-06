@@ -7,7 +7,7 @@ import { getPlaybackSongKey } from '../../utils/appPlaybackGuards';
 // src/services/sync/themeSyncRegistry.ts
 // Tracks local AI theme cache entries that can be safely mapped to remote sync fingerprints.
 
-const THEME_SYNC_REGISTRY_KEY = 'folia_sync_theme_registry_v1';
+const THEME_SYNC_REGISTRY_KEY = 'bigorange_sync_theme_registry_v1';
 const DUAL_THEME_CACHE_PREFIX = 'dual_theme_';
 let legacyMigrationPromise: Promise<void> | null = null;
 

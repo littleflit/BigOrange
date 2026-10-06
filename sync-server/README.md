@@ -1,6 +1,6 @@
-# Folia Sync Server
+# BigOrange Sync Server
 
-这是 Folia 的官方同步服务端实现。本服务以“多端同构”为目标设计，底层逻辑完全一致。
+这是 BigOrange 的官方同步服务端实现。本服务以“多端同构”为目标设计，底层逻辑完全一致。
 
 目前支持三种部署方案，你可以根据自己的需求任选其一：
 - **Cloudflare D1 / Workers 部署 (推荐)**: 免费、免运维、高可用，依托 Cloudflare 全球边缘网络。
@@ -16,7 +16,7 @@
 
 | Token | 用途 | 是否必填 | 推荐长度 | 忘记了怎么办 |
 | --- | --- | --- | --- | --- |
-| `SYNC_TOKEN` | 用于客户端鉴权。Folia 客户端必须拥有此 Token 才能读取和覆盖同步数据。 | **必填** | 8 ~ 32 位随机字符 | 重新生成并覆盖环境变量 |
+| `SYNC_TOKEN` | 用于客户端鉴权。BigOrange 客户端必须拥有此 Token 才能读取和覆盖同步数据。 | **必填** | 8 ~ 32 位随机字符 | 重新生成并覆盖环境变量 |
 | `DASHBOARD_TOKEN` | 用于在浏览器中查看服务状态和数据库统计（防扫描的隐藏看板）。 | 选填 | 16 位以上的随机字符 | 重新生成并覆盖环境变量 |
 
 ### 如何生成高强度 Token？
@@ -51,7 +51,7 @@ openssl rand -hex 16
 
 零成本、免服务器的 Serverless 部署。当前仓库已经提供安装脚本，可以自动完成 D1 创建、`wrangler.local.toml` 生成、Secret 注入和最终部署，推荐优先使用脚本。
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/chthollyphile/folia-major/tree/main/sync-server)
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/littleflit/BigOrange/tree/main/sync-server)
 
 > [!WARNING]
 > 一键部署按钮可能无法自动完成 D1 数据库的绑定与 Token 注入。如果使用一键部署按钮，你需要**在部署后**前往 Cloudflare 控制台手动创建 D1 数据库、重新配置绑定变量，并设置 `SYNC_TOKEN` 环境变量。因此，**更推荐使用下方的安装脚本**。
@@ -101,7 +101,7 @@ powershell -ExecutionPolicy Bypass -File .\install.ps1
 脚本会自动执行以下步骤：
 
 - 安装项目依赖
-- 调用 `npx wrangler d1 create folia-sync -c wrangler.toml` 创建 D1 数据库
+- 调用 `npx wrangler d1 create bigorange-sync -c wrangler.toml` 创建 D1 数据库
 - 如果数据库已存在，则自动查询已有数据库 ID
 - 基于 `wrangler.toml` 生成 `wrangler.local.toml`
 - 将真实的 `database_id` 写入 `wrangler.local.toml`
@@ -148,7 +148,7 @@ npx wrangler login
 #### 2. 创建 D1 数据库
 
 ```bash
-npx wrangler d1 create folia-sync -c wrangler.toml
+npx wrangler d1 create bigorange-sync -c wrangler.toml
 ```
 
 命令成功后，记下输出中的 `database_id`。
@@ -242,7 +242,7 @@ DASHBOARD_TOKEN="你的_DASHBOARD_TOKEN"
 cd ..
 docker compose -f deploy/docker/compose.sync.yaml up -d --build
 ```
-启动后，服务监听容器内的 `3000` 端口，并映射到宿主机的 `13000` 端口；数据库文件持久化在 `sync-server/data/folia-sync.db`。
+启动后，服务监听容器内的 `3000` 端口，并映射到宿主机的 `13000` 端口；数据库文件持久化在 `sync-server/data/bigorange-sync.db`。
 
 ---
 
@@ -268,8 +268,8 @@ DASHBOARD_TOKEN="你的_DASHBOARD_TOKEN"
 # 选填：服务运行端口（默认 3000）
 PORT=3000
 
-# 选填：SQLite 数据库保存路径（默认在当前目录生成 folia-sync.db）
-DB_PATH="./folia-sync.db"
+# 选填：SQLite 数据库保存路径（默认在当前目录生成 bigorange-sync.db）
+DB_PATH="./bigorange-sync.db"
 ```
 
 ### 2. 安装并启动
@@ -286,10 +286,10 @@ npm run start:node
 
 ## 客户端接入与 API
 
-Folia 客户端的“存储设置”使用 `workerBaseUrl` 和 `SYNC_TOKEN` 连接服务端。地址填写服务根地址，例如：
+BigOrange 客户端的“存储设置”使用 `workerBaseUrl` 和 `SYNC_TOKEN` 连接服务端。地址填写服务根地址，例如：
 
 ```text
-https://folia-sync.example.workers.dev
+https://bigorange-sync.example.workers.dev
 http://127.0.0.1:13000
 ```
 

@@ -16,7 +16,7 @@ export const APP_VERSION: string = JSON.parse(
 ).version as string;
 
 /** 对应 src/stores/useSettingsModalStore.ts 的 LAST_SEEN_GUIDE_VERSION_STORAGE_KEY */
-export const GUIDE_VERSION_STORAGE_KEY = 'folia_last_seen_ponder_onboarding_version';
+export const GUIDE_VERSION_STORAGE_KEY = 'bigorange_last_seen_ponder_onboarding_version';
 
 /**
  * 应用首帧挂载的超时。dev server 下每个新页面都要逐个拉取几千个未打包的模块：单独跑约 9s，

@@ -62,7 +62,7 @@ describe('QR login diagnostic report', () => {
         });
 
         expect(report.split('\n')).toEqual([
-            '### Folia QR login diagnostics',
+            '### BigOrange QR login diagnostics',
             '',
             '```text',
             'generated: 2026-09-26T12:00:00.000Z',

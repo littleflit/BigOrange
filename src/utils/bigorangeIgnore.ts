@@ -1,13 +1,13 @@
-// src/utils/foliaIgnore.ts
-// Parses root-level .foliaignore rules and matches import-relative file-system paths.
+// src/utils/bigorangeIgnore.ts
+// Parses root-level .bigorangeignore rules and matches import-relative file-system paths.
 
-interface FoliaIgnoreRule {
+interface BigOrangeIgnoreRule {
     negated: boolean;
     directoryOnly: boolean;
     matcher: RegExp;
 }
 
-export interface FoliaIgnoreMatcher {
+export interface BigOrangeIgnoreMatcher {
     isIgnored: (relativePath: string, isDirectory: boolean) => boolean;
     getDecision: (relativePath: string, isDirectory: boolean) => boolean | null;
     ruleCount: number;
@@ -62,7 +62,7 @@ const compileGlobBody = (glob: string): string => {
     return result;
 };
 
-const parseRule = (sourceLine: string): FoliaIgnoreRule | null => {
+const parseRule = (sourceLine: string): BigOrangeIgnoreRule | null => {
     let line = sourceLine.replace(/\r$/, '').trim();
     if (!line || line.startsWith('#')) return null;
     const escapedLeadingMarker = line.startsWith('\\#') || line.startsWith('\\!');
@@ -87,15 +87,15 @@ const parseRule = (sourceLine: string): FoliaIgnoreRule | null => {
     return { negated, directoryOnly, matcher };
 };
 
-export const createFoliaIgnoreMatcher = (
+export const createBigOrangeIgnoreMatcher = (
     contents: string,
     baseDirectory = '',
-): FoliaIgnoreMatcher => {
+): BigOrangeIgnoreMatcher => {
     const rules = contents
         .replace(/^\uFEFF/, '')
         .split('\n')
         .map(parseRule)
-        .filter((rule): rule is FoliaIgnoreRule => Boolean(rule));
+        .filter((rule): rule is BigOrangeIgnoreRule => Boolean(rule));
 
     const normalizedBaseDirectory = normalizePath(baseDirectory);
     const getDecision = (relativePath: string, isDirectory: boolean): boolean | null => {
@@ -122,8 +122,8 @@ export const createFoliaIgnoreMatcher = (
     };
 };
 
-export const isIgnoredByFoliaMatchers = (
-    matchers: readonly FoliaIgnoreMatcher[],
+export const isIgnoredByBigOrangeMatchers = (
+    matchers: readonly BigOrangeIgnoreMatcher[],
     relativePath: string,
     isDirectory: boolean,
 ): boolean => {

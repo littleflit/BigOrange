@@ -15,7 +15,7 @@ type ServiceHook = (module: string, name: string, args: unknown[], callReal: () 
 
 declare global {
     interface Window {
-        __foliaProbeServiceHook?: ServiceHook;
+        __bigorangeProbeServiceHook?: ServiceHook;
     }
 }
 
@@ -44,8 +44,8 @@ export const installHomeServiceHook = (): (() => void) => {
         const fake = FAKES[name as HookedLocalMusicServiceFunction];
         return fake ? fake(...args) : callReal();
     };
-    window.__foliaProbeServiceHook = hook;
+    window.__bigorangeProbeServiceHook = hook;
     return () => {
-        if (window.__foliaProbeServiceHook === hook) delete window.__foliaProbeServiceHook;
+        if (window.__bigorangeProbeServiceHook === hook) delete window.__bigorangeProbeServiceHook;
     };
 };

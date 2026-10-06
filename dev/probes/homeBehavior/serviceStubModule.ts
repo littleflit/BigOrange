@@ -4,8 +4,8 @@
 //
 // 为什么要这样：文件夹导入、重扫、恢复忽略目录都要真实的目录句柄或系统文件选择器，探针里拿不到；
 // 而 LocalGrid3DView / Grid3D 是直接 import 这些函数的（ES 模块的导出不能在运行时替换）。转接模块
-// 先 `export *` 真模块（另一个 URL：`?folia-real`，vite 照常转换），再用同名导出盖住要接管的几个函数：
-// 每次调用先问 `window.__foliaProbeServiceHook`，钩子记账后决定用替身还是放行到真实现。
+// 先 `export *` 真模块（另一个 URL：`?bigorange-real`，vite 照常转换），再用同名导出盖住要接管的几个函数：
+// 每次调用先问 `window.__bigorangeProbeServiceHook`，钩子记账后决定用替身还是放行到真实现。
 // 没有钩子时一律放行，所以没装路由的页面、手动打开的探针都走真实服务。
 
 export const LOCAL_MUSIC_SERVICE_PATH = '/src/services/localMusicService.ts';
@@ -23,20 +23,20 @@ export const HOOKED_LOCAL_MUSIC_SERVICE_FUNCTIONS = [
 
 export type HookedLocalMusicServiceFunction = typeof HOOKED_LOCAL_MUSIC_SERVICE_FUNCTIONS[number];
 
-/** 只匹配应用对真模块的请求，不匹配转接模块自己发出的 `?folia-real`。 */
-export const LOCAL_MUSIC_SERVICE_ROUTE = /\/src\/services\/localMusicService\.ts(\?(?!folia-real).*)?$/;
+/** 只匹配应用对真模块的请求，不匹配转接模块自己发出的 `?bigorange-real`。 */
+export const LOCAL_MUSIC_SERVICE_ROUTE = /\/src\/services\/localMusicService\.ts(\?(?!bigorange-real).*)?$/;
 
 /** 生成转接模块源码。 */
 export const buildServiceStubModule = (
     path: string = LOCAL_MUSIC_SERVICE_PATH,
     names: readonly string[] = HOOKED_LOCAL_MUSIC_SERVICE_FUNCTIONS,
 ): string => {
-    const realUrl = `${path}?folia-real`;
+    const realUrl = `${path}?bigorange-real`;
     return [
         `import * as real from '${realUrl}';`,
         `export * from '${realUrl}';`,
         'const route = (name) => (...args) => {',
-        '    const hook = window.__foliaProbeServiceHook;',
+        '    const hook = window.__bigorangeProbeServiceHook;',
         `    return hook ? hook('${path}', name, args, () => real[name](...args)) : real[name](...args);`,
         '};',
         ...names.map(name => `export const ${name} = route('${name}');`),

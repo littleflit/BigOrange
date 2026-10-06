@@ -89,7 +89,7 @@ export const getSizedCoverUrl = (url: string | null | undefined, size: number): 
             return trimmedUrl;
         }
 
-        if (urlObj.protocol === 'folia-cover:') {
+        if (urlObj.protocol === 'bigorange-cover:') {
             return withLocalCoverThumbnailSize(urlObj, normalizedSize);
         }
 
@@ -122,8 +122,8 @@ export const getSizedCoverUrl = (url: string | null | undefined, size: number): 
 
         return trimmedUrl;
     } catch {
-        if (trimmedUrl.startsWith('/__folia_cover/')) {
-            const localUrl = new URL(trimmedUrl, 'https://folia.local');
+        if (trimmedUrl.startsWith('/__bigorange_cover/')) {
+            const localUrl = new URL(trimmedUrl, 'https://bigorange.local');
             localUrl.searchParams.set('size', String(resolveLocalCoverThumbnailSize(normalizedSize)));
             return `${localUrl.pathname}${localUrl.search}`;
         }
@@ -181,7 +181,7 @@ export const describeCoverUrl = (url: string | null | undefined): CoverUrlDescri
     try {
         const urlObj = new URL(trimmedUrl);
         if (NON_RESIZABLE_COVER_PROTOCOLS.has(urlObj.protocol)) return null;
-        if (urlObj.protocol === 'folia-cover:') {
+        if (urlObj.protocol === 'bigorange-cover:') {
             return { provider: 'local', requestedSize: parseSize(urlObj.searchParams.get('size')) };
         }
         if (isKugouCoverUrl(urlObj)) {
@@ -201,8 +201,8 @@ export const describeCoverUrl = (url: string | null | undefined): CoverUrlDescri
         }
         return { provider: 'other', requestedSize: null };
     } catch {
-        if (trimmedUrl.startsWith('/__folia_cover/')) {
-            const localUrl = new URL(trimmedUrl, 'https://folia.local');
+        if (trimmedUrl.startsWith('/__bigorange_cover/')) {
+            const localUrl = new URL(trimmedUrl, 'https://bigorange.local');
             return { provider: 'local', requestedSize: parseSize(localUrl.searchParams.get('size')) };
         }
         return null;

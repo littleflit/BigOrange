@@ -1,12 +1,12 @@
 import { DESKTOP_FEATURES_GEOMETRY as D } from '../surfaces/ponderSurfaceGeometry';
 import type { PonderAnchorSource, PonderRelativeRect, PonderSceneScript, PonderTargetDefinition } from '../../../types/ponder';
 
-// src/components/ponder/targets/foliaDesktop.target.ts
+// src/components/ponder/targets/bigorangeDesktop.target.ts
 // 桌面端独有的三样：壁纸模式、系统托盘、遥控窗口。
 //
 // 这三样的共同点是它们都不在应用界面里 —— 一个把窗口沉到桌面最底层，一个住在系统托盘，
 // 一个是另开的窗口。在应用里翻遍设置也看不到它们长什么样，所以这一章的示意图画的是
-// 一整块桌面，而不是 Folia 自己的界面。
+// 一整块桌面，而不是 BigOrange 自己的界面。
 //
 // 只在桌面版存在，所以整个目标挂 isAvailable：浏览器里讲一遍三个打不开的功能是纯噪声。
 
@@ -32,8 +32,8 @@ const anchors = {
 
 /** 第一章：壁纸模式。窗口沉到桌面最底层，代价是键盘不再可用。 */
 const wallpaper: PonderSceneScript = {
-    id: 'folia-desktop-wallpaper',
-    titleKey: 'ponder.scenes.foliaDesktopWallpaper',
+    id: 'bigorange-desktop-wallpaper',
+    titleKey: 'ponder.scenes.bigorangeDesktopWallpaper',
     action: {
         kind: 'openSettings',
         anchorId: 'wallpaperMode',
@@ -67,10 +67,10 @@ const wallpaper: PonderSceneScript = {
     ],
 };
 
-/** 第二章：系统托盘。窗口关掉之后 Folia 还在的那个地方。 */
+/** 第二章：系统托盘。窗口关掉之后 BigOrange 还在的那个地方。 */
 const tray: PonderSceneScript = {
-    id: 'folia-desktop-tray',
-    titleKey: 'ponder.scenes.foliaDesktopTray',
+    id: 'bigorange-desktop-tray',
+    titleKey: 'ponder.scenes.bigorangeDesktopTray',
     action: {
         kind: 'openSettings',
         anchorId: 'desktopTrayBehavior',
@@ -100,8 +100,8 @@ const tray: PonderSceneScript = {
 
 /** 第三章：遥控窗口。另开的一个小窗口，主窗口不在前台时也能控制播放。 */
 const remote: PonderSceneScript = {
-    id: 'folia-desktop-remote',
-    titleKey: 'ponder.scenes.foliaDesktopRemote',
+    id: 'bigorange-desktop-remote',
+    titleKey: 'ponder.scenes.bigorangeDesktopRemote',
     anchors,
     steps: [
         { kind: 'keypress', id: 'openRemote', keys: ['Mod K'], at: { anchor: 'page', y: 1, offset: { y: 20 } }, durationMs: 1100, keyframe: true },
@@ -124,10 +124,10 @@ const remote: PonderSceneScript = {
 };
 
 export default {
-    id: 'folia-desktop',
-    titleKey: 'ponder.targets.foliaDesktop',
+    id: 'bigorange-desktop',
+    titleKey: 'ponder.targets.bigorangeDesktop',
     category: 'desktop',
-    summaryKey: 'ponder.summaries.folia_desktop',
+    summaryKey: 'ponder.summaries.bigorange_desktop',
     hoverSelector: null,
     // 浏览器里这三样一个都打不开，讲一遍纯属噪声。
     isAvailable: () => typeof window !== 'undefined' && Boolean(window.electron),

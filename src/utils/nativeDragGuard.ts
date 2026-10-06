@@ -42,7 +42,7 @@ export const isUnwantedNativeDrag = (target: EventTarget | null): boolean => {
 };
 
 /** Marks a document that already has the guard, so repeat installs (HMR re-evaluating bootstrap) do not stack listeners. */
-const INSTALLED_KEY = Symbol.for('folia.nativeDragGuard.uninstall');
+const INSTALLED_KEY = Symbol.for('bigorange.nativeDragGuard.uninstall');
 
 type GuardedDocument = Document & { [INSTALLED_KEY]?: () => void };
 

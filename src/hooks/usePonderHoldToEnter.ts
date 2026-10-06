@@ -12,7 +12,7 @@ import { PONDER_HOLD_DURATION_MS, startPonderHoldProgress, type PonderHoldProgre
 // @note 长按 G 只属于非文本控件。输入框（包括命令面板搜索框）必须继续正常输入 g；
 // 页面级入口由 Ctrl+G 承担，因此这里不需要再从文本输入中抢走可打印字符。
 
-const BLOCKING_WINDOW_SELECTOR = '[data-folia-keyboard-window="true"]';
+const BLOCKING_WINDOW_SELECTOR = '[data-bigorange-keyboard-window="true"]';
 
 type PonderHoldRefs = PonderHoldProgressRefs & {
     hoveredElementRef: RefObject<Element | null>;

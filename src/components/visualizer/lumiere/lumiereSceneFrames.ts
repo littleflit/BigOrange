@@ -8,7 +8,7 @@ import { LUMIERE_TRANSITIONS, resolveLumiereEnterDuration } from './lumiereTrans
 // 段落首尾相接，所以任何时刻只有「当前段落」一个场景，外加边界之后的进入窗口里正在退出的上一段：
 //   - 出场窗口（transitionOut.startTime..边界）：当前段套 resolveFrame('exit')。熄灯 lights-out 例外，
 //     它的变暗交给场景自己的 fadeOut（光、线稿、字全熄，暗场底留着）——外层再压透明度，亮色主题下会把
-//     folia 的亮背景露出来，熄灯反倒成了闪白。
+//     bigorange 的亮背景露出来，熄灯反倒成了闪白。
 //   - 进入窗口（边界之后 resolveLumiereEnterDuration 秒）：新段套 resolveFrame('enter')，同时与停在出场
 //     终点帧的上一段交叉渐变，边界两侧的画面是连续的，没有硬切。
 

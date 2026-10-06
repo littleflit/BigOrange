@@ -89,7 +89,7 @@ const separate = async ({ pythonExe, script, modelPath, left, right }) => {
     // pre-place a symlink at either path - the .in redirecting our ~10MB of decoded audio, the .out
     // swapping in stems we did not separate. mkdtemp's name is unguessable and the directory is not
     // writable by anyone else, so neither file can be pre-created. CWE-377.
-    const dir = await fsp.mkdtemp(path.join(os.tmpdir(), 'folia-htd-'));
+    const dir = await fsp.mkdtemp(path.join(os.tmpdir(), 'bigorange-htd-'));
     const inPath = path.join(dir, 'mix.in');
     const outPath = path.join(dir, 'stems.out');
 

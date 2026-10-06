@@ -5,7 +5,7 @@
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Command {
-    /// Resident mode: attach the Folia window into the WorkerW layer, then keep monitoring
+    /// Resident mode: attach the BigOrange window into the WorkerW layer, then keep monitoring
     /// (heartbeat, z-order guard, explorer restarts) until a `detach` line arrives on stdin.
     Attach {
         hwnd: isize,

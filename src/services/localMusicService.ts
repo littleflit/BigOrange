@@ -24,7 +24,7 @@ import {
 } from './localCoverAssetService';
 import { hasLocalCoverBinary } from './localCoverBinaryStore';
 import { hasLocalSongCover } from '../utils/localSongCover';
-import { createFoliaIgnoreMatcher, isIgnoredByFoliaMatchers, type FoliaIgnoreMatcher } from '../utils/foliaIgnore';
+import { createBigOrangeIgnoreMatcher, isIgnoredByBigOrangeMatchers, type BigOrangeIgnoreMatcher } from '../utils/bigorangeIgnore';
 import { getLocalLibraryAvailability } from './localLibraryAvailability';
 import { useLyricSettingsStore } from '../stores/useLyricSettingsStore';
 import { getLocalLyricFilePriority, isSameLocalLyricFormatOrder, normalizeLocalLyricFormatOrder, type LocalLyricFileFormat } from '../utils/lyrics/localLyricFormatOrder';
@@ -90,8 +90,8 @@ const KNOWN_AUDIO_EXTENSIONS = /\.(mp3|flac|m4a|wav|ogg|opus|aac|alac|ape|wv|tta
 const LYRIC_EXTENSIONS = /\.(lrc|vtt|ttml|qrc|yrc|krc|fia)$/i;
 const TRANSLATION_LYRIC_EXTENSIONS = /\.t\.(lrc|vtt)$/i;
 const IMPORT_CONCURRENCY = 6;
-export const LOCAL_MUSIC_UPDATED_EVENT = 'folia-local-music-updated';
-export const LOCAL_MUSIC_SCAN_PROGRESS_EVENT = 'folia-local-music-scan-progress';
+export const LOCAL_MUSIC_UPDATED_EVENT = 'bigorange-local-music-updated';
+export const LOCAL_MUSIC_SCAN_PROGRESS_EVENT = 'bigorange-local-music-scan-progress';
 const HYDRATION_BATCH_SIZE = 25;
 const HYDRATION_REFRESH_EVERY = 100;
 const SNAPSHOT_HASH_SEED = 2166136261;
@@ -438,7 +438,7 @@ async function buildSnapshotTree(
     handle: FileSystemDirectoryHandle,
     currentPath: string,
     rootFolderName: string,
-    inheritedIgnoreMatchers: readonly FoliaIgnoreMatcher[],
+    inheritedIgnoreMatchers: readonly BigOrangeIgnoreMatcher[],
     filesByPath = new Map<string, SnapshotTraversalFile>(),
     ignoredFolderPaths: ReadonlySet<string> = new Set(),
 ): Promise<SnapshotTraversalResult> {
@@ -473,8 +473,8 @@ async function buildSnapshotTree(
     }
 
     childEntries.sort((a, b) => a.name.localeCompare(b.name));
-    const ignoreHandle = childEntries.find(entry => entry.kind === 'file' && entry.name === '.foliaignore');
-    const localIgnoreMatcher = await loadFoliaIgnoreMatcher(
+    const ignoreHandle = childEntries.find(entry => entry.kind === 'file' && entry.name === '.bigorangeignore');
+    const localIgnoreMatcher = await loadBigOrangeIgnoreMatcher(
         ignoreHandle as FileSystemFileHandle | undefined,
         directoryRelativePath,
         handle.name,
@@ -484,7 +484,7 @@ async function buildSnapshotTree(
         : inheritedIgnoreMatchers;
 
     for (const entry of childEntries) {
-        if (entry.name === '.foliaignore') {
+        if (entry.name === '.bigorangeignore') {
             continue;
         }
 
@@ -496,7 +496,7 @@ async function buildSnapshotTree(
         const importRelativePath = entryPath.startsWith(`${rootFolderName}/`)
             ? entryPath.slice(rootFolderName.length + 1)
             : entryPath;
-        if (isIgnoredByFoliaMatchers(ignoreMatchers, importRelativePath, entry.kind === 'directory')) {
+        if (isIgnoredByBigOrangeMatchers(ignoreMatchers, importRelativePath, entry.kind === 'directory')) {
             continue;
         }
 
@@ -559,23 +559,23 @@ async function buildSnapshotTree(
     return { tree, relevantFileCount, filesByPath };
 }
 
-async function loadFoliaIgnoreMatcher(
+async function loadBigOrangeIgnoreMatcher(
     ignoreHandle: FileSystemFileHandle | undefined,
     baseDirectory: string,
     directoryName: string,
-): Promise<FoliaIgnoreMatcher> {
+): Promise<BigOrangeIgnoreMatcher> {
     if (!ignoreHandle) {
-        return createFoliaIgnoreMatcher('', baseDirectory);
+        return createBigOrangeIgnoreMatcher('', baseDirectory);
     }
 
     try {
         const ignoreFile = await ignoreHandle.getFile();
-        const matcher = createFoliaIgnoreMatcher(await ignoreFile.text(), baseDirectory);
-        console.log(`[LocalMusic][Import] Loaded ${matcher.ruleCount} .foliaignore rules from "${directoryName}".`);
+        const matcher = createBigOrangeIgnoreMatcher(await ignoreFile.text(), baseDirectory);
+        console.log(`[LocalMusic][Import] Loaded ${matcher.ruleCount} .bigorangeignore rules from "${directoryName}".`);
         return matcher;
     } catch (error) {
-        console.warn(`[LocalMusic][Import] Failed to read .foliaignore from "${directoryName}":`, error);
-        return createFoliaIgnoreMatcher('', baseDirectory);
+        console.warn(`[LocalMusic][Import] Failed to read .bigorangeignore from "${directoryName}":`, error);
+        return createBigOrangeIgnoreMatcher('', baseDirectory);
     }
 }
 

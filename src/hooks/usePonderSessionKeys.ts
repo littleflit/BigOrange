@@ -9,7 +9,7 @@ import type { PonderTimelineControls } from '../components/ponder/usePonderTimel
 // capture 阶段接管，并且**吃掉所有不带修饰键的按键**，不只是自己用到的那几个。
 //
 // 原本只拦自己处理的键，理由是「底下那些全局热键会因为教程层挂了
-// data-folia-keyboard-window 而自动让路」。这个前提只对一部分成立：
+// data-bigorange-keyboard-window 而自动让路」。这个前提只对一部分成立：
 // usePlaybackInteractionBridge 和 usePlayerPanelTabShortcut 确实查那个属性，
 // 但命令面板的裸键处理走的是 App 传进去的 isBlocked prop，根本不读 DOM。
 // 于是教程开着时按 S，命令面板会在教程层底下打开 —— e2e 抓到的就是这个。

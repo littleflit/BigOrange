@@ -623,7 +623,7 @@ folium.experimental['omni.providers'].register({
 
 ## 从 UI 安装与管理
 
-- **打开模组目录**：模组面板右上角按钮，打开用户模组目录 `userData/mods`（打包版为 `%APPDATA%\Folia\mods`）。
+- **打开模组目录**：模组面板右上角按钮，打开用户模组目录 `userData/mods`（打包版为 `%APPDATA%\BigOrange\mods`）。
 - **拖放 zip 安装**：把 `.zip` 拖到模组面板；`mod.json` 可以在根目录或唯一顶层文件夹里。
   - 安全校验：拒绝路径穿越与绝对路径；压缩包 ≤ 64 MB，解压后 ≤ 64 MB，单文件 ≤ 32 MB，条目 ≤ 2000。
   - **原子安装**：先解压到 `userData/mods/.staging/` 校验（清单、声明的 `main` / `client` 文件必须存在），通过后才换入；

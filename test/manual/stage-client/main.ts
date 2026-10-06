@@ -267,7 +267,7 @@ const renderSearchResults = (songs: StageSearchResult[]) => {
                     <p class="hint">${song.artists.join(' / ') || 'Unknown artist'}${song.album ? ` · ${song.album}` : ''}</p>
                 </div>
                 <div class="button-row">
-                    <button type="button" class="secondary" data-play-song="${song.songId}">Play In Folia</button>
+                    <button type="button" class="secondary" data-play-song="${song.songId}">Play In BigOrange</button>
                     <button type="button" class="secondary" data-queue-song="${song.songId}">Add To Queue</button>
                 </div>
             </div>
@@ -362,8 +362,8 @@ const renderLiveExamples = () => {
     }));
     renderExample(sessionExampleMultipart, () => {
         const formData = new FormData();
-        formData.set('title', normalizeText(titleInput.value) || 'Folia Demo Tone');
-        formData.set('artist', normalizeText(artistInput.value) || 'Folia');
+        formData.set('title', normalizeText(titleInput.value) || 'BigOrange Demo Tone');
+        formData.set('artist', normalizeText(artistInput.value) || 'BigOrange');
         formData.set('lyricsFormat', normalizeText(lyricsFormatInput.value) || 'lrc');
         formData.set('audioFile', new File(['binary'], 'stage-demo-tone.wav', { type: 'audio/wav' }));
         formData.set('lyricsFile', new File(['lyrics'], 'stage-demo.lrc', { type: 'text/plain' }));

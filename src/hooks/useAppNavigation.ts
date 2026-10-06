@@ -137,7 +137,7 @@ const getStartupView = (): ViewState => resolveStartupView({
     queueLength: usePlaybackStore.getState().playQueue.length,
 });
 
-const LOCAL_MUSIC_LAST_ROW_KEY = 'folia_local_music_last_row';
+const LOCAL_MUSIC_LAST_ROW_KEY = 'bigorange_local_music_last_row';
 
 // 折叠往返（history.back()）与面包屑跳层（history.go(-k)）是异步的：popstate 到来之前 store 还是退回前的栈，这时
 // 再点一次会按旧栈再算一遍、多退几步。等 popstate 期间新的压栈 / 跳层都忽略；popstate 一直不来（理论上不会）时

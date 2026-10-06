@@ -92,7 +92,7 @@ const PROVIDERS = {
  * worker's `pinnedToCpu` starts empty, so without this the re-fork would choose the same provider that
  * just hung and hang again; the flag carries that one bit of state across the kill. See host.cjs.
  */
-const FORCE_CPU = process.env.FOLIA_ANALYSIS_FORCE_CPU === '1';
+const FORCE_CPU = process.env.BIGORANGE_ANALYSIS_FORCE_CPU === '1';
 
 /**
  * How long one GPU call may take before its provider is abandoned for the rest of this process.

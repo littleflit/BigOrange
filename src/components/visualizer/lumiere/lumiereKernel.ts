@@ -3,7 +3,7 @@ import type { Line } from '../../../types';
 
 // src/components/visualizer/lumiere/lumiereKernel.ts
 // 绘光原本依赖的 lumisynth 内核 / 编译器类型的最小子集：mood、段落性质、运镜变换、片尾卡帧、歌曲信息、音频帧。
-// folia 里没有内核，这些只是绘光自己的场景、编译与片尾卡之间的约定；运行时（VisualizerLumiere）按这里的含义去用。
+// bigorange 里没有内核，这些只是绘光自己的场景、编译与片尾卡之间的约定；运行时（VisualizerLumiere）按这里的含义去用。
 
 /** 光位的情绪：quiet / neutral / loud。 */
 export type Mood = 'quiet' | 'neutral' | 'loud';

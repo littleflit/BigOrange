@@ -206,7 +206,7 @@ const StorageSettingsSection: React.FC<StorageSettingsSectionProps> = ({
             if (!url) throw new TypeError('Sync export must produce a Blob');
             const link = document.createElement('a');
             link.href = url;
-            link.download = `folia-sync-${formatLocalDateTimeStamp()}.zip`;
+            link.download = `bigorange-sync-${formatLocalDateTimeStamp()}.zip`;
             link.click();
             URL.revokeObjectURL(url);
         } finally {
@@ -225,7 +225,7 @@ const StorageSettingsSection: React.FC<StorageSettingsSectionProps> = ({
                 ? await readSyncLibraryZipFile(file)
                 : JSON.parse(await file.text()) as unknown;
             if (!isSyncLibraryExportBundle(parsed)) {
-                throw new Error('Invalid Folia sync export');
+                throw new Error('Invalid BigOrange sync export');
             }
             const shouldImport = window.confirm(t('options.r2SyncImportConfirm') || 'Import this sync library and overwrite local sync cache?');
             if (!shouldImport) {
@@ -312,7 +312,7 @@ const StorageSettingsSection: React.FC<StorageSettingsSectionProps> = ({
                             <div className="text-xs opacity-50 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
                                 {t('options.r2SyncEnableDesc') || 'Sync appearance settings and AI themes through your own Cloudflare D1 Worker or self-hosted sync service.'}{' '}
                                 <a
-                                    href="https://folia-site.cielaniska.top/guide/deploy-sync"
+                                    href="https://bigorange-site.cielaniska.top/guide/deploy-sync"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="underline underline-offset-2 hover:opacity-80"
@@ -340,7 +340,7 @@ const StorageSettingsSection: React.FC<StorageSettingsSectionProps> = ({
                                 type="url"
                                 value={draftSyncConfig.workerBaseUrl}
                                 onChange={(event) => updateDraftSyncConfig({ workerBaseUrl: event.target.value })}
-                                placeholder="https://folia-sync.example.workers.dev"
+                                placeholder="https://bigorange-sync.example.workers.dev"
                                 className="w-full rounded-lg border border-white/10 bg-black/10 px-3 py-2 text-sm outline-none focus:border-white/25"
                                 style={{ color: 'var(--text-primary)' }}
                             />

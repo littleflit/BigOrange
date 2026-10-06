@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import type { LyricData } from '@/types';
 import { LocalFileLyricAdapter } from '@/utils/lyrics/adapters/LocalFileLyricAdapter';
 import { serializeEnhancedLrc } from '@/utils/lyrics/enhancedLrcSerializer';
-import { buildFoliaLyricDocument, serializeFoliaLyricDocument } from '@/utils/lyrics/foliaLyricDocument';
+import { buildBigOrangeLyricDocument, serializeBigOrangeLyricDocument } from '@/utils/lyrics/bigorangeLyricDocument';
 
 // test/unit/lyrics/awlrcExportRoundTrip.test.ts
 // An LX Music / KuGou LRC with an `[awlrc:...]` container, imported through the local-file adapter,
@@ -78,7 +78,7 @@ describe('awlrc export round trip', () => {
 
     it('reads back identically after exporting as .fia', async () => {
         const parsed = await importFile(LX_FILE);
-        const exported = serializeFoliaLyricDocument(buildFoliaLyricDocument(parsed!));
+        const exported = serializeBigOrangeLyricDocument(buildBigOrangeLyricDocument(parsed!));
 
         const reimported = await importFile(exported);
         expect(reimported?.isWordByWord).toBe(true);

@@ -5,7 +5,7 @@ import { LUMIERE_TRANSITION_KINDS } from './program';
 // src/components/visualizer/lumiere/lumiereTransitions.ts
 // 绘光的段落转场：熄灯 lights-out、闪白 flare-cut、拉焦 focus-pull。光学感主要在场景内部做（熄灯时场景自己
 // 在转场窗口里收光、开场星落），外层只配一个简单的帧：熄灯 = 透明度；闪白 = 轻微放大 + 模糊的峰值落在边界；
-// 拉焦 = 模糊出、模糊入。lumisynth 里这一帧由内核套在单元容器上，folia 没有内核，由运行时按同样的规则套：
+// 拉焦 = 模糊出、模糊入。lumisynth 里这一帧由内核套在单元容器上，bigorange 没有内核，由运行时按同样的规则套：
 //   - 出场：transitionOut 窗口里对旧段落的容器套 resolveFrame('exit', 进度)；
 //   - 进场：边界之后 enterDuration 秒（上一段转场窗口的长度钳在 enterClamp）里对新段落的容器套 resolveFrame('enter', 进度)；
 //   运行时也可以简化成两段交叉渐变，只要熄灯的收光（场景的 fadeOut）照常生效。

@@ -1,13 +1,13 @@
-# Folia 技术与开发说明
+# BigOrange 技术与开发说明
 
 这份文档收纳仓库 README 中较细的部署、开发、桌面端和技术栈说明。更完整的使用指南也可以访问专门的文档站点：
 
-- [Folia Guide](https://folia-site.cielaniska.top/guide/)
+- [BigOrange Guide](https://bigorange-site.cielaniska.top/guide/)
 - [Stage API 文档](../test/manual/stage-client/README.md)
 
 ## 桌面端说明
 
-桌面版内置前后端运行环境，适合希望即装即用的用户。最新版本请前往 [Releases 页面](https://github.com/chthollyphile/folia-major/releases)。
+桌面版内置前后端运行环境，适合希望即装即用的用户。最新版本请前往 [Releases 页面](https://github.com/littleflit/BigOrange/releases)。
 
 ### 发布与更新通道
 
@@ -23,15 +23,15 @@ Cielo 的 `[canary]` 推送会更新滚动的 `cielo` prerelease，供 Cielo 通
 
 ### Linux 获取方式
 
-1. Arch Linux / Manjaro：通过 AUR 安装 `folia-major-bin`
+1. Arch Linux / Manjaro：通过 AUR 安装 `bigorange-bin`
 
 ```bash
-yay -S folia-major-bin
+yay -S bigorange-bin
 ```
 
 2. Debian / Ubuntu / Linux Mint：下载 `.deb`
 3. Fedora / RHEL / openSUSE：下载 `.rpm`
-4. 其他发行版：下载 `tar.gz`，解压后直接运行 `folia-major`
+4. 其他发行版：下载 `tar.gz`，解压后直接运行 `bigorange`
 
 `tar.gz` 包中附带图标与 `.desktop` 模板，可按需手动创建桌面启动项。
 
@@ -41,9 +41,9 @@ yay -S folia-major-bin
 
 omarchy 用户可从下列官方插件市场链接获取：
 
-https://omarchyplugins.com/plugin.html?id=lia.folia-lyrics
+https://omarchyplugins.com/plugin.html?id=lia.bigorange-lyrics
 
-可连接 folia-v1-lyric 接口，在顶部状态栏查看歌词，以及进行暂停/播放操作。该插件在folia没有播放的时候也支持作为简易MPRIS组件，显示媒体信息
+可连接 bigorange-v1-lyric 接口，在顶部状态栏查看歌词，以及进行暂停/播放操作。该插件在bigorange没有播放的时候也支持作为简易MPRIS组件，显示媒体信息
 
 <img width="2560" height="51" alt="image" src="https://github.com/user-attachments/assets/87cb8db0-ef00-4382-9eb3-fa7696e4f6ff" />
 
@@ -51,11 +51,11 @@ https://omarchyplugins.com/plugin.html?id=lia.folia-lyrics
 
 ### Hyprland / Wayland 遥控窗
 
-桌面端的外部遥控窗会作为主窗口的伴随窗口打开，并使用稳定窗口标题 `Folia Remote`。在 Hyprland 下，如果希望它以悬浮小窗方式出现，可以在 `hyprland.conf` 中添加类似规则：
+桌面端的外部遥控窗会作为主窗口的伴随窗口打开，并使用稳定窗口标题 `BigOrange Remote`。在 Hyprland 下，如果希望它以悬浮小窗方式出现，可以在 `hyprland.conf` 中添加类似规则：
 
 ```ini
 windowrule {
-  name = folia-remote
+  name = bigorange-remote
   float = on
   size = 520 315
   center = on
@@ -63,8 +63,8 @@ windowrule {
   no_blur = on
   border_size = 0
   no_shadow = on
-  match:class = ^(folia-major)$
-  match:title = ^(Folia Remote)$
+  match:class = ^(bigorange)$
+  match:title = ^(BigOrange Remote)$
 }
 
 ```
@@ -83,7 +83,7 @@ QQ 音乐是可选音源，由 npm 包 `@yakult-green-tea/qq-music-api` 提供�
 
 ### AI 能力
 
-Folia 当前支持以下两类 AI 提供方式：
+BigOrange 当前支持以下两类 AI 提供方式：
 
 - Google Gemini
 - OpenAI 兼容 API，例如 DeepSeek、ChatGPT 接口等
@@ -92,13 +92,13 @@ Gemini 通常更适合当前项目场景，因为 JSON 输出相对稳定。
 
 ### Stage API
 
-Folia 提供了从外部与播放器进行交互的 Stage API，从而可以实现外部程序与播放器的深度集成。可以通过 `npm run stage:client` 启动本地联调台，查看和测试这些接口的功能。
+BigOrange 提供了从外部与播放器进行交互的 Stage API，从而可以实现外部程序与播放器的深度集成。可以通过 `npm run stage:client` 启动本地联调台，查看和测试这些接口的功能。
 
 具体可参考 [Stage API 文档](../test/manual/stage-client/README.md)。
 
 ### 歌词接口
 
-Electron 桌面端可在“连接与集成”中启用歌词接口。启用后，Folia 仅在回环地址提供无需鉴权的固定接口：
+Electron 桌面端可在“连接与集成”中启用歌词接口。启用后，BigOrange 仅在回环地址提供无需鉴权的固定接口：
 
 ```text
 GET http://127.0.0.1:32109/v1/lyric
@@ -110,7 +110,7 @@ GET http://127.0.0.1:32109/v1/lyric
 
 如果你希望快速上线 Web 版本，可以直接通过下方入口创建 Vercel 项目：
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/chthollyphile/folia-major)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/littleflit/BigOrange)
 
 部署完成后，请在 Vercel 项目设置中补齐环境变量。
 
@@ -169,9 +169,9 @@ GEMINI_API_KEY=your_google_gemini_api_key
 
 Web 版要使用酷狗时，需要自行部署 [KuGouMusicApi](https://github.com/MakcRe/KuGouMusicApi) 并填写 `VITE_KUGOU_API_BASE`。该变量没有默认公共实例；开发调试时可在 `.env.local` 中临时指向调试服务。Electron 版在主进程中直接调用内置的 KuGouMusicApi Node 模块，不会再启动一个酷狗 HTTP 服务。
 
-Electron 的酷狗登录与账号刷新日志位于 `%APPDATA%\Folia\logs\kugou-provider.log`。日志只记录请求阶段、状态、字段名和错误摘要，token、Cookie、userid、dfid 会被脱敏。
+Electron 的酷狗登录与账号刷新日志位于 `%APPDATA%\BigOrange\logs\kugou-provider.log`。日志只记录请求阶段、状态、字段名和错误摘要，token、Cookie、userid、dfid 会被脱敏。
 
-本机同时验收 Folia、网易云扫码和 QQ 扫码时，Vite 使用 `3000`，因此网易云 API 应改用 `3300`，QQ API 使用 `3200`。在 `folia-major/.env.local` 设置：
+本机同时验收 BigOrange、网易云扫码和 QQ 扫码时，Vite 使用 `3000`，因此网易云 API 应改用 `3300`，QQ API 使用 `3200`。在 `bigorange/.env.local` 设置：
 
 ```env
 VITE_NETEASE_API_BASE=http://localhost:3300
@@ -185,10 +185,10 @@ VITE_QQ_API_BASE=http://localhost:3200
 $env:PORT = '3200'
 npm start
 
-# folia-major repo：网易云 API
+# bigorange repo：网易云 API
 npx cross-env PORT=3300 api
 
-# folia-major repo：前端
+# bigorange repo：前端
 npm run dev
 ```
 
@@ -235,10 +235,10 @@ vercel dev
 | `npm run dev:electron:dist` | 构建后以桌面模式运行 |
 | `npm run build:electron` | 打包桌面端应用 |
 | `npm run build:windowtolayer` | 单独构建 Linux 壁纸模式依赖的 `build/windowtolayer` |
-| `npm run build:wallpaper-helper` | 单独构建 Windows 壁纸模式依赖的 `build/folia-wallpaper-helper.exe`（非 Windows 主机为 no-op） |
+| `npm run build:wallpaper-helper` | 单独构建 Windows 壁纸模式依赖的 `build/bigorange-wallpaper-helper.exe`（非 Windows 主机为 no-op） |
 | `npm run stage:client` | 打开本地 Stage API 联调台 |
 
-所有 `dev:electron*` 脚本都会注入 `FOLIA_WINDOWTOLAYER_PATH=build/windowtolayer`，让开发运行也能找到壁纸模式所需的
+所有 `dev:electron*` 脚本都会注入 `BIGORANGE_WINDOWTOLAYER_PATH=build/windowtolayer`，让开发运行也能找到壁纸模式所需的
 `windowtolayer`（打包运行时用的是 `resources/windowtolayer`）。该二进制不随仓库分发，首次联调壁纸模式前先跑一次
 `npm run build:windowtolayer`（或直接用 `npm run dev:electron:wallpaper`）；二进制缺失时壁纸模式开关会自动回退关闭。
 

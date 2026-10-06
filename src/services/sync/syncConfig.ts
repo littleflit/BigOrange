@@ -3,10 +3,10 @@ import { SYNC_PROVIDER, type SyncProviderConfig, type SyncRuntimeStatus } from '
 // src/services/sync/syncConfig.ts
 // Local persistence for user-owned sync server settings and runtime status.
 
-const SYNC_CONFIG_STORAGE_KEY = 'folia_sync_config_v1';
-const SYNC_STATUS_STORAGE_KEY = 'folia_sync_status_v1';
-const SYNC_CONFIG_EVENT = 'folia-sync-config-changed';
-const SYNC_STATUS_EVENT = 'folia-sync-status-changed';
+const SYNC_CONFIG_STORAGE_KEY = 'bigorange_sync_config_v1';
+const SYNC_STATUS_STORAGE_KEY = 'bigorange_sync_status_v1';
+const SYNC_CONFIG_EVENT = 'bigorange-sync-config-changed';
+const SYNC_STATUS_EVENT = 'bigorange-sync-status-changed';
 
 const DEFAULT_CONFIG: SyncProviderConfig = {
     provider: SYNC_PROVIDER,

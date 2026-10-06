@@ -18,11 +18,11 @@ import {
 } from './program';
 
 // src/components/visualizer/lumiere/lumiereProgram.ts
-// 绘光在 folia 里的整首编译：歌词 → 段落（分段与段落性质同 tempera / sonnet）→ 每段切镜头、选光位（chain 跨段落）
+// 绘光在 bigorange 里的整首编译：歌词 → 段落（分段与段落性质同 tempera / sonnet）→ 每段切镜头、选光位（chain 跨段落）
 // → 段落转场与星空开场。对应 lumisynth 统一编译器 + 绘光包的 compileParagraph / toNativeParagraph，
 // 但没有编辑器的锁定、组件槽与跨包，全自动；同样的歌词与种子永远得到同样的程序（纯函数，不碰 Pixi）。
 //
-// 与 lumisynth 的两处差别（folia 没有内核，运行时直接按段落切场景）：
+// 与 lumisynth 的两处差别（bigorange 没有内核，运行时直接按段落切场景）：
 //   1. 段落首尾相接铺满时间轴：第一段从 0 开始（前奏够长时单独出一个间奏段），每段延伸到下一段开始，
 //      最后一段延伸到歌曲结束（给了 duration 时）。段后的长间奏在本段里以间奏镜头出现，而不是让上一段的
 //      最后一个镜头一直挂着。

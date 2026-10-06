@@ -101,7 +101,7 @@ export const createFoliumPlaybackService = (mod: ModRuntimeInfo, context: Folium
 
 /*
  * The embed iframe. Sandbox keeps the page away from the host document (no
- * same-origin with Folia, no top navigation, no popups escaping); the origin
+ * same-origin with BigOrange, no top navigation, no popups escaping); the origin
  * check against the manifest runs here, at the only place mods can create one
  * through the API.
  */

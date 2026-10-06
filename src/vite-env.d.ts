@@ -11,7 +11,7 @@ declare global {
   const __DOCKER_STACK_VERSION__: string;
 
   interface Window {
-    __FOLIA_RUNTIME_CONFIG__?: {
+    __BIGORANGE_RUNTIME_CONFIG__?: {
       aiProvider?: 'gemini' | 'openai';
     };
   }
@@ -584,7 +584,7 @@ declare global {
   /** One process's share of a memory sample. Sizes are whole megabytes; see electron/debug/memoryMonitor.cjs. */
   interface DebugMemoryProcess {
     pid: number;
-    /** `Browser`, `Tab`, `GPU`, `Utility/folia-analysis` and so on - the type plus its service name. */
+    /** `Browser`, `Tab`, `GPU`, `Utility/bigorange-analysis` and so on - the type plus its service name. */
     type: string;
     workingSetMB: number;
     /** This process's OWN high-water mark, reached whenever. Never summed across processes. */

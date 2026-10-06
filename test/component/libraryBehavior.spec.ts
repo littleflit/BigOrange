@@ -46,7 +46,7 @@ const bigKeys = (query = '') => keysOf(
     expectedPlayableIndexes(expectedLoadedIndexes(fixture['online-big'].rawIndexes), query),
 );
 const localKey = (index: number) => `local:${localSongId(index)}`;
-const cardSelector = (itemKey: string, occurrence = 0) => `[data-folia-grid-item-id="${itemKey}-${occurrence}"]`;
+const cardSelector = (itemKey: string, occurrence = 0) => `[data-bigorange-grid-item-id="${itemKey}-${occurrence}"]`;
 /** 一个条目在任一 renderer 里的 DOM：网格卡片或 TUI 行（条目键是同一种格式）。 */
 const entrySelector = (itemKey: string, occurrence = 0) => (
     `${cardSelector(itemKey, occurrence)}, [data-library-entry="${itemKey}-${occurrence}"]`
@@ -921,7 +921,7 @@ test.describe('navigation', () => {
         /** 当前那一层（转场期间退场的层还在 DOM 里）里某张卡片上的歌手 / 专辑名（多位歌手时名字后面带逗号）。 */
         const link = (surface: 'collection' | 'artist', cardId: string, name: string) => page
             .locator(`[data-library-surface="${surface}"]`).last()
-            .locator(`[data-folia-grid-item-id="${cardId}"]`)
+            .locator(`[data-bigorange-grid-item-id="${cardId}"]`)
             .getByText(new RegExp(`^${name},?$`)).first();
         const songKey = (prefix: string, index: number) => `${onlinePlaybackKey(PROBE_PROVIDER_A, onlineSongId(prefix, index))}-0`;
         const settle = () => page.waitForTimeout(600);
@@ -1120,7 +1120,7 @@ const browseSession = (page: Page, sessionKey = PUBLIC_SESSION_KEY) => (
     page.evaluate(key => window.__libraryProbe!.browseSession(key), sessionKey)
 );
 const gridLayoutRecord = (page: Page, sessionKey = PUBLIC_SESSION_KEY) => (
-    page.evaluate(key => sessionStorage.getItem(`folia_gridview_state:v2:${key}`), sessionKey)
+    page.evaluate(key => sessionStorage.getItem(`bigorange_gridview_state:v2:${key}`), sessionKey)
 );
 /** 显式的返回按钮：网格是左上角的圆形按钮，TUI 是状态栏的 [← Back]。 */
 const pressBackButton = async (page: Page, renderer: Renderer) => {
@@ -1236,7 +1236,7 @@ test.describe('done clears every suite\'s layout records', () => {
 });
 
 // 浏览器后退（探针的 back() 就是 popstate 那条路：先通知「将要弹栈」，再改 store）与应用内返回一样跑网格的 beforeBack：
-// 嵌套返回时 hero 收回、卡片散开（退场层 data-folia-collection-morph="exit-backdrop"）。P4.5 之前 popstate 绕过宿主，
+// 嵌套返回时 hero 收回、卡片散开（退场层 data-bigorange-collection-morph="exit-backdrop"）。P4.5 之前 popstate 绕过宿主，
 // 这一层直接切走、没有转场。
 test.describe('suite backdrop', () => {
     test('the host follows grid motion settings and uses a neutral TUI backdrop', async ({ mount, page }) => {
@@ -1283,7 +1283,7 @@ test.describe('browser back and the suite transitions', () => {
         flag.__exitSeen = 0;
         let present = false;
         new MutationObserver(() => {
-            const now = Boolean(document.querySelector('[data-folia-collection-morph="exit-backdrop"]'));
+            const now = Boolean(document.querySelector('[data-bigorange-collection-morph="exit-backdrop"]'));
             if (now && !present) flag.__exitSeen = (flag.__exitSeen ?? 0) + 1;
             present = now;
         }).observe(document.body, { childList: true, subtree: true });
@@ -1307,7 +1307,7 @@ test.describe('browser back and the suite transitions', () => {
         await back(page);
         await expect.poll(() => stack(page)).toEqual(['Public Playlist']);
         await expect.poll(() => exitLayersSeen(page)).toBe(1);
-        await expect(page.locator('[data-folia-collection-morph="exit-backdrop"]')).toHaveCount(0, { timeout: 5_000 });
+        await expect(page.locator('[data-bigorange-collection-morph="exit-backdrop"]')).toHaveCount(0, { timeout: 5_000 });
         await waitForScope(page, expectedPlayableIndexes(fixture['online-public'].rawIndexes).length);
     });
 
@@ -1319,7 +1319,7 @@ test.describe('browser back and the suite transitions', () => {
         await pressOnGrid(page, 'Escape');
         await expect.poll(() => stack(page)).toEqual(['Public Playlist']);
         await expect.poll(() => exitLayersSeen(page)).toBe(1);
-        await expect(page.locator('[data-folia-collection-morph="exit-backdrop"]')).toHaveCount(0, { timeout: 5_000 });
+        await expect(page.locator('[data-bigorange-collection-morph="exit-backdrop"]')).toHaveCount(0, { timeout: 5_000 });
         await page.waitForTimeout(300);
         expect(await exitLayersSeen(page)).toBe(1);
     });
@@ -1385,7 +1385,7 @@ test.describe('renderer switch', () => {
         expect(await stack(page)).toEqual(['Big Playlist']);
         await pressOnGrid(page, 'Escape');
         await expect.poll(() => stack(page)).toEqual([]);
-        await expect(page.locator('[data-folia-collection-morph]')).toHaveCount(0);
+        await expect(page.locator('[data-bigorange-collection-morph]')).toHaveCount(0);
     });
 
     test('[tui] keeps the DOM bounded on a big playlist and End reaches the last row', async ({ mount, page }) => {

@@ -273,7 +273,7 @@ export const migrateLegacyLocalCoverAssetsInBackground = (): Promise<void> => {
       await yieldToBrowser();
     }
     if (totalMigrated > 0 && !controller.signal.aborted) {
-      window.dispatchEvent(new CustomEvent('folia-local-music-updated'));
+      window.dispatchEvent(new CustomEvent('bigorange-local-music-updated'));
     }
   })();
   const tracked = run.catch(error => {

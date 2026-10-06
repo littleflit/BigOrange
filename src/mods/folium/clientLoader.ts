@@ -7,7 +7,7 @@ import { removeFoliumEventHandlers } from './events';
 // src/mods/folium/clientLoader.ts
 // Activates mods' `client` entries in this renderer and keeps them in step
 // with the loader's mod list. A client is imported from its digest-versioned
-// folia-mod:// URL, so an edited mod is a different module and re-imports.
+// bigorange-mod:// URL, so an edited mod is a different module and re-imports.
 // Teardown runs the mod's own disposer and then removes every registration it
 // made, so disabling a mod leaves no mode, command or layer behind.
 //
@@ -71,7 +71,7 @@ const activate = async (mod: ModRuntimeInfo, url: string, context: FoliumContext
     const record: ActiveClient = { url, dispose: null };
     activeClients.set(mod.id, record);
     try {
-        const internals = context === 'main' && mod.folia ? await loadInternals() : null;
+        const internals = context === 'main' && mod.bigorange ? await loadInternals() : null;
         const experimental = context === 'main' && (mod.experimental ?? []).length > 0
             ? (await loadExperimental()).createFoliumExperimental(mod)
             : undefined;

@@ -96,7 +96,7 @@ jobs:
         env:
           TARGET_VERSION: ${{ needs.check-updates.outputs.version }}
         run: |
-          node -e "const fs=require('fs'); const pkg=require('./package.json'); pkg.version=process.env.TARGET_VERSION; pkg.foliaReleaseChannel='limo'; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');"
+          node -e "const fs=require('fs'); const pkg=require('./package.json'); pkg.version=process.env.TARGET_VERSION; pkg.bigorangeReleaseChannel='limo'; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');"
 
       - name: Build web app for Electron
         env:

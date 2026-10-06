@@ -23,8 +23,8 @@ const border = (page: Page) => page.locator('canvas');
  */
 const open = async (page: Page, mount: Mount) => {
     await page.addInitScript(() => {
-        localStorage.setItem('folia_transition_animation', 'false');
-        localStorage.setItem('folia_transition_animation_card', 'false');
+        localStorage.setItem('bigorange_transition_animation', 'false');
+        localStorage.setItem('bigorange_transition_animation_card', 'false');
     });
     await mount('automixTransitionSwitches');
     await expect(page.locator('[data-probe-action="cue"]')).toBeVisible();

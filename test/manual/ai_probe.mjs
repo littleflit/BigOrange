@@ -42,9 +42,9 @@ const argValue = (name, fallback) => {
 };
 
 const CONFIG_CANDIDATES = [
-  path.join(os.homedir(), '.config', 'Folia', 'config.json'),
-  path.join(os.homedir(), 'AppData', 'Roaming', 'Folia', 'config.json'),
-  path.join(os.homedir(), 'Library', 'Application Support', 'Folia', 'config.json'),
+  path.join(os.homedir(), '.config', 'BigOrange', 'config.json'),
+  path.join(os.homedir(), 'AppData', 'Roaming', 'BigOrange', 'config.json'),
+  path.join(os.homedir(), 'Library', 'Application Support', 'BigOrange', 'config.json'),
 ];
 
 const readConfig = () => {

@@ -15,7 +15,7 @@ const { createFileGrantStore } = require('../../../electron/modSystem/fileGrants
 const temporaryDirectories: string[] = [];
 
 const tempFile = (name = 'clip.mp4') => {
-    const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'folia-file-grants-'));
+    const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'bigorange-file-grants-'));
     temporaryDirectories.push(directory);
     const filePath = path.join(directory, name);
     fs.writeFileSync(filePath, 'data');

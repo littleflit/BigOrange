@@ -10,7 +10,7 @@ import { SETTINGS_NAV_GROUP_SPECS, type SettingsSectionId } from './settingsNavM
 // id falls back, an explicit target always wins, a throwing storage is survivable) are testable
 // without a DOM.
 
-export const SETTINGS_LAST_SECTION_STORAGE_KEY = 'folia_settings_last_section';
+export const SETTINGS_LAST_SECTION_STORAGE_KEY = 'bigorange_settings_last_section';
 
 export const DEFAULT_SETTINGS_SECTION: SettingsSectionId = 'appearance';
 

@@ -1,6 +1,6 @@
 # Folium 模组开发与贡献指南
 
-这份指南面向想为 Folia 写模组的开发者：从零写出第一个模组、在本地调试，到把它发布到 [模组市场](https://folium-compound.vercel.app) 并获得官方认证。
+这份指南面向想为 BigOrange 写模组的开发者：从零写出第一个模组、在本地调试，到把它发布到 [模组市场](https://folium-compound.vercel.app) 并获得官方认证。
 
 三份文档分工如下：
 
@@ -35,7 +35,7 @@ npm run dev:electron
 
 **用已安装的桌面版**
 
-把模组放进用户模组目录：打开模组面板，点右上角的「打开模组目录」（Windows 上是 `%APPDATA%\Folia\mods`）。也可以把模组的 zip 包拖到模组面板上安装。手动解压 zip 时多出来的一层文件夹不影响加载，直接把解压结果放进模组目录即可。
+把模组放进用户模组目录：打开模组面板，点右上角的「打开模组目录」（Windows 上是 `%APPDATA%\BigOrange\mods`）。也可以把模组的 zip 包拖到模组面板上安装。手动解压 zip 时多出来的一层文件夹不影响加载，直接把解压结果放进模组目录即可。
 
 **打开模组面板**
 
@@ -189,7 +189,7 @@ function mountHello(folium, container, ctx) {
 
 - 用 `folium.host.folium.minor` 做功能探测，例如 `if (folium.host.folium.minor >= 4)` 再使用 1.4 新增的接口（如 `folium.lyrics.parse`）。
 - 实验接口（`omni.providers`、`omni.hooks`、`ponder.targets`）需要在清单的 `experimental` 里选用，任何 minor 版本都可能变化。
-- `folium.internals` 没有兼容承诺，使用时必须在清单里用 `folia` 固定宿主版本范围；社区模组应尽量不用。
+- `folium.internals` 没有兼容承诺，使用时必须在清单里用 `bigorange` 固定宿主版本范围；社区模组应尽量不用。
 - 模组更新时提升 `mod.json` 的 `version`（`MAJOR.MINOR.PATCH`）。
 
 ## 6. 发布到模组市场
@@ -201,7 +201,7 @@ function mountHello(folium, container, ctx) {
 ### 准备
 
 - 公开的 https 仓库（GitHub、GitLab、Codeberg 等）。模组可以在仓库根目录，也可以在某个子目录。
-- `mod.json` 通过 Folia 的清单校验，`id` 与收录时的目录名相同、没有被占用。
+- `mod.json` 通过 BigOrange 的清单校验，`id` 与收录时的目录名相同、没有被占用。
 - **介绍图片**：`"preview"` 指向模组目录里的 PNG / JPG / WebP。推荐 1280×720（接近 16:9，至少 640×360），不超过 1 MB。它显示在模组市场的卡片顶部，最好是模组运行时的真实截图。
 - 为要发布的版本打一个 tag。
 - 以 `.` 开头的文件和目录（`.git`、`.github`、编辑器配置）和 `node_modules` 不会被收录，其余文件原样收录；不要包含 `folium.sig.json`；不能有符号链接；最多 300 个文件、16 MB。

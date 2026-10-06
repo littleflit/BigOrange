@@ -68,7 +68,7 @@ const VisualizerLumiere: React.FC<VisualizerSharedProps> = (props) => {
     const committedSeed = committedSong.seed;
     const committedLines = committedSong.isInstrumental ? EMPTY_LUMIERE_LINES : committedSong.lines;
 
-    // 纯音乐 / 歌词还没到：编译成只有间奏镜头的程序（folia 不给 visualizer 传歌曲时长，用编译器的缺省时长），
+    // 纯音乐 / 歌词还没到：编译成只有间奏镜头的程序（bigorange 不给 visualizer 传歌曲时长，用编译器的缺省时长），
     // 光照照常，不造 ♪ 虚拟行。showText 关掉时仍按真实歌词编译，镜头节奏跟着歌走，只是不画字。
     // 轨迹过渡改变编译结果：切换时重新编译，新程序走同曲替换（swapSong → commitSong 清场景缓存），不重建 WebGL。
     const seamlessTransitions = lumiereTuning.seamlessTransitions;

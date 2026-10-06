@@ -26,7 +26,7 @@ import type { ProbeDefinition } from './definition';
  * 1. 三件套（frame / cover / title）真的出现，并且会自己结束 —— 生命周期不能靠用户操作
  *    才会退出，否则详情页会一直停在 hero 隐藏的状态；
  * 2. 飞行目标取的是**活动**网格的卡片：这里额外渲染一个「正在退出的旧网格」，它没有
- *    data-folia-active-grid，卡片正好压在同一个位置上，而且排在前面。不限定测量范围时
+ *    data-bigorange-active-grid，卡片正好压在同一个位置上，而且排在前面。不限定测量范围时
  *    probeHeroTargets 会先命中它（距离相同时取文档顺序里的第一个），封面的交叉淡化就会
  *    变成旧网格那张图；
  * 3. 降级时完全不出现：localStorage 的 reduce_motion_collectionMorph 打开后，既不藏 hero
@@ -212,7 +212,7 @@ const CollectionMorphProbe: React.FC = () => {
                 </div>
             </div>
 
-            {/* 正在退出的旧网格：刻意不带 data-folia-active-grid，并且排在活动网格之前。 */}
+            {/* 正在退出的旧网格：刻意不带 data-bigorange-active-grid，并且排在活动网格之前。 */}
             {open && withStaleGrid && (
                 <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none' }}>
                     <div {...{ [GRID_CARD_ITEM_ID_ATTR]: 'old-1' }} style={cardBox}>

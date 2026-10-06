@@ -19,7 +19,7 @@ import { castShot, DEFAULT_LUMIERE_PARAMS, LUMIERE_TRANSITION_KINDS, planShots }
 import { syntheticSong } from './lumiereFixtures';
 
 // test/unit/visualizer/lumiere/lumiereProgram.test.ts
-// 绘光的编译：切块、选光位（移植自 lumisynth test/unit/packs/lumiereProgram.test.ts），以及 folia 侧的整首编译
+// 绘光的编译：切块、选光位（移植自 lumisynth test/unit/packs/lumiereProgram.test.ts），以及 bigorange 侧的整首编译
 // compileLumiereProgram：确定性、段落按序覆盖所有行并首尾相接、间奏与纯音乐、转场与开场。
 const fakeLine = (index: number, start: number, end: number): StructureLine => ({
     sourceIndex: index,

@@ -1,8 +1,8 @@
 [package]
-name = "folia-wallpaper-helper"
+name = "bigorange-wallpaper-helper"
 version = "0.1.0"
 edition = "2021"
-description = "Windows desktop-wallpaper attach helper for Folia (WorkerW parenting + raw-input mouse forwarding)"
+description = "Windows desktop-wallpaper attach helper for BigOrange (WorkerW parenting + raw-input mouse forwarding)"
 license = "AGPL-3.0"
 
 # The windows crate is target-gated so `cargo test` (pure-logic modules: cli.rs / events.rs)

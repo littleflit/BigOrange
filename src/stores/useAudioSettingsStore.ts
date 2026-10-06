@@ -15,25 +15,25 @@ import { getStoredBoolean, setStoredBoolean } from './storagePrimitives';
 import { setStatusMessage } from './useStatusMessageStore';
 import i18n from '../i18n/config';
 
-export const CACHE_SIZE_KEY = 'folia_cache_size';
+export const CACHE_SIZE_KEY = 'bigorange_cache_size';
 
-export const ENABLE_MEDIA_CACHE_KEY = 'folia_enable_media_cache';
+export const ENABLE_MEDIA_CACHE_KEY = 'bigorange_enable_media_cache';
 
 /** What the toggle used to write to, before it was corrected to the prefixed key above. */
 export const LEGACY_ENABLE_MEDIA_CACHE_KEY = 'enable_media_cache';
 
-export const MEDIA_CACHE_LIMIT_GB_KEY = 'folia_media_cache_limit_gb';
+export const MEDIA_CACHE_LIMIT_GB_KEY = 'bigorange_media_cache_limit_gb';
 
 /** Lab switch: start the restored last session playing instead of waiting for a press. */
-export const AUTO_PLAY_ON_LAUNCH_KEY = 'folia_auto_play_on_launch';
+export const AUTO_PLAY_ON_LAUNCH_KEY = 'bigorange_auto_play_on_launch';
 
-export const ENABLE_TRANSCODE_FALLBACK_KEY = 'folia_enable_transcode_fallback';
+export const ENABLE_TRANSCODE_FALLBACK_KEY = 'bigorange_enable_transcode_fallback';
 
 /** Whether finished plays of online NetEase tracks are reported to the signed-in account. */
-export const NETEASE_SCROBBLE_KEY = 'folia_netease_scrobble';
+export const NETEASE_SCROBBLE_KEY = 'bigorange_netease_scrobble';
 
 /** Whether pause fades out and resume fades in (services/playbackFade). On unless switched off. */
-export const PLAYBACK_FADE_KEY = 'folia_playback_fade_enabled';
+export const PLAYBACK_FADE_KEY = 'bigorange_playback_fade_enabled';
 
 /** Gigabytes of cached audio to keep. Zero is the listener asking for no ceiling at all. */
 export const DEFAULT_MEDIA_CACHE_LIMIT_GB = 5;
@@ -47,7 +47,7 @@ export const resolveStoredAudioQuality = (saved: string | null): AudioQuality =>
 /**
  * Reads the media cache toggle, honouring the key its own setter used to write to.
  *
- * The setter wrote a bare 'enable_media_cache' while startup read the folia-prefixed key, so the
+ * The setter wrote a bare 'enable_media_cache' while startup read the bigorange-prefixed key, so the
  * setting silently reverted to off on every restart. Anyone who switched it on has their real
  * preference sitting under the legacy key, and simply correcting the setter would throw that
  * away once more - so read it as a fallback and promote it to the canonical key.

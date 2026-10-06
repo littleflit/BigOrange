@@ -14,7 +14,7 @@ pub enum Event {
     WorkerwDestroyed { hwnd: isize },
     /// Explorer restarted (Shell_TrayWnd PID changed); a re-attach attempt is starting.
     ExplorerRestarted,
-    /// The z-order guard re-inserted the Folia window at the top of the WorkerW children.
+    /// The z-order guard re-inserted the BigOrange window at the top of the WorkerW children.
     Reasserted { hwnd: isize },
     /// Geometry was re-applied (`move` subcommand or after re-attach).
     Moved { hwnd: isize },
@@ -47,7 +47,7 @@ pub enum Event {
     Error { message: String, kind: Option<&'static str> },
 }
 
-// Error kind: the Folia window was destroyed together with its WorkerW (e.g. after an explorer
+// Error kind: the BigOrange window was destroyed together with its WorkerW (e.g. after an explorer
 // restart). The main process must rebuild the window instead of re-attaching the stale hwnd.
 pub const ERR_KIND_WINDOW_DESTROYED: &str = "window-destroyed";
 
@@ -208,12 +208,12 @@ mod tests {
     #[test]
     fn error_kind_is_serialized_when_present() {
         let event = Event::Error {
-            message: "folia window was destroyed together with the WorkerW".to_string(),
+            message: "bigorange window was destroyed together with the WorkerW".to_string(),
             kind: Some(ERR_KIND_WINDOW_DESTROYED),
         };
         assert_eq!(
             event.to_json(),
-            "{\"event\":\"error\",\"message\":\"folia window was destroyed together with the WorkerW\",\"kind\":\"window-destroyed\"}"
+            "{\"event\":\"error\",\"message\":\"bigorange window was destroyed together with the WorkerW\",\"kind\":\"window-destroyed\"}"
         );
     }
 }

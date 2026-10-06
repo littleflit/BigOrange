@@ -1,6 +1,6 @@
 # Stage API 请求与响应 Schema
 
-本文档描述桌面端本地 Stage API 的 HTTP / WebSocket 契约。默认服务地址为 `http://127.0.0.1:32107`，实际端口以 Folia 设置中的 Stage 端口为准。
+本文档描述桌面端本地 Stage API 的 HTTP / WebSocket 契约。默认服务地址为 `http://127.0.0.1:32107`，实际端口以 BigOrange 设置中的 Stage 端口为准。
 
 ## 通用约定
 
@@ -64,7 +64,7 @@ interface StageStatus extends StageInputMetadata {
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `enabled` | `boolean` | Stage API 服务是否启用。 |
-| `modeEnabled` | `boolean` | Folia 舞台模式是否启用。 |
+| `modeEnabled` | `boolean` | BigOrange 舞台模式是否启用。 |
 | `source` | `StageSource \| null` | 当前舞台输入来源；未启用舞台模式时为 `null`。 |
 | `port` | `number` | 当前 Stage API 端口。 |
 | `token` | `string \| null` | 当前 Bearer token。 |
@@ -197,7 +197,7 @@ interface StageMediaSession {
 | `durationMs` | `number \| null` 可选 | 上传音频文件时从 metadata 读取的时长；URL 模式通常为 `null`。 |
 | `coverUrl` / `coverArtUrl` | `string \| null` 可选 | 封面地址。上传封面或读取到内嵌封面时为本地 Stage media URL。 |
 | `audioUrl` | `string \| null` 可选 | 请求中传入的外部音频 URL；上传文件时为 `null`。 |
-| `audioSrc` | `string` | Folia 实际播放地址；URL 模式等于 `audioUrl`，文件模式为本地 Stage media URL。 |
+| `audioSrc` | `string` | BigOrange 实际播放地址；URL 模式等于 `audioUrl`，文件模式为本地 Stage media URL。 |
 | `audioMimeType` | `string` 可选 | 上传音频文件的 MIME 类型。 |
 | `coverMimeType` | `string` 可选 | 上传或内嵌封面的 MIME 类型。 |
 | `lyricsText` | `string \| null` 可选 | 歌词文本；可来自请求、歌词文件或音频内嵌歌词。 |
@@ -322,7 +322,7 @@ interface StageHealthResponse {
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `enabled` | `boolean` | Stage API 服务是否启用。 |
-| `modeEnabled` | `boolean` | Folia 舞台模式是否启用。 |
+| `modeEnabled` | `boolean` | BigOrange 舞台模式是否启用。 |
 | `source` | `StageSource \| null` | 当前舞台输入来源。 |
 | `port` | `number` | 当前端口。 |
 | `activeEntryKind` | `'lyrics' \| 'media' \| null` | 当前外部注入状态。 |
@@ -468,7 +468,7 @@ interface StageSessionMultipartFiles {
 
 ## `POST /stage/player/search`
 
-把搜索请求转交给 Folia 当前接入的搜索通道，返回可供点播接口消费的候选结果。
+把搜索请求转交给 BigOrange 当前接入的搜索通道，返回可供点播接口消费的候选结果。
 
 ### 请求
 
@@ -524,7 +524,7 @@ interface StagePlayerSearchResponse extends StagePlayerOutsideInMetadata {
 
 ## `POST /stage/player/play`
 
-请求 Folia 主播放器播放或追加一首歌。
+请求 BigOrange 主播放器播放或追加一首歌。
 
 ### 请求
 
@@ -570,14 +570,14 @@ interface StagePlayerPlayResponse extends StagePlayerOutsideInMetadata {
 | --- | --- | --- |
 | `400` | `INVALID_STAGE_PLAYER_PLAY_JSON` | JSON 无法解析。 |
 | `400` | `INVALID_STAGE_PLAYER_PLAY_SONG_ID` | `songId` 不是正整数。 |
-| `503` | `STAGE_PLAY_UNAVAILABLE` | Folia 主窗口不可用。 |
+| `503` | `STAGE_PLAY_UNAVAILABLE` | BigOrange 主窗口不可用。 |
 | `503` | `STAGE_PLAY_CANCELED` | 请求被取消，例如 Stage 状态被清空。 |
 | `504` | `STAGE_PLAY_TIMEOUT` | 播放器 15 秒内未完成响应。 |
 | `502` | `STAGE_PLAY_REJECTED` | 渲染进程拒绝播放请求。 |
 
 ## `GET /stage/player/status`
 
-读取 Folia 播放器状态。该接口返回队列摘要，不返回完整队列 `items`。
+读取 BigOrange 播放器状态。该接口返回队列摘要，不返回完整队列 `items`。
 
 ### 请求
 
@@ -657,7 +657,7 @@ interface StagePlayerControlResponse extends StagePlayerOutsideInMetadata {
 | `400` | `INVALID_STAGE_PLAYER_CONTROL_ACTION` | `action` 不在允许枚举中。 |
 | `400` | `INVALID_STAGE_PLAYER_SEEK_POSITION` | `seek` 未提供合法非负 `positionMs`。 |
 | `409` | `STAGE_PLAYER_CONTROL_UNSUPPORTED` | 当前播放上下文不支持该动作。 |
-| `503` | `STAGE_PLAYER_CONTROL_UNAVAILABLE` | Folia 主窗口不可用或 Stage 服务停止。 |
+| `503` | `STAGE_PLAYER_CONTROL_UNAVAILABLE` | BigOrange 主窗口不可用或 Stage 服务停止。 |
 | `504` | `STAGE_PLAYER_REQUEST_TIMEOUT` | 播放器 10 秒内未完成响应。 |
 | `502` | `STAGE_PLAYER_REQUEST_REJECTED` | 渲染进程拒绝控制请求。 |
 
@@ -776,7 +776,7 @@ interface StagePlayerQueuePostResponse extends StagePlayerOutsideInMetadata {
 | `400` | `INVALID_STAGE_PLAYER_QUEUE_JSON` | JSON 无法解析。 |
 | `400` | `INVALID_STAGE_PLAYER_QUEUE_ACTION` | `action` 不在允许枚举中。 |
 | `409` | `STAGE_PLAYER_QUEUE_UNSUPPORTED` | 当前播放上下文不支持该队列动作。 |
-| `503` | `STAGE_PLAYER_QUEUE_UNAVAILABLE` | Folia 主窗口不可用或 Stage 服务停止。 |
+| `503` | `STAGE_PLAYER_QUEUE_UNAVAILABLE` | BigOrange 主窗口不可用或 Stage 服务停止。 |
 | `504` | `STAGE_PLAYER_REQUEST_TIMEOUT` | 播放器 10 秒内未完成响应。 |
 | `502` | `STAGE_PLAYER_REQUEST_REJECTED` | 渲染进程拒绝队列请求。 |
 

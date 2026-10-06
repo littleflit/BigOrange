@@ -5,7 +5,7 @@ import type { BindGroup, Texture } from 'pixi.js';
 // Remove this version-gated shim once the dependency includes the upstream fix:
 // https://github.com/pixijs/pixijs/pull/12259
 type PixiModule = typeof import('pixi.js');
-const PATCHED = Symbol.for('folia.pixi821FilterPoolCompat');
+const PATCHED = Symbol.for('bigorange.pixi821FilterPoolCompat');
 
 interface FilterSystemCompat {
     _globalFilterBindGroup: BindGroup;

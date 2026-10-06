@@ -12,7 +12,7 @@ import { parsePonderSeen, serializePonderSeen, withPonderSeen } from '../utils/p
 
 const PONDER_HINT_VISIBILITY_STORAGE_KEY = 'ponder_hint_visibility';
 const PONDER_TOUCH_BUTTON_STORAGE_KEY = 'ponder_touch_button';
-const PONDER_SEEN_STORAGE_KEY = 'folia_ponder_seen';
+const PONDER_SEEN_STORAGE_KEY = 'bigorange_ponder_seen';
 
 const readStoredVisibility = (): PonderHintVisibility => {
     try {

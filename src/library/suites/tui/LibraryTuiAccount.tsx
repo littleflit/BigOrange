@@ -15,7 +15,7 @@ import { useLibraryTuiAccountKeys } from './useLibraryTuiAccountKeys';
 // 数据全部来自账户 controller 的绑定（useLibraryAccountLogin / useLibraryAccountPendingSwitch），动作全部调 controller；
 // 不碰 omni 与账户 store。登录会话与待确认切换在 controller 里，换 suite 会重挂这个组件，接着显示同一个会话。
 // - 层：忽略宿主给的 layer（那是网格首页交上来的挂载点），自己渲染一个 fixed 全屏层（z-200，与网格的确认框同层），
-//   挂 data-folia-keyboard-window（可交互时）让 TUI 首页 / 集合层的按键与全局热键让路，按键由捕获监听独占
+//   挂 data-bigorange-keyboard-window（可交互时）让 TUI 首页 / 集合层的按键与全局热键让路，按键由捕获监听独占
 //   （useLibraryTuiAccountKeys）；data-ponder-page-scope="none" 与其它 TUI surface 一致。
 // - 登录（account-login / account-login-method）：↑↓ / ←→ 移动登录方式的高亮，Enter 是此刻的主动作——选高亮的方式、
 //   重试、或重启后端；Esc 关闭（keyed 取消会话）；F4 复制诊断报告（account-login-diagnostics）。
@@ -191,7 +191,7 @@ const LibraryTuiAccount: React.FC<LibraryAccountSurfaceProps> = ({ account, them
             tabIndex={-1}
             data-tui-account={pendingSwitch ? 'confirm' : 'login'}
             data-ponder-page-scope="none"
-            data-folia-keyboard-window={isInteractive ? 'true' : undefined}
+            data-bigorange-keyboard-window={isInteractive ? 'true' : undefined}
             className="fixed inset-0 z-[200] flex items-center justify-center bg-black/50 p-4 font-mono outline-none"
             // 点在遮罩上不把焦点交出去（按键照样归这一层，这里只是别让首页的元素拿到焦点）。
             onMouseDown={event => {

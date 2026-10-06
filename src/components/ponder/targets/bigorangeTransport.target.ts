@@ -1,7 +1,7 @@
 import { onboardingSurface } from './ponderOnboardingShared';
 import type { PonderSceneScript, PonderTargetDefinition } from '../../../types/ponder';
 
-// src/components/ponder/targets/foliaTransport.target.ts
+// src/components/ponder/targets/bigorangeTransport.target.ts
 // 播放控制：系统媒体键，以及应用里的那几个键。
 //
 // 单独成目标是因为它对后台听歌的人价值最大，而且最容易完全不知道 ——
@@ -37,10 +37,10 @@ const transportControl: PonderSceneScript = {
 };
 
 export default {
-    id: 'folia-transport',
-    titleKey: 'ponder.targets.foliaTransport',
+    id: 'bigorange-transport',
+    titleKey: 'ponder.targets.bigorangeTransport',
     category: 'playback',
-    summaryKey: 'ponder.summaries.folia_transport',
+    summaryKey: 'ponder.summaries.bigorange_transport',
     hoverSelector: null,
     scenes: [transportControl],
 } satisfies PonderTargetDefinition;

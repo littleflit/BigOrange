@@ -131,7 +131,7 @@ export const buildLyricExportArchive = async (
     const bytes = await runZip(files);
     return {
         blob: new Blob([bytes], { type: 'application/zip' }),
-        fileName: `folia-lyrics-${formatLocalDateTimeStamp(now)}.zip`,
+        fileName: `bigorange-lyrics-${formatLocalDateTimeStamp(now)}.zip`,
         manifest,
     };
 };

@@ -119,7 +119,7 @@ export class LumierePixiRuntime {
         await app.init({
             width,
             height,
-            // 画布透明：folia 的共享背景层要透出来，由运行时的暗场层按暗场强度压暗。
+            // 画布透明：bigorange 的共享背景层要透出来，由运行时的暗场层按暗场强度压暗。
             backgroundAlpha: 0,
             // 大头（图形组）画进 filter 纹理，MSAA 管不到；只剩画框细线，不值得整屏多重采样的解析开销。
             antialias: false,

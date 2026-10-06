@@ -138,16 +138,16 @@ describe('library suite registry', () => {
             clear: () => values.clear(),
         });
         const key = 'online:netease:playlist:1';
-        sessionStorage.setItem(`folia_gridview_state:v2:${key}`, '{}');
-        sessionStorage.setItem(`folia_artist_grid_state:v2:${key}`, '{}');
-        sessionStorage.setItem('folia_gridview_state:v2:online:netease:playlist:2', '{}');
+        sessionStorage.setItem(`bigorange_gridview_state:v2:${key}`, '{}');
+        sessionStorage.setItem(`bigorange_artist_grid_state:v2:${key}`, '{}');
+        sessionStorage.setItem('bigorange_gridview_state:v2:online:netease:playlist:2', '{}');
         expect(getLibrarySuite('grid')?.layout?.forget).toBeTypeOf('function');
         expect(getLibrarySuite('tui')?.layout).toBeUndefined();
 
         forgetLibraryLayouts(key);
-        expect(sessionStorage.getItem(`folia_gridview_state:v2:${key}`)).toBeNull();
-        expect(sessionStorage.getItem(`folia_artist_grid_state:v2:${key}`)).toBeNull();
-        expect(sessionStorage.getItem('folia_gridview_state:v2:online:netease:playlist:2')).toBe('{}');
+        expect(sessionStorage.getItem(`bigorange_gridview_state:v2:${key}`)).toBeNull();
+        expect(sessionStorage.getItem(`bigorange_artist_grid_state:v2:${key}`)).toBeNull();
+        expect(sessionStorage.getItem('bigorange_gridview_state:v2:online:netease:playlist:2')).toBe('{}');
         vi.unstubAllGlobals();
     });
 

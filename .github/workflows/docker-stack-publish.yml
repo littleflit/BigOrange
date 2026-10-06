@@ -61,7 +61,7 @@ jobs:
             exit 1
           fi
           if [[ "${FORCE_REPUBLISH}" != "true" ]]; then
-            for image in folia-web folia-web-api folia-netease-api folia-kugou-api folia-qq-api; do
+            for image in bigorange-web bigorange-web-api bigorange-netease-api bigorange-kugou-api bigorange-qq-api; do
               if docker manifest inspect "docker.io/${IMAGE_NAMESPACE}/${image}:${VERSION}" >/dev/null 2>&1; then
                 echo "${image}:${VERSION} already exists. Use force_republish only for recovery." >&2
                 exit 1
@@ -81,52 +81,52 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - image: folia-web
+          - image: bigorange-web
             dockerfile: deploy/docker/images/gateway.Dockerfile
             arch: amd64
             platform: linux/amd64
             runner: ubuntu-24.04
-          - image: folia-web
+          - image: bigorange-web
             dockerfile: deploy/docker/images/gateway.Dockerfile
             arch: arm64
             platform: linux/arm64
             runner: ubuntu-24.04-arm
-          - image: folia-web-api
+          - image: bigorange-web-api
             dockerfile: deploy/docker/images/backend.Dockerfile
             arch: amd64
             platform: linux/amd64
             runner: ubuntu-24.04
-          - image: folia-web-api
+          - image: bigorange-web-api
             dockerfile: deploy/docker/images/backend.Dockerfile
             arch: arm64
             platform: linux/arm64
             runner: ubuntu-24.04-arm
-          - image: folia-netease-api
+          - image: bigorange-netease-api
             dockerfile: deploy/docker/images/netease-api.Dockerfile
             arch: amd64
             platform: linux/amd64
             runner: ubuntu-24.04
-          - image: folia-netease-api
+          - image: bigorange-netease-api
             dockerfile: deploy/docker/images/netease-api.Dockerfile
             arch: arm64
             platform: linux/arm64
             runner: ubuntu-24.04-arm
-          - image: folia-kugou-api
+          - image: bigorange-kugou-api
             dockerfile: deploy/docker/images/kugou-api.Dockerfile
             arch: amd64
             platform: linux/amd64
             runner: ubuntu-24.04
-          - image: folia-kugou-api
+          - image: bigorange-kugou-api
             dockerfile: deploy/docker/images/kugou-api.Dockerfile
             arch: arm64
             platform: linux/arm64
             runner: ubuntu-24.04-arm
-          - image: folia-qq-api
+          - image: bigorange-qq-api
             dockerfile: deploy/docker/images/qq-api.Dockerfile
             arch: amd64
             platform: linux/amd64
             runner: ubuntu-24.04
-          - image: folia-qq-api
+          - image: bigorange-qq-api
             dockerfile: deploy/docker/images/qq-api.Dockerfile
             arch: arm64
             platform: linux/arm64
@@ -187,7 +187,7 @@ jobs:
           MAJOR: ${{ needs.prepare.outputs.major }}
           MINOR: ${{ needs.prepare.outputs.minor }}
         run: |
-          for image in folia-web folia-web-api folia-netease-api folia-kugou-api folia-qq-api; do
+          for image in bigorange-web bigorange-web-api bigorange-netease-api bigorange-kugou-api bigorange-qq-api; do
             source="docker.io/${IMAGE_NAMESPACE}/${image}:${VERSION}"
             docker buildx imagetools create \
               --tag "${source}" \

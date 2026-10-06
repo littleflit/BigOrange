@@ -70,7 +70,7 @@ const isAppImageRuntime =
 const linuxGraphicsMode =
   process.platform !== 'linux'
     ? 'system'
-    : (process.env.FOLIA_LINUX_GRAPHICS_MODE || (isAppImageRuntime ? 'swiftshader' : 'system'));
+    : (process.env.BIGORANGE_LINUX_GRAPHICS_MODE || (isAppImageRuntime ? 'swiftshader' : 'system'));
 
 // Every custom scheme must be registered in this one call: each
 // registerSchemesAsPrivileged call overwrites the fetch/secure/cors scheme
@@ -78,7 +78,7 @@ const linuxGraphicsMode =
 // from the schemes registered earlier.
 protocol.registerSchemesAsPrivileged([
   {
-    scheme: 'folia-cover',
+    scheme: 'bigorange-cover',
     privileges: {
       standard: true,
       secure: true,
@@ -161,7 +161,7 @@ if (process.platform === 'darwin' && process.arch === 'x64') {
   app.commandLine.appendSwitch('enable-gpu-rasterization');
 }
 
-const store = new Store({ projectName: 'Folia' });
+const store = new Store({ projectName: 'BigOrange' });
 const transcodeService = createTranscodeService({
   app,
   protocol,
@@ -196,7 +196,7 @@ function isWallpaperModeSupportedPlatform() {
 // X11 wallpaper mode: the main window is a _NET_WM_WINDOW_TYPE_DESKTOP window. It shares the
 // desktop layer with the KDE desktop window, and because desktop windows are rendered unredirected
 // there is no composited backdrop behind them. Click-through is therefore unavailable there: it
-// would let clicks reach the KDE desktop window, which KWin then raises above Folia (both are
+// would let clicks reach the KDE desktop window, which KWin then raises above BigOrange (both are
 // desktop-type, the topmost wins), covering the wallpaper.
 function isX11WallpaperMode() {
   return wallpaperWatchdogModule.isX11WallpaperMode({
@@ -206,17 +206,17 @@ function isX11WallpaperMode() {
   });
 }
 
-// The wrapped child keeps FOLIA_WRAPPED_BY_WINDOWTOLAYER=1; it must never wrap itself again.
+// The wrapped child keeps BIGORANGE_WRAPPED_BY_WINDOWTOLAYER=1; it must never wrap itself again.
 function isWallpaperWrapped() {
   return wallpaperWatchdogModule.isWallpaperWrapped(process.env);
 }
 
 // The binary ships as resources/windowtolayer (built by packaging/linux/build-windowtolayer.mjs).
-// FOLIA_WINDOWTOLAYER_PATH overrides it for non-packaged (dev) runs; the dev:electron* scripts
+// BIGORANGE_WINDOWTOLAYER_PATH overrides it for non-packaged (dev) runs; the dev:electron* scripts
 // inject `build/windowtolayer` (produced by `npm run build:windowtolayer`) so wallpaper mode also
 // works outside an electron-builder package. A missing binary just disables wallpaper mode.
 function resolveWindowToLayerPath() {
-  const override = process.env.FOLIA_WINDOWTOLAYER_PATH;
+  const override = process.env.BIGORANGE_WINDOWTOLAYER_PATH;
   if (override) {
     return fs.existsSync(override) ? override : null;
   }
@@ -224,7 +224,7 @@ function resolveWindowToLayerPath() {
   return fs.existsSync(candidate) ? candidate : null;
 }
 
-// Enables wallpaper mode on Wayland: spawn windowtolayer wrapping a fresh Folia child, then the
+// Enables wallpaper mode on Wayland: spawn windowtolayer wrapping a fresh BigOrange child, then the
 // old process exits once the wrapper has spawned. Spawn failure (ENOENT/EACCES) arrives on the
 // async 'error' event, never as a synchronous throw, so we revert the setting instead of crashing.
 function launchWrappedSelf({ onError } = {}) {
@@ -240,7 +240,7 @@ function launchWrappedSelf({ onError } = {}) {
     const child = spawn(wtl, ['--layer=bottom', '--interactivity=all',
       process.execPath, ...process.argv.slice(1)],
       {
-        env: { ...process.env, FOLIA_WRAPPED_BY_WINDOWTOLAYER: '1', FOLIA_RELAUNCH: '1' },
+        env: { ...process.env, BIGORANGE_WRAPPED_BY_WINDOWTOLAYER: '1', BIGORANGE_RELAUNCH: '1' },
         stdio: 'inherit',
       });
     child.once('error', (err) => {
@@ -270,7 +270,7 @@ const wallpaperWatchdog = wallpaperWatchdogModule.createWallpaperWatchdog({
   probeIntervalMs: 2000,
 });
 
-// --- Windows wallpaper mode (WorkerW parenting via folia-wallpaper-helper.exe) ---
+// --- Windows wallpaper mode (WorkerW parenting via bigorange-wallpaper-helper.exe) ---
 // Unlike the Linux paths there is no relaunch: the helper parents the existing window into the
 // WorkerW layer at runtime. Mode toggles recreate the window in place with a playback handoff.
 
@@ -310,16 +310,16 @@ function reconcileWindowsWallpaperWindowTransparency() {
   recreateMainWindowWithTransparencyMode(isTransparentPlayerBackgroundEnabled(), null);
 }
 
-// The helper ships as resources/folia-wallpaper-helper.exe (built by
-// packaging/windows/build-wallpaper-helper.mjs). FOLIA_WALLPAPER_HELPER_PATH overrides it for
-// non-packaged (dev) runs, mirroring FOLIA_WINDOWTOLAYER_PATH. A missing binary just disables
+// The helper ships as resources/bigorange-wallpaper-helper.exe (built by
+// packaging/windows/build-wallpaper-helper.mjs). BIGORANGE_WALLPAPER_HELPER_PATH overrides it for
+// non-packaged (dev) runs, mirroring BIGORANGE_WINDOWTOLAYER_PATH. A missing binary just disables
 // wallpaper mode (attach reports 'missing' and the renderer learns via wallpaper-mode-changed).
 function resolveWallpaperHelperPath() {
-  const override = process.env.FOLIA_WALLPAPER_HELPER_PATH;
+  const override = process.env.BIGORANGE_WALLPAPER_HELPER_PATH;
   if (override) {
     return fs.existsSync(override) ? override : null;
   }
-  const candidate = path.join(process.resourcesPath, 'folia-wallpaper-helper.exe');
+  const candidate = path.join(process.resourcesPath, 'bigorange-wallpaper-helper.exe');
   return fs.existsSync(candidate) ? candidate : null;
 }
 function refreshWindowsDesktopWallpaper() {
@@ -423,7 +423,7 @@ const windowsWallpaper = windowsWallpaperModule.createWindowsWallpaperController
 });
 
 // Renderer crash / WorkerW teardown broke the wallpaper session: attach the helper to a live
-// window, or rebuild one first when the Folia window was destroyed together with the WorkerW.
+// window, or rebuild one first when the BigOrange window was destroyed together with the WorkerW.
 function rebuildWindowsWallpaperSession() {
   if (process.platform !== 'win32' || !isWindowsWallpaperMode()) {
     return;
@@ -1498,7 +1498,7 @@ function sendMacWallpaperMouseEvent(event) {
 
 // Startup wrapper: only the main process reaches main.cjs (GPU/renderer children start with
 // --type=... and exit before this). The jumpboard takes the single-instance lock before spawning
-// windowtolayer; the wrapped child uses FOLIA_RELAUNCH to retry after the jumpboard exits.
+// windowtolayer; the wrapped child uses BIGORANGE_RELAUNCH to retry after the jumpboard exits.
 const wallpaperMode = isWallpaperModeEnabled();
 const onWayland = Boolean(process.env.WAYLAND_DISPLAY);
 
@@ -1563,7 +1563,7 @@ const mainLocale = {
     dialogImportMessage: '不能直接导入系统目录或常用用户目录。\n请选择一个专门存放音乐的文件夹。',
     dialogChooseOther: '选择其他文件夹',
     dialogCancel: '取消',
-    crashTitle: 'Folia 遇到了问题',
+    crashTitle: 'BigOrange 遇到了问题',
     crashMessage: '程序发生了一次崩溃，日志已保存。把它发给开发者能帮助定位问题。',
     crashOpenFolder: '打开日志所在文件夹',
     crashClose: '关闭',
@@ -1585,7 +1585,7 @@ const mainLocale = {
     dialogImportMessage: 'Cannot directly import system or common user directories.\nPlease choose a dedicated music folder.',
     dialogChooseOther: 'Choose Another Folder',
     dialogCancel: 'Cancel',
-    crashTitle: 'Folia ran into a problem',
+    crashTitle: 'BigOrange ran into a problem',
     crashMessage: 'The app crashed and a log has been saved. Sending it to the developer helps track the problem down.',
     crashOpenFolder: 'Open Log Folder',
     crashClose: 'Close',
@@ -1787,13 +1787,13 @@ const MOD_SYSTEM_ENABLED_SETTING_KEY = 'MOD_SYSTEM_ENABLED';
 const DEFAULT_STAGE_API_PORT = 32107;
 const DEFAULT_OBS_BROWSER_SOURCE_PORT = 32108;
 const DEFAULT_LYRIC_API_PORT = 32109;
-const FOLIA_RELEASES_URL = 'https://github.com/chthollyphile/folia-major/releases';
-const FOLIA_GITHUB_REPOSITORY = {
-  owner: 'chthollyphile',
-  repo: 'folia-major',
+const BIGORANGE_RELEASES_URL = 'https://github.com/littleflit/BigOrange/releases';
+const BIGORANGE_GITHUB_REPOSITORY = {
+  owner: 'littleflit',
+  repo: 'BigOrange',
 };
-const WINDOWS_APP_USER_MODEL_ID = 'top.izuna.foliamajor';
-const REMOTE_CONTROL_WINDOW_TITLE = 'Folia Remote';
+const WINDOWS_APP_USER_MODEL_ID = 'com.littleflit.bigorange';
+const REMOTE_CONTROL_WINDOW_TITLE = 'BigOrange Remote';
 const WINDOW_PLAYBACK_HANDOFF_REQUEST_TIMEOUT_MS = 800;
 const bundledAppIconPath = path.join(__dirname, '../build/icon.png');
 const extraResourceIconPath = path.join(process.resourcesPath, 'icon.png');
@@ -2490,7 +2490,7 @@ async function enableDesktopLyricsLeavingWallpaperMode() {
     store.set(MAIN_WINDOW_ALWAYS_ON_TOP_SETTING_KEY, true);
     store.set(HIDE_TASKBAR_ICON_SETTING_KEY, true);
     store.set(TRANSPARENT_PLAYER_BACKGROUND_SETTING_KEY, true);
-    process.env.FOLIA_PENDING_DESKTOP_LYRIC = '1';
+    process.env.BIGORANGE_PENDING_DESKTOP_LYRIC = '1';
     scheduleWallpaperModeRelaunch(false);
     return;
   }
@@ -2653,7 +2653,7 @@ function refreshTrayMenu() {
   ]);
 
   appTray.setContextMenu(menu);
-  appTray.setToolTip('Folia');
+  appTray.setToolTip('BigOrange');
 }
 
 function ensureTray() {
@@ -2679,13 +2679,13 @@ function ensureTray() {
 }
 
 // Retries the single-instance lock for a short window during a relaunch race
-// (FOLIA_RELAUNCH=1): the old instance has just called app.exit() and is about to
+// (BIGORANGE_RELAUNCH=1): the old instance has just called app.exit() and is about to
 // release the lock, so a fresh process may need a few attempts before it wins it.
 function acquireSingleInstanceLock() {
   if (app.requestSingleInstanceLock()) {
     return true;
   }
-  if (process.env.FOLIA_RELAUNCH !== '1') {
+  if (process.env.BIGORANGE_RELAUNCH !== '1') {
     return false; // ordinary second launch: behave as before (focus existing instance and quit)
   }
   const deadline = Date.now() + 10_000;
@@ -3046,7 +3046,7 @@ function getPackagedReleaseChannel() {
   try {
     const packageJsonPath = path.join(app.getAppPath(), 'package.json');
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-    return packageJson.foliaReleaseChannel;
+    return packageJson.bigorangeReleaseChannel;
   } catch {
     return null;
   }
@@ -3073,7 +3073,7 @@ function isUpdateCheckSupported() {
 }
 
 function isDevUpdatePreviewEnabled() {
-  return process.env.ELECTRON_DEV === 'true' && process.env.FOLIA_DEV_UPDATE_PREVIEW === 'true';
+  return process.env.ELECTRON_DEV === 'true' && process.env.BIGORANGE_DEV_UPDATE_PREVIEW === 'true';
 }
 
 // Builds a believable next patch version so the preview stays aligned with package metadata.
@@ -3113,7 +3113,7 @@ const updateState = {
   status: 'idle',
   currentVersion: normalizeVersion(app.getVersion()),
   availableVersion: null,
-  updateUrl: FOLIA_RELEASES_URL,
+  updateUrl: BIGORANGE_RELEASES_URL,
   error: null,
   lastCheckedAt: null,
   downloadProgress: null,
@@ -3196,7 +3196,7 @@ function setupAutoUpdater() {
     setUpdateState({
       status: 'available',
       availableVersion: version || null,
-      updateUrl: getReleaseUrl(getCurrentReleaseChannel().id, version, FOLIA_RELEASES_URL),
+      updateUrl: getReleaseUrl(getCurrentReleaseChannel().id, version, BIGORANGE_RELEASES_URL),
       error: null,
       lastCheckedAt: Date.now(),
       downloadProgress: null,
@@ -3207,7 +3207,7 @@ function setupAutoUpdater() {
     setUpdateState({
       status: 'latest',
       availableVersion: null,
-      updateUrl: FOLIA_RELEASES_URL,
+      updateUrl: BIGORANGE_RELEASES_URL,
       error: null,
       lastCheckedAt: Date.now(),
       downloadProgress: null,
@@ -3249,7 +3249,7 @@ function configureAutoUpdaterChannel(updater) {
   updater.channel = releaseChannel.updaterChannel;
   updater.allowPrerelease = releaseChannel.allowPrerelease;
 
-  const providerConfig = getUpdateProviderConfig(releaseChannel, FOLIA_GITHUB_REPOSITORY);
+  const providerConfig = getUpdateProviderConfig(releaseChannel, BIGORANGE_GITHUB_REPOSITORY);
   if (providerConfig) {
     updater.setFeedURL(providerConfig);
   }
@@ -3304,7 +3304,7 @@ async function checkForUpdates({ manual = false } = {}) {
     setUpdateState({
       status: 'available',
       availableVersion,
-      updateUrl: getReleaseUrl(getCurrentReleaseChannel().id, availableVersion, FOLIA_RELEASES_URL),
+      updateUrl: getReleaseUrl(getCurrentReleaseChannel().id, availableVersion, BIGORANGE_RELEASES_URL),
       error: null,
       lastCheckedAt: Date.now(),
       downloadProgress: null,
@@ -3353,7 +3353,7 @@ async function checkForUpdates({ manual = false } = {}) {
 
 async function checkForManualUpdateAvailability() {
   const releaseChannel = getCurrentReleaseChannel();
-  const discovery = getUpdateDiscoveryConfig(releaseChannel, FOLIA_GITHUB_REPOSITORY);
+  const discovery = getUpdateDiscoveryConfig(releaseChannel, BIGORANGE_GITHUB_REPOSITORY);
   if (!discovery) {
     setUpdateState({ status: 'unsupported', error: null, availableVersion: null, downloadProgress: null });
     return getUpdateStatus();
@@ -3366,13 +3366,13 @@ async function checkForManualUpdateAvailability() {
   try {
     // Keep the startup check off the app's default session so refreshing proxy state cannot
     // interrupt playback, provider requests, or other live connections.
-    const ses = session.fromPartition('folia-update-check');
+    const ses = session.fromPartition('bigorange-update-check');
     await ses.setProxy({ mode: 'system' });
     await ses.forceReloadProxyConfig();
     const response = await ses.fetch(discovery.url, {
       headers: {
         Accept: 'text/yaml, text/plain',
-        'User-Agent': `Folia/${app.getVersion()}`,
+        'User-Agent': `BigOrange/${app.getVersion()}`,
       },
       signal: controller.signal,
     });
@@ -3391,8 +3391,8 @@ async function checkForManualUpdateAvailability() {
       status: hasUpdate ? 'available' : 'latest',
       availableVersion: hasUpdate ? latestVersion : null,
       updateUrl: hasUpdate
-        ? getReleaseUrl(releaseChannel.id, latestVersion, FOLIA_RELEASES_URL)
-        : FOLIA_RELEASES_URL,
+        ? getReleaseUrl(releaseChannel.id, latestVersion, BIGORANGE_RELEASES_URL)
+        : BIGORANGE_RELEASES_URL,
       error: null,
       lastCheckedAt: Date.now(),
       downloadProgress: null,
@@ -3425,8 +3425,8 @@ function markUpdateSeen(version) {
 async function openUpdateReleasePage(version) {
   const normalizedVersion = normalizeVersion(version || updateState.availableVersion);
   const url = normalizedVersion
-    ? getReleaseUrl(getCurrentReleaseChannel().id, normalizedVersion, FOLIA_RELEASES_URL)
-    : updateState.updateUrl || FOLIA_RELEASES_URL;
+    ? getReleaseUrl(getCurrentReleaseChannel().id, normalizedVersion, BIGORANGE_RELEASES_URL)
+    : updateState.updateUrl || BIGORANGE_RELEASES_URL;
 
   await shell.openExternal(url);
   return true;
@@ -4628,7 +4628,7 @@ function createRemoteControlWindow() {
     hasShadow: false,
     backgroundColor: '#00000000',
     title: REMOTE_CONTROL_WINDOW_TITLE,
-    name: 'folia-remote',
+    name: 'bigorange-remote',
     autoHideMenuBar: true,
     resizable: false,
     minimizable: true,
@@ -4842,7 +4842,7 @@ async function getMainWindowCaptureSource() {
   const source =
     (mediaSourceId && sources.find(item => item.id === mediaSourceId)) ||
     sources.find(item => item.name === title && item.name !== REMOTE_CONTROL_WINDOW_TITLE) ||
-    sources.find(item => item.name.toLowerCase().includes('folia') && item.name !== REMOTE_CONTROL_WINDOW_TITLE) ||
+    sources.find(item => item.name.toLowerCase().includes('bigorange') && item.name !== REMOTE_CONTROL_WINDOW_TITLE) ||
     null;
 
   return source ? { id: source.id, name: source.name } : null;
@@ -5263,8 +5263,8 @@ app.whenReady().then(async () => {
   }
   createWindow();
   focusMainWindow();
-  if (process.env.FOLIA_PENDING_DESKTOP_LYRIC === '1') {
-    delete process.env.FOLIA_PENDING_DESKTOP_LYRIC;
+  if (process.env.BIGORANGE_PENDING_DESKTOP_LYRIC === '1') {
+    delete process.env.BIGORANGE_PENDING_DESKTOP_LYRIC;
     if (!isWallpaperModeEnabled()) {
       void setDesktopLyricMode(true).then(() => {
         refreshTrayMenu();
@@ -5668,7 +5668,7 @@ ipcMain.handle('save-settings', (event, key, value) => {
     setUpdateState({
       status: getUpdateCheckEnabled() && isUpdateCheckSupported() ? 'idle' : 'unsupported',
       availableVersion: null,
-      updateUrl: FOLIA_RELEASES_URL,
+      updateUrl: BIGORANGE_RELEASES_URL,
       error: null,
       downloadProgress: null,
     });
@@ -6493,7 +6493,7 @@ ipcMain.handle('video-export-choose-path', async (event, defaultName, extension,
     : (safeExtension === 'mp4' ? 'MP4 Video' : 'WebM Video');
   const safeDefaultName = typeof defaultName === 'string' && defaultName.trim()
     ? defaultName.replace(/[<>:"/\\|?*\x00-\x1F]/g, '_')
-    : `folia-export.${safeExtension}`;
+    : `bigorange-export.${safeExtension}`;
   const defaultFileName = safeDefaultName.endsWith(`.${safeExtension}`)
     ? safeDefaultName
     : `${safeDefaultName.replace(/\.[^.]+$/, '')}.${safeExtension}`;

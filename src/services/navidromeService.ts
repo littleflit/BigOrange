@@ -117,7 +117,7 @@ const buildAuthParamsWithSalt = (config: NavidromeConfig, salt: string): URLSear
     params.set('t', token);
     params.set('s', salt);
     params.set('v', '1.16.1'); // Subsonic API version
-    params.set('c', 'Folia'); // Client identifier
+    params.set('c', 'BigOrange'); // Client identifier
     params.set('f', 'json'); // Response format
 
     return params;

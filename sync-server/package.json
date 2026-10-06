@@ -1,7 +1,7 @@
 {
-  "name": "folia-sync-server",
+  "name": "bigorange-sync-server",
   "version": "1.0.0",
-  "description": "Sync Server for Folia",
+  "description": "Sync Server for BigOrange",
   "private": true,
   "type": "module",
   "engines": {

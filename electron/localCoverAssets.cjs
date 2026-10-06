@@ -185,7 +185,7 @@ function createLocalCoverAssetStore({ getDirectory, createThumbnail }) {
   };
 
   const registerProtocolHandler = (protocol, net) => {
-    protocol.handle('folia-cover', async (request) => {
+    protocol.handle('bigorange-cover', async (request) => {
       let assetId = null;
       let requestedSize = null;
       try {

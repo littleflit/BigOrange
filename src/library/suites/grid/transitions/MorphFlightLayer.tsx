@@ -113,7 +113,7 @@ const MorphFlightLayer: React.FC<MorphFlightLayerProps> = ({
                 AT: it carries no content. */}
             {blockerReleased ? null : (
                 <div
-                    data-folia-collection-morph="input-blocker"
+                    data-bigorange-collection-morph="input-blocker"
                     aria-hidden="true"
                     className="fixed inset-0"
                     style={{ zIndex: COLLECTION_MORPH_Z_INDEX + 10, pointerEvents: 'auto' }}
@@ -125,7 +125,7 @@ const MorphFlightLayer: React.FC<MorphFlightLayerProps> = ({
             <motion.div
                 key={`morph-frame-${start.capturedAt}${suffix}`}
                 ref={frameRef}
-                data-folia-collection-morph="frame"
+                data-bigorange-collection-morph="frame"
                 aria-hidden="true"
                 className="fixed rounded-2xl border shadow-[0_10px_28px_rgba(0,0,0,0.3)] pointer-events-none overflow-hidden"
                 style={{
@@ -155,7 +155,7 @@ const MorphFlightLayer: React.FC<MorphFlightLayerProps> = ({
             <motion.div
                 key={`morph-cover-${start.capturedAt}${suffix}`}
                 ref={coverRef}
-                data-folia-collection-morph="cover"
+                data-bigorange-collection-morph="cover"
                 aria-hidden="true"
                 className="fixed overflow-hidden rounded-xl pointer-events-none"
                 style={{
@@ -211,7 +211,7 @@ const MorphFlightLayer: React.FC<MorphFlightLayerProps> = ({
             <motion.div
                 key={`morph-title-${start.capturedAt}${suffix}`}
                 ref={titleRef}
-                data-folia-collection-morph="title"
+                data-bigorange-collection-morph="title"
                 aria-hidden="true"
                 className="fixed pointer-events-none"
                 style={{

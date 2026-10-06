@@ -4,10 +4,10 @@ import type { Theme } from '../../../types';
 import { hexOf, luminance, rgbOf, scaleRgb, type Rgb } from './color';
 
 // src/components/visualizer/lumiere/lumiereDarkField.ts
-// 暗场底：光后面铺一整块主题背景色压暗的底，压住 folia 的共享背景层，光束才像打在烟里的光。
+// 暗场底：光后面铺一整块主题背景色压暗的底，压住 bigorange 的共享背景层，光束才像打在烟里的光。
 // 它由运行时画在所有段落场景（和片尾卡）之下，不随段落转场的透明度 / 模糊 / 缩放变化——
 // 放在场景里时，出场帧的透明度、边界后的交叉渐变（两层各半透明，叠起来盖不满）和片尾交接都会让背景透出来闪一下。
-// 光场着色器仍保留 uDark 通路，folia 里恒传 0。
+// 光场着色器仍保留 uDark 通路，bigorange 里恒传 0。
 type PixiModule = typeof import('pixi.js');
 
 /** 主题背景亮度超过它就算浅色主题。 */

@@ -29,7 +29,7 @@ const locale = {
 };
 
 beforeEach(() => {
-    workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'folia-crash-'));
+    workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'bigorange-crash-'));
 });
 
 afterEach(() => {
@@ -50,7 +50,7 @@ const build = (overrides: Record<string, unknown> = {}) => {
     };
     const shell = { showItemInFolder: vi.fn() };
     const crashLog = createCrashLog({
-        app: fakeApp({ exe: path.join(exeDir, 'Folia'), userData }),
+        app: fakeApp({ exe: path.join(exeDir, 'BigOrange'), userData }),
         dialog,
         shell,
         getLocale: () => locale,
@@ -73,7 +73,7 @@ describe('where crash reports are written', () => {
         // the ordinary case on Linux rather than an edge one.
         vi.spyOn(fs, 'writeFileSync').mockImplementationOnce(() => { throw new Error('EACCES'); });
 
-        const dir = resolveCrashLogDir(fakeApp({ exe: path.join(exeDir, 'Folia'), userData }));
+        const dir = resolveCrashLogDir(fakeApp({ exe: path.join(exeDir, 'BigOrange'), userData }));
 
         expect(dir).toBe(path.join(userData, 'logs'));
     });
@@ -82,11 +82,11 @@ describe('where crash reports are written', () => {
         const platform = Object.getOwnPropertyDescriptor(process, 'platform')!;
         Object.defineProperty(process, 'platform', { value: 'darwin' });
         try {
-            const exeDir = path.join(workspace, 'Folia.app', 'Contents', 'MacOS');
+            const exeDir = path.join(workspace, 'BigOrange.app', 'Contents', 'MacOS');
             fs.mkdirSync(exeDir, { recursive: true });
             const userData = path.join(workspace, 'userData');
 
-            const dir = resolveCrashLogDir(fakeApp({ exe: path.join(exeDir, 'Folia'), userData }));
+            const dir = resolveCrashLogDir(fakeApp({ exe: path.join(exeDir, 'BigOrange'), userData }));
 
             expect(dir).toBe(path.join(userData, 'logs'));
         } finally {
@@ -104,7 +104,7 @@ describe('what a report contains and does', () => {
 
         const body = fs.readFileSync(file, 'utf8');
         expect(body).toContain('Kind       uncaughtException');
-        expect(body).toContain('Folia      9.9.9');
+        expect(body).toContain('BigOrange      9.9.9');
         expect(body).toContain('Error: boom');
         expect(dialog.showMessageBoxSync).toHaveBeenCalledTimes(1);
         expect(shell.showItemInFolder).toHaveBeenCalledWith(file);
@@ -154,7 +154,7 @@ describe('what a report contains and does', () => {
         fs.mkdirSync(exeDir, { recursive: true });
         const dialog = { showMessageBoxSync: vi.fn(), showMessageBox: vi.fn(), showErrorBox: vi.fn() };
         const crashLog = createCrashLog({
-            app: fakeApp({ exe: path.join(exeDir, 'Folia'), userData: path.join(workspace, 'userData') }, false),
+            app: fakeApp({ exe: path.join(exeDir, 'BigOrange'), userData: path.join(workspace, 'userData') }, false),
             dialog,
             shell: { showItemInFolder: vi.fn() },
             getLocale: () => locale,
@@ -206,7 +206,7 @@ describe('what a report contains and does', () => {
     it('reports nothing rather than throwing when there is nowhere to write', () => {
         vi.spyOn(fs, 'mkdirSync').mockImplementation(() => { throw new Error('EROFS'); });
         const crashLog = createCrashLog({
-            app: fakeApp({ exe: path.join(workspace, 'nope', 'Folia'), userData: path.join(workspace, 'nope2') }),
+            app: fakeApp({ exe: path.join(workspace, 'nope', 'BigOrange'), userData: path.join(workspace, 'nope2') }),
             dialog: { showMessageBoxSync: vi.fn(), showMessageBox: vi.fn(), showErrorBox: vi.fn() },
             shell: { showItemInFolder: vi.fn() },
             getLocale: () => locale,

@@ -112,7 +112,7 @@ export const openCurrentPagePonder = (): PonderTargetId | null => {
 export const readCurrentPagePonderTarget = (): PonderTargetId | null => {
     const modal = useSettingsModalStore.getState();
     // 第一次那道门是压在首页上的，按页面 scope 解析出来的是海报墙 —— 而它要教的是
-    // 「Folia 大致怎么转」。这一条比页面 scope 优先。
+    // 「BigOrange 大致怎么转」。这一条比页面 scope 优先。
     return modal.isUserGuideModalOpen
         ? 'help-page'
         : resolvePagePonderTarget(

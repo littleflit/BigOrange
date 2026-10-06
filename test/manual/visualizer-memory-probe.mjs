@@ -104,7 +104,7 @@ const sampleByType = (readRaw) => {
 };
 
 const options = parseArgs();
-const userDataDir = mkdtempSync(path.join(tmpdir(), 'folia-vismem-'));
+const userDataDir = mkdtempSync(path.join(tmpdir(), 'bigorange-vismem-'));
 const marker = path.basename(userDataDir);
 const readRaw = createProcessSampler(marker);
 

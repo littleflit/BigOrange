@@ -6,7 +6,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 // overlay reads as "resolve per song", so a static link without one would silently animate.
 
 vi.mock('@/utils/appearanceCodec', () => ({
-    compressConfig: vi.fn(() => 'folia-theme://x'),
+    compressConfig: vi.fn(() => 'bigorange-theme://x'),
     readSavedCustomTheme: vi.fn(),
 }));
 vi.mock('@/services/themePreferences', () => ({

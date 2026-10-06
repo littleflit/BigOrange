@@ -70,7 +70,7 @@ export interface ObsBrowserSourceConfig {
     /** @deprecated Kept for OBS pages loaded before the background registry refactor. */
     urlBackgroundSelectedId?: string | null;
     lyricsFontScale: number;
-    // Optional like the other late additions below: an OBS page kept open across a Folia update may
+    // Optional like the other late additions below: an OBS page kept open across a BigOrange update may
     // still be fed by (or feeding) a build that predates the field, so the renderer defaults instead
     // of rendering at scale 0. The publisher always sends it.
     subtitleFontScale?: number;

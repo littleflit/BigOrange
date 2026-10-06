@@ -63,7 +63,7 @@ describe('ponder store', () => {
         store.getState().openPonder('panel-slide');
 
         expect(store.getState().seenTargetIds.has('panel-slide')).toBe(true);
-        expect(values.get('folia_ponder_seen')).toBe('panel-slide');
+        expect(values.get('bigorange_ponder_seen')).toBe('panel-slide');
     });
 
     it('开启教程会清掉悬停态，避免胶囊留在教程层底下', async () => {
@@ -108,7 +108,7 @@ describe('ponder store', () => {
     });
 
     it('已看过记录跨会话保留', async () => {
-        values.set('folia_ponder_seen', 'player-bar');
+        values.set('bigorange_ponder_seen', 'player-bar');
         installStorage();
         const store = await load();
 
@@ -134,11 +134,11 @@ describe('ponder store', () => {
     it('重复标记已看过不重复写盘', async () => {
         const store = await load();
         store.getState().markPonderSeen('player-bar');
-        const first = values.get('folia_ponder_seen');
-        values.delete('folia_ponder_seen');
+        const first = values.get('bigorange_ponder_seen');
+        values.delete('bigorange_ponder_seen');
         store.getState().markPonderSeen('player-bar');
 
         expect(first).toBe('player-bar');
-        expect(values.has('folia_ponder_seen')).toBe(false);
+        expect(values.has('bigorange_ponder_seen')).toBe(false);
     });
 });

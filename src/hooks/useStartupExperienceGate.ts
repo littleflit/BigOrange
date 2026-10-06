@@ -5,7 +5,7 @@ import { useSettingsModalStore } from '../stores/useSettingsModalStore';
 
 // src/hooks/useStartupExperienceGate.ts
 
-const LAST_SEEN_RELEASE_NOTES_VERSION_STORAGE_KEY = 'folia_last_seen_guide_version';
+const LAST_SEEN_RELEASE_NOTES_VERSION_STORAGE_KEY = 'bigorange_last_seen_guide_version';
 
 export type StartupExperienceStep = 'release-notes' | 'playback-entry-view' | 'ponder' | null;
 

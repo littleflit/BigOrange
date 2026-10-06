@@ -9,7 +9,7 @@ import type { PonderAnchorSource, PonderRelativeRect, PonderSceneScript, PonderT
 // 3. 命令窗口里怎么执行一条命令（参数 pill 与 `:` 执行模式）
 // 4. 常见问题：随机播放到底怎么做
 //
-// 前三章是递进的，第四章是回答一个真实会被问到的问题 —— Folia 没有随机开关，
+// 前三章是递进的，第四章是回答一个真实会被问到的问题 —— BigOrange 没有随机开关，
 // 不讲清楚的话，找不到那个按钮的人只会以为这个功能不存在。
 //
 // 几何来自 ponderSurfaceGeometry，和 PonderPlayerPageSurface 画的是同一组数。

@@ -1,13 +1,13 @@
 # Stage API 示例
 
 ## Bili Live Song Demo
-您可以在 `test/manual/bili-livesong/main.py` 中找到一个使用 Stage 搜索和点播接口的[示例程序](https://github.com/chthollyphile/folia-major/tree/main/test/manual/bili-livesong)，展示了如何监听 B 站直播间的弹幕，并将符合条件的点歌请求发送到本地播放器接口。
+您可以在 `test/manual/bili-livesong/main.py` 中找到一个使用 Stage 搜索和点播接口的[示例程序](https://github.com/littleflit/BigOrange/tree/main/test/manual/bili-livesong)，展示了如何监听 B 站直播间的弹幕，并将符合条件的点歌请求发送到本地播放器接口。
 
 ## Stage 联调客户端
 
-如果你已经在桌面端开启了 Stage Mode，可以使用仓库内置的本地 Stage API 文档页向 Folia 推送完整歌词对象、推送媒体会话，或者从外部程序触发搜索与点歌。
+如果你已经在桌面端开启了 Stage Mode，可以使用仓库内置的本地 Stage API 文档页向 BigOrange 推送完整歌词对象、推送媒体会话，或者从外部程序触发搜索与点歌。
 
-1. 在 Folia 设置中开启 Stage Mode，并复制 Bearer token
+1. 在 BigOrange 设置中开启 Stage Mode，并复制 Bearer token
 2. 运行：
 
 ```bash
@@ -45,9 +45,9 @@ Stage API 当前接口清单：
 - `WS /stage/player/ws`
 - `DELETE /stage/state`
 
-如果上传的是音频文件，Folia 还会尝试直接读取文件内嵌歌词、封面和歌曲 metadata。歌词仍然是可选的；如果提供了歌词，Stage 会复用 Folia 自己的解析链来尝试解析，失败时会降级成无歌词播放。
+如果上传的是音频文件，BigOrange 还会尝试直接读取文件内嵌歌词、封面和歌曲 metadata。歌词仍然是可选的；如果提供了歌词，Stage 会复用 BigOrange 自己的解析链来尝试解析，失败时会降级成无歌词播放。
 `Lyrics format` 可以保持 `auto-detect`，或者显式指定 `lrc`、`enhanced-lrc`、`vtt`、`yrc`。
-`POST /stage/player/play` 默认会立即播放指定歌曲；如果传入 `appendToQueue: true`，则会把歌曲追加到 Folia 主播放器队列，而不会打断当前播放。旧 `/stage/play` 暂时保留兼容。
+`POST /stage/player/play` 默认会立即播放指定歌曲；如果传入 `appendToQueue: true`，则会把歌曲追加到 BigOrange 主播放器队列，而不会打断当前播放。旧 `/stage/play` 暂时保留兼容。
 
 ## 接口说明
 
@@ -55,10 +55,10 @@ Stage API 当前接口清单：
   用于返回 Stage 服务自身是否可用，适合做最轻量的连通性探测，不依赖播放器当前状态。
 
 - `GET /stage/status`
-  用于返回当前 Stage 输入状态，也就是外部推送到 Folia 的歌词或媒体 session。响应会带 `domain: "stage-input"` 和 `direction: "outside-in"`。
+  用于返回当前 Stage 输入状态，也就是外部推送到 BigOrange 的歌词或媒体 session。响应会带 `domain: "stage-input"` 和 `direction: "outside-in"`。
 
 - `POST /stage/lyrics`
-  用于写入一份 parser-compatible 的歌词载荷，让 Folia 按自身歌词解析链接管并更新当前 Stage 歌词状态。
+  用于写入一份 parser-compatible 的歌词载荷，让 BigOrange 按自身歌词解析链接管并更新当前 Stage 歌词状态。
 
   注意这个接口的功能相当于直接播放一个无音频的歌词文件，而不是在当前媒体上下文中附加歌词；如果需要后者，请使用 `POST /stage/session` 上传一个包含内嵌歌词的媒体会话。
 
@@ -66,14 +66,14 @@ Stage API 当前接口清单：
   用于写入媒体会话数据，可以是 JSON 形式的媒体描述，也可以是 multipart 形式的实际文件上传。
 
 - `POST /stage/player/search`
-  用于把外部搜索请求转交给 Folia 当前接入的搜索通道，返回可供后续播放器点播接口消费的候选结果。旧 `/stage/search` 仍可用，但响应会标记 `deprecated: true`。
+  用于把外部搜索请求转交给 BigOrange 当前接入的搜索通道，返回可供后续播放器点播接口消费的候选结果。旧 `/stage/search` 仍可用，但响应会标记 `deprecated: true`。
 
 - `POST /stage/player/play`
-  用于请求 Folia 主播放器播放一首歌，支持直接播放，也支持通过 `appendToQueue: true` 仅追加到主队列。当进行追加操作时，响应中会额外包含 `changed`、`deduplicated`、`affectedCount` 和可选 `diff` 字段，以表明本次插入是否被完全或部分去重，并帮助外部客户端同步队列；若 `diff.requiresReload` 为 `true`，应调用 `GET /stage/player/queue` 重拉队列。（注：Folia 存在严格的队列去重机制，同一歌曲不会在队列中出现两次。若追加的歌曲已存在于队列中，它会被直接移动到目标位置而不会产生副本。）
+  用于请求 BigOrange 主播放器播放一首歌，支持直接播放，也支持通过 `appendToQueue: true` 仅追加到主队列。当进行追加操作时，响应中会额外包含 `changed`、`deduplicated`、`affectedCount` 和可选 `diff` 字段，以表明本次插入是否被完全或部分去重，并帮助外部客户端同步队列；若 `diff.requiresReload` 为 `true`，应调用 `GET /stage/player/queue` 重拉队列。（注：BigOrange 存在严格的队列去重机制，同一歌曲不会在队列中出现两次。若追加的歌曲已存在于队列中，它会被直接移动到目标位置而不会产生副本。）
   旧 `/stage/play` 仍可用，但响应会标记 `deprecated: true`。
 
 - `GET /stage/player/status`
-  用于读取 Folia 播放器状态，响应会带 `domain: "player-playback"` 和 `direction: "inside-out"`，并返回当前曲目、播放上下文、控制能力和队列摘要。这里的 `queue` 不包含完整 `items`，只包含 `currentIndex`、`length` 和 `revision`。
+  用于读取 BigOrange 播放器状态，响应会带 `domain: "player-playback"` 和 `direction: "inside-out"`，并返回当前曲目、播放上下文、控制能力和队列摘要。这里的 `queue` 不包含完整 `items`，只包含 `currentIndex`、`length` 和 `revision`。
 
 - `GET /stage/player/time`
   用于主动校准播放时间，返回 `positionMs`、`durationMs`、`sampledAtMs` 和当前播放状态。
@@ -94,6 +94,6 @@ Stage API 当前接口清单：
 
 - 除 `GET /stage/health` 之外，其余接口都需要 Bearer token
 - `POST /stage/session` 支持 JSON 和 multipart 两种传输方式
-- 上传音频文件时，Folia 会尝试读取内嵌歌词、封面和歌曲 metadata
+- 上传音频文件时，BigOrange 会尝试读取内嵌歌词、封面和歌曲 metadata
 - `/stage/status` 只表示外部推送输入状态；播放器真实状态请使用 `/stage/player/status`
-- `/stage/player/play` 只触发 Folia 主播放器，不负责回写当前 Stage 输入状态
+- `/stage/player/play` 只触发 BigOrange 主播放器，不负责回写当前 Stage 输入状态

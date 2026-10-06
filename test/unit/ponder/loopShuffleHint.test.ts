@@ -27,7 +27,7 @@ describe('advanceLoopPressStreak', () => {
 });
 
 describe('noteLoopButtonPress（按真实按钮的调用顺序：切循环 → 模式 toast → 记一下）', () => {
-    const COUNT_KEY = 'folia_loop_shuffle_hint_count';
+    const COUNT_KEY = 'bigorange_loop_shuffle_hint_count';
     let storage: Map<string, string>;
 
     beforeEach(() => {

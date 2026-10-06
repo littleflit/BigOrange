@@ -17,7 +17,7 @@ import {
 } from './polaroidCardParts';
 
 // src/library/suites/grid/shared/PolaroidCard.tsx
-// The card the folia hex grids render. Two layouts share one component: the polaroid frame (square
+// The card the bigorange hex grids render. Two layouts share one component: the polaroid frame (square
 // artwork over a printed label) and the full-bleed cover, where the artwork fills the card and the
 // copy sits on a gradient scrim. Moved out of GridView.tsx when the second layout arrived.
 

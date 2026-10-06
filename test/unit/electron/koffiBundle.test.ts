@@ -54,7 +54,7 @@ describe('macOS Koffi packaging', () => {
   });
 
   it('checks the copied resource and its version, not merely the staging directory', async () => {
-    const resourcesDir = await mkdtemp(path.join(os.tmpdir(), 'folia-koffi-test-'));
+    const resourcesDir = await mkdtemp(path.join(os.tmpdir(), 'bigorange-koffi-test-'));
     directories.push(resourcesDir);
     const context = { resourcesDir, arch: 'x64', version: '3.3.1' };
     await expect(verifyBundledKoffi(context)).rejects.toThrow();

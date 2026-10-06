@@ -9,7 +9,7 @@
 // 筛选词和「看到哪首」（条目键）存在跨 renderer 的浏览会话里；这里的 sessionStorage 记录只放
 // 网格自己的布局状态，键带完整的集合身份和版本号。旧版只按 id 存的记录不再读取。
 
-export const GRID_VIEW_STATE_STORAGE_PREFIX = 'folia_gridview_state:v2:';
+export const GRID_VIEW_STATE_STORAGE_PREFIX = 'bigorange_gridview_state:v2:';
 
 export type StoredGridViewNavigationState = {
     focusedEntryKey?: string;

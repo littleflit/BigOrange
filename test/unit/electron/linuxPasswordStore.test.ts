@@ -34,14 +34,14 @@ describe('resolveLinuxPasswordStore', () => {
     });
 
     it('never overrides an explicit launch flag', () => {
-        expect(resolve({ XDG_CURRENT_DESKTOP: 'Hyprland' }, ['folia', '--password-store=basic'])).toBeNull();
-        expect(resolve({ XDG_CURRENT_DESKTOP: 'Hyprland' }, ['folia', '--password-store', 'kwallet'])).toBeNull();
+        expect(resolve({ XDG_CURRENT_DESKTOP: 'Hyprland' }, ['bigorange', '--password-store=basic'])).toBeNull();
+        expect(resolve({ XDG_CURRENT_DESKTOP: 'Hyprland' }, ['bigorange', '--password-store', 'kwallet'])).toBeNull();
     });
 
-    it('honours a supported FOLIA_PASSWORD_STORE override and ignores unknown values', () => {
-        expect(resolve({ XDG_CURRENT_DESKTOP: 'Hyprland', FOLIA_PASSWORD_STORE: 'kwallet6' })).toBe('kwallet6');
-        expect(resolve({ XDG_CURRENT_DESKTOP: 'Hyprland', FOLIA_PASSWORD_STORE: 'auto' })).toBeNull();
-        expect(resolve({ XDG_CURRENT_DESKTOP: 'Hyprland', FOLIA_PASSWORD_STORE: 'nonsense' })).toBeNull();
+    it('honours a supported BIGORANGE_PASSWORD_STORE override and ignores unknown values', () => {
+        expect(resolve({ XDG_CURRENT_DESKTOP: 'Hyprland', BIGORANGE_PASSWORD_STORE: 'kwallet6' })).toBe('kwallet6');
+        expect(resolve({ XDG_CURRENT_DESKTOP: 'Hyprland', BIGORANGE_PASSWORD_STORE: 'auto' })).toBeNull();
+        expect(resolve({ XDG_CURRENT_DESKTOP: 'Hyprland', BIGORANGE_PASSWORD_STORE: 'nonsense' })).toBeNull();
     });
 
     it('does nothing off Linux', () => {

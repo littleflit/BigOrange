@@ -13,7 +13,7 @@ const { getLocalCoverAssetDirectory, parseThumbnailSize } = require('../../../el
 
 describe('localCoverAssets', () => {
     it('places local-library covers directly under userData', () => {
-        const userDataDirectory = path.join('C:', 'Users', 'tester', 'Folia');
+        const userDataDirectory = path.join('C:', 'Users', 'tester', 'BigOrange');
 
         expect(getLocalCoverAssetDirectory(userDataDirectory)).toBe(
             path.join(userDataDirectory, 'local-cover-assets'),
@@ -21,8 +21,8 @@ describe('localCoverAssets', () => {
     });
 
     it('accepts only the supported clear thumbnail sizes', () => {
-        expect(parseThumbnailSize(new URL('folia-cover://asset/id?size=512'))).toBe(512);
-        expect(parseThumbnailSize(new URL('folia-cover://asset/id?size=1024'))).toBe(1024);
-        expect(parseThumbnailSize(new URL('folia-cover://asset/id?size=256'))).toBeNull();
+        expect(parseThumbnailSize(new URL('bigorange-cover://asset/id?size=512'))).toBe(512);
+        expect(parseThumbnailSize(new URL('bigorange-cover://asset/id?size=1024'))).toBe(1024);
+        expect(parseThumbnailSize(new URL('bigorange-cover://asset/id?size=256'))).toBeNull();
     });
 });

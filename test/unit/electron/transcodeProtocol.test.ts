@@ -13,10 +13,10 @@ const KEY = 'a'.repeat(64);
 
 describe('transcode protocol', () => {
     it('accepts only an opaque cache key and supported output name', () => {
-        expect(parseTranscodeUrl(`folia-transcode://media/${KEY}/audio.flac`)).toEqual({ cacheKey: KEY, format: 'flac' });
-        expect(parseTranscodeUrl(`folia-transcode://media/${KEY}/audio.wav`)).toEqual({ cacheKey: KEY, format: 'wav' });
-        expect(parseTranscodeUrl('folia-transcode://media/../../secret/audio.flac')).toBeNull();
-        expect(parseTranscodeUrl(`folia-transcode://other/${KEY}/audio.flac`)).toBeNull();
+        expect(parseTranscodeUrl(`bigorange-transcode://media/${KEY}/audio.flac`)).toEqual({ cacheKey: KEY, format: 'flac' });
+        expect(parseTranscodeUrl(`bigorange-transcode://media/${KEY}/audio.wav`)).toEqual({ cacheKey: KEY, format: 'wav' });
+        expect(parseTranscodeUrl('bigorange-transcode://media/../../secret/audio.flac')).toBeNull();
+        expect(parseTranscodeUrl(`bigorange-transcode://other/${KEY}/audio.flac`)).toBeNull();
     });
 
     it('parses open, closed and suffix byte ranges', () => {

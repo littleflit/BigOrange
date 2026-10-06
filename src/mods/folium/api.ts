@@ -202,17 +202,17 @@ export const createFoliumClientApi = (mod: ModRuntimeInfo, options: FoliumClient
     const internals = gatedNamespace(
         'internals',
         options.internals ?? {},
-        () => Boolean(mod.folia) && options.internals !== null,
-        () => (mod.folia
+        () => Boolean(mod.bigorange) && options.internals !== null,
+        () => (mod.bigorange
             ? `internals-unavailable-in-${context}-context`
-            : 'internals-require-folia-range (pin host versions with "folia" in mod.json)'),
+            : 'internals-require-bigorange-range (pin host versions with "bigorange" in mod.json)'),
     );
 
     return Object.freeze({
         modId,
         host: Object.freeze({
             folium: Object.freeze({ major: FOLIUM_VERSION.major, minor: FOLIUM_VERSION.minor }),
-            folia: typeof __APP_VERSION__ === 'undefined' ? null : __APP_VERSION__,
+            bigorange: typeof __APP_VERSION__ === 'undefined' ? null : __APP_VERSION__,
         }),
         env: Object.freeze({ context }),
         log,

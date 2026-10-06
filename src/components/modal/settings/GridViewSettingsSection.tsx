@@ -11,7 +11,7 @@ import {
 import { useGridViewSettingsStore } from '../../../stores/useGridViewSettingsStore';
 
 // src/components/modal/settings/GridViewSettingsSection.tsx
-// Look of the folia card grid: full-bleed covers plus the two floors of the distance falloff.
+// Look of the bigorange card grid: full-bleed covers plus the two floors of the distance falloff.
 // Reads the store directly, the way LatticeSettingsSection does, so AppearanceSettingsSubview does
 // not grow another six props. Deliberately outside the appearance import/export payload.
 

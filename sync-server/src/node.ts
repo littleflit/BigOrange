@@ -31,7 +31,7 @@ try {
 const SYNC_TOKEN = process.env.SYNC_TOKEN;
 const DASHBOARD_TOKEN = process.env.DASHBOARD_TOKEN;
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
-const DB_PATH = process.env.DB_PATH || path.resolve(__dirname, '../folia-sync.db');
+const DB_PATH = process.env.DB_PATH || path.resolve(__dirname, '../bigorange-sync.db');
 
 if (!SYNC_TOKEN) {
   console.error('\x1b[31m[ERROR]\x1b[0m SYNC_TOKEN environment variable is missing.');
@@ -65,7 +65,7 @@ try {
 }
 
 console.log(logo);
-console.log(`\x1b[32m[Folia Sync Server]\x1b[0m Starting Node.js standalone server (v${version})...`);
+console.log(`\x1b[32m[BigOrange Sync Server]\x1b[0m Starting Node.js standalone server (v${version})...`);
 console.log(`- Port: \x1b[33m${PORT}\x1b[0m`);
 console.log(`- Database: \x1b[33m${DB_PATH}\x1b[0m`);
 if (DASHBOARD_TOKEN) {
@@ -76,7 +76,7 @@ if (DASHBOARD_TOKEN) {
 
 serve({
   fetch: (req) => app.fetch(req, {
-    FOLIA_SYNC_DB: db,
+    BIGORANGE_SYNC_DB: db,
     SYNC_TOKEN,
     DASHBOARD_TOKEN,
   }),

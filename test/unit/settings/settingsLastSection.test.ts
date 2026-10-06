@@ -43,7 +43,7 @@ const throwingStorage: SettingsSectionStorage = {
 describe('settingsLastSection', () => {
     it('keeps the storage key stable', () => {
         // A renamed key silently forgets everyone's last page.
-        expect(SETTINGS_LAST_SECTION_STORAGE_KEY).toBe('folia_settings_last_section');
+        expect(SETTINGS_LAST_SECTION_STORAGE_KEY).toBe('bigorange_settings_last_section');
     });
 
     it('lists the same sections the sidebar shows on each platform', () => {

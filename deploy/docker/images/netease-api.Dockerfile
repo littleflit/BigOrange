@@ -8,8 +8,8 @@ ENV ENABLE_GENERAL_UNBLOCK=false
 
 COPY deploy/docker/netease-api/package.json deploy/docker/netease-api/package-lock.json ./
 RUN npm ci --omit=dev
-COPY deploy/docker/scripts/patch-music-api-client-ip.mjs /usr/local/lib/folia/patch-music-api-client-ip.mjs
-RUN node /usr/local/lib/folia/patch-music-api-client-ip.mjs netease
+COPY deploy/docker/scripts/patch-music-api-client-ip.mjs /usr/local/lib/bigorange/patch-music-api-client-ip.mjs
+RUN node /usr/local/lib/bigorange/patch-music-api-client-ip.mjs netease
 
 USER node
 EXPOSE 3000

@@ -267,7 +267,7 @@ module.exports = function activate(api) {
 | 成员 | 说明 |
 | --- | --- |
 | \`api.manifest\` | 冻结的清单副本 |
-| \`api.host\` | \`{ folium: { major, minor }, folia }\`，与客户端的 \`folium.host\` 相同 |
+| \`api.host\` | \`{ folium: { major, minor }, bigorange }\`，与客户端的 \`folium.host\` 相同 |
 | \`api.log.info / warn / error(message, details?)\` | 写入模组日志；\`error\` 会显示在模组面板 |
 | \`api.storage.data.get / set / has / delete / keys\` | 异步；需要 \`filesystem.data\`；与客户端 \`folium.storage\` 共用同一个数据文件（上限 1 MB） |
 | \`api.lifecycle.onDeactivate(fn)\` | 模组被停用、重载或应用退出时调用；\`activate\` 返回的函数效果相同 |

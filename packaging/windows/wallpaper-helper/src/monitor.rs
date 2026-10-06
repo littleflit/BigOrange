@@ -5,7 +5,7 @@
 //
 // The TaskbarCreated + Shell_TrayWnd PID comparison is translated from Lively Wallpaper
 // (GPL-3.0) WinDesktopCore.cs WndProc_TaskbarCreated.   Copyright (c) rocksdanister.
-// This file is distributed with Folia under AGPL-3.0.
+// This file is distributed with BigOrange under AGPL-3.0.
 
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Mutex;
@@ -36,7 +36,7 @@ const REATTACH_MAX_ATTEMPTS: u32 = 10;
 const REATTACH_RETRY_DELAY: Duration = Duration::from_millis(500);
 
 pub struct AppState {
-    pub folia_hwnd: isize,
+    pub bigorange_hwnd: isize,
     pub worker_w: isize,
     pub zguard: bool,
     pub explorer_pid: u32,
@@ -52,12 +52,12 @@ fn with_state<T>(f: impl FnOnce(&mut AppState) -> T) -> Option<T> {
     })
 }
 
-/// The Folia hwnd currently being watched (None before `start`).
-pub fn resident_folia_hwnd() -> Option<isize> {
-    with_state(|state| state.folia_hwnd)
+/// The BigOrange hwnd currently being watched (None before `start`).
+pub fn resident_bigorange_hwnd() -> Option<isize> {
+    with_state(|state| state.bigorange_hwnd)
 }
 
-/// The WorkerW the Folia window is currently parented into (None before `start`).
+/// The WorkerW the BigOrange window is currently parented into (None before `start`).
 pub fn resident_worker_w() -> Option<isize> {
     with_state(|state| state.worker_w)
 }
@@ -73,7 +73,7 @@ pub unsafe fn start(hwnd: HWND, worker_w: HWND, zguard: bool) -> Result<(), Stri
     *APP_STATE
         .lock()
         .map_err(|_| "monitor state poisoned".to_string())? = Some(AppState {
-        folia_hwnd: hwnd.0 as isize,
+        bigorange_hwnd: hwnd.0 as isize,
         worker_w: worker_w.0 as isize,
         zguard,
         explorer_pid,
@@ -134,18 +134,18 @@ unsafe extern "system" fn win_event_proc(
     let snapshot = with_state(|state| {
         (
             hwnd.0 as isize == state.worker_w,
-            hwnd.0 as isize == state.folia_hwnd,
+            hwnd.0 as isize == state.bigorange_hwnd,
             state.zguard,
-            state.folia_hwnd,
+            state.bigorange_hwnd,
         )
     });
-    let Some((is_workerw, is_folia, zguard, folia)) = snapshot else {
+    let Some((is_workerw, is_bigorange, zguard, bigorange)) = snapshot else {
         return;
     };
 
     match event {
-        EVENT_OBJECT_DESTROY if is_workerw || is_folia => {
-            on_workerw_lost(folia);
+        EVENT_OBJECT_DESTROY if is_workerw || is_bigorange => {
+            on_workerw_lost(bigorange);
         }
         EVENT_OBJECT_REORDER if zguard => {
             maybe_reassert_z_order();
@@ -157,18 +157,18 @@ unsafe extern "system" fn win_event_proc(
 // --- z-order guard -----------------------------------------------------------
 
 unsafe fn maybe_reassert_z_order() {
-    let Some((folia, worker_w)) = with_state(|state| (state.folia_hwnd, state.worker_w)) else {
+    let Some((bigorange, worker_w)) = with_state(|state| (state.bigorange_hwnd, state.worker_w)) else {
         return;
     };
-    let folia = HWND(folia as _);
+    let bigorange = HWND(bigorange as _);
     let worker_w = HWND(worker_w as _);
-    if !IsWindow(Some(folia)).as_bool() {
+    if !IsWindow(Some(bigorange)).as_bool() {
         return;
     }
-    if !crate::attach::is_parented_into(folia, worker_w) {
+    if !crate::attach::is_parented_into(bigorange, worker_w) {
         return;
     }
-    if crate::attach::is_topmost_child_of_worker_w(folia, worker_w) {
+    if crate::attach::is_topmost_child_of_worker_w(bigorange, worker_w) {
         return;
     }
     // Rate-limit actual re-assertions; the checks above are cheap, SetWindowPos is not.
@@ -181,10 +181,10 @@ unsafe fn maybe_reassert_z_order() {
     if recent.unwrap_or(false) {
         return;
     }
-    if crate::attach::reassert_z_order_top(folia) {
+    if crate::attach::reassert_z_order_top(bigorange) {
         with_state(|state| state.last_zassert = Some(Instant::now()));
         emit(&Event::Reasserted {
-            hwnd: folia.0 as isize,
+            hwnd: bigorange.0 as isize,
         });
     }
 }
@@ -228,8 +228,8 @@ pub unsafe fn on_taskbar_created() {
     spawn_reattach();
 }
 
-fn on_workerw_lost(folia_hwnd: isize) {
-    emit(&Event::WorkerwDestroyed { hwnd: folia_hwnd });
+fn on_workerw_lost(bigorange_hwnd: isize) {
+    emit(&Event::WorkerwDestroyed { hwnd: bigorange_hwnd });
     spawn_reattach();
 }
 
@@ -245,16 +245,16 @@ fn spawn_reattach() {
             if crate::DETACH_REQUESTED.load(Ordering::SeqCst) {
                 break;
             }
-            let Some(folia) = with_state(|state| state.folia_hwnd) else {
+            let Some(bigorange) = with_state(|state| state.bigorange_hwnd) else {
                 break;
             };
-            if folia == 0 {
+            if bigorange == 0 {
                 break;
             }
-            let hwnd = HWND(folia as _);
+            let hwnd = HWND(bigorange as _);
             if !IsWindow(Some(hwnd)).as_bool() {
                 emit(&Event::Error {
-                    message: "folia window was destroyed together with the WorkerW; the main process must rebuild it"
+                    message: "bigorange window was destroyed together with the WorkerW; the main process must rebuild it"
                         .to_string(),
                     kind: Some(crate::events::ERR_KIND_WINDOW_DESTROYED),
                 });
@@ -271,7 +271,7 @@ fn spawn_reattach() {
                         state.last_zassert = None;
                     });
                     emit(&Event::Attached {
-                        hwnd: folia,
+                        hwnd: bigorange,
                         workerw: worker_w.0 as isize,
                         mode: mode.as_str(),
                     });

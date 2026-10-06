@@ -10,7 +10,7 @@ import { VISUALIZER_REGISTRY } from '@/components/visualizer/registry';
 
 // src/mods/folium/internals.ts
 // `folium.internals`: raw host objects for mods that accept being pinned to host
-// versions (manifest "folia"). No compatibility promise of any kind — any Folia
+// versions (manifest "bigorange"). No compatibility promise of any kind — any BigOrange
 // release may rename, reshape or remove anything here. Loaded lazily and only
 // in the main window, so the export bundle never pulls the app's stores.
 //

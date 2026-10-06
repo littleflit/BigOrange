@@ -15,10 +15,10 @@ import { fileURLToPath } from 'node:url';
 //   4. The probe recovers: the stand-in reports a plain relaunch (with the correct env rules) and
 //      exits, which this script asserts.
 //
-// Expected status sequence: `started` → `relaunch-spawned ... FOLIA_RELAUNCH=1 WAYLAND_SOCKET= WRAPPED=` → `exit 0`.
+// Expected status sequence: `started` → `relaunch-spawned ... BIGORANGE_RELAUNCH=1 WAYLAND_SOCKET= WRAPPED=` → `exit 0`.
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const statusFile = path.join(os.tmpdir(), `folia-watchdog-sim-${process.pid}.log`);
+const statusFile = path.join(os.tmpdir(), `bigorange-watchdog-sim-${process.pid}.log`);
 
 const readStatus = () => {
   try {
@@ -88,7 +88,7 @@ const run = async () => {
     const recovered = await waitFor(
       (status) =>
         status.includes('relaunch-spawned') &&
-        status.includes('FOLIA_RELAUNCH=1') &&
+        status.includes('BIGORANGE_RELAUNCH=1') &&
         status.includes('WAYLAND_SOCKET= ') &&
         status.includes('WRAPPED='),
       5000,

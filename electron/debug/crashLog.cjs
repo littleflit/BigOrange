@@ -36,7 +36,7 @@ const isWritableDir = (dir) => {
  * on Windows the per-user NSIS install is writable. It often is not anywhere else — a `.deb` lands
  * under root-owned `/opt`, an AppImage mount is read only — so the fallback is not an edge case.
  *
- * macOS never uses the install directory. `app.getPath('exe')` there is inside `Folia.app`, and
+ * macOS never uses the install directory. `app.getPath('exe')` there is inside `BigOrange.app`, and
  * writing into a signed bundle invalidates its signature: the crash report would cost the user
  * their next launch. Its crashes go to userData.
  */
@@ -88,7 +88,7 @@ const prune = (dir) => {
 
 /** Everything that is worth knowing before reading the stack. */
 const describeEnvironment = (app) => [
-    `Folia      ${app.getVersion()}`,
+    `BigOrange      ${app.getVersion()}`,
     `Electron   ${process.versions.electron}`,
     `Chrome     ${process.versions.chrome}`,
     `Node       ${process.versions.node}`,
@@ -141,7 +141,7 @@ const createCrashLog = ({ app, dialog, shell, getLocale, onLine }) => {
         if (!dir) return null;
         const file = uniquePath(`crash-${stamp()}`);
         const body = [
-            `# Folia crash report`,
+            `# BigOrange crash report`,
             `Time       ${new Date().toISOString()}`,
             `Kind       ${kind}`,
             describeEnvironment(app),

@@ -27,7 +27,7 @@ describe('classifyMediaElementFailure', () => {
     });
 
     it('never recursively transcodes a recovered representation', () => {
-        expect(classifyMediaElementFailure({ code: 4 }, 'folia-transcode://media/key/audio.flac'))
+        expect(classifyMediaElementFailure({ code: 4 }, 'bigorange-transcode://media/key/audio.flac'))
             .toMatchObject({ eligibleForTranscode: false });
     });
 

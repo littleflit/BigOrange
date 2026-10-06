@@ -21,7 +21,7 @@ export const UserGuideModal: React.FC<{ theme?: Theme | null }> = ({ theme }) =>
         <AnimatePresence>
             {isOpen && (
                 <motion.div
-                    data-folia-keyboard-window="true"
+                    data-bigorange-keyboard-window="true"
                     data-testid="ponder-onboarding"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}

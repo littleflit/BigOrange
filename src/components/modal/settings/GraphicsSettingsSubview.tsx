@@ -20,7 +20,7 @@ import { useVisualizerSettingsStore } from '../../../stores/useVisualizerSetting
 // Moved out of the lab page, where these sat among unrelated player-chrome switches.
 
 /** Docs page behind the "Fix lyric animation freeze on Linux" switch. */
-const CHROMIUM_FD_EXHAUSTION_DOCS_URL = 'https://folia-site.cielaniska.top/guide/chromium-fd-exhaustion';
+const CHROMIUM_FD_EXHAUSTION_DOCS_URL = 'https://bigorange-site.cielaniska.top/guide/chromium-fd-exhaustion';
 
 /** On desktop a plain link would open inside the app window; hand it to the system browser instead. */
 const openDocsLinkExternally = (event: React.MouseEvent<HTMLAnchorElement>) => {

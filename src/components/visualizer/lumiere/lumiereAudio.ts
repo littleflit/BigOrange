@@ -4,7 +4,7 @@ import type { AudioBands } from '../../../types';
 import type { LumiereAudioFrame } from './lumiereKernel';
 
 // src/components/visualizer/lumiere/lumiereAudio.ts
-// folia 的音频 MotionValue → 绘光场景要的 audioAt 帧（bass / treble / power，0..1）。
+// bigorange 的音频 MotionValue → 绘光场景要的 audioAt 帧（bass / treble / power，0..1）。
 //
 // 量纲：主播放器（usePlaybackVisualizerBridge）写的是 0..255（getByteFrequencyData 的均值再做 pow 压缩），
 // 没在出声时是 0..40 的「呼吸」；VisPlayground / ThemePark 的预览时钟与 OBS 的音频桥写的是 0..1。

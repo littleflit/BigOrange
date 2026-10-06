@@ -1,12 +1,12 @@
-# Contributing to Folia
+# Contributing to BigOrange
 
 [简体中文](CONTRIBUTING.md) | [English](CONTRIBUTING.en.md)
 
-Thank you for contributing to Folia. You can help by reporting issues, providing reproduction steps, verifying fixes, improving documentation, or submitting code. This guide sets out the requirements for contributions to the mainline. Please read it before making changes or submitting a pull request (PR).
+Thank you for contributing to BigOrange. You can help by reporting issues, providing reproduction steps, verifying fixes, improving documentation, or submitting code. This guide sets out the requirements for contributions to the mainline. Please read it before making changes or submitting a pull request (PR).
 
 ## Understand the boundaries of mainline contributions
 
-**Personal modifications and mainline contributions are two different things.** Folia is opinionated software with its own design direction and architectural preferences. The mainline does not aim to satisfy every user's needs, and feature acceptance is not decided solely by how many people support it.
+**Personal modifications and mainline contributions are two different things.** BigOrange is opinionated software with its own design direction and architectural preferences. The mainline does not aim to satisfy every user's needs, and feature acceptance is not decided solely by how many people support it.
 
 Even if many users consider a feature necessary, it will not be merged into the mainline if it does not align with the maintainers' design preferences or architectural direction. Submitting a PR does not mean the maintainers have committed to accepting it; a complete implementation and passing tests do not guarantee a merge. You are welcome to maintain your own modifications in a fork.
 
@@ -16,7 +16,7 @@ For new features, interaction changes, architectural changes, or new dependencie
 
 ## AI tools and submission responsibility
 
-**Folia allows and welcomes AI coding tools, but every PR must involve a human in the final verification. The person submitting the code is responsible for its contents and must be able to clearly explain the PR's overall design, why it is being proposed, and what real, existing problem it solves.**
+**BigOrange allows and welcomes AI coding tools, but every PR must involve a human in the final verification. The person submitting the code is responsible for its contents and must be able to clearly explain the PR's overall design, why it is being proposed, and what real, existing problem it solves.**
 
 Using AI to generate code, tests, or review feedback does not transfer the submitter's responsibility. You should understand the final diff, verify the tool's conclusions, and personally confirm that the changes behave as described in actual use. A tool claiming that work is complete or tests pass is no substitute for human verification.
 
@@ -30,7 +30,7 @@ If a submitted PR cannot even perform its claimed functionality correctly in dir
 
 Before opening an issue, search existing issues and PRs to avoid duplicates. A bug report should include, where possible:
 
-- The Folia version, platform, and whether you are using the web or desktop application.
+- The BigOrange version, platform, and whether you are using the web or desktop application.
 - Repeatable reproduction steps, expected behavior, and actual behavior.
 - Relevant screenshots, error logs, and necessary configuration details.
 - Whether the issue can be reproduced in a version without your personal modifications.

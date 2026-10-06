@@ -15,8 +15,8 @@
 // button* (with IsMouseButtonsSwapped handling) and the *scroll wheels* (vertical + horizontal);
 // keyboard / right / middle / side buttons are not forwarded. No upstream wallpaper project
 // ships working wheel forwarding (Lively's raw-input wheel path is commented out,
-// electron-as-wallpaper swallows RI_MOUSE_HWHEEL) — the wheel reporting here is Folia's own.
-// This file is distributed with Folia under AGPL-3.0.
+// electron-as-wallpaper swallows RI_MOUSE_HWHEEL) — the wheel reporting here is BigOrange's own.
+// This file is distributed with BigOrange under AGPL-3.0.
 
 use std::sync::atomic::{AtomicBool, AtomicI32, AtomicIsize, Ordering};
 

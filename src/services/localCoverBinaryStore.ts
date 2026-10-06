@@ -13,7 +13,7 @@ const ALLOWED_MIME_TYPES = new Set([
   'image/png',
   'image/webp',
 ]);
-const OPFS_ROOT_DIRECTORY = 'folia-cache';
+const OPFS_ROOT_DIRECTORY = 'bigorange-cache';
 const OPFS_LOCAL_COVER_DIRECTORY = 'local-cover-assets';
 const LOCAL_COVER_THUMBNAIL_SIZES = [512, 1024] as const;
 

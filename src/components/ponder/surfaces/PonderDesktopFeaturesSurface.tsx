@@ -6,7 +6,7 @@ import { DESKTOP_FEATURES_GEOMETRY as D, relativeRectStyle } from './ponderSurfa
 // src/components/ponder/surfaces/PonderDesktopFeaturesSurface.tsx
 // 桌面端那三样东西：壁纸模式、系统托盘、遥控窗口。
 //
-// 画一整块桌面而不是画应用界面：这三样讲的都是「Folia 和操作系统之间的关系」——
+// 画一整块桌面而不是画应用界面：这三样讲的都是「BigOrange 和操作系统之间的关系」——
 // 窗口沉到哪一层、图标停在系统的哪一侧、另开的那个窗口浮在谁上面。
 // 只画应用自己的界面，这三件事一件也说不清。
 

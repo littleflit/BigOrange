@@ -85,7 +85,7 @@ const contents: PonderSceneScript = {
  * 第三章：歌词行那颗导入 / 导出。
  *
  * 导入和导出合在一颗按钮、一扇窗口里，所以这一章要讲清按下去之后窗口里有什么：
- * 导入接受哪些文件（包括 Folia 自己导出的 .fia），导出这一首的两种格式怎么取舍，
+ * 导入接受哪些文件（包括 BigOrange 自己导出的 .fia），导出这一首的两种格式怎么取舍，
  * 以及批量导出不在这里做完，而是交给命令面板里那一页。
  */
 const lyricFile: PonderSceneScript = {

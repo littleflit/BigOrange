@@ -142,7 +142,7 @@ describe('library core layer boundaries', () => {
             /\/GridView$/, /\/Grid3D$/, /\/GridMap$/, /\/ArtistGridView$/,
             /\/(DesktopGrid3DSurface|Grid3DSlider|GridViewTabs|GridMapBatchPanel|GridMapBatchItemList|gridMapCardText|gridMapNavigation)$/,
             /(^|\/)grid\/(home|directory|collection|artist|account|shared|transitions)\//,
-            /(folia-grid|grid\/shared)\/(PolaroidCard|polaroidCardParts|hex\w*|useFoliaHexViewport)$/,
+            /(bigorange-grid|grid\/shared)\/(PolaroidCard|polaroidCardParts|hex\w*|useBigOrangeHexViewport)$/,
             /(collectionOpenMorph|grid\/transitions)\//,
         ];
         const tui = listSources('src/library/suites/tui');
@@ -202,7 +202,7 @@ describe('library core layer boundaries', () => {
         expect(offenders).toEqual([]);
         expect(listSources('src/library/suites/grid/home').filter(file => /\/(localGrid3DModel|useNavidromeGridLibrary)\.ts$/.test(file))).toEqual([]);
         // Navidrome section 记忆只有一个持有者：core 的 store。
-        expect(listSources('src').filter(file => read(file).includes("'folia_navidrome_last_section'")))
+        expect(listSources('src').filter(file => read(file).includes("'bigorange_navidrome_last_section'")))
             .toEqual([`${CORE}/state/useNavidromeHomeSectionStore.ts`]);
     });
 

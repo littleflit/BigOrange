@@ -24,7 +24,7 @@ import { containsCjk, toFullPinyin, toInitials } from './pinyinTerms.mjs';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, '../..');
 
-export const VIRTUAL_MODULE_ID = 'virtual:folia-command-pinyin';
+export const VIRTUAL_MODULE_ID = 'virtual:bigorange-command-pinyin';
 const RESOLVED_VIRTUAL_MODULE_ID = `\0${VIRTUAL_MODULE_ID}`;
 
 const ZH_LOCALE_PATH = path.join(ROOT, 'src/i18n/locales/zh-CN.ts');
@@ -127,7 +127,7 @@ const collectLocaleCommandPhrases = (sink) => {
     const commands = findProperty(findProperty(root, 'commandPalette'), 'commands');
     if (!commands) {
         throw new Error(
-            '[folia-command-pinyin] 在 src/i18n/locales/zh-CN.ts 里找不到 commandPalette.commands。'
+            '[bigorange-command-pinyin] 在 src/i18n/locales/zh-CN.ts 里找不到 commandPalette.commands。'
             + '文案结构变了就得同步改这里，否则命令的中文和拼音会静默搜不到。',
         );
     }
@@ -215,7 +215,7 @@ const isWatchedPath = (changedPath) => isSuiteChromePath(changedPath) || WATCHED
 ));
 
 export const commandPinyinPlugin = () => ({
-    name: 'folia-command-pinyin',
+    name: 'bigorange-command-pinyin',
     enforce: 'pre',
     resolveId(id) {
         return id === VIRTUAL_MODULE_ID ? RESOLVED_VIRTUAL_MODULE_ID : null;

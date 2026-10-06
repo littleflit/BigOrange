@@ -60,7 +60,7 @@ async def process_song_request(song_name: str):
                 title = target_song.get("title", song_name)
                 print(f"🔍 搜索成功: 找到【{title}】 (ID: {song_id})")
 
-            # 3. 将歌曲id推送到 folia 接口
+            # 3. 将歌曲id推送到 bigorange 接口
             # appendToQueue = True 表示将歌曲添加到播放队列末尾，False表示立即播放并替换当前队列
 
             play_payload = {"songId": song_id, "appendToQueue": True}

@@ -46,7 +46,7 @@ export async function prepareBundledKoffi({ arch, projectRoot = process.cwd() })
   if (installed.version !== target.version) {
     throw new Error('Installed Koffi does not match package-lock.json; run npm ci');
   }
-  const temporary = await mkdtemp(path.join(os.tmpdir(), 'folia-koffi-'));
+  const temporary = await mkdtemp(path.join(os.tmpdir(), 'bigorange-koffi-'));
   try {
     const response = await fetch(target.resolved);
     if (!response.ok) throw new Error(`Unable to download ${target.name}: HTTP ${response.status}`);

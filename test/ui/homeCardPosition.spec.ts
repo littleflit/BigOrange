@@ -26,7 +26,7 @@ const bootHome = async (page: Page) => {
         Object.defineProperty(navigator.serviceWorker, 'register', {
             configurable: true,
             value: (scriptURL: string | URL, options?: RegistrationOptions) => (
-                String(scriptURL).includes('folia-cover-sw')
+                String(scriptURL).includes('bigorange-cover-sw')
                     ? Promise.reject(new Error('Service workers are blocked in this spec.'))
                     : register(scriptURL, options)
             ),
@@ -105,12 +105,12 @@ test('restores the card identity after reorder and bounds the fallback after del
     await page.route('**/__mock_netease__/album/sublist?*', route => route.fulfill({
         json: { data: [albums[2], albums[0], albums[1]], hasMore: false },
     }));
-    await page.evaluate(() => window.dispatchEvent(new Event('folia-refresh-favorite-albums')));
+    await page.evaluate(() => window.dispatchEvent(new Event('bigorange-refresh-favorite-albums')));
     await expectCenteredCard(page, 0, 'Album 3');
     await page.route('**/__mock_netease__/album/sublist?*', route => route.fulfill({
         json: { data: [albums[0]], hasMore: false },
     }));
-    await page.evaluate(() => window.dispatchEvent(new Event('folia-refresh-favorite-albums')));
+    await page.evaluate(() => window.dispatchEvent(new Event('bigorange-refresh-favorite-albums')));
     await expectCenteredCard(page, 0, 'Album 1');
 });
 

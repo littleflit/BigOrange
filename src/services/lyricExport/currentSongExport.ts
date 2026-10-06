@@ -7,7 +7,7 @@ import {
 } from '../../utils/appPlaybackGuards';
 import { resolveLocalSongLyrics } from '../../utils/lyrics/localSongLyrics';
 import { migrateLyricDataRenderHints } from '../../utils/lyrics/renderHints';
-import type { FoliaLyricDocumentSource } from '../../utils/lyrics/foliaLyricDocument';
+import type { BigOrangeLyricDocumentSource } from '../../utils/lyrics/bigorangeLyricDocument';
 import { judgeLyricsForExport } from '../../utils/lyrics/exportableLyrics';
 import { isPureMusicLyricText } from '../../utils/lyrics/pureMusic';
 import { loadOnlineLyricsState, resolveOnlineLyrics, resolveOnlineLyricsPureMusic } from '../../utils/onlineLyricsState';
@@ -40,7 +40,7 @@ export type CurrentSongExportContext = {
 };
 
 /** Lyrics as their source holds them, and that source's own rule for "this is instrumental". */
-type RawLyrics = { lyrics: LyricData; source: FoliaLyricDocumentSource; isPureMusic: (lyricText: string) => boolean };
+type RawLyrics = { lyrics: LyricData; source: BigOrangeLyricDocumentSource; isPureMusic: (lyricText: string) => boolean };
 
 const readOnlineLyrics = async (song: SongResult): Promise<RawLyrics | null> => {
     const [state, cached] = await Promise.all([
@@ -84,7 +84,7 @@ const readLocalLyrics = async (
     };
 };
 
-const fallbackSource = (song: SongResult, activeLocalLyricsSource: ActiveLocalLyricsSource | null): FoliaLyricDocumentSource => {
+const fallbackSource = (song: SongResult, activeLocalLyricsSource: ActiveLocalLyricsSource | null): BigOrangeLyricDocumentSource => {
     if (isLocalPlaybackSong(song)) return activeLocalLyricsSource ?? 'local';
     if (isNavidromePlaybackSong(song)) return 'navidrome';
     return song.onlineLyricsState?.lyricsSource === 'imported' ? 'imported' : 'online';

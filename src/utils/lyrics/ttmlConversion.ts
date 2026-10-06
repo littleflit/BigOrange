@@ -9,7 +9,7 @@ import type {
 import type { Line, LyricAlternateText, LyricBackgroundVocal, LyricData, LyricRuby, LyricSyllable, Word } from '../../types';
 
 // src/utils/lyrics/ttmlConversion.ts
-// Maps AMLL/Apple TTML parser output into Folia's stable LyricData shape.
+// Maps AMLL/Apple TTML parser output into BigOrange's stable LyricData shape.
 
 type TimedWordBuilder = (text: string, startTime: number, endTime: number) => Word[];
 
@@ -50,7 +50,7 @@ const convertSyllable = (syllable: TtmlSyllable): LyricSyllable => ({
 });
 
 // TTML often splits western words into syllables. Preserve those syllables while
-// exposing a single Folia Word so visualizers do not introduce layout breaks.
+// exposing a single BigOrange Word so visualizers do not introduce layout breaks.
 const buildWordsFromSyllables = (
     syllables: TtmlSyllable[] | undefined,
     fallbackText: string,

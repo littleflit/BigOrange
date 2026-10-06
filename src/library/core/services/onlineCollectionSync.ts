@@ -2,7 +2,7 @@ import { appendUniqueByKey } from '../model/collectionPaging';
 
 // src/library/core/services/onlineCollectionSync.ts
 // Background paging for large online collections (GridView fills the rest after the first page).
-// (Moved from components/folia-grid: the paging loop is collection IO, not grid presentation.)
+// (Moved from components/bigorange-grid: the paging loop is collection IO, not grid presentation.)
 //
 // 进度按上游的原始 offset 推进，而不是按去重后的条数：上游歌单里可能有重复条目，
 // 拿去重后的长度去比 total 永远到不了终点，只能白跑请求直到撞上安全上限。

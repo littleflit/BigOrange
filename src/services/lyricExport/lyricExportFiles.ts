@@ -2,10 +2,10 @@ import { createSafeObjectUrl } from '../../utils/blobGuards';
 import { sanitizeDownloadFileName } from '../../utils/downloadFileName';
 import { serializeEnhancedLrc } from '../../utils/lyrics/enhancedLrcSerializer';
 import {
-    buildFoliaLyricDocument,
-    FOLIA_LYRIC_FILE_EXTENSION,
-    serializeFoliaLyricDocument,
-} from '../../utils/lyrics/foliaLyricDocument';
+    buildBigOrangeLyricDocument,
+    BIGORANGE_LYRIC_FILE_EXTENSION,
+    serializeBigOrangeLyricDocument,
+} from '../../utils/lyrics/bigorangeLyricDocument';
 import type { ExportableLyric, LyricExportFormat } from './types';
 
 // src/services/lyricExport/lyricExportFiles.ts
@@ -17,7 +17,7 @@ export interface LyricFileContentOptions {
 }
 
 export const LYRIC_EXPORT_EXTENSIONS: Record<LyricExportFormat, string> = {
-    fia: FOLIA_LYRIC_FILE_EXTENSION,
+    fia: BIGORANGE_LYRIC_FILE_EXTENSION,
     lrc: 'lrc',
 };
 
@@ -65,7 +65,7 @@ export const buildLyricFileContent = (
     options: LyricFileContentOptions,
 ): string => {
     if (format === 'fia') {
-        return serializeFoliaLyricDocument(buildFoliaLyricDocument(entry.lyrics, {
+        return serializeBigOrangeLyricDocument(buildBigOrangeLyricDocument(entry.lyrics, {
             song: entry.song,
             source: entry.source,
             offsetMs: entry.offsetMs,

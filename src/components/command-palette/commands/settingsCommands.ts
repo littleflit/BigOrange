@@ -114,7 +114,7 @@ export const settingsCommands: CommandPaletteCommand[] = [
         { isAvailable: context => context?.settings.canReportNeteasePlayback() ?? true },
     ),
     createSettingsAnchorCommand('settings-audio-output', 'Audio output', 'Jump to the audio output device and format settings', ['output device', 'audio device', 'sound card', '输出设备'], 'audioOutputSettings'),
-    createSettingsAnchorCommand('settings-transition', 'Smart transition', 'Jump to the FOLIA transition settings', ['automix', 'crossfade', 'transition', '智能过渡', '转场'], 'transitionSettings'),
+    createSettingsAnchorCommand('settings-transition', 'Smart transition', 'Jump to the BIGORANGE transition settings', ['automix', 'crossfade', 'transition', '智能过渡', '转场'], 'transitionSettings'),
     createSettingsAnchorCommand('settings-local-lyrics-priority', 'Local song lyrics priority', 'Choose whether local songs prefer local or online lyrics', ['local lyrics priority', 'online lyrics first', 'local song lyrics', '本地歌曲歌词优先级', '在线优先', '本地歌词', 'bendigeciyouxianji', 'bdgcyxj'], 'lyrics'),
     createSettingsAnchorCommand('settings-local-lyric-format-order', 'Local lyric file format priority', 'Choose which format wins when a track has several lyric files', ['lyric format priority', 'lyric file order', 'lrc ttml priority', '本地歌词文件格式优先级', '歌词格式', '格式优先级', 'geciwenjiangeshi', 'gcgsyxj'], 'lyrics'),
     createSettingsCommand('settings-integration', 'Integration settings', 'Open Stage, Now Playing, and Navidrome settings', ['integration', 'stage', 'now playing', 'navidrome settings', '集成', '连接'], 'options', 'integration'),
@@ -124,7 +124,7 @@ export const settingsCommands: CommandPaletteCommand[] = [
         id: 'automix-toggle',
         group: 'settings',
         title: 'Smart transition',
-        description: 'Turn FOLIA smart transitions on or off',
+        description: 'Turn BIGORANGE smart transitions on or off',
         keywords: ['automix', 'blend', 'auto mix', 'transition', '智能过渡', '自动混音', '过渡', '开启过渡', 'znguodu'],
         execute: (_input, context) => {
             context.settings.toggleAutomix();
@@ -135,9 +135,9 @@ export const settingsCommands: CommandPaletteCommand[] = [
         id: 'transition-mode-crossfade',
         isAvailable: context => (context ? context.settings.transitionMode !== 'crossfade' : true),
         group: 'settings',
-        title: 'Transition mode: Folia Crossfade',
+        title: 'Transition mode: BigOrange Crossfade',
         description: 'Use the simple one-out one-in crossfade',
-        keywords: ['crossfade', 'folia crossfade', 'transition mode crossfade', '交叉淡化', '过渡模式交叉淡化', 'gdmscf'],
+        keywords: ['crossfade', 'bigorange crossfade', 'transition mode crossfade', '交叉淡化', '过渡模式交叉淡化', 'gdmscf'],
         execute: (_input, context) => {
             if (context.settings.transitionMode === 'crossfade') return false;
             context.settings.setTransitionMode('crossfade');
@@ -148,9 +148,9 @@ export const settingsCommands: CommandPaletteCommand[] = [
         id: 'transition-mode-automix',
         isAvailable: context => (context ? context.settings.transitionMode !== 'automix' : true),
         group: 'settings',
-        title: 'Transition mode: Folia Automix',
+        title: 'Transition mode: BigOrange Automix',
         description: 'Analyse both tracks and mix them automatically',
-        keywords: ['automix', 'folia automix', 'transition mode automix', '自动混音', '过渡模式自动混音', 'gdmsauto'],
+        keywords: ['automix', 'bigorange automix', 'transition mode automix', '自动混音', '过渡模式自动混音', 'gdmsauto'],
         execute: (_input, context) => {
             if (context.settings.transitionMode === 'automix') return false;
             context.settings.setTransitionMode('automix');
@@ -551,7 +551,7 @@ export const settingsCommands: CommandPaletteCommand[] = [
         group: 'settings',
         title: 'Grid card look',
         description: 'Adjust full-bleed covers and how far grid cards shrink and fade with distance',
-        keywords: ['grid cards', 'folia grid', 'card cover', 'card falloff', 'card size', 'card opacity', '网格卡片', '卡片封面', '卡片衰减'],
+        keywords: ['grid cards', 'bigorange grid', 'card cover', 'card falloff', 'card size', 'card opacity', '网格卡片', '卡片封面', '卡片衰减'],
         icon: Images,
         requiresInput: true,
         surface: gridViewCardsSurface,

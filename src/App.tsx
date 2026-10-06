@@ -148,7 +148,7 @@ import { useFoliumHostBridge } from './mods/folium/hostBridge';
 import { useFoliumHostActions } from './mods/folium/hostActions';
 import { FoliumStageLayerSlot } from './mods/folium/registries/stageLayers';
 
-const LOCAL_MUSIC_UPDATED_EVENT = 'folia-local-music-updated';
+const LOCAL_MUSIC_UPDATED_EVENT = 'bigorange-local-music-updated';
 const DEV_DEBUG_SHORTCUT_LABEL = 'Alt+Shift+D';
 const ONLINE_AUDIO_URL_TTL_MS = 1200 * 1000;
 const ONLINE_AUDIO_URL_REFRESH_BUFFER_MS = 60 * 1000;
@@ -307,7 +307,7 @@ export default function App() {
 
     // Player State
     useEffect(() => {
-        (window as any).__folia_current_time = currentTime;
+        (window as any).__bigorange_current_time = currentTime;
     }, []);
 
     // Progress Bar State

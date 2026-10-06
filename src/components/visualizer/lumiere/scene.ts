@@ -37,7 +37,7 @@ const LUMIERE_NEUTRAL_OFFSET = ((0x50b8d09c ^ lumiereScaleMask) + Math.imul(0xf0
 // 随镜头换的：光位（镜头边界处两套光束在同一个光场里交叉渐变）与线稿（下一个提前描、上一个随后淡出）。
 // 主题：关键字（wordColors）点亮时带关键字色（字、光晕、闪点、落在上面的十字爆闪、背景碎片）；
 // 主题图标（lyricsIcons）每个镜头散落几枚在文字区外，和线稿同样描出、同样随镜头交叉渐变。
-// 容器本身透明，背景归 folia 的共享背景层；暗场底由运行时铺在所有场景之下（lumiereDarkField.ts），
+// 容器本身透明，背景归 bigorange 的共享背景层；暗场底由运行时铺在所有场景之下（lumiereDarkField.ts），
 // 不随段落转场变化，场景里的光场不再画它（uDark 恒为 0）。
 // Pixi 模块由调用方传入（运行时经 loadPixi 取得），这里只用它的类型。
 type PixiModule = typeof import('pixi.js');
@@ -72,7 +72,7 @@ export interface LumiereSceneOptions {
     fadeOut?: { start: number; end: number } | null;
     /**
      * 音频特征（0..1）：低频推光束亮度、高频推浮尘闪烁、整体响度推烟雾浓度。每帧 update 调一次，
-     * 参数是当前播放时间；folia 里接实时分析（参数可以忽略），不给就当安静。
+     * 参数是当前播放时间；bigorange 里接实时分析（参数可以忽略），不给就当安静。
      */
     audioAt?: (time: number) => LumiereAudioFrame;
     /** 统一覆盖整个单元的排版（不给则按各镜头光位的默认排版）。 */
@@ -121,7 +121,7 @@ export interface LumierePalette {
 }
 
 /**
- * 光场着色器的暗场底（预乘）：folia 里恒为 0。暗场底由运行时画在所有场景之下（见 lumiereDarkField.ts），
+ * 光场着色器的暗场底（预乘）：bigorange 里恒为 0。暗场底由运行时画在所有场景之下（见 lumiereDarkField.ts），
  * 着色器的 uDark 通路保留给 lumisynth 那样由场景自己铺底的宿主。
  */
 export const LUMIERE_SHADER_NO_DARK: [number, number, number, number] = [0, 0, 0, 0];

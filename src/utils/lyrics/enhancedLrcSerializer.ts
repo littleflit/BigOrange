@@ -4,7 +4,7 @@ import { isInterludeLine } from './parserCore';
 // src/utils/lyrics/enhancedLrcSerializer.ts
 // 把 LyricData 写成增强型 LRC（A2 扩展）：`[mm:ss.xx]<mm:ss.xxx>词<mm:ss.xxx>词…<行尾>`。
 //
-// 输出要能被 Folia 自己的 LocalFileLyricAdapter 原样读回来：
+// 输出要能被 BigOrange 自己的 LocalFileLyricAdapter 原样读回来：
 // - 翻译、罗马音写成与原文同一个 `[mm:ss.xx]` 的后续行，这是 splitCombinedTimeline 认的合并布局；
 // - 解析器自动插入的间奏行（`......`）不写，否则读回来会多出一行；
 // - 逐行歌词的 words 是解析器按字数均分出来的假时轴，只写行首时间，不把它们冒充成逐字；
@@ -142,7 +142,7 @@ export const serializeEnhancedLrc = (lyrics: LyricData, options: EnhancedLrcSeri
     if (artist) output.push(`[ar:${sanitizeTagValue(artist)}]`);
     if (metadata.album) output.push(`[al:${sanitizeTagValue(metadata.album)}]`);
     if (metadata.durationMs && metadata.durationMs > 0) output.push(`[length:${formatLengthTag(metadata.durationMs)}]`);
-    output.push('[re:Folia]');
+    output.push('[re:BigOrange]');
 
     let previousTagMs = Number.NEGATIVE_INFINITY;
     for (const line of lyrics.lines) {

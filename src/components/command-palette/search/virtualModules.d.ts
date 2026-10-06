@@ -5,7 +5,7 @@
 // 生成来源是 zh-CN 的 commandPalette.commands 文案和命令定义里手写的中文同义词；
 // 拼音库只在 devDependencies 里，运行时不携带任何字典。
 
-declare module 'virtual:folia-command-pinyin' {
+declare module 'virtual:bigorange-command-pinyin' {
     /** 中文短语 -> 无声调全拼与拼音首字母。key 是原短语，逐字节相等才命中。 */
     export const PINYIN_BY_PHRASE: Record<string, { full: string; initials: string }>;
 

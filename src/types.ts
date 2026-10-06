@@ -708,7 +708,7 @@ export interface LumiereTuning {
   /** 烟雾浓度, 0..2. */
   fogDensity: number;
   /**
-   * 暗场强度, 0..1：光后面铺一层主题背景色压暗的底，压住 folia 的共享背景（0 = 共享背景原样透出）。
+   * 暗场强度, 0..1：光后面铺一层主题背景色压暗的底，压住 bigorange 的共享背景（0 = 共享背景原样透出）。
    * 浅色主题保底 0.94（绘光始终在暗场里）。
    */
   darkField: number;

@@ -15,7 +15,7 @@ import { filterFoliumParamPatch, mergeFoliumParamValues } from './params';
 // The whole map rides along in visual config import/export and in the export
 // window's render config, so exports render with the user's values.
 
-const STORAGE_KEY = 'folia_folium_params_v1';
+const STORAGE_KEY = 'bigorange_folium_params_v1';
 
 type ScopeValues = Record<string, unknown>;
 type ParamsByScope = Record<string, ScopeValues>;

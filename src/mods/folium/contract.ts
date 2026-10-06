@@ -961,7 +961,7 @@ export interface FoliumPlaybackService {
 
 /** A local file the user picked for this mod. */
 export interface FoliumFileHandle {
-    /** folia-mod:// URL usable as a media/img src for this session. */
+    /** bigorange-mod:// URL usable as a media/img src for this session. */
     url: string;
     /** File name. */
     name: string;
@@ -1177,8 +1177,8 @@ export type FoliumContextKind = 'main' | 'export';
 export interface FoliumHostInfo {
     /** The Folium version (`major`, `minor`). */
     folium: { major: number; minor: number };
-    /** Folia app version, or null when the host cannot tell. */
-    folia: string | null;
+    /** BigOrange app version, or null when the host cannot tell. */
+    bigorange: string | null;
 }
 
 /**
@@ -1249,7 +1249,7 @@ export interface FoliumClientApi {
     readonly experimental: Readonly<Record<string, unknown>>;
     /**
      * Host internals with no compatibility promise. Only available when the
-     * manifest pins host versions with `"folia"`; otherwise accessing it throws.
+     * manifest pins host versions with `"bigorange"`; otherwise accessing it throws.
      */
     readonly internals: Readonly<Record<string, unknown>>;
 }

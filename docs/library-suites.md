@@ -50,7 +50,7 @@ core 内部再分五层，依赖只能从上往下：
 
 契约、纯计算和资源 / 动作 controller 不依赖 React、组件、DOM 几何、CSS 或 framer-motion；React 生命周期与订阅在 `core/bindings/`，Zustand 状态在 `core/state/`。`core/contracts/suite.ts` 是宿主与视图之间的结构化装配协议：`Theme`、`isDaylight` 等展示输入不参与资源或 controller 的业务规则，组件类型也没有引入 React。
 
-默认装配复用 Folia 现有环境服务。需要在其他运行环境中复用 controller 时，应注入对应依赖，而不是从 suite 直接访问这些服务；当前整个 `src/library/` 没有独立 npm 包、跨框架或服务端运行承诺。
+默认装配复用 BigOrange 现有环境服务。需要在其他运行环境中复用 controller 时，应注入对应依赖，而不是从 suite 直接访问这些服务；当前整个 `src/library/` 没有独立 npm 包、跨框架或服务端运行承诺。
 
 | 默认装配入口 | 环境依赖 |
 | --- | --- |
@@ -129,7 +129,7 @@ suite 还可以有自己的「局部动作」（`extraActions`），它们不属
 
 | 手势 | 回调 | 含义 | 宿主做什么 |
 | --- | --- | --- | --- |
-| 显式的返回按钮 | `onDone` | 看完了 | 清掉这一层的浏览会话（筛选、焦点）；让**每一套** suite 忘掉这一层的布局记录（manifest 的 `layout.forget`，网格丢掉 `folia_gridview_state:v2:` / `folia_artist_grid_state:v2:` 两份记录）；再返回 |
+| 显式的返回按钮 | `onDone` | 看完了 | 清掉这一层的浏览会话（筛选、焦点）；让**每一套** suite 忘掉这一层的布局记录（manifest 的 `layout.forget`，网格丢掉 `bigorange_gridview_state:v2:` / `bigorange_artist_grid_state:v2:` 两份记录）；再返回 |
 | Escape 阶梯的最后一步 | `onBack` | 离开但保留 | 只返回 |
 | 浏览器后退 | —（不经过 suite） | 离开但保留 | popstate 弹栈之前由导航 store 通知（`subscribeCollectionPop`），宿主让渲染这一层的 suite 跑 `transitions.beforeBack` |
 
@@ -332,7 +332,7 @@ account surface 只在 `login` 可见或 `pendingSwitch` 非空时渲染内容�
 - 确认框按下确认后立即收起：`confirmSwitch` 同步清掉 `pendingSwitch`，不要 `await confirmSwitch` 再关框（它要等清理与刷新走完）。
 - 登出入口的可用性用 `core/model/accountRules` 的 `canLogoutProvider`，且 `logout.status` 不是 `pending`；与 controller 的判定、网格切换器、AccountTab 一致。
 - 诊断入口（区块、按键、提示行）只看视图的 `diagnosticsPrompt` / `canShowDiagnostics`，不要自己按 provider 判断；哪些 provider 不给入口由 core 的 `canShowLoginDiagnostics` 决定（目前是 QQ）。
-- 键盘只在 `isInteractive` 为真且界面显示着时接。`isInteractive` 是首页外壳层的值，集合层打开时可能仍为真；登录与确认在最上层时，挂 `data-folia-keyboard-window` 让底下的页面按键与全局热键让路。
+- 键盘只在 `isInteractive` 为真且界面显示着时接。`isInteractive` 是首页外壳层的值，集合层打开时可能仍为真；登录与确认在最上层时，挂 `data-bigorange-keyboard-window` 让底下的页面按键与全局热键让路。
 
 ## 写一套新 suite 的步骤
 
@@ -370,7 +370,7 @@ TUI 的账户按键：
 | 登录框 | ↑↓ / ←→ 移动登录方式的高亮；Enter 是此刻的主动作（选高亮的方式 → 重试 → 重启后端）；Esc 关闭；F4 复制诊断报告 |
 | 切换确认 | Enter 确认，Esc 取消；与登录框同时存在时确认在上面，按键归确认 |
 
-账户层的按键在 window 的捕获阶段独占：不带修饰键的按键一律截住，底下的 TUI 页面、命令面板的打字即筛选和全局空格都收不到；带 Ctrl / Alt / Meta 的组合键与 Tab 放过。账户层可交互时挂 `data-folia-keyboard-window`，只在层显示着且首页外壳 `isInteractive` 为真时装监听。
+账户层的按键在 window 的捕获阶段独占：不带修饰键的按键一律截住，底下的 TUI 页面、命令面板的打字即筛选和全局空格都收不到；带 Ctrl / Alt / Meta 的组合键与 Tab 放过。账户层可交互时挂 `data-bigorange-keyboard-window`，只在层显示着且首页外壳 `isInteractive` 为真时装监听。
 
 TUI 保留为 Library Core 的第二消费者和开发验证 suite。普通开发默认关闭，只注册 grid，切换浮层与「资料库界面」设置项都不出现。要手动验证，显式启用：
 

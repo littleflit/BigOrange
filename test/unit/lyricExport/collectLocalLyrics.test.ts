@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { LocalSong, LyricData } from '@/types';
 
 // test/unit/lyricExport/collectLocalLyrics.test.ts
-// The local-library export only carries lyrics Folia matched online, named after the audio file.
+// The local-library export only carries lyrics BigOrange matched online, named after the audio file.
 
 const localSongsMock = vi.hoisted(() => vi.fn());
 vi.mock('@/services/db', () => ({ getLocalSongs: localSongsMock }));

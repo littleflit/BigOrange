@@ -2,21 +2,21 @@ import type { Line, LyricBackgroundVocal, LyricData, Word } from '../../types';
 import { ensureLyricDataRenderHints } from './renderHints';
 import { isValidWordSegmentation } from './wordSegmentation';
 
-// src/utils/lyrics/foliaLyricDocument.ts
-// Folia 自有歌词格式 `.fia`：把歌词流水线的产物 LyricData 原样装进一个带版本号的 JSON 信封，
+// src/utils/lyrics/bigorangeLyricDocument.ts
+// BigOrange 自有歌词格式 `.fia`：把歌词流水线的产物 LyricData 原样装进一个带版本号的 JSON 信封，
 // 导入时跳过所有解析器直接加载。
 //
 // 装进去的是「解析之后、setter 之前」的数据，再加上用户保存的分词（wordSegments）。合唱效果、
 // 默认的 Intl.Segmenter 分词和 renderHints 都不写：它们是派生数据，导入时经过 setter 会重新算，
 // 写进文件反而会把渲染参数的某一版冻结在用户的文件里。
 
-export const FOLIA_LYRIC_DOCUMENT_FORMAT = 'folia-lyricdata';
-export const FOLIA_LYRIC_DOCUMENT_VERSION = 1;
-export const FOLIA_LYRIC_FILE_EXTENSION = 'fia';
+export const BIGORANGE_LYRIC_DOCUMENT_FORMAT = 'bigorange-lyricdata';
+export const BIGORANGE_LYRIC_DOCUMENT_VERSION = 1;
+export const BIGORANGE_LYRIC_FILE_EXTENSION = 'fia';
 
-export type FoliaLyricDocumentSource = 'online' | 'imported' | 'local' | 'embedded' | 'navidrome';
+export type BigOrangeLyricDocumentSource = 'online' | 'imported' | 'local' | 'embedded' | 'navidrome';
 
-export interface FoliaLyricDocumentSong {
+export interface BigOrangeLyricDocumentSong {
     /** `getPlaybackSongKey` 的结果，例如 `online:netease:123`；只作记录，导入时不用它定位歌曲。 */
     key?: string;
     title?: string;
@@ -25,20 +25,20 @@ export interface FoliaLyricDocumentSong {
     durationMs?: number;
 }
 
-export interface FoliaLyricDocument {
-    format: typeof FOLIA_LYRIC_DOCUMENT_FORMAT;
-    version: typeof FOLIA_LYRIC_DOCUMENT_VERSION;
+export interface BigOrangeLyricDocument {
+    format: typeof BIGORANGE_LYRIC_DOCUMENT_FORMAT;
+    version: typeof BIGORANGE_LYRIC_DOCUMENT_VERSION;
     exportedAt: string;
-    song: FoliaLyricDocumentSong;
-    source?: FoliaLyricDocumentSource;
+    song: BigOrangeLyricDocumentSong;
+    source?: BigOrangeLyricDocumentSource;
     /** 导出时这首歌的手动时间轴偏移。只是元数据：时间轴本身没有被平移。 */
     offsetMs?: number;
     lyrics: LyricData;
 }
 
-export interface FoliaLyricDocumentMeta {
-    song?: FoliaLyricDocumentSong;
-    source?: FoliaLyricDocumentSource;
+export interface BigOrangeLyricDocumentMeta {
+    song?: BigOrangeLyricDocumentSong;
+    source?: BigOrangeLyricDocumentSource;
     offsetMs?: number;
     exportedAt?: Date;
 }
@@ -49,8 +49,8 @@ const stripLineRenderHints = (line: Line): Line => {
     return rest;
 };
 
-const compactSong = (song: FoliaLyricDocumentSong | undefined): FoliaLyricDocumentSong => {
-    const result: FoliaLyricDocumentSong = {};
+const compactSong = (song: BigOrangeLyricDocumentSong | undefined): BigOrangeLyricDocumentSong => {
+    const result: BigOrangeLyricDocumentSong = {};
     if (song?.key) result.key = song.key;
     if (song?.title) result.title = song.title;
     if (song?.artist) result.artist = song.artist;
@@ -62,10 +62,10 @@ const compactSong = (song: FoliaLyricDocumentSong | undefined): FoliaLyricDocume
 };
 
 /** 把一份 LyricData 装进 `.fia` 信封；renderHints 被剥掉，其余字段原样保留。 */
-export const buildFoliaLyricDocument = (lyrics: LyricData, meta: FoliaLyricDocumentMeta = {}): FoliaLyricDocument => {
-    const document: FoliaLyricDocument = {
-        format: FOLIA_LYRIC_DOCUMENT_FORMAT,
-        version: FOLIA_LYRIC_DOCUMENT_VERSION,
+export const buildBigOrangeLyricDocument = (lyrics: LyricData, meta: BigOrangeLyricDocumentMeta = {}): BigOrangeLyricDocument => {
+    const document: BigOrangeLyricDocument = {
+        format: BIGORANGE_LYRIC_DOCUMENT_FORMAT,
+        version: BIGORANGE_LYRIC_DOCUMENT_VERSION,
         exportedAt: (meta.exportedAt ?? new Date()).toISOString(),
         song: compactSong(meta.song),
         lyrics: {
@@ -80,7 +80,7 @@ export const buildFoliaLyricDocument = (lyrics: LyricData, meta: FoliaLyricDocum
     return document;
 };
 
-export const serializeFoliaLyricDocument = (document: FoliaLyricDocument): string => (
+export const serializeBigOrangeLyricDocument = (document: BigOrangeLyricDocument): string => (
     `${JSON.stringify(document, null, 2)}\n`
 );
 
@@ -157,17 +157,17 @@ const sanitizeLine = (line: Line): Line => {
 };
 
 /** 只看信封的前几个字节，决定要不要花力气 JSON.parse；普通 LRC/TTML 走不到 parse。 */
-export const looksLikeFoliaLyricDocument = (text: string): boolean => {
+export const looksLikeBigOrangeLyricDocument = (text: string): boolean => {
     const trimmed = text.replace(/^\uFEFF/, '').trimStart();
-    return trimmed.startsWith('{') && trimmed.includes(`"${FOLIA_LYRIC_DOCUMENT_FORMAT}"`);
+    return trimmed.startsWith('{') && trimmed.includes(`"${BIGORANGE_LYRIC_DOCUMENT_FORMAT}"`);
 };
 
 /**
  * 解析 `.fia` 文本。不是这个格式、版本不认识或结构不对时返回 null，由调用方回退到普通解析。
  * 返回的 LyricData 已补回 renderHints，可以直接交给 setter。
  */
-export const parseFoliaLyricDocument = (text: string): LyricData | null => {
-    if (!looksLikeFoliaLyricDocument(text)) return null;
+export const parseBigOrangeLyricDocument = (text: string): LyricData | null => {
+    if (!looksLikeBigOrangeLyricDocument(text)) return null;
 
     let parsed: unknown;
     try {
@@ -177,16 +177,16 @@ export const parseFoliaLyricDocument = (text: string): LyricData | null => {
     }
 
     if (!parsed || typeof parsed !== 'object') return null;
-    const document = parsed as Partial<FoliaLyricDocument>;
-    if (document.format !== FOLIA_LYRIC_DOCUMENT_FORMAT) return null;
-    if (document.version !== FOLIA_LYRIC_DOCUMENT_VERSION) {
-        console.warn('[foliaLyricDocument] Unsupported .fia version:', document.version);
+    const document = parsed as Partial<BigOrangeLyricDocument>;
+    if (document.format !== BIGORANGE_LYRIC_DOCUMENT_FORMAT) return null;
+    if (document.version !== BIGORANGE_LYRIC_DOCUMENT_VERSION) {
+        console.warn('[bigorangeLyricDocument] Unsupported .fia version:', document.version);
         return null;
     }
 
     const lyrics = document.lyrics;
     if (!lyrics || typeof lyrics !== 'object' || !Array.isArray(lyrics.lines) || !lyrics.lines.every(isValidLine)) {
-        console.warn('[foliaLyricDocument] Malformed .fia lyric payload');
+        console.warn('[bigorangeLyricDocument] Malformed .fia lyric payload');
         return null;
     }
 

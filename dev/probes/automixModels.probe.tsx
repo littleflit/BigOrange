@@ -48,7 +48,7 @@ const buildStatus = (installed: boolean, runtimeSupported: boolean) => {
     const build = runtime.platforms?.['win32-x64'];
     return {
         manual: MANUAL,
-        downloadDir: String.raw`C:\Users\somebody\AppData\Roaming\Folia\models`,
+        downloadDir: String.raw`C:\Users\somebody\AppData\Roaming\BigOrange\models`,
         models: [model(beatThis), model(htdemucs), {
             name: runtime.name,
             file: runtimeSupported ? build?.file ?? null : null,

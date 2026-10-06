@@ -1302,7 +1302,7 @@ export function useStagePlaybackController({
         const track = playerCapState.track;
         const nextLyrics = playerCapState.lyrics;
         // Mid source-switch (the active player has changed, new content hasn't arrived yet for that brief window): keep the previous song's content to avoid flashing the empty-state overlay in the main view
-        // (Folia's empty state depends on currentSong=null). Only genuine idle (activePlayer is empty) actually clears. Consistent with the OBS output's look and feel.
+        // (BigOrange's empty state depends on currentSong=null). Only genuine idle (activePlayer is empty) actually clears. Consistent with the OBS output's look and feel.
         if (!track && !nextLyrics && playerCapState.activePlayer) {
             return;
         }

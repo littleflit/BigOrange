@@ -25,8 +25,8 @@ const {
     FFMPEG_BINARY_NAME: string;
 };
 
-const RESOURCES = path.join('/tmp', 'folia-resources-fixture');
-const APP_PATH = path.join('/tmp', 'folia-app-fixture');
+const RESOURCES = path.join('/tmp', 'bigorange-resources-fixture');
+const APP_PATH = path.join('/tmp', 'bigorange-app-fixture');
 const MODS_SLOT = RUNTIME_SLOTS[MODS_RUNTIME_DIR];
 const TRANSCODE_SLOT = RUNTIME_SLOTS[TRANSCODE_RUNTIME_DIR];
 const originalResourcesPath = process.resourcesPath;
@@ -83,8 +83,8 @@ describe('ffmpeg runtime slots', () => {
     });
 
     it('does not let one caller\'s environment override re-point the other', async () => {
-        const modsOverride = path.join('/tmp', 'folia-mods-ffmpeg');
-        const transcodeOverride = path.join('/tmp', 'folia-transcode-ffmpeg');
+        const modsOverride = path.join('/tmp', 'bigorange-mods-ffmpeg');
+        const transcodeOverride = path.join('/tmp', 'bigorange-transcode-ffmpeg');
         const env = { [MODS_SLOT.envVar]: modsOverride, [TRANSCODE_SLOT.envVar]: transcodeOverride };
 
         const modsCandidates = await withResourcesPath(MODS_RUNTIME_DIR, env);

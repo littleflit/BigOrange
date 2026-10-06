@@ -43,13 +43,13 @@ jobs:
 
       - name: Validate Compose configuration
         env:
-          FOLIA_IMAGE_NAMESPACE: folia-local
+          BIGORANGE_IMAGE_NAMESPACE: bigorange-local
           SYNC_TOKEN: docker-check-token
         run: docker compose -f deploy/docker/compose.yaml -f deploy/docker/compose.build.yaml config --quiet
 
       - name: Build native architecture images
         env:
-          FOLIA_IMAGE_NAMESPACE: folia-local
+          BIGORANGE_IMAGE_NAMESPACE: bigorange-local
           SYNC_TOKEN: docker-check-token
         run: docker compose -f deploy/docker/compose.yaml -f deploy/docker/compose.build.yaml build
 

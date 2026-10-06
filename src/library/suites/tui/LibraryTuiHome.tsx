@@ -188,7 +188,7 @@ const LibraryTuiHome: React.FC<LibraryHomeSurfaceProps> = (props) => {
         >
             <header className="shrink-0 border-b border-current/15 px-4 py-2 text-[13px]">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1" role="tablist" aria-label={t('libraryTui.homeSources')}>
-                    <span className="font-bold" style={{ color: accentColor }}>{`folia · ${t('libraryTui.homeTitle')}`}</span>
+                    <span className="font-bold" style={{ color: accentColor }}>{`bigorange · ${t('libraryTui.homeTitle')}`}</span>
                     {groups.map(group => {
                         const active = group.source === activeSource;
                         return (

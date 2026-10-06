@@ -951,7 +951,7 @@ const AppearanceSettingsSubview: React.FC<AppearanceSettingsSubviewProps> = ({
                 />
             </SettingsAnchor>
 
-            {/* Section 6: Folia card grid, sitting with the poster wall it shares its look with. */}
+            {/* Section 6: BigOrange card grid, sitting with the poster wall it shares its look with. */}
             <SettingsAnchor anchorId="gridViewCardSettings" label={t('options.gridViewCardSettings')}>
                 <SettingsSectionHeading icon={Images} label={t('options.gridViewCardSettings')} />
                 <GridViewSettingsSection

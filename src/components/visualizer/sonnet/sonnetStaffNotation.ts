@@ -7,8 +7,8 @@ export interface SonnetStaffNote {
     accidental?: 'sharp';
 }
 
-// La Folia's public-domain D-minor theme, transcribed from its 3/4 LilyPond notation.
-export const LA_FOLIA_STAFF_NOTES: readonly SonnetStaffNote[] = [
+// La BigOrange's public-domain D-minor theme, transcribed from its 3/4 LilyPond notation.
+export const LA_BIGORANGE_STAFF_NOTES: readonly SonnetStaffNote[] = [
     { pitch: 'D5', staffStep: 6, beats: 1 },
     { pitch: 'D5', staffStep: 6, beats: 1.5 },
     { pitch: 'E5', staffStep: 7, beats: 0.5 },
@@ -33,9 +33,9 @@ export const LA_FOLIA_STAFF_NOTES: readonly SonnetStaffNote[] = [
     { pitch: 'D5', staffStep: 6, beats: 3 },
 ];
 
-export const LA_FOLIA_TOTAL_BEATS = LA_FOLIA_STAFF_NOTES.reduce(
+export const LA_BIGORANGE_TOTAL_BEATS = LA_BIGORANGE_STAFF_NOTES.reduce(
     (total, note) => total + note.beats,
     0,
 );
 
-export const LA_FOLIA_CYCLE_SECONDS = 8;
+export const LA_BIGORANGE_CYCLE_SECONDS = 8;

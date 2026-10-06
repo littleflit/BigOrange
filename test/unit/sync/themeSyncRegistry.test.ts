@@ -8,7 +8,7 @@ vi.mock('@/services/db', () => ({
     upsertThemeRegistryEntries: vi.fn(),
 }));
 
-const LEGACY_KEY = 'folia_sync_theme_registry_v1';
+const LEGACY_KEY = 'bigorange_sync_theme_registry_v1';
 
 const createLocalStorageMock = () => {
     const values = new Map<string, string>();

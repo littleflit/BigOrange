@@ -70,7 +70,7 @@ import { setNavidromeEnabledState, useLibraryStore } from '../../stores/useLibra
 import { hasLibrarySuiteChoice } from '../../library/registry';
 
 const DEFAULT_OPENAI_TEMPERATURE = '0.7';
-const AUR_PACKAGE_URL = 'https://aur.archlinux.org/packages/folia-major-bin';
+const AUR_PACKAGE_URL = 'https://aur.archlinux.org/packages/bigorange-bin';
 const VERSION_INFO = __DOCKER_STACK_VERSION__
     ? `${__APP_VERSION_LABEL__} v${__APP_VERSION__} · Stack ${__DOCKER_STACK_VERSION__} · ${__COMMIT_HASH__}`
     : `${__APP_VERSION_LABEL__} v${__APP_VERSION__} - ${__GIT_BRANCH__} - ${__COMMIT_HASH__}`;
@@ -1292,7 +1292,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={shellTransition}
-            data-folia-keyboard-window="true"
+            data-bigorange-keyboard-window="true"
             data-ponder-page-scope={activeTab === 'help' ? 'help-page' : 'settings-page'}
             className="fixed inset-0 z-[100] flex items-center justify-center px-4 py-8 sm:px-5 sm:py-12"
             style={{ backgroundColor: overlayBackground }}
@@ -1483,7 +1483,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                                             >
                                                 {t('help.madeBy')}
                                             </button>{' '}
-                                            <a href="https://github.com/chthollyphile/folia-major" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors underline decoration-white/30 hover:decoration-white">chthollyphile/folia-major</a>
+                                            <a href="https://github.com/littleflit/BigOrange" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors underline decoration-white/30 hover:decoration-white">littleflit/BigOrange</a>
                                         </p>
                                     </div>
                                     <div className="flex flex-col items-center gap-2 mt-6 mb-2 text-xs font-mono text-center">

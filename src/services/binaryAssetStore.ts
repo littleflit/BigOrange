@@ -18,7 +18,7 @@ interface ElectronBinaryCacheEntry {
   mimeType?: string | null;
 }
 
-const OPFS_ROOT_DIRECTORY = 'folia-cache';
+const OPFS_ROOT_DIRECTORY = 'bigorange-cache';
 const OPFS_COVER_DIRECTORY = 'covers';
 
 const hasElectronCoverBridge = (): boolean => (

@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 // test/unit/stores/automixModelReminder.test.ts
-// When switching Folia transitions on is worth interrupting for.
+// When switching BigOrange transitions on is worth interrupting for.
 //
 // Three separate ways to answer no, and they are the three the prompt was asked for: a browser
 // build cannot fix it, an install that already has the weights has nothing to fix, and a listener

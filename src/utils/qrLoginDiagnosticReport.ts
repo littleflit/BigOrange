@@ -52,7 +52,7 @@ export const formatQrLoginDiagnosticReport = ({
     timeline: readonly QrLoginTimelineEvent[];
     providerLines: readonly string[];
 }): string => [
-    '### Folia QR login diagnostics',
+    '### BigOrange QR login diagnostics',
     '',
     '```text',
     `generated: ${new Date(generatedAt).toISOString()}`,
@@ -67,7 +67,7 @@ export const formatQrLoginDiagnosticReport = ({
     '```',
 ].join('\n');
 
-const FOLIA_NEW_ISSUE_URL = 'https://github.com/chthollyphile/folia-major/issues/new';
+const BIGORANGE_NEW_ISSUE_URL = 'https://github.com/littleflit/BigOrange/issues/new';
 // GitHub 对过长的 new-issue 链接会直接报错；超过这个长度就不把报告塞进链接，改让用户粘贴剪贴板里的内容。
 const MAX_ISSUE_URL_LENGTH = 7000;
 
@@ -82,7 +82,7 @@ export const buildQrLoginIssueUrl = ({
     pasteHint: string;
 }): string => {
     const title = `[QR login] ${providerId} login failed`;
-    const build = (body: string) => `${FOLIA_NEW_ISSUE_URL}?${new URLSearchParams({ title, body }).toString()}`;
+    const build = (body: string) => `${BIGORANGE_NEW_ISSUE_URL}?${new URLSearchParams({ title, body }).toString()}`;
     // 报告为空说明生成或复制失败了，同样只留粘贴提示。
     const withReport = report ? build(report) : '';
     return withReport && withReport.length <= MAX_ISSUE_URL_LENGTH ? withReport : build(pasteHint);

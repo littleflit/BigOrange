@@ -24,6 +24,6 @@ wrangler.local.toml
 *.db
 *.db-shm
 *.db-wal
-folia-sync.db
-folia-sync.db-shm
-folia-sync.db-wal
+bigorange-sync.db
+bigorange-sync.db-shm
+bigorange-sync.db-wal

@@ -5,7 +5,7 @@ import type { StoredCustomLyricsFont } from '../types';
 // src/services/customLyricsFont.ts
 // Persists and registers the mobile uploaded lyrics font fallback.
 const UPLOADED_LYRICS_FONT_KEY = 'lyrics_uploaded_font';
-const UPLOADED_FONT_FAMILY_PREFIX = 'FoliaUploadedLyricsFont';
+const UPLOADED_FONT_FAMILY_PREFIX = 'BigOrangeUploadedLyricsFont';
 const MAX_UPLOADED_LYRICS_FONT_SIZE = 50 * 1024 * 1024;
 const SUPPORTED_FONT_EXTENSIONS = ['.woff2', '.woff', '.ttf', '.otf'];
 const SUPPORTED_FONT_MIME_TYPES = new Set([

@@ -5,7 +5,7 @@ import { DEFAULT_NAVIDROME_HOME_SECTION, isNavidromeHomeSection, type NavidromeH
 // Navidrome 页签上次停在哪个 section（原先是 NavidromeGrid3DView 的组件状态，挂载时读一次 localStorage、
 // 每次切换写回）。提到 store 后任何 suite 的首页读写同一份；localStorage 键与取值原样保留，旧的记忆不会丢。
 
-const NAVIDROME_LAST_SECTION_KEY = 'folia_navidrome_last_section';
+const NAVIDROME_LAST_SECTION_KEY = 'bigorange_navidrome_last_section';
 
 const readStoredSection = (): NavidromeHomeSection => {
     if (typeof window === 'undefined') return DEFAULT_NAVIDROME_HOME_SECTION;

@@ -287,7 +287,7 @@ describe('分词字号', () => {
         expect(Math.max(...scales)).toBeCloseTo(1.45);
         scales.forEach(scale => expect(scale).toBeLessThanOrEqual(MAX_WORD_SCALE));
     });
-    it('用户保存的精细分词优先（走 folia 的 segmentLyricWords）', () => {
+    it('用户保存的精细分词优先（走 bigorange 的 segmentLyricWords）', () => {
         const custom = segmentWords({ fullText: '我把名字写进晨雾里', wordSegments: ['我把', '名字写', '进晨雾里'] });
         expect(custom.map(word => word.text)).toEqual(['我把', '名字写', '进晨雾里']);
         expect(custom.map(word => [word.start, word.end])).toEqual([[0, 2], [2, 5], [5, 9]]);

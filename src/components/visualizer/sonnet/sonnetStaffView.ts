@@ -2,9 +2,9 @@ import type { Theme } from '../../../types';
 import type { GlyphView } from './sonnetTextViewBuilder';
 import type { SonnetTypographyPlacement } from './sonnetTypographyLayout';
 import {
-    LA_FOLIA_CYCLE_SECONDS,
-    LA_FOLIA_STAFF_NOTES,
-    LA_FOLIA_TOTAL_BEATS,
+    LA_BIGORANGE_CYCLE_SECONDS,
+    LA_BIGORANGE_STAFF_NOTES,
+    LA_BIGORANGE_TOTAL_BEATS,
     type SonnetStaffNote,
 } from './sonnetStaffNotation';
 
@@ -37,10 +37,10 @@ export const buildSonnetStaffView = (
     const halfWidth = staffWidth / 2;
     const halfHeight = totalHeight / 2;
     const playableWidth = staffWidth * 0.92;
-    const beatWidth = playableWidth / LA_FOLIA_TOTAL_BEATS;
+    const beatWidth = playableWidth / LA_BIGORANGE_TOTAL_BEATS;
     const timedNotes: TimedSonnetStaffNote[] = [];
     let beatCursor = 0;
-    for (const note of LA_FOLIA_STAFF_NOTES) {
+    for (const note of LA_BIGORANGE_STAFF_NOTES) {
         timedNotes.push({ ...note, startBeat: beatCursor });
         beatCursor += note.beats;
     }
@@ -83,10 +83,10 @@ export const buildSonnetStaffView = (
     
     containerLayer.addChild(wrapper);
 
-    /** Draws the fixed La Folia phrase and advances its playback cursor on a normal time loop. */
+    /** Draws the fixed La BigOrange phrase and advances its playback cursor on a normal time loop. */
     const updateAnimation = (time: number) => {
-        const cycleElapsed = positiveModulo(time - shotStartTime, LA_FOLIA_CYCLE_SECONDS);
-        const beatPosition = (cycleElapsed / LA_FOLIA_CYCLE_SECONDS) * LA_FOLIA_TOTAL_BEATS;
+        const cycleElapsed = positiveModulo(time - shotStartTime, LA_BIGORANGE_CYCLE_SECONDS);
+        const beatPosition = (cycleElapsed / LA_BIGORANGE_CYCLE_SECONDS) * LA_BIGORANGE_TOTAL_BEATS;
         const cursorX = -playableWidth / 2 + beatWidth * beatPosition;
 
         noteGraphics.clear();

@@ -64,7 +64,7 @@ function readDevRequestBody(req: import('http').IncomingMessage): Promise<Uint8A
 
 function devLyricProxyPlugin() {
   return {
-    name: 'folia-dev-lyric-proxy',
+    name: 'bigorange-dev-lyric-proxy',
     apply: 'serve' as const,
     configureServer(server: ViteDevServer) {
       server.middlewares.use(async (req, res, next) => {
@@ -254,8 +254,8 @@ export default async function viteConfig(_config: ConfigEnv): Promise<UserConfig
           navigateFallbackDenylist: [/^\/api(?:\/|$)/]
         },
         manifest: {
-          name: 'Folia Music',
-          short_name: 'Folia',
+          name: 'BigOrange Music',
+          short_name: 'BigOrange',
           description: 'A beautiful AI-themed music player',
           theme_color: '#09090b',
           background_color: '#09090b',

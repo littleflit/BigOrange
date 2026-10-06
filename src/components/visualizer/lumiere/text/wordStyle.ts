@@ -25,7 +25,7 @@ export interface WordSpan {
 /** 字号倍率的上限：字形纹理按这个倍率画，放大的词只缩小不放大，不会糊。 */
 export const MAX_WORD_SCALE = 1.5 + LUMIERE_NEUTRAL_OFFSET;
 
-/** 把一行切成词：走 folia 唯一的分词入口（用户保存的精细分词优先，否则 Intl.Segmenter，没有就逐字）。 */
+/** 把一行切成词：走 bigorange 唯一的分词入口（用户保存的精细分词优先，否则 Intl.Segmenter，没有就逐字）。 */
 export const segmentWords = (line: Pick<Line, 'fullText' | 'wordSegments'>): WordSpan[] => {
     const pieces = segmentLyricWords(line);
     const words: WordSpan[] = [];

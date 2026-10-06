@@ -155,7 +155,7 @@ automixSession
 
 ## 5. 两种模式是两个规划器
 
-`Folia Crossfade` 与 `Folia Automix` 各是一个纯函数，返回同一个 `TransitionPlan`，
+`BigOrange Crossfade` 与 `BigOrange Automix` 各是一个纯函数，返回同一个 `TransitionPlan`，
 `transitionStrategy.ts` 只负责挑一个，执行层一行不变。**新增第三种模式 = 新增一个文件，下游不动。**
 
 两者的区别不是参数，而是**允许看什么**：

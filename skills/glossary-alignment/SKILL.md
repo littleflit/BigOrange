@@ -30,7 +30,7 @@ description: Use when the user refers to repository-specific spoken terms - home
 | 口头说法 | 名字 |
 | --- | --- |
 | 首页 / 网格首页 / 3D 首页 | `Home` → `buildHomeModel` / `useHomeModel` → `Grid3D` / `GridView` |
-| 集合卡片 / 网格导航 / 六边形 viewport | `folia-grid` 目录 |
+| 集合卡片 / 网格导航 / 六边形 viewport | `bigorange-grid` 目录 |
 | 首页 collection adapter | `gridViewCollectionAdapters` |
 | 本地库首页面 / 本地 3D 网格 | `LocalGrid3DView`、`localGrid3DModel` |
 | Navidrome 首页面 | `NavidromeGrid3DView`、`useNavidromeGridLibrary` |

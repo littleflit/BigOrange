@@ -33,7 +33,7 @@ const putRuntime = (dir: string) => {
 };
 
 beforeAll(() => {
-    root = mkdtempSync(path.join(tmpdir(), 'folia-models-'));
+    root = mkdtempSync(path.join(tmpdir(), 'bigorange-models-'));
     [userDir, downloadDir, bundledDir] = ['user', 'download', 'bundled'].map((name) => {
         const dir = path.join(root, name);
         mkdirSync(dir);

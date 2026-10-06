@@ -5,7 +5,7 @@
 // copies it (plus its GPL-3.0 COPYING) into build/ so electron-builder's extraResources packages
 // them as resources/windowtolayer. This is the single source of truth shared by local `npm run
 // build:electron*` and the CI release workflow, and its output doubles as the dev-path override
-// for FOLIA_WINDOWTOLAYER_PATH (see resolveWindowToLayerPath in electron/main.cjs). No-op on
+// for BIGORANGE_WINDOWTOLAYER_PATH (see resolveWindowToLayerPath in electron/main.cjs). No-op on
 // non-Linux hosts.
 import { execFileSync } from 'node:child_process';
 import { chmodSync, copyFileSync, existsSync, mkdirSync } from 'node:fs';

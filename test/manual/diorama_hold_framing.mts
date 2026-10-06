@@ -97,7 +97,7 @@ const lines: Line[] = Array.from({ length: 24 }, (_, i) => ({
     startTime: i * 4, endTime: i * 4 + 3, text: 'x', words: [],
 } as unknown as Line));
 
-const SEEDS = ['a', 'song-2', 'zz9', 'folia', '77', 'q', 'seed-x', 'mmm'];
+const SEEDS = ['a', 'song-2', 'zz9', 'bigorange', '77', 'q', 'seed-x', 'mmm'];
 const DRIFT_TIMES = [0, 14, 28, 42, 57, 71, 85, 99, 113, 127];
 
 for (const mode of modes) {

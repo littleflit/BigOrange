@@ -1,11 +1,11 @@
 {
-  "name": "folia-major",
+  "name": "bigorange",
   "productName": "BigOrange",
-  "desktopName": "folia-major.desktop",
+  "desktopName": "bigorange.desktop",
   "description": "Lyrics Reimagine",
   "author": {
-    "name": "chthollyphile",
-    "email": "chthollyphile@users.noreply.github.com"
+    "name": "littleflit",
+    "email": "littleflit@users.noreply.github.com"
   },
   "private": true,
   "version": "0.7.13",
@@ -41,13 +41,13 @@
     "manual:visualizer-memory": "node test/manual/visualizer-memory-probe.mjs",
     "manual:lattice-cover-memory": "node test/manual/lattice-cover-memory.mjs",
     "stage:client": "vite --open /stage-client.html",
-    "dev:electron": "cross-env ELECTRON_DEV=true FOLIA_WINDOWTOLAYER_PATH=build/windowtolayer FOLIA_WALLPAPER_HELPER_PATH=build/folia-wallpaper-helper.exe concurrently -k \"vite\" \"wait-on tcp:3000 && electron .\"",
-    "dev:electron:update-preview": "cross-env ELECTRON_DEV=true FOLIA_DEV_UPDATE_PREVIEW=true FOLIA_WINDOWTOLAYER_PATH=build/windowtolayer FOLIA_WALLPAPER_HELPER_PATH=build/folia-wallpaper-helper.exe concurrently -k \"vite\" \"wait-on tcp:3000 && electron .\"",
+    "dev:electron": "cross-env ELECTRON_DEV=true BIGORANGE_WINDOWTOLAYER_PATH=build/windowtolayer BIGORANGE_WALLPAPER_HELPER_PATH=build/bigorange-wallpaper-helper.exe concurrently -k \"vite\" \"wait-on tcp:3000 && electron .\"",
+    "dev:electron:update-preview": "cross-env ELECTRON_DEV=true BIGORANGE_DEV_UPDATE_PREVIEW=true BIGORANGE_WINDOWTOLAYER_PATH=build/windowtolayer BIGORANGE_WALLPAPER_HELPER_PATH=build/bigorange-wallpaper-helper.exe concurrently -k \"vite\" \"wait-on tcp:3000 && electron .\"",
     "dev:electron:wallpaper": "npm run build:windowtolayer && npm run build:wallpaper-helper && npm run dev:electron",
-    "dev:electron:dist": "cross-env ELECTRON_DEV=false ELECTRON=true ELECTRON_LINUX_PACKAGED_GRAPHICS=true FOLIA_WINDOWTOLAYER_PATH=build/windowtolayer vite build && electron .",
-    "dev:electron:dist:sourcemap": "cross-env-shell ELECTRON_DEV=false ELECTRON=true NODE_OPTIONS=--enable-source-maps FOLIA_WINDOWTOLAYER_PATH=build/windowtolayer \"vite build --sourcemap && electron .\"",
-    "dev:electron:dist:swiftshader": "cross-env ELECTRON_DEV=false ELECTRON=true ELECTRON_LINUX_PACKAGED_GRAPHICS=true FOLIA_LINUX_GRAPHICS_MODE=swiftshader FOLIA_WINDOWTOLAYER_PATH=build/windowtolayer vite build && electron .",
-    "dev:electron:dist:software": "cross-env ELECTRON_DEV=false ELECTRON=true ELECTRON_LINUX_PACKAGED_GRAPHICS=true FOLIA_LINUX_GRAPHICS_MODE=software FOLIA_WINDOWTOLAYER_PATH=build/windowtolayer vite build && electron .",
+    "dev:electron:dist": "cross-env ELECTRON_DEV=false ELECTRON=true ELECTRON_LINUX_PACKAGED_GRAPHICS=true BIGORANGE_WINDOWTOLAYER_PATH=build/windowtolayer vite build && electron .",
+    "dev:electron:dist:sourcemap": "cross-env-shell ELECTRON_DEV=false ELECTRON=true NODE_OPTIONS=--enable-source-maps BIGORANGE_WINDOWTOLAYER_PATH=build/windowtolayer \"vite build --sourcemap && electron .\"",
+    "dev:electron:dist:swiftshader": "cross-env ELECTRON_DEV=false ELECTRON=true ELECTRON_LINUX_PACKAGED_GRAPHICS=true BIGORANGE_LINUX_GRAPHICS_MODE=swiftshader BIGORANGE_WINDOWTOLAYER_PATH=build/windowtolayer vite build && electron .",
+    "dev:electron:dist:software": "cross-env ELECTRON_DEV=false ELECTRON=true ELECTRON_LINUX_PACKAGED_GRAPHICS=true BIGORANGE_LINUX_GRAPHICS_MODE=software BIGORANGE_WINDOWTOLAYER_PATH=build/windowtolayer vite build && electron .",
     "build:electron:dir": "cross-env ELECTRON_DEV=false ELECTRON=true vite build && npm run build:windowtolayer && npm run build:wallpaper-helper && electron-builder --linux dir",
     "build:electron": "cross-env ELECTRON_DEV=false ELECTRON=true vite build && npm run build:windowtolayer && npm run build:wallpaper-helper && electron-builder",
     "build:windowtolayer": "node packaging/linux/build-windowtolayer.mjs",
@@ -59,7 +59,7 @@
     "manual:ai-probe": "node test/manual/ai_probe.mjs"
   },
   "build": {
-    "appId": "top.izuna.foliamajor",
+    "appId": "com.littleflit.bigorange",
     "productName": "BigOrange",
     "beforePack": "build/beforePack.cjs",
     "afterPack": "build/afterPack.cjs",
@@ -74,8 +74,8 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "chthollyphile",
-        "repo": "folia-major"
+        "owner": "littleflit",
+        "repo": "BigOrange"
       }
     ],
     "files": [
@@ -112,8 +112,8 @@
         "to": "trayTemplate@2x.png"
       },
       {
-        "from": "packaging/linux/folia-major.desktop",
-        "to": "linux/folia-major.desktop"
+        "from": "packaging/linux/bigorange.desktop",
+        "to": "linux/bigorange.desktop"
       },
       {
         "from": "packaging/linux/README-LINUX.txt",
@@ -165,7 +165,7 @@
           "from": "build",
           "to": ".",
           "filter": [
-            "folia-wallpaper-helper.exe"
+            "bigorange-wallpaper-helper.exe"
           ]
         }
       ]
@@ -193,11 +193,11 @@
       },
       "icon": "build/icon.png",
       "category": "AudioVideo",
-      "executableName": "folia-major",
+      "executableName": "bigorange",
       "syncDesktopName": true,
       "desktop": {
         "entry": {
-          "StartupWMClass": "folia-major"
+          "StartupWMClass": "bigorange"
         }
       }
     }

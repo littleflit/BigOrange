@@ -237,7 +237,7 @@ test.describe(`[${suite}] online tabs`, () => {
         await expect.poll(() => itemIds(page)).toEqual(homeFavoriteAlbumIds(A));
         await clearLog(page);
 
-        await page.evaluate(() => window.dispatchEvent(new Event('folia-refresh-favorite-albums')));
+        await page.evaluate(() => window.dispatchEvent(new Event('bigorange-refresh-favorite-albums')));
         await expect.poll(() => distinctPages(page, 'userAlbums', `${A}:userAlbums`)).toEqual(['0+50', '50+50', '100+50']);
         await expect.poll(() => itemIds(page)).toEqual(homeFavoriteAlbumIds(A));
     });
@@ -531,10 +531,10 @@ test.describe(`[${suite}] navidrome tab`, () => {
         await openAndClose('navi-ar-1', 'navidrome:artist:navi-ar-1');
     });
 
-    test('the last section is remembered under folia_navidrome_last_section across remounts', async ({ mount, page }) => {
+    test('the last section is remembered under bigorange_navidrome_last_section across remounts', async ({ mount, page }) => {
         await mountHome(mount, page, suite);
         await showList(page, 'navidrome', 'playlists');
-        expect(await page.evaluate(() => localStorage.getItem('folia_navidrome_last_section'))).toBe('playlists');
+        expect(await page.evaluate(() => localStorage.getItem('bigorange_navidrome_last_section'))).toBe('playlists');
 
         await page.evaluate(() => window.__homeProbe!.remount());
         await expect.poll(() => activeSection(page)).toBe('playlists');

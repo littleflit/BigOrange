@@ -8,7 +8,7 @@ import {
 import { getStoredBoolean, getStoredString, setStoredBoolean } from './storagePrimitives';
 
 // src/stores/useGridViewSettingsStore.ts
-// Persistent look of the folia hex card grid: whether a card is a polaroid frame or a full-bleed
+// Persistent look of the bigorange hex card grid: whether a card is a polaroid frame or a full-bleed
 // cover, and how far the distance falloff is allowed to shrink and fade the outer cards.
 // Deliberately outside the appearance import/export payload — these are per-device browsing
 // comfort knobs, not part of a shared theme.

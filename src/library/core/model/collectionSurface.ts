@@ -5,7 +5,7 @@ import type { LibraryActionId, LibraryDeclaredActions } from '../contracts/suite
 
 // src/library/core/model/collectionSurface.ts
 // Turns a collection view's branch flags and handlers into the flat contract the command palette reads.
-// (Moved from components/folia-grid/gridSurfaceHandle.ts: a list renderer publishes the same handle.)
+// (Moved from components/bigorange-grid/gridSurfaceHandle.ts: a list renderer publishes the same handle.)
 //
 // Pure on purpose: the branch rules are the same booleans the buttons are already gated on
 // (GridView's isLocalFolderCollection, supportsLocalTrackSorting, canEditPlaylist ...), so keeping

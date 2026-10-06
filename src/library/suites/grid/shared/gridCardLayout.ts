@@ -1,5 +1,5 @@
 // src/library/suites/grid/shared/gridCardLayout.ts
-// Card-box adjustments the folia hex walls share. Kept out of GridView and ArtistGridView because
+// Card-box adjustments the bigorange hex walls share. Kept out of GridView and ArtistGridView because
 // both hold their own breakpoint table and would otherwise each carry a copy of this arithmetic.
 
 export type GridCardBox = {

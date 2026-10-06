@@ -19,7 +19,7 @@ import { SYNC_SCHEMA_VERSION } from './syncTypes';
 // src/services/sync/syncCoordinator.ts
 // Coordinates startup theme sync and user-triggered manual sync commands.
 
-const LOCAL_SETTINGS_UPDATED_AT_KEY = 'folia_sync_local_settings_updated_at_v1';
+const LOCAL_SETTINGS_UPDATED_AT_KEY = 'bigorange_sync_local_settings_updated_at_v1';
 let applyingRemoteSettings = false;
 let isSyncingInProgress = false;
 
@@ -136,7 +136,7 @@ export const syncNow = async (options: { syncThemes?: boolean; applyRemoteSettin
         };
         console.info('[sync] Sync completed', summary);
         if (summary.downloadedThemeCount > 0 && typeof window !== 'undefined') {
-            window.dispatchEvent(new CustomEvent('folia-themes-synced'));
+            window.dispatchEvent(new CustomEvent('bigorange-themes-synced'));
         }
         return summary;
     } catch (error) {
@@ -154,7 +154,7 @@ export const exportSyncLibraryBundle = async (): Promise<SyncLibraryExportBundle
         const settings = buildSyncedSettingsRecord(readSyncableSettingsState(), new Date().toISOString());
         const themes = await mergeLocalThemesIntoRecords(await listAllRemoteThemeRecords());
         const bundle: SyncLibraryExportBundle = {
-            kind: 'folia-sync-export',
+            kind: 'bigorange-sync-export',
             schemaVersion: SYNC_SCHEMA_VERSION,
             exportedAt: new Date().toISOString(),
             settings,
@@ -181,7 +181,7 @@ export const importSyncLibraryBundle = async (
 ) => {
     const validatedBundle = parseSyncLibraryExportBundle(bundle);
     if (!validatedBundle) {
-        throw new Error('Invalid Folia sync export');
+        throw new Error('Invalid BigOrange sync export');
     }
 
     setSyncStatus({ state: 'syncing', lastError: null });

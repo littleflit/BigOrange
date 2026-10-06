@@ -41,15 +41,15 @@ curl http://127.0.0.1:18080/qq/login/status
 
 ### 独立 Docker
 
-只想要这个 API、不需要 Folia 其余服务时，可以单独构建并运行。构建上下文是仓库根目录：
+只想要这个 API、不需要 BigOrange 其余服务时，可以单独构建并运行。构建上下文是仓库根目录：
 
 ```bash
-docker build -f deploy/docker/images/qq-api.Dockerfile -t folia-qq-api:local .
+docker build -f deploy/docker/images/qq-api.Dockerfile -t bigorange-qq-api:local .
 
 docker run -d --name qq-api \
   -p 3200:3000 \
   -v qq-api-state:/app/.auth-state \
-  folia-qq-api:local
+  bigorange-qq-api:local
 
 curl http://127.0.0.1:3200/login/status
 ```
@@ -116,7 +116,7 @@ QQ_SESSION_SECRET=<至少 32 字节的随机密钥>
 
 ```bash
 docker compose down
-docker volume rm folia_qq-api-state
+docker volume rm bigorange_qq-api-state
 docker compose up -d --wait
 ```
 
@@ -126,7 +126,7 @@ docker compose up -d --wait
 
 **从 `@yakult-green-tea/qq-music-api` 3.0.0 起，Cloudflare Workers 与 Vercel 都可以用，不再需要常驻 Node 进程。** 本仓库已经内置两个平台的入口（`worker/qq.ts` / `api-ts/qq.ts`），部署时不需要自己写路由。
 
-该包的 `./serverless` 导出提供 Web 标准的 `handleRequest(request, env)`，运行时不含 Koa、不含长连线、不含文件系统依赖，覆盖 Folia 使用的登录、用户集合、播放、歌单、歌曲、专辑和歌手路由，并用加密 sealed token 在请求之间携带登录态——服务端不保存任何凭证。
+该包的 `./serverless` 导出提供 Web 标准的 `handleRequest(request, env)`，运行时不含 Koa、不含长连线、不含文件系统依赖，覆盖 BigOrange 使用的登录、用户集合、播放、歌单、歌曲、专辑和歌手路由，并用加密 sealed token 在请求之间携带登录态——服务端不保存任何凭证。
 
 ### 怎么配
 
@@ -193,7 +193,7 @@ Cloudflare 上可以用 Durable Object 补上它——DO 能跨调用持有那�
 
 `GET /login/qr/cancel?key=<key>` 是幂等的，未知或已过期的 key 同样返回 200：客户端在关闭登录弹窗时会直接发送取消而不等待结果，不应该因此收到需要处理的错误。已经确认成功的会话不会被取消掉，留给它自然过期，以免还在途中的轮询把一次成功的登录读成过期。
 
-3.1.3 起，扫码失败响应包含失败阶段、原因和上游状态；本地退避 `429` 保留前一次失败摘要，不包含登录凭证或响应正文。Folia 普通日志面板提供经过白名单过滤的安全失败摘要及退避来源，QQ 登录弹窗不显示诊断区块。
+3.1.3 起，扫码失败响应包含失败阶段、原因和上游状态；本地退避 `429` 保留前一次失败摘要，不包含登录凭证或响应正文。BigOrange 普通日志面板提供经过白名单过滤的安全失败摘要及退避来源，QQ 登录弹窗不显示诊断区块。
 
 排查时先看容器日志：
 

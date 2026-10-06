@@ -95,7 +95,7 @@ describe('Lumiere appearance codec', () => {
     it('decodes an old short code without the darkField key to the default', () => {
         const encoded = compressConfig({ lumiereTuning: NON_DEFAULT_TUNING });
         // 短码是 base64 的 JSON：解开、去掉 df（旧版本没有这个短键）再编回去。
-        const prefix = 'folia-theme://';
+        const prefix = 'bigorange-theme://';
         const legacy = JSON.parse(atob(encoded.slice(prefix.length)));
         expect(legacy.lmt.df).toBe(0.25);
         delete legacy.lmt.df;
@@ -105,7 +105,7 @@ describe('Lumiere appearance codec', () => {
 
     it('decodes an old short code without the seamlessTransitions key to the default (on)', () => {
         const encoded = compressConfig({ lumiereTuning: NON_DEFAULT_TUNING });
-        const prefix = 'folia-theme://';
+        const prefix = 'bigorange-theme://';
         const legacy = JSON.parse(atob(encoded.slice(prefix.length)));
         expect(legacy.lmt.st).toBe(false);
         delete legacy.lmt.st;
@@ -116,7 +116,7 @@ describe('Lumiere appearance codec', () => {
 
     it('decodes an old short code without the textOnly key to the default (off)', () => {
         const encoded = compressConfig({ lumiereTuning: NON_DEFAULT_TUNING });
-        const prefix = 'folia-theme://';
+        const prefix = 'bigorange-theme://';
         const legacy = JSON.parse(atob(encoded.slice(prefix.length)));
         expect(legacy.lmt.txo).toBe(true);
         delete legacy.lmt.txo;
@@ -130,7 +130,7 @@ describe('Lumiere appearance codec', () => {
         expect(normalizeLumiereTuning(oldTuning).hideTrails).toBe(false);
         expect(normalizeLumiereTuning({ hideTrails: 'true' }).hideTrails).toBe(false);
         expect(normalizeLumiereTuning({ hideTrails: true }).hideTrails).toBe(true);
-        const prefix = 'folia-theme://';
+        const prefix = 'bigorange-theme://';
         const legacy = JSON.parse(atob(compressConfig({ lumiereTuning: NON_DEFAULT_TUNING }).slice(prefix.length)));
         expect(legacy.lmt.ht).toBe(true);
         delete legacy.lmt.ht;
@@ -144,7 +144,7 @@ describe('Lumiere appearance codec', () => {
         const { themeColorMix: _omitted, ...legacyTuning } = NON_DEFAULT_TUNING;
         expect(normalizeLumiereTuning(legacyTuning).themeColorMix).toBe(DEFAULT_LUMIERE_TUNING.themeColorMix);
         const encoded = compressConfig({ lumiereTuning: NON_DEFAULT_TUNING });
-        const prefix = 'folia-theme://';
+        const prefix = 'bigorange-theme://';
         const legacy = JSON.parse(atob(encoded.slice(prefix.length)));
         expect(legacy.lmt.tcm).toBe(0.35);
         delete legacy.lmt.tcm;

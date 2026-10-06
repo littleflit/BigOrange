@@ -10,7 +10,7 @@ import { useEffect, useRef, type RefObject } from 'react';
 // - 焦点在账户层自己的按钮上时，Enter / 空格交还给按钮（原生激活），不当成「主动作」。
 // - Enter / Escape 不响应长按重复。
 // 只在 isActive（账户层显示着、且首页外壳可交互）时装上监听；集合层开着时它照样在最上层，集合层的 TUI 按键
-// 看到 data-folia-keyboard-window 也会让路。
+// 看到 data-bigorange-keyboard-window 也会让路。
 
 export type LibraryTuiAccountKeyHandler = (key: string, event: KeyboardEvent) => boolean;
 

@@ -101,6 +101,6 @@ export default {
     category: 'basics',
     summaryKey: 'ponder.summaries.custom_shortcut_settings',
     hoverSelector: '[data-settings-anchor="customShortcut"]',
-    relatedTargetIds: ['command-palette', 'pinned-commands', 'folia-shortcuts'],
+    relatedTargetIds: ['command-palette', 'pinned-commands', 'bigorange-shortcuts'],
     scenes: [theKey, theCommand],
 } satisfies PonderTargetDefinition;

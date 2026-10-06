@@ -7,7 +7,7 @@
 | Key | 中文文案 | 对应组件 / 场景 |
 | --- | --- | --- |
 | `help.ponder` | 思索帮助页 | src/components/modal/SettingsHelpActions.tsx |
-| `help.ponderDescription` | 了解 Folia 的基本操作与运行逻辑 | src/components/modal/SettingsHelpActions.tsx |
+| `help.ponderDescription` | 了解 BigOrange 的基本操作与运行逻辑 | src/components/modal/SettingsHelpActions.tsx |
 | `options.ponderHints` | 思索教程提示 | src/components/modal/settings/PonderHintSettingsSection.tsx |
 | `options.ponderHintsDesc` | 把指针停在可教学的控件上会提示长按 G，松手后打开一段演示该手势的动画教程。 | src/components/modal/settings/PonderHintSettingsSection.tsx |
 | `options.ponderHintsAlways` | 始终显示 | src/components/modal/settings/PonderHintSettingsSection.tsx |
@@ -37,9 +37,9 @@
 | `audio-equalizer` | `ponder.targets.audioEqualizer` | playback | `src/components/ponder/targets/audioEqualizer.target.ts` | 见目标文件 hoverSelector / 页面级入口 | src/components/ponder/surfaces/PonderAudioEqualizerSurface.tsx | `audio-equalizer-presets`<br>`audio-equalizer-silent-write`<br>`audio-equalizer-effects` |
 | `command-palette` | `ponder.targets.commandPalette` | basics | `src/components/ponder/targets/commandPalette.target.ts` | 见目标文件 hoverSelector / 页面级入口 | src/components/ponder/PonderSurfaceContents.tsx → PaletteContents | `command-palette-search`<br>`command-palette-argument`<br>`command-palette-execute-mode` |
 | `custom-shortcut-settings` | `ponder.targets.customShortcutSettings` | basics | `src/components/ponder/targets/customShortcutSettings.target.ts` | 见目标文件 hoverSelector / 页面级入口 | src/components/ponder/surfaces/PonderCommandSettingsSurfaces.tsx → PonderCustomShortcutSurface | `custom-shortcut-key`<br>`custom-shortcut-command` |
-| `folia-desktop` | `ponder.targets.foliaDesktop` | desktop | `src/components/ponder/targets/foliaDesktop.target.ts` | 见目标文件 hoverSelector / 页面级入口 | src/components/ponder/surfaces/PonderDesktopFeaturesSurface.tsx | `folia-desktop-wallpaper`<br>`folia-desktop-tray`<br>`folia-desktop-remote` |
-| `folia-shortcuts` | `ponder.targets.foliaShortcuts` | basics | `src/components/ponder/targets/foliaShortcuts.target.ts` | 见目标文件 hoverSelector / 页面级入口 | src/components/ponder/PonderSurfaceContents.tsx → PaletteContents | `help-page-shortcuts` |
-| `folia-transport` | `ponder.targets.foliaTransport` | playback | `src/components/ponder/targets/foliaTransport.target.ts` | 见目标文件 hoverSelector / 页面级入口 | src/components/ponder/surfaces/PonderPlayerPageSurface.tsx | `help-page-transport` |
+| `bigorange-desktop` | `ponder.targets.bigorangeDesktop` | desktop | `src/components/ponder/targets/bigorangeDesktop.target.ts` | 见目标文件 hoverSelector / 页面级入口 | src/components/ponder/surfaces/PonderDesktopFeaturesSurface.tsx | `bigorange-desktop-wallpaper`<br>`bigorange-desktop-tray`<br>`bigorange-desktop-remote` |
+| `bigorange-shortcuts` | `ponder.targets.bigorangeShortcuts` | basics | `src/components/ponder/targets/bigorangeShortcuts.target.ts` | 见目标文件 hoverSelector / 页面级入口 | src/components/ponder/PonderSurfaceContents.tsx → PaletteContents | `help-page-shortcuts` |
+| `bigorange-transport` | `ponder.targets.bigorangeTransport` | playback | `src/components/ponder/targets/bigorangeTransport.target.ts` | 见目标文件 hoverSelector / 页面级入口 | src/components/ponder/surfaces/PonderPlayerPageSurface.tsx | `help-page-transport` |
 | `grid3d-card-style` | `ponder.targets.grid3dCardStyle` | appearance | `src/components/ponder/targets/grid3dCardStyle.target.ts` | 见目标文件 hoverSelector / 页面级入口 | src/components/ponder/surfaces/PonderAppearanceSettingsSurfaces.tsx → PonderGrid3dCardStyleSurface | `grid3d-card-style-options` |
 | `grid-action-button` | `ponder.targets.gridActionButton` | browsing | `src/components/ponder/targets/gridActionButton.target.ts` | 见目标文件 hoverSelector / 页面级入口 | src/components/ponder/surfaces/PonderGridViewSurfaces.tsx → PonderGridActionButtonSurface | `grid-action-button-list`<br>`grid-action-button-slide` |
 | `grid-page` | `ponder.targets.gridPage` | browsing | `src/components/ponder/targets/gridPage.target.ts` | 见目标文件 hoverSelector / 页面级入口 | src/components/ponder/surfaces/PonderGridPageSurface.tsx | `grid-page-structure`<br>`grid-page-tabs`<br>`grid-page-cards`<br>`grid-page-map`<br>`grid-page-search`<br>`grid-page-keyboard` |
@@ -102,16 +102,16 @@
       "replay_gain_settings": "和来源页上那个三选一是同一个值。",
       "import_export_settings": "只导出外观，导入前会确认。",
       "command_palette": "搜出来、带参数、冒号进执行模式。",
-      "folia_desktop": "壁纸模式、系统托盘和遥控窗口。",
-      "folia_shortcuts": "K、P、B、G 四个组合分别通往哪。",
-      "folia_transport": "系统媒体键在后台直接可用，应用里还有 Space 和 {{mod}}+←/→。",
+      "bigorange_desktop": "壁纸模式、系统托盘和遥控窗口。",
+      "bigorange_shortcuts": "K、P、B、G 四个组合分别通往哪。",
+      "bigorange_transport": "系统媒体键在后台直接可用，应用里还有 Space 和 {{mod}}+←/→。",
       "grid3d_card_style": "首页海报墙用纯图片封面还是拍立得卡片。",
       "grid_action_button": "右下角按钮：点击开列表，左滑做第二个动作。",
       "grid_page": "海报墙怎么组织，怎么移动、打开和搜索。",
       "grid_view_card_settings": "网格卡片的封面形状，以及离中心越远衰减多少。",
       "grid_view_edit_mode": "进去之后卡片会变，以及改名什么时候才算数。",
       "grid_view_page": "集合页的结构、拖动与键盘移动、筛选。",
-      "help_page": "Folia 的基本结构和下一步入口。",
+      "help_page": "BigOrange 的基本结构和下一步入口。",
       "lattice_chrome": "展开的海报底下那条控制，中间两颗和底栏共用。",
       "lattice_page": "把整条播放队列铺成一面海报墙。",
       "lattice_style_settings": "暗角，以及层层解锁的海报叠色。",
@@ -478,7 +478,7 @@
         "palette": "命令面板"
       },
       "grid": {
-        "help": "Folia 与帮助入口",
+        "help": "BigOrange 与帮助入口",
         "tabs": "内容来源页签",
         "search": "歌曲搜索",
         "map": "全部集合地图",
@@ -538,11 +538,11 @@
       "panelQueueTab": "面板 · 队列页",
       "panelAccountTab": "面板 · 账号页",
       "latticePage": "Lattice 页面",
-      "helpPage": "认识 Folia",
+      "helpPage": "认识 BigOrange",
       "ponderBasics": "思索怎么用",
-      "foliaTransport": "播放控制与媒体键",
-      "foliaShortcuts": "常用快捷键",
-      "foliaDesktop": "桌面端独有功能",
+      "bigorangeTransport": "播放控制与媒体键",
+      "bigorangeShortcuts": "常用快捷键",
+      "bigorangeDesktop": "桌面端独有功能",
       "queueCommandSurface": "队列窗口",
       "transitionSettings": "过渡与自动混音",
       "localLibraryWatch": "本地文件夹监视",
@@ -635,10 +635,10 @@
       "latticePagePoster": "展开海报并控制播放",
       "latticePageTools": "聚焦、跟随、队列与灯光",
       "latticePageKeyboard": "Lattice 的完整键盘操作",
-      "helpPageOverview": "Folia 大致怎么转",
-      "foliaDesktopWallpaper": "壁纸模式",
-      "foliaDesktopTray": "系统托盘",
-      "foliaDesktopRemote": "遥控窗口",
+      "helpPageOverview": "BigOrange 大致怎么转",
+      "bigorangeDesktopWallpaper": "壁纸模式",
+      "bigorangeDesktopTray": "系统托盘",
+      "bigorangeDesktopRemote": "遥控窗口",
       "transitionSettingsEnable": "总开关与两种模式",
       "transitionSettingsFallback": "选了不等于在跑",
       "localLibraryWatchRoots": "监视列表与失效的那一行",
@@ -735,7 +735,7 @@
         "derived": "有些改动不会写在配置里，但会随导入发生：例如切到自定义主题、删除已上传字体。它们不能单独取消，只能取消对应的主改动。"
       },
       "onboarding": {
-        "overviewShape": "Folia 分四块：网格选歌，Player/Lattice 播放，命令窗口找功能，设置调整选项。底部控制条始终保留。",
+        "overviewShape": "BigOrange 分四块：网格选歌，Player/Lattice 播放，命令窗口找功能，设置调整选项。底部控制条始终保留。",
         "overviewAsk": "不用全记。悬停在不熟悉的组件上，按住 G 可查看说明。",
         "overviewNext": "想完整了解，回导航页选择播放、浏览、外观或桌面端教程。底部按钮打开文档。",
         "here": "这是当前页面的思索教程，不是视频。进度条可拖，方向键切换关键帧，Space 暂停，Esc 退出。",
@@ -784,12 +784,12 @@
         "playerToggleWhere": "侧边手柄贴在屏幕右缘，底边和控制条对齐。它是一颗圆按钮，按一下展开右侧控制面板。",
         "playerPanelWhere": "面板从手柄上方展开，贴着右侧。顶部是封面，下面是封面、控制、队列、账号等标签页。",
         "playerPaletteSlide": "手柄背后还藏着一条向左的滑轨。按住手柄往左拖，越过判定线再松手，打开的是命令窗口，不是面板。",
-        "playerPaletteOpened": "命令窗口从屏幕上方落下，水平居中。Folia 把「找功能」这件事全部收在这里。",
+        "playerPaletteOpened": "命令窗口从屏幕上方落下，水平居中。BigOrange 把「找功能」这件事全部收在这里。",
         "playerPaletteOtherWays": "{{mod}} + K 可随时打开命令窗口。播放页焦点不在输入框时，按 S 也可以；触屏先点右缘唤出手柄。",
         "playerCommandFilter": "窗口开着就直接打字，它按名字、别名和关键词一起筛。↑↓ 选，Enter 执行 —— 不必先想清楚这条命令归在哪一类。",
         "playerCommandArgument": "需要参数的命令不会立刻跑。打完命令名按空格，它收成输入行里的一枚标签，光标留在后面等你补参数，补完再 Enter。",
         "playerExecuteMode": "窗口关闭且焦点不在输入框时，按冒号进入执行模式；窗口打开时只会输入冒号。进入后按 r/v/o/h 执行命令。",
-        "playerShuffleNoSwitch": "Folia 没有常驻的随机播放开关；它是一次操作，按下后会打乱当前队列。",
+        "playerShuffleNoSwitch": "BigOrange 没有常驻的随机播放开关；它是一次操作，按下后会打乱当前队列。",
         "playerShuffleHow": "播放页按冒号进入执行模式，再按 r 打乱队列；再次执行可换顺序。",
         "playerShuffleSlot": "如果你常用它，把「随机队列」放进控制条右边那两个位置之一，以后按一下就行。",
         "lattice": "Lattice 把整条播放队列铺成一面海报墙。你可以在墙上移动查看队列，并选中海报来操作那首歌。",
@@ -803,11 +803,11 @@
         "latticeLights": "灯光关闭后海报退暗，只保留必要层次；这是显示设置，不会暂停播放或修改队列。",
         "latticePosterKeys": "收起时 Enter/Space 展开；展开后 Enter 播放/暂停，Space 显示控制，Esc 收起。",
         "latticePageKeys": ": + C 当前歌曲；{{mod}} + P 队列；{{mod}} + B 返回；{{mod}} + K 命令；方向键移动。",
-        "help": "Folia 分开处理浏览、播放、命令和设置。Ctrl+G 说明当前页面，有特殊操作的组件也有独立教程。",
+        "help": "BigOrange 分开处理浏览、播放、命令和设置。Ctrl+G 说明当前页面，有特殊操作的组件也有独立教程。",
         "helpCommands": "{{mod}} + K 可以搜索全部命令和设置。对于藏得较深的选项，直接搜名称通常比记住它在哪一级更快。",
         "helpOperatingModel": "网格选歌，Player 或 Lattice 播放；底部控制条负责播放，帮助和设置覆盖当前页面。",
         "settings": "左侧按外观、界面、播放、交互、集成、存储、桌面和实验室分组；右侧显示当前分组里的具体设置。",
-        "settingsDirectNavigation": "不必逐层翻找：在命令面板搜索设置名称，Folia 会直接打开对应分组并滚到准确位置。"
+        "settingsDirectNavigation": "不必逐层翻找：在命令面板搜索设置名称，BigOrange 会直接打开对应分组并滚到准确位置。"
       },
       "playerBar": {
         "basicsAutoExpand": "暂停且不在首页时，控制条会自动展开。恢复播放或回到首页后，它会收起。",
@@ -823,7 +823,7 @@
         "slotsIntro": "进度条右边这两个按钮不是固定的，两个位置各自独立。",
         "slotsWhere": "在设置里挑：循环、随机、喜爱、队列、音量、睡眠定时等十个动作里任选，选完立刻生效。",
         "shuffleIntro": "这个随机和别处的不一样 —— 它不是一个开着就一直生效的模式。",
-        "shuffleOnce": "按一下，Folia 把当前队列原地洗一次牌，洗完这个顺序就定下来了。想换个顺序就再按一次。",
+        "shuffleOnce": "按一下，BigOrange 把当前队列原地洗一次牌，洗完这个顺序就定下来了。想换个顺序就再按一次。",
         "volumeIntro": "底部控制条上没有常驻的音量滑块。",
         "volumeOpens": "按这里打开的是命令面板里的音量面板，不是就地弹一个小滑块。"
       },
@@ -878,7 +878,7 @@
         "notice": "自动混音需要媒体缓存；黄色提示中的链接可直接打开缓存设置。"
       },
       "libraryWatch": {
-        "enable": "打开后，Folia 会监视已导入的本地文件夹并自动增量扫描。",
+        "enable": "打开后，BigOrange 会监视已导入的本地文件夹并自动增量扫描。",
         "roots": "开关底下才展开这张列表，一行一个被监视的根文件夹，下面那行小字是它的真实路径。",
         "warning": "眼睛表示监视正常；黄色三角表示路径或权限有问题，文件夹已停止自动扫描。",
         "recheck": "看到三角就按右边这颗「重新检查」，它会重新挂一遍所有导入过的文件夹。旁边那行小字是上一次自动扫描的时间。"
@@ -1042,26 +1042,26 @@
 | `custom-shortcut-settings` | `custom-shortcut-key` | Alt 是印死的，你挑的是字母 | `ponder.captions.customShortcut.clear` | 录上之后键帽旁边会多一颗小小的 ✕，按它就把绑定清掉；在你重新录一颗之前，这条快捷键什么都不运行。 | clear：清除 | `ponder.anchors.customShortcut.clear` |
 | `custom-shortcut-settings` | `custom-shortcut-command` | 这份列表为什么更短 | `ponder.captions.customShortcut.filtered` | 下拉框只列出可在所有页面使用的命令；依赖特定页面或面板的命令不会出现。 | commandList：在哪儿都成立的命令 | `ponder.anchors.customShortcut.commandList` |
 | `custom-shortcut-settings` | `custom-shortcut-command` | 这份列表为什么更短 | `ponder.captions.customShortcut.goesQuiet` | 快捷键执行时还会再次检查条件。命令失效或按键被占用时，它不会改做别的事，只会失效。 | commandList：在哪儿都成立的命令 | `ponder.anchors.customShortcut.commandList` |
-| `folia-desktop` | `folia-desktop-wallpaper` | 壁纸模式 | `ponder.captions.desktop.windowNormal` | 桌面版多出三项功能：窗口层级、系统托盘和遥控窗口。先从普通主窗口开始。 | mainWindow：主窗口 | `ponder.anchors.desktop.mainWindow` |
-| `folia-desktop` | `folia-desktop-wallpaper` | 壁纸模式 | `ponder.captions.desktop.wallpaper` | 壁纸模式会把窗口放到桌面底层，歌词铺在桌面上；键盘在此模式下不可用。 | page：桌面 | `ponder.anchors.desktop.page` |
-| `folia-desktop` | `folia-desktop-wallpaper` | 壁纸模式 | `ponder.captions.desktop.wallpaperExit` | 所以退出壁纸模式不能靠点窗口。走托盘菜单里的「壁纸模式」，或者在命令窗口里搜同一条命令。 | trayIcon：托盘图标 | `ponder.anchors.desktop.trayIcon` |
-| `folia-desktop` | `folia-desktop-tray` | 系统托盘 | `ponder.captions.desktop.trayIcon` | 托盘图标位于任务栏角落。最小化到托盘后，主窗口不在任务栏，但播放和媒体键仍正常。 | trayIcon：托盘图标 | `ponder.anchors.desktop.trayIcon` |
-| `folia-desktop` | `folia-desktop-tray` | 系统托盘 | `ponder.captions.desktop.trayMenu` | 托盘菜单可在不打开主窗口的情况下显示/隐藏窗口、打开遥控窗口、设置透明和置顶等。壁纸模式下，托盘是退出入口。 | trayMenu：托盘菜单 | `ponder.anchors.desktop.trayMenu` |
-| `folia-desktop` | `folia-desktop-remote` | 遥控窗口 | `ponder.captions.desktop.remote` | 遥控窗口可从命令窗口或托盘打开；主窗口最小化或进入壁纸模式时仍可使用。 | remoteWindow：遥控窗口 | `ponder.anchors.desktop.remoteWindow` |
-| `folia-desktop` | `folia-desktop-remote` | 遥控窗口 | `ponder.captions.desktop.remoteChrome` | 遥控窗口有自己的置顶、透明、点击穿透、任务栏图标和自动隐藏设置，与主窗口互不影响。 | remoteWindow：遥控窗口 | `ponder.anchors.desktop.remoteWindow` |
-| `folia-shortcuts` | `help-page-shortcuts` | 四个最常用的快捷键 | `ponder.captions.onboarding.shortcutK` | {{mod}} + K 打开命令窗口，功能和设置都可直接搜索。 | page：命令面板 | `ponder.anchors.pages.commandPalette` |
-| `folia-shortcuts` | `help-page-shortcuts` | 四个最常用的快捷键 | `ponder.captions.onboarding.shortcutP` | {{mod}} + P 打开播放队列；输入行可筛选，也支持 @artist: 等条件。 | page：命令面板 | `ponder.anchors.pages.commandPalette` |
-| `folia-shortcuts` | `help-page-shortcuts` | 四个最常用的快捷键 | `ponder.captions.onboarding.shortcutB` | {{mod}} + B 打开 Lattice；已在 Lattice 时返回。 | page：命令面板 | `ponder.anchors.pages.commandPalette` |
-| `folia-shortcuts` | `help-page-shortcuts` | 四个最常用的快捷键 | `ponder.captions.onboarding.shortcutG` | Ctrl + G 就是刚才那一下：打开当前页面的思索教程。任何时候迷路了，先按它。 | page：命令面板 | `ponder.anchors.pages.commandPalette` |
-| `folia-transport` | `help-page-transport` | 不用切回来也能控制播放 | `ponder.captions.onboarding.mediaKeys` | 系统媒体键可以在后台控制播放；Windows 使用 SMTC，Linux 使用 MPRIS。系统媒体浮窗也会显示当前歌曲。 | page：播放器 | `ponder.anchors.pages.player` |
-| `folia-transport` | `help-page-transport` | 不用切回来也能控制播放 | `ponder.captions.onboarding.inAppTransport` | 应用内：Space 播放/暂停，{{mod}} + ←/→ 切歌；播放页的 ←/→ 快退或快进 5 秒。更多操作在命令窗口。 | page：播放器 | `ponder.anchors.pages.player` |
+| `bigorange-desktop` | `bigorange-desktop-wallpaper` | 壁纸模式 | `ponder.captions.desktop.windowNormal` | 桌面版多出三项功能：窗口层级、系统托盘和遥控窗口。先从普通主窗口开始。 | mainWindow：主窗口 | `ponder.anchors.desktop.mainWindow` |
+| `bigorange-desktop` | `bigorange-desktop-wallpaper` | 壁纸模式 | `ponder.captions.desktop.wallpaper` | 壁纸模式会把窗口放到桌面底层，歌词铺在桌面上；键盘在此模式下不可用。 | page：桌面 | `ponder.anchors.desktop.page` |
+| `bigorange-desktop` | `bigorange-desktop-wallpaper` | 壁纸模式 | `ponder.captions.desktop.wallpaperExit` | 所以退出壁纸模式不能靠点窗口。走托盘菜单里的「壁纸模式」，或者在命令窗口里搜同一条命令。 | trayIcon：托盘图标 | `ponder.anchors.desktop.trayIcon` |
+| `bigorange-desktop` | `bigorange-desktop-tray` | 系统托盘 | `ponder.captions.desktop.trayIcon` | 托盘图标位于任务栏角落。最小化到托盘后，主窗口不在任务栏，但播放和媒体键仍正常。 | trayIcon：托盘图标 | `ponder.anchors.desktop.trayIcon` |
+| `bigorange-desktop` | `bigorange-desktop-tray` | 系统托盘 | `ponder.captions.desktop.trayMenu` | 托盘菜单可在不打开主窗口的情况下显示/隐藏窗口、打开遥控窗口、设置透明和置顶等。壁纸模式下，托盘是退出入口。 | trayMenu：托盘菜单 | `ponder.anchors.desktop.trayMenu` |
+| `bigorange-desktop` | `bigorange-desktop-remote` | 遥控窗口 | `ponder.captions.desktop.remote` | 遥控窗口可从命令窗口或托盘打开；主窗口最小化或进入壁纸模式时仍可使用。 | remoteWindow：遥控窗口 | `ponder.anchors.desktop.remoteWindow` |
+| `bigorange-desktop` | `bigorange-desktop-remote` | 遥控窗口 | `ponder.captions.desktop.remoteChrome` | 遥控窗口有自己的置顶、透明、点击穿透、任务栏图标和自动隐藏设置，与主窗口互不影响。 | remoteWindow：遥控窗口 | `ponder.anchors.desktop.remoteWindow` |
+| `bigorange-shortcuts` | `help-page-shortcuts` | 四个最常用的快捷键 | `ponder.captions.onboarding.shortcutK` | {{mod}} + K 打开命令窗口，功能和设置都可直接搜索。 | page：命令面板 | `ponder.anchors.pages.commandPalette` |
+| `bigorange-shortcuts` | `help-page-shortcuts` | 四个最常用的快捷键 | `ponder.captions.onboarding.shortcutP` | {{mod}} + P 打开播放队列；输入行可筛选，也支持 @artist: 等条件。 | page：命令面板 | `ponder.anchors.pages.commandPalette` |
+| `bigorange-shortcuts` | `help-page-shortcuts` | 四个最常用的快捷键 | `ponder.captions.onboarding.shortcutB` | {{mod}} + B 打开 Lattice；已在 Lattice 时返回。 | page：命令面板 | `ponder.anchors.pages.commandPalette` |
+| `bigorange-shortcuts` | `help-page-shortcuts` | 四个最常用的快捷键 | `ponder.captions.onboarding.shortcutG` | Ctrl + G 就是刚才那一下：打开当前页面的思索教程。任何时候迷路了，先按它。 | page：命令面板 | `ponder.anchors.pages.commandPalette` |
+| `bigorange-transport` | `help-page-transport` | 不用切回来也能控制播放 | `ponder.captions.onboarding.mediaKeys` | 系统媒体键可以在后台控制播放；Windows 使用 SMTC，Linux 使用 MPRIS。系统媒体浮窗也会显示当前歌曲。 | page：播放器 | `ponder.anchors.pages.player` |
+| `bigorange-transport` | `help-page-transport` | 不用切回来也能控制播放 | `ponder.captions.onboarding.inAppTransport` | 应用内：Space 播放/暂停，{{mod}} + ←/→ 切歌；播放页的 ←/→ 快退或快进 5 秒。更多操作在命令窗口。 | page：播放器 | `ponder.anchors.pages.player` |
 | `grid3d-card-style` | `grid3d-card-style-options` | 两种卡片长什么样 | `ponder.captions.gridStyle.grid3dImage` | 「纯图片封面」是首页海报墙的默认样子：整张卡就是一张封面，歌单名压在封面底部的渐变里。 | optionImage：纯图片封面 | `ponder.anchors.grid3dCardStyle.image` |
 | `grid3d-card-style` | `grid3d-card-style-options` | 两种卡片长什么样 | `ponder.captions.gridStyle.grid3dCard` | 拍立得卡片把封面缩到上半部，白边显示名称；封面不裁切，但每屏能放的卡片更少。 | optionCard：拍立得卡片 | `ponder.anchors.grid3dCardStyle.card` |
 | `grid-action-button` | `grid-action-button-list` | 点一下开曲目列表 | `ponder.captions.gridActionButton.tap` | 集合页和海报墙右下角都有这颗按钮。点一下，曲目列表从右边切进来 —— 这是它的第一个动作。 | button：右下角那颗按钮 | `ponder.anchors.gridActionButton.button` |
 | `grid-action-button` | `grid-action-button-list` | 点一下开曲目列表 | `ponder.captions.gridActionButton.list` | 列表里一行一首，点哪首播哪首。本地文件夹的列表顶上还多两颗排序控件。 | listPanel：曲目列表 | `ponder.anchors.gridActionButton.list` |
 | `grid-action-button` | `grid-action-button-slide` | 往左滑是第二个动作 | `ponder.captions.gridActionButton.track` | 它背后还藏着一条向左的滑轨，平时看不见 —— 和播放页右缘那颗手柄是同一个手势。按住按钮往左拖。 | track：隐藏的滑轨 | `ponder.anchors.gridActionButton.track` |
 | `grid-action-button` | `grid-action-button-slide` | 往左滑是第二个动作 | `ponder.captions.gridActionButton.slideTarget` | 松手后打开本页筛选，也可在设置 · 交互中改为命令窗口。 | filterBar：本页筛选 | `ponder.anchors.gridActionButton.slideTarget` |
-| `grid-page` | `grid-page-structure` | 页头的每个入口 | `ponder.captions.pages.gridHelp` | 左侧齿轮打开帮助页；有新版本时，更新提示也会出现在这里。Help 内仍可打开版本更新说明和本页 Ponder。 | help：Folia 与帮助入口 | `ponder.anchors.grid.help` |
+| `grid-page` | `grid-page-structure` | 页头的每个入口 | `ponder.captions.pages.gridHelp` | 左侧齿轮打开帮助页；有新版本时，更新提示也会出现在这里。Help 内仍可打开版本更新说明和本页 Ponder。 | help：BigOrange 与帮助入口 | `ponder.anchors.grid.help` |
 | `grid-page` | `grid-page-structure` | 页头的每个入口 | `ponder.captions.pages.gridTabs` | 中间页签切换歌单、电台、专辑、本地库、Navidrome 与 Stage。Lattice 图标只在已有播放队列时出现。 | tabs：内容来源页签 | `ponder.anchors.grid.tabs` |
 | `grid-page` | `grid-page-structure` | 页头的每个入口 | `ponder.captions.pages.gridSearchBox` | 右侧是跨当前来源的歌曲搜索。输入后按 Enter 会进入搜索工作台；它不会筛选下方的集合海报。 | search：歌曲搜索 | `ponder.anchors.grid.search` |
 | `grid-page` | `grid-page-tabs` | 切换来源与专属操作 | `ponder.captions.pages.gridTabResult` | 切换页签后，下方 3D 轨道会换成该来源的集合，并记住各来源最后聚焦的位置。 | tabs：内容来源页签 | `ponder.anchors.grid.tabs` |
@@ -1092,9 +1092,9 @@
 | `grid-view-page` | `grid-view-page-filter` | 筛选当前集合 | `ponder.captions.pages.gridViewFilter` | {{mod}} + F 或直接输入打开筛选；--play 播放结果，--add 加入队列；Esc 清空并关闭。 | filter：本页筛选 | `ponder.anchors.gridView.filter` |
 | `grid-view-page` | `grid-view-page-activate` | 打开或播放卡片 | `ponder.captions.pages.gridViewActivate` | 点卡片只会把它移到中央；播放用卡片上的播放键，旁边是加入队列。编辑模式下改为右上角的移除按钮。 | card：当前歌曲卡片 | `ponder.anchors.gridView.card` |
 | `grid-view-page` | `grid-view-page-activate` | 打开或播放卡片 | `ponder.captions.pages.gridViewKeys` | Enter 激活当前卡片；Esc 依次关闭内层状态、清除焦点，最后返回上一级。 | card：当前歌曲卡片 | `ponder.anchors.gridView.card` |
-| `help-page` | `help-page-overview` | Folia 大致怎么转 | `ponder.captions.onboarding.overviewShape` | Folia 分成四块：网格选歌，Player 或 Lattice 播放，命令窗口找功能，设置调整选项。底部控制条会一直保留。 | page：一页界面 | `ponder.anchors.onboarding.page` |
-| `help-page` | `help-page-overview` | Folia 大致怎么转 | `ponder.captions.onboarding.overviewAsk` | 不用全记。悬停在不熟悉的组件上，按住 G 可查看说明。 | capsule：悬停提示 | `ponder.anchors.onboarding.capsule` |
-| `help-page` | `help-page-overview` | Folia 大致怎么转 | `ponder.captions.onboarding.overviewNext` | 想完整了解，回导航页选择播放、浏览、外观或桌面端教程。底部按钮打开文档。 | page：一页界面 | `ponder.anchors.onboarding.page` |
+| `help-page` | `help-page-overview` | BigOrange 大致怎么转 | `ponder.captions.onboarding.overviewShape` | BigOrange 分成四块：网格选歌，Player 或 Lattice 播放，命令窗口找功能，设置调整选项。底部控制条会一直保留。 | page：一页界面 | `ponder.anchors.onboarding.page` |
+| `help-page` | `help-page-overview` | BigOrange 大致怎么转 | `ponder.captions.onboarding.overviewAsk` | 不用全记。悬停在不熟悉的组件上，按住 G 可查看说明。 | capsule：悬停提示 | `ponder.anchors.onboarding.capsule` |
+| `help-page` | `help-page-overview` | BigOrange 大致怎么转 | `ponder.captions.onboarding.overviewNext` | 想完整了解，回导航页选择播放、浏览、外观或桌面端教程。底部按钮打开文档。 | page：一页界面 | `ponder.anchors.onboarding.page` |
 | `import-export-settings` | `import-export-scope` | 它到底带走了什么 | `ponder.captions.importExport.scope` | 导出外观设置：主题、歌词动画、渲染参数、字幕、字体、背景和卡片。 | copy：这一组做什么 | `ponder.anchors.importExport.copy` |
 | `import-export-settings` | `import-export-scope` | 它到底带走了什么 | `ponder.captions.importExport.notBackup` | 它只备份外观：主题、歌词动画、渲染参数、字幕、字体、背景和卡片。歌单、曲库、播放设置、快捷键和账号不在里面。 | panel：设置 · 备份与导入 | `ponder.anchors.importExport.panel` |
 | `import-export-settings` | `import-export-export` | 导出 | `ponder.captions.importExport.themeChoice` | 导出前选择是否带主题：AI 主题、自定义主题，或不带主题。只想分享视觉设置时选「不带」。 | themeChips：带哪个主题 | `ponder.anchors.importExport.themeChips` |
@@ -1131,7 +1131,7 @@
 | `local-folder-actions` | `local-folder-actions-maintenance` | 重扫与整理歌曲信息 | `ponder.captions.localFolderActions.organize` | 「整理歌曲信息」打开的是这个文件夹的批量改 tag 面板 —— 一次处理整个文件夹，不是一首一首改。 | organize：整理歌曲信息 | `ponder.anchors.localFolderActions.organize` |
 | `local-folder-actions` | `local-folder-actions-delete` | 红色那颗会删东西 | `ponder.captions.localFolderActions.remove` | 最下面这颗红的把这个文件夹从曲库里移除。它不删磁盘上的文件，但曲库里这些歌的记录、以及它们在歌单里的位置都会跟着没。 | remove：从曲库移除 | `ponder.anchors.localFolderActions.remove` |
 | `local-folder-actions` | `local-folder-actions-delete` | 红色那颗会删东西 | `ponder.captions.localFolderActions.confirm` | 删除前会确认；根文件夹和子文件夹的影响范围不同，确认框会说明。 | panel：来源专属动作 | `ponder.anchors.localFolderActions.panel` |
-| `local-library-watch` | `local-library-watch-roots` | 监视列表与失效的那一行 | `ponder.captions.libraryWatch.enable` | 打开后，Folia 会监视已导入的本地文件夹并自动增量扫描。 | enable：自动扫描 | `ponder.anchors.libraryWatch.enable` |
+| `local-library-watch` | `local-library-watch-roots` | 监视列表与失效的那一行 | `ponder.captions.libraryWatch.enable` | 打开后，BigOrange 会监视已导入的本地文件夹并自动增量扫描。 | enable：自动扫描 | `ponder.anchors.libraryWatch.enable` |
 | `local-library-watch` | `local-library-watch-roots` | 监视列表与失效的那一行 | `ponder.captions.libraryWatch.roots` | 开关底下才展开这张列表，一行一个被监视的根文件夹，下面那行小字是它的真实路径。 | roots：监视中的文件夹 | `ponder.anchors.libraryWatch.roots` |
 | `local-library-watch` | `local-library-watch-roots` | 监视列表与失效的那一行 | `ponder.captions.libraryWatch.warning` | 眼睛表示监视正常；黄色三角表示路径或权限有问题，文件夹已停止自动扫描。 | roots：监视中的文件夹 | `ponder.anchors.libraryWatch.roots` |
 | `local-library-watch` | `local-library-watch-roots` | 监视列表与失效的那一行 | `ponder.captions.libraryWatch.recheck` | 看到三角就按右边这颗「重新检查」，它会重新挂一遍所有导入过的文件夹。旁边那行小字是上一次自动扫描的时间。 | recheck：重新检查 | `ponder.anchors.libraryWatch.recheck` |
@@ -1201,7 +1201,7 @@
 | `player-bar` | `player-bar-slots` | 右边两个位置可以换 | `ponder.captions.playerBar.slotsIntro` | 进度条右边这两个按钮不是固定的，两个位置各自独立。 | slots：两个槽位 | `ponder.anchors.playerBar.slots` |
 | `player-bar` | `player-bar-slots` | 右边两个位置可以换 | `ponder.captions.playerBar.slotsWhere` | 在设置里挑：循环、随机、喜爱、队列、音量、睡眠定时等十个动作里任选，选完立刻生效。 | picker：设置里的选择器 | `ponder.anchors.playerBar.picker` |
 | `player-bar` | `player-bar-shuffle` | 随机只洗一次牌 | `ponder.captions.playerBar.shuffleIntro` | 这个随机和别处的不一样 —— 它不是一个开着就一直生效的模式。 | primarySlot：第一个槽位 | `ponder.anchors.playerBar.primarySlot` |
-| `player-bar` | `player-bar-shuffle` | 随机只洗一次牌 | `ponder.captions.playerBar.shuffleOnce` | 按一下，Folia 把当前队列原地洗一次牌，洗完这个顺序就定下来了。想换个顺序就再按一次。 | queue：播放队列 | `ponder.anchors.playerBar.queue` |
+| `player-bar` | `player-bar-shuffle` | 随机只洗一次牌 | `ponder.captions.playerBar.shuffleOnce` | 按一下，BigOrange 把当前队列原地洗一次牌，洗完这个顺序就定下来了。想换个顺序就再按一次。 | queue：播放队列 | `ponder.anchors.playerBar.queue` |
 | `player-bar` | `player-bar-volume` | 音量在命令面板里 | `ponder.captions.playerBar.volumeIntro` | 底部控制条上没有常驻的音量滑块。 | primarySlot：第一个槽位 | `ponder.anchors.playerBar.primarySlot` |
 | `player-bar` | `player-bar-volume` | 音量在命令面板里 | `ponder.captions.playerBar.volumeOpens` | 按这里打开的是命令面板里的音量面板，不是就地弹一个小滑块。 | volumeSurface：音量面板 | `ponder.anchors.playerBar.volumeSurface` |
 | `player-page` | `player-page-layout` | 页面上有什么、各在哪 | `ponder.captions.pages.playerLayout` | 播放页全屏显示歌词和可视化；入口只有底部控制条、右侧手柄和展开后的面板。 | page：播放器 | `ponder.anchors.pages.player` |
@@ -1210,12 +1210,12 @@
 | `player-page` | `player-page-layout` | 页面上有什么、各在哪 | `ponder.captions.pages.playerToggleWhere` | 侧边手柄贴在屏幕右缘，底边和控制条对齐。它是一颗圆按钮，按一下展开右侧控制面板。 | toggle：侧边手柄 | `ponder.anchors.playerPage.toggle` |
 | `player-page` | `player-page-layout` | 页面上有什么、各在哪 | `ponder.captions.pages.playerPanelWhere` | 面板从手柄上方展开，贴着右侧。顶部是封面，下面是封面、控制、队列、账号等标签页。 | panel：控制面板 | `ponder.anchors.playerPage.panel` |
 | `player-page` | `player-page-open-palette` | 叫出命令窗口 | `ponder.captions.pages.playerPaletteSlide` | 手柄背后还藏着一条向左的滑轨。按住手柄往左拖，越过判定线再松手，打开的是命令窗口，不是面板。 | track：隐藏的滑轨 | `ponder.anchors.playerPage.track` |
-| `player-page` | `player-page-open-palette` | 叫出命令窗口 | `ponder.captions.pages.playerPaletteOpened` | 命令窗口从屏幕上方落下，水平居中。Folia 把「找功能」这件事全部收在这里。 | palette：命令窗口 | `ponder.anchors.playerPage.palette` |
+| `player-page` | `player-page-open-palette` | 叫出命令窗口 | `ponder.captions.pages.playerPaletteOpened` | 命令窗口从屏幕上方落下，水平居中。BigOrange 把「找功能」这件事全部收在这里。 | palette：命令窗口 | `ponder.anchors.playerPage.palette` |
 | `player-page` | `player-page-open-palette` | 叫出命令窗口 | `ponder.captions.pages.playerPaletteOtherWays` | {{mod}} + K 可随时打开命令窗口。播放页焦点不在输入框时，按 S 也可以；触屏先点右缘唤出手柄。 | palette：命令窗口 | `ponder.anchors.playerPage.palette` |
 | `player-page` | `player-page-run-commands` | 在命令窗口里执行 | `ponder.captions.pages.playerCommandFilter` | 窗口开着就直接打字，它按名字、别名和关键词一起筛。↑↓ 选，Enter 执行 —— 不必先想清楚这条命令归在哪一类。 | palette：命令窗口 | `ponder.anchors.playerPage.palette` |
 | `player-page` | `player-page-run-commands` | 在命令窗口里执行 | `ponder.captions.pages.playerCommandArgument` | 需要参数的命令不会立刻跑。打完命令名按空格，它收成输入行里的一枚标签，光标留在后面等你补参数，补完再 Enter。 | palette：命令窗口 | `ponder.anchors.playerPage.palette` |
 | `player-page` | `player-page-run-commands` | 在命令窗口里执行 | `ponder.captions.pages.playerExecuteMode` | 窗口关闭且焦点不在输入框时，按冒号进入执行模式；窗口已打开时，冒号只会输入到查询框。进入后按 r/v/o/h 执行对应命令。 | palette：命令窗口 | `ponder.anchors.playerPage.palette` |
-| `player-page` | `player-page-shuffle` | 常见问题：怎么随机播放 | `ponder.captions.pages.playerShuffleNoSwitch` | Folia 没有常驻的随机播放开关；它是一次操作，按下后会打乱当前队列。 | bar：底部控制条 | `ponder.anchors.playerPage.bar` |
+| `player-page` | `player-page-shuffle` | 常见问题：怎么随机播放 | `ponder.captions.pages.playerShuffleNoSwitch` | BigOrange 没有常驻的随机播放开关；它是一次操作，按下后会打乱当前队列。 | bar：底部控制条 | `ponder.anchors.playerPage.bar` |
 | `player-page` | `player-page-shuffle` | 常见问题：怎么随机播放 | `ponder.captions.pages.playerShuffleHow` | 播放页按冒号进入执行模式，再按 r 打乱队列；再次执行可换顺序。 | palette：命令窗口 | `ponder.anchors.playerPage.palette` |
 | `player-page` | `player-page-shuffle` | 常见问题：怎么随机播放 | `ponder.captions.pages.playerShuffleSlot` | 如果你常用它，把「随机队列」放进控制条右边那两个位置之一，以后按一下就行。 | bar：底部控制条 | `ponder.anchors.playerPage.bar` |
 | `ponder-basics` | `help-page-ponder` | 你已经在思索里了 | `ponder.captions.onboarding.here` | 这是当前页面的思索教程，不是视频。进度条可拖，方向键切换关键帧，Space 暂停，Esc 退出。 | page：一页界面 | `ponder.anchors.onboarding.page` |
@@ -1237,7 +1237,7 @@
 | `replay-gain-settings` | `replay-gain-mirrored` | 同一个值，两处入口 | `ponder.captions.replayGain.sameValue` | 控制面板来源页的三个按钮与这里共用同一个 ReplayGain 设置，改一处会同步另一处。 | panelModes：同样那三个模式 | `ponder.anchors.replayGain.panelModes` |
 | `replay-gain-settings` | `replay-gain-mirrored` | 同一个值，两处入口 | `ponder.captions.replayGain.summary` | 来源页还会显示这首歌的 T/A 增益标签；没有标签时显示「不可用」。 | panelSummary：这首歌的增益标签 | `ponder.anchors.replayGain.panelSummary` |
 | `settings-page` | `settings-page-overview` | 设置按用途分组 | `ponder.captions.pages.settings` | 左侧按外观、界面、播放、交互、集成、存储、桌面和实验室分组；右侧显示当前分组里的具体设置。 | page：设置 | `ponder.anchors.pages.settings` |
-| `settings-page` | `settings-page-direct-navigation` | 从命令直接跳转 | `ponder.captions.pages.settingsDirectNavigation` | 不必逐层翻找：在命令面板搜索设置名称，Folia 会直接打开对应分组并滚到准确位置。 | palette：命令面板 | `ponder.anchors.pages.commandPalette` |
+| `settings-page` | `settings-page-direct-navigation` | 从命令直接跳转 | `ponder.captions.pages.settingsDirectNavigation` | 不必逐层翻找：在命令面板搜索设置名称，BigOrange 会直接打开对应分组并滚到准确位置。 | palette：命令面板 | `ponder.anchors.pages.commandPalette` |
 | `side-panel` | `side-panel-structure` | 面板里有什么 | `ponder.captions.sidePanel.cover` | 面板顶部是当前歌曲的方形封面，换页时保持不动。悬停后四角会出现按钮。 | cover：当前封面 | `ponder.anchors.sidePanel.cover` |
 | `side-panel` | `side-panel-structure` | 面板里有什么 | `ponder.captions.sidePanel.tabs` | 封面下方是标签页：封面、控制、队列、账号；有来源信息时还会多一个来源页。换页不会移动面板。 | tabs：标签页 | `ponder.anchors.sidePanel.tabs` |
 | `side-panel` | `side-panel-structure` | 面板里有什么 | `ponder.captions.sidePanel.body` | 标签下方是当前内容。面板固定为封面、标签和内容三部分。 | body：当前标签页内容 | `ponder.anchors.sidePanel.body` |

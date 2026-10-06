@@ -11,7 +11,7 @@ import {
 import { hexOf, mixRgb, scaleRgb, WHITE, type Rgb } from '../color';
 
 // src/components/visualizer/lumiere/text/keywordColors.ts
-// 绘光的关键字着色：关键字与颜色是主题的 wordColors，匹配走 folia 共用的 wordColoring（中日韩按短语包含、
+// 绘光的关键字着色：关键字与颜色是主题的 wordColors，匹配走 bigorange 共用的 wordColoring（中日韩按短语包含、
 // 英文按词，按字符区间落到字上，所以「花火」不会染到「火车」的「火」）。每行只在构建时匹配一次，得到逐字
 // （grapheme）的关键字色；逐帧只做与光色的混合。
 //

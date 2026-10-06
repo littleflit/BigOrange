@@ -8,7 +8,7 @@ import { afterEach, beforeEach, vi } from 'vitest';
 // Verifies an untagged album never drops the resolved cover, which queue-derived surfaces
 // (Lattice posters, panel collection entries) read only through `album.coverUrl`.
 
-const coverUrl = `folia-cover://asset/sha256:${'a'.repeat(64)}`;
+const coverUrl = `bigorange-cover://asset/sha256:${'a'.repeat(64)}`;
 
 const localSong = (patch: Partial<LocalSong> = {}): LocalSong => ({
     id: 'song',

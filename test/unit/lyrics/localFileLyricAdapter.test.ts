@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { LocalFileLyricAdapter } from '@/utils/lyrics/adapters/LocalFileLyricAdapter';
 import { parseLyricsAsync } from '@/utils/lyrics/workerClient';
-import { buildFoliaLyricDocument, serializeFoliaLyricDocument } from '@/utils/lyrics/foliaLyricDocument';
+import { buildBigOrangeLyricDocument, serializeBigOrangeLyricDocument } from '@/utils/lyrics/bigorangeLyricDocument';
 
 // test/unit/lyrics/localFileLyricAdapter.test.ts
 // Verifies local file lyric format hints are forwarded into the shared worker pipeline.
@@ -89,7 +89,7 @@ describe('LocalFileLyricAdapter', () => {
     });
 
     it('loads .fia documents directly without the parser worker', async () => {
-        const content = serializeFoliaLyricDocument(buildFoliaLyricDocument({
+        const content = serializeBigOrangeLyricDocument(buildBigOrangeLyricDocument({
             lines: [{ startTime: 1, endTime: 2, fullText: 'Hi', words: [{ text: 'Hi', startTime: 1, endTime: 2 }] }],
         }));
 

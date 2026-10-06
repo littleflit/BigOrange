@@ -4,7 +4,7 @@ import { Check, ChevronLeft, Disc, Eye, EyeOff, ListFilter, X } from 'lucide-rea
 import GridPanelToggleIndicator from '../shared/GridPanelToggleIndicator';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '../../../../types';
-import { useFoliaHexViewport } from '../shared/useFoliaHexViewport';
+import { useBigOrangeHexViewport } from '../shared/useBigOrangeHexViewport';
 import { SidePanelList, CollectionListItem } from '../../../../components/shared/SidePanelList';
 import { GridListSearchButton } from '../../../../components/shared/GridListSearchButton';
 import { useGridCommandFilter } from '../../../../hooks/useGridCommandFilter';
@@ -530,7 +530,7 @@ export const GridMap: React.FC<GridMapProps> = ({
         renderedIndexes,
         renderedIndexesRef,
         updateRenderedIndexesForViewport,
-    } = useFoliaHexViewport({
+    } = useBigOrangeHexViewport({
         itemCount: displayItems.length,
         spacingX: layoutConfig.spacingX,
         spacingY: layoutConfig.spacingY,
@@ -915,7 +915,7 @@ export const GridMap: React.FC<GridMapProps> = ({
             const active = document.activeElement;
             if (
                 active instanceof HTMLElement
-                && (isTextEntryTarget(active) || Boolean(active.closest('[data-folia-keyboard-window="true"]')))
+                && (isTextEntryTarget(active) || Boolean(active.closest('[data-bigorange-keyboard-window="true"]')))
             ) return;
             containerRef.current?.focus({ preventScroll: true });
         };

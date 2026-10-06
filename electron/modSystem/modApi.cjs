@@ -118,7 +118,7 @@ const createModDataStore = (dataDir, { maxBytes = DATA_MAX_BYTES } = {}) => {
 /*
  * context: {
  *   modId, manifest, dataStore,
- *   hostInfo: { folium: { major, minor }, folia },
+ *   hostInfo: { folium: { major, minor }, bigorange },
  *   emitLog(level, message, details),
  *   getPlaybackSnapshot(),      // Folium DTO, or null before the renderer pushed one
  *   registerDisposer(fn),       // run when the mod is disabled, reloaded, or the app quits

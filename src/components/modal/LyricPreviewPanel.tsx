@@ -261,7 +261,7 @@ export const LyricPreviewPanel: React.FC<LyricPreviewPanelProps> = ({
 
     // 订阅全局时间，触发极高性能的 DOM 直接高亮更新与滚动
     useEffect(() => {
-        const timeValue = (window as any).__folia_current_time;
+        const timeValue = (window as any).__bigorange_current_time;
         if (!timeValue || !lyricData || !lyricData.lines || lyricData.lines.length === 0) {
             return;
         }
@@ -313,7 +313,7 @@ export const LyricPreviewPanel: React.FC<LyricPreviewPanelProps> = ({
             }
             requestAnimationFrame(() => {
                 measureScrollTargets();
-                const timeValue = (window as any).__folia_current_time;
+                const timeValue = (window as any).__bigorange_current_time;
                 const latest = timeValue ? timeValue.get() : 0;
                 updateLineProgress(latest);
                 updateScroll(latest);
@@ -367,7 +367,7 @@ export const LyricPreviewPanel: React.FC<LyricPreviewPanelProps> = ({
     const hasTranslation = lyricData.lines?.some(line => !!line.translation);
     const hasRomanization = lyricData.lines?.some(line => !!line.romanization);
 
-    const timeValue = (window as any).__folia_current_time;
+    const timeValue = (window as any).__bigorange_current_time;
     const initialVal = timeValue ? timeValue.get() : 0;
 
     let subLineText = '';

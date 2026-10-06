@@ -82,7 +82,7 @@ export function useTranscodeFallback({
             && song
             && (isLocalPlaybackSong(song) || isNavidromePlaybackSong(song))
             && failedSource
-            && !failedSource.startsWith('folia-transcode:'),
+            && !failedSource.startsWith('bigorange-transcode:'),
         );
         if (!canRecover || !song) return false;
 

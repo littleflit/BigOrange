@@ -17,7 +17,7 @@ import type { ProbeDefinition } from './definition';
  *
  * 提示只弹一次，所以带一个重置按钮：清掉 localStorage 的 key 并强制重挂。
  */
-const HINT_STORAGE_KEY = 'folia:gridPanelToggleHintSeen';
+const HINT_STORAGE_KEY = 'bigorange:gridPanelToggleHintSeen';
 
 const TitleBlock: React.FC<{ label: string; isDaylight: boolean }> = ({ label, isDaylight }) => {
     const [isOpen, setIsOpen] = useState(false);

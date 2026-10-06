@@ -1,12 +1,12 @@
 // packaging/windows/wallpaper-helper/src/attach.rs
-// WorkerW probing and attach/detach of the Folia window into the desktop icon layer.
+// WorkerW probing and attach/detach of the BigOrange window into the desktop icon layer.
 //
 // Derived from Seelen UI (AGPL-3.0) src/background/widgets/wallpaper_manager/{mod,handlers}.rs
 //   Copyright (c) Seelen-Inc — dual-probe (classic + raised desktop), the 0x052C
 //   re-send loop trap fix, and the style normalization are taken from there.
 // Probe criteria cross-checked against Lively Wallpaper (GPL-3.0) DesktopUtil.cs.
 //   Copyright (c) rocksdanister.
-// This file is distributed with Folia under AGPL-3.0.
+// This file is distributed with BigOrange under AGPL-3.0.
 
 use windows::core::s;
 use windows::core::BOOL;
@@ -261,7 +261,7 @@ unsafe fn detect_worker_for_monitor(monitor: HMONITOR) -> Option<WorkerCandidate
 /// and looping forever (Seelen UI trap fix).
 pub unsafe fn attach_window(hwnd: HWND) -> Result<(HWND, AttachMode), String> {
     if !IsWindow(Some(hwnd)).as_bool() {
-        return Err("folia window no longer exists".to_string());
+        return Err("bigorange window no longer exists".to_string());
     }
 
     // The monitor the window is on *before* the re-parent is the target: SetParent preserves the
@@ -308,7 +308,7 @@ pub unsafe fn attach_window(hwnd: HWND) -> Result<(HWND, AttachMode), String> {
 /// Un-parents the window from WorkerW and restores normal styles.
 pub unsafe fn detach_window(hwnd: HWND) -> Result<(), String> {
     if !IsWindow(Some(hwnd)).as_bool() {
-        return Err("folia window no longer exists".to_string());
+        return Err("bigorange window no longer exists".to_string());
     }
     SetParent(hwnd, None).map_err(|err| format!("SetParent(NULL) failed: {err}"))?;
     restore_styles(hwnd);

@@ -1,9 +1,9 @@
 // electron/modSystem/modProtocol.cjs
-// The folia-mod:// privileged protocol: a strictly read-only, whitelisted
+// The bigorange-mod:// privileged protocol: a strictly read-only, whitelisted
 // file server. Two kinds of URL:
-//   - folia-mod://<modId>/<path>: browser-side ESM of a validated, loaded mod
+//   - bigorange-mod://<modId>/<path>: browser-side ESM of a validated, loaded mod
 //     (client entries and their imports); only .js/.mjs are served;
-//   - folia-mod://_files/<token>/<name>: a file the user picked through
+//   - bigorange-mod://_files/<token>/<name>: a file the user picked through
 //     folium.ui.pickFile this session, served with Range support so media
 //     elements can seek. Tokens are unguessable and die with the session.
 // It never executes anything in Node.
@@ -69,7 +69,7 @@ const servePickedFile = (request, filePath) => {
     return new Response(stream, { status: 200, headers: { ...baseHeaders, 'Content-Length': String(stat.size) } });
 };
 
-const SCHEME = 'folia-mod';
+const SCHEME = 'bigorange-mod';
 const SERVABLE_EXTENSIONS = new Set(['.js', '.mjs']);
 const CONTENT_TYPES = {
     '.js': 'text/javascript; charset=utf-8',
@@ -77,7 +77,7 @@ const CONTENT_TYPES = {
 };
 
 /*
- * Scheme privileges for folia-mod, exported as data instead of a registration
+ * Scheme privileges for bigorange-mod, exported as data instead of a registration
  * call. registerSchemesAsPrivileged overwrites the fetch/secure/cors scheme
  * switches on every call, so main.cjs must register every custom scheme in one
  * single call; a second call would silently strip the first scheme's

@@ -29,7 +29,7 @@ import { buildTemperaArchiveEntryPath, collectTemperaArchiveEntries } from './te
 // dialog. fflate buffers each file into the worker rather than transferring it, so the pool is
 // briefly held twice - the alternative is detaching the bytes the pool is still showing.
 
-const ARCHIVE_KIND = 'folia-tempera-pool';
+const ARCHIVE_KIND = 'bigorange-tempera-pool';
 const SCHEMA_VERSION = 1;
 
 // 解压后总大小上限。超过即视为损坏或压缩炸弹并拒绝导入，避免把整个 zip 一次性
@@ -158,7 +158,7 @@ export const readTemperaImageArchiveFile = async (
     const files = await runUnzip(bytes);
     const meta = readJsonEntry(files, 'meta.json') as { kind?: unknown; schemaVersion?: unknown };
     if (meta.kind !== ARCHIVE_KIND || meta.schemaVersion !== SCHEMA_VERSION) {
-        throw new Error('Not a Folia canvas-image backup');
+        throw new Error('Not a BigOrange canvas-image backup');
     }
 
     // Older backups also wrote `layerImageDepth` / `layerImageFrequency` here. Ignored rather than

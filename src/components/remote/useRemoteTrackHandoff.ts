@@ -92,7 +92,7 @@ export const useRemoteTrackHandoff = ({
             outgoingKey: trackIdentity,
             incoming: {
                 key: nextTrackIdentity,
-                title: snapshot.nextTrackTitle || 'Folia',
+                title: snapshot.nextTrackTitle || 'BigOrange',
                 artist: snapshot.nextTrackArtist || 'Unknown artist',
                 coverUrl: snapshot.nextTrackCoverUrl,
             },

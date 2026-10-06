@@ -2,7 +2,7 @@ import { ONBOARDING_ILLUSTRATION } from './ponderOnboardingShared';
 import type { PonderAnchorSource, PonderSceneScript, PonderTargetDefinition } from '../../../types/ponder';
 
 // src/components/ponder/targets/helpPage.target.ts
-// Folia 的总览。第一次打开应用时那道门指向它，思索导航页上按 Ctrl+G 也是它。
+// BigOrange 的总览。第一次打开应用时那道门指向它，思索导航页上按 Ctrl+G 也是它。
 //
 // 这里只放四个最短的入门章节：思索、命令面板、常用操作示例和官方文档。
 // 媒体键、完整快捷键、桌面端等细节仍各自作为导航页上的独立目标。
@@ -167,7 +167,7 @@ const docs: PonderSceneScript = {
     titleKey: 'ponder.scenes.helpPageDocs',
     action: {
         kind: 'openUrl',
-        url: 'https://folia-site.cielaniska.top/guide/',
+        url: 'https://bigorange-site.cielaniska.top/guide/',
         labelKey: 'ponder.actions.openDocs',
     },
     anchors: ONBOARDING_ILLUSTRATION,

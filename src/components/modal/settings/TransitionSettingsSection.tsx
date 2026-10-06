@@ -15,7 +15,7 @@ import { useAutomixSettingsStore } from '../../../stores/useAutomixSettingsStore
 import { useAudioSettingsStore } from '../../../stores/useAudioSettingsStore';
 
 // src/components/modal/settings/TransitionSettingsSection.tsx
-// The Folia transition block on the playback options page: the master switch, the choice between
+// The BigOrange transition block on the playback options page: the master switch, the choice between
 // the two strategies, and the one control that belongs to each.
 //
 // UI only. It reads the store and calls its actions; every question about what a mode DOES is
@@ -438,7 +438,7 @@ const TransitionSettingsSection: React.FC<TransitionSettingsSectionProps> = ({
                         profiling is gated on the feature, not the mode (see prefetchService).
                         Inside one branch, the only way to download the weights vanished for anyone
                         on the other mode. Kept in this section though, not a category of its own,
-                        because it belongs to Folia transitions. */}
+                        because it belongs to BigOrange transitions. */}
                     {capabilities.desktop && <AutomixModelsSection isDaylight={isDaylight} />}
                 </div>
             </div>

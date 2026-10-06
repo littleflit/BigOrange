@@ -72,7 +72,7 @@ const textBody = express.text({ type: ['text/*', 'application/xml'], limit: REQU
 const rawBody = express.raw({ type: () => true, limit: REQUEST_BODY_LIMIT });
 
 app.get('/api/healthz', (_req, res) => {
-    res.json({ ok: true, service: 'folia-web-api' });
+    res.json({ ok: true, service: 'bigorange-web-api' });
 });
 app.all('/api/generate-theme', jsonBody, generateTheme);
 app.all('/api/generate-theme_openai', rawBody, fromEdge(generateOpenAiTheme));
@@ -80,10 +80,10 @@ app.all('/api/segment-lyrics', rawBody, fromEdge(segmentLyrics));
 app.all('/api/lyric-proxy', jsonBody, textBody, lyricProxy);
 
 app.use((error, _req, res, _next) => {
-    console.error('[folia-web-api] Unhandled request error:', error);
+    console.error('[bigorange-web-api] Unhandled request error:', error);
     res.status(500).json({ error: 'Internal Server Error' });
 });
 
 app.listen(port, '0.0.0.0', () => {
-    console.log(`[folia-web-api] listening on 0.0.0.0:${port}`);
+    console.log(`[bigorange-web-api] listening on 0.0.0.0:${port}`);
 });

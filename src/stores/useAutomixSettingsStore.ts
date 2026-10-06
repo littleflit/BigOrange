@@ -1,5 +1,5 @@
 // src/stores/useAutomixSettingsStore.ts
-// FOLIA's smart-transition switches: whether blending is on, which strategy plans the change,
+// BIGORANGE's smart-transition switches: whether blending is on, which strategy plans the change,
 // and the two transition animation toggles.
 //
 // Split out of useSettingsUiStore.
@@ -12,7 +12,7 @@ import { DEFAULT_TRANSITION_SETTINGS, isTransitionMode, type TransitionMode } fr
 import { getStoredBoolean, setStoredBoolean } from './storagePrimitives';
 
 /** Set only by the reminder's own "don't remind me" button. Absent = still worth asking. */
-export const AUTOMIX_MODEL_REMINDER_MUTED_KEY = 'folia_automix_model_reminder_muted';
+export const AUTOMIX_MODEL_REMINDER_MUTED_KEY = 'bigorange_automix_model_reminder_muted';
 
 /**
  * Whether switching transitions on is worth interrupting for.
@@ -39,17 +39,17 @@ export const shouldRemindAboutModels = (): boolean => {
     return !present.beat_this || !present.htdemucs;
 };
 
-const AUTOMIX_ENABLED_KEY = 'folia_automix_enabled';
+const AUTOMIX_ENABLED_KEY = 'bigorange_automix_enabled';
 
-const TRANSITION_MODE_KEY = 'folia_transition_mode';
+const TRANSITION_MODE_KEY = 'bigorange_transition_mode';
 
-const CROSSFADE_MAX_SEC_KEY = 'folia_crossfade_max_sec';
+const CROSSFADE_MAX_SEC_KEY = 'bigorange_crossfade_max_sec';
 
-const TRANSITION_PERFORMANCE_KEY = 'folia_transition_performance';
+const TRANSITION_PERFORMANCE_KEY = 'bigorange_transition_performance';
 
-const TRANSITION_ANIMATION_KEY = 'folia_transition_animation';
+const TRANSITION_ANIMATION_KEY = 'bigorange_transition_animation';
 
-const TRANSITION_ANIMATION_CARD_KEY = 'folia_transition_animation_card';
+const TRANSITION_ANIMATION_CARD_KEY = 'bigorange_transition_animation_card';
 
 /**
  * The card border's switch, seeded once from the switch the two renderers used to share.

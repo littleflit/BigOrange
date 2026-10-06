@@ -76,7 +76,7 @@ describe('createLocalDirectoryTrees', () => {
 });
 
 describe('useNavidromeHomeSectionStore', () => {
-    const KEY = 'folia_navidrome_last_section';
+    const KEY = 'bigorange_navidrome_last_section';
     const loadStore = async (initial?: string) => {
         const storage = new Map<string, string>(initial === undefined ? [] : [[KEY, initial]]);
         vi.stubGlobal('window', {});

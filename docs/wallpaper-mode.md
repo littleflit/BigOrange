@@ -1,6 +1,6 @@
-# Folia 壁纸模式
+# BigOrange 壁纸模式
 
-Folia 渲染为桌面歌词壁纸，窗口常驻桌面最底层。三平台各成一条互不干扰的实现路径：Windows 经 Rust helper 把窗口 `SetParent` 挂入 WorkerW 层；Linux 经 `windowtolayer` 放进 `wlr-layer-shell` bottom 层或用 X11 桌面窗口；macOS 无边框窗口原地沉到 Finder 图标层之下、系统壁纸之上。
+BigOrange 渲染为桌面歌词壁纸，窗口常驻桌面最底层。三平台各成一条互不干扰的实现路径：Windows 经 Rust helper 把窗口 `SetParent` 挂入 WorkerW 层；Linux 经 `windowtolayer` 放进 `wlr-layer-shell` bottom 层或用 X11 桌面窗口；macOS 无边框窗口原地沉到 Finder 图标层之下、系统壁纸之上。
 
 平台共享壁纸模式的设置键、渲染端门控与交互边界；窗口创建、尺寸处理与交互限制各自适配本平台窗口系统。代码位于 `electron/`（主进程接线）、`packaging/`（helper 构建）与渲染端设置卡。
 
@@ -10,8 +10,8 @@ Folia 渲染为桌面歌词壁纸，窗口常驻桌面最底层。三平台各�
 
 | 平台 | 承接方式 | 切换/启动方式 | 附加进程/二进制 |
 | --- | --- | --- | --- |
-| Windows | `SetParent` 挂入图标层之下的 WorkerW 层 | **不重启进程**，开关模式时重建窗口 | `folia-wallpaper-helper.exe`（Rust 常驻） |
-| Linux | Wayland：`windowtolayer` → `wlr-layer-shell` bottom；X11：`_NET_WM_WINDOW_TYPE_DESKTOP` | **relaunch**：跳板进程经 `windowtolayer` 包装后重启 Folia | `windowtolayer`（随 Linux 包分发） |
+| Windows | `SetParent` 挂入图标层之下的 WorkerW 层 | **不重启进程**，开关模式时重建窗口 | `bigorange-wallpaper-helper.exe`（Rust 常驻） |
+| Linux | Wayland：`windowtolayer` → `wlr-layer-shell` bottom；X11：`_NET_WM_WINDOW_TYPE_DESKTOP` | **relaunch**：跳板进程经 `windowtolayer` 包装后重启 BigOrange | `windowtolayer`（随 Linux 包分发） |
 | macOS | 无边框窗口原地沉到 `kCGDesktopIconWindowLevelKey - 1` | **原地切换**：不 relaunch、无 helper；通常不重建窗口，仅当窗口曾被 Electron `setAlwaysOnTop` 碰过时进入前重建一次 | 无（koffi FFI） |
 
 ### 2. 共享设置键与入口
@@ -56,7 +56,7 @@ Electron 主进程 (main.cjs)
   ├─ windowsWallpaperTarget.cjs          目标显示器判定（主窗口所在屏）
   ├─ windowsWallpaperMouse.cjs           helper 物理坐标 → Chromium DIP → sendInputEvent
   └─ windowsWallpaperController.cjs      spawn/心跳看门狗/重挂调度/crash-loop breaker
-       └─ folia-wallpaper-helper.exe     Rust 常驻进程（packaging/windows/wallpaper-helper/）
+       └─ bigorange-wallpaper-helper.exe     Rust 常驻进程（packaging/windows/wallpaper-helper/）
             ├─ attach.rs        WorkerW 双探测（classic + 24H2 raised）→ SetParent + 目标屏几何
             ├─ mouse_forward.rs Raw Input → JSONL 鼠标/滚轮事件（物理像素、前台过滤）
             └─ monitor.rs       WinEvent + TaskbarCreated → 自动重挂 / z 序守卫 / 心跳
@@ -67,7 +67,7 @@ Electron 主进程 (main.cjs)
 ### 2. helper 协议（`packaging/windows/wallpaper-helper/`）
 
 - CLI：`attach --hwnd <n> [--forward-mouse] [--zguard]`（常驻）、`move --hwnd <n>`、`detach --hwnd <n>`、`refresh`（一次性，重应用当前壁纸）。stdin 收到 `detach`（或 EOF，防孤儿壁纸）先还原窗口再退出。未知选项直接报错退出，避免主进程拼错参数被静默忽略。
-- stdout JSONL 事件（主进程 `parseHelperEventLine` 解析）：`attached{mode:"classic"|"raised"}` / `heartbeat`(5s) / `workerw-destroyed` / `explorer-restarted` / `reasserted` / `moved` / `detached` / `error{message, kind?}`。`kind:"window-destroyed"` 是结构化契约（Folia 窗口随 WorkerW 一并销毁、主进程必须重建），`message` 只给人读、主进程不得解析其文本。鼠标事件坐标为**物理屏幕像素**（helper 进程级 per-monitor DPI 感知，无坐标虚拟化）：`mousemove{x,y}`（16ms 合并 ~60Hz）/ `mousedown` / `mouseup` / `mousewheel{x,y,deltaX,deltaY}`。
+- stdout JSONL 事件（主进程 `parseHelperEventLine` 解析）：`attached{mode:"classic"|"raised"}` / `heartbeat`(5s) / `workerw-destroyed` / `explorer-restarted` / `reasserted` / `moved` / `detached` / `error{message, kind?}`。`kind:"window-destroyed"` 是结构化契约（BigOrange 窗口随 WorkerW 一并销毁、主进程必须重建），`message` 只给人读、主进程不得解析其文本。鼠标事件坐标为**物理屏幕像素**（helper 进程级 per-monitor DPI 感知，无坐标虚拟化）：`mousemove{x,y}`（16ms 合并 ~60Hz）/ `mousedown` / `mouseup` / `mousewheel{x,y,deltaX,deltaY}`。
 - 实现约束（来自上游踩坑）：
   - **`EnumWindows` 的 windows-rs `Result` 语义是反的**——回调返回 0 提前停止枚举会让 raw API 返回 FALSE、映射为 `Err`；探测结果必须以回调写入的指针为准，不得用 `is_ok()` 判定成败。Win10 classic 路径曾因此永远探测失败，且每次失败多发一次 0x052C，在桌面上堆积废弃 WorkerW。
   - **0x052C 只在 WorkerW 缺失时发送**——对已存在的 raised WorkerW 重发会让 Explorer 重建整个层级并连带销毁已挂入窗口（Seelen UI 陷阱修复）。classic 重探带 10×100ms 重试：WorkerW 创建在 Explorer 侧是异步的，单次立即重探在全新桌面上会竞态失败。
@@ -75,18 +75,18 @@ Electron 主进程 (main.cjs)
   - **`SetParent` 不改变子窗口的父客户区坐标**——重挂后窗口的屏幕位置会平移到宿主 WorkerW 的原点，所以「窗口现在在哪块屏」在重挂后失去意义。目标屏必须在 `SetParent` 之前取，宿主也按该屏挑选（见主进程接入节）；这是多屏下壁纸只铺一块屏的根因。
   - **explorer 重启** = `TaskbarCreated` 广播 + `Shell_TrayWnd` PID 变化（DPI 变化也广播该消息，只有 PID 变化才算重启）。
   - **z 序守卫**：WinEvent `EVENT_OBJECT_REORDER` + 10s 低频重申，可关。
-  - **滚轮转发为 Folia 自研**——上游三家均未实现（Lively 该路径被注释、electron-as-wallpaper 吞掉 HWHEEL）。delta ±120/notch，垂直轴直传。
+  - **滚轮转发为 BigOrange 自研**——上游三家均未实现（Lively 该路径被注释、electron-as-wallpaper 吞掉 HWHEEL）。delta ±120/notch，垂直轴直传。
 - 许可：AGPL-3.0（Seelen UI 部分）、GPL-3.0（Lively 译码部分）、MIT（electron-as-wallpaper 骨架）；模块级归属见各文件头与 helper README。
 
 ### 3. 主进程接入（`electron/main.cjs` + `electron/windowsWallpaperController.cjs`）
 
-- `resolveWallpaperHelperPath()`：`FOLIA_WALLPAPER_HELPER_PATH` 覆盖 → `resources/folia-wallpaper-helper.exe`；缺失时禁用壁纸模式并通知渲染端。
+- `resolveWallpaperHelperPath()`：`BIGORANGE_WALLPAPER_HELPER_PATH` 覆盖 → `resources/bigorange-wallpaper-helper.exe`；缺失时禁用壁纸模式并通知渲染端。
 - 控制器状态机：spawn → 心跳看门狗（5s/15s 超时）→ 异常退出重挂（2s 退避）→ 连续 3 次失败降级（清 `wallpaper_mode`、原位还原普通窗口，不重启进程）。要点：**主动 detach 后的 helper 退出不得触发重挂**（否则关闭模式后新窗口被僵尸重挂拖回 WorkerW 层）；迟到 exit 事件以 `helperProcess === child` 判定归属（否则 kill+attach 竞态会在同一 hwnd 上挂两个 helper、鼠标双份注入）；`attach()` 在 `wallpaper_mode=false` 时拒绝启动；**从未 attached 的早夭/心跳挂死会话同样计入降级**（否则损坏的 helper 秒退会无限 2s respawn）；失败计数持久化 `wallpaper_windows_failure_count`，健康 60s 清零。
 - `error.kind === "window-destroyed"` → 走窗口重建而非普通重挂；renderer 崩溃 → 原地 reload；窗口随 WorkerW 连带销毁时 `window-all-closed` 同样触发重建（`isAppQuitting` 区分）。helper 的鼠标转发注册失败是致命契约（发 error 后立即退出——其下方图标层使壁纸页收不到任何真实系统输入，无鼠标的壁纸页不可交互），反复失败由降级闩锁关闭壁纸模式。
 - `display-metrics-changed` 按平台（win32）注册、回调内判模式——不能挂在启动时的 `isWindowsWallpaperMode()` 分支：Windows 开关模式不重启进程，运行时开启后监听必须仍在。
 - **目标显示器（多屏）**：壁纸窗口铺在**主窗口所在的那块屏**上，不再固定主屏。判定顺序（`electron/windowsWallpaperTarget.cjs`，全会话粘性）：① 仍在的普通主窗口所在屏（最权威，且覆盖「窗口最大化在副屏」——最大化不更新 `WINDOW_BOUNDS`）→ ② 本会话已解析的目标屏 → ③ `WINDOW_BOUNDS`（壁纸几何从不写入它，见 `saveWindowState`，即「上次普通窗口位置」）→ ④ 主屏（无可用原点，或窗口几何与任何屏都不相交）。关闭壁纸模式时清空会话目标，下次开启重新按当时主窗口位置推导；目标屏被拔除时会话目标失效，回落主屏并把窗口搬过去。无需新增 store 键：`WINDOW_BOUNDS` 本身就是记忆。
 - **helper 选宿主 WorkerW（多屏关键）**：`SetParent` **保留子窗口的父客户区坐标**，所以窗口一旦被塞进某块屏的 WorkerW，就会视觉跳到那块屏上——之后任何「窗口在哪块屏」的查询都只会回答宿主屏，壁纸于是永远只铺那一块屏（初版单主屏时正好蒙对；24H2+ raised 桌面每块屏一个 WorkerW，选错宿主必然铺错屏）。因此 `attach_window` 在 `SetParent` **之前**取窗口所在显示器作为目标，并优先选择**覆盖该显示器的那个 WorkerW**（`EnumWindows` + Progman 子窗口枚举，排除承载 `SHELLDLL_DefView` 的图标层，按矩形覆盖率 ≥80% 匹配）；找不到匹配候选（例如 classic 桌面只有一个跨虚拟屏的 WorkerW）就回退原有的「classic sibling → raised Progman child」探测，此时一个宿主服务所有屏，几何换算照旧。几何重申一律以该目标屏的 `rcMonitor` 为准（`ScreenToClient(实际父窗口)` 换算）。
-- 几何重申（`move` / attach 后）用 `GetAncestor(GA_PARENT)` 取父窗口（WorkerW）做 `ScreenToClient` 换算 monitor 原点——对 Folia 窗口自身换算只在「窗口位于父客户区 (0,0)」时碰巧正确，多屏虚拟屏原点非 (0,0) 时会挂错显示器。**因此已挂载窗口的几何只由 helper 负责**：显示器变化只 spawn `move`，主进程不再 `setBounds`（对 WorkerW 的子窗口 setBounds 会被 Windows 按父客户区解释，等于把壁纸搬到宿主屏）。
+- 几何重申（`move` / attach 后）用 `GetAncestor(GA_PARENT)` 取父窗口（WorkerW）做 `ScreenToClient` 换算 monitor 原点——对 BigOrange 窗口自身换算只在「窗口位于父客户区 (0,0)」时碰巧正确，多屏虚拟屏原点非 (0,0) 时会挂错显示器。**因此已挂载窗口的几何只由 helper 负责**：显示器变化只 spawn `move`，主进程不再 `setBounds`（对 WorkerW 的子窗口 setBounds 会被 Windows 按父客户区解释，等于把壁纸搬到宿主屏）。
 - 开关路径：`scheduleWallpaperModeRelaunch`（300ms 合并）→ win32 分支**重建窗口**（含 handoff）；显示器变化 → 按目标屏 DIP 重设 + helper `move` 重设物理几何（带同一显示器提示）。
 - 壁纸窗口创建约束：目标屏 bounds（全屏，含任务栏区域）、`thickFrame:false`、`resizable:false`、不可 click-through。
 - 设置键：`wallpaper_mode`、`wallpaper_forward_mouse`（默认开）、`wallpaper_zguard`（默认开）。后两者无 UI，变更会 kill + 重 attach helper（窗口全程不脱层）。
@@ -97,14 +97,14 @@ Electron 主进程 (main.cjs)
 ### 4. 渲染端 / 构建
 
 - 设置卡片 Linux/Windows 同样式（单开关）；命令面板 `desktop-toggle-wallpaper-mode`（platform `'win'`）；三语文案。
-- `npm run build:wallpaper-helper` → `build/folia-wallpaper-helper.exe`（非 Windows no-op）；electron-builder `win.extraResources` 单独打包；CI windows-latest 装 Rust + cargo 缓存。
+- `npm run build:wallpaper-helper` → `build/bigorange-wallpaper-helper.exe`（非 Windows no-op）；electron-builder `win.extraResources` 单独打包；CI windows-latest 装 Rust + cargo 缓存。
 - 前端构建必须在 `ELECTRON=true` 下运行（base 变 `./`），否则 file:// 加载 404。
 
 ### 5. 已知局限
 
 1. 键盘/IME、右/中/侧键不转发。
 2. z 序只能「最后调整者在上」，与 WE 的竞争靠低频守卫兜底。
-3. 只创建一块壁纸窗口：壁纸只铺在目标屏上，其它显示器保持系统壁纸，点它们的桌面不转发给 Folia（属预期）。
+3. 只创建一块壁纸窗口：壁纸只铺在目标屏上，其它显示器保持系统壁纸，点它们的桌面不转发给 BigOrange（属预期）。
 4. 目标屏只在**进入壁纸模式时**确定（壁纸窗口 `movable:false`，不可拖动，也没有运行时迁移入口）：要换屏需先退出壁纸模式、把窗口拖到目标屏再重新开启。设置卡有一行文案说明该行为。
 5. 目标屏判定依赖 Electron 的显示器几何，落地依赖 helper 选中该屏的 WorkerW 宿主；宿主匹配失败时回退到「唯一的 WorkerW + 窗口所在屏」，多屏异缩放布局下可能落到相邻屏（壁纸与窗口实际所在屏一致，属可接受偏差）。
 6. 安全桌面/RDP 会话切换期间壁纸不可见属预期。
@@ -113,15 +113,15 @@ Electron 主进程 (main.cjs)
 
 - **Seelen UI**（AGPL-3.0）@`b4708a1c1f`：attach 双探测、0x052C 陷阱修复、样式规范化。
 - **Lively Wallpaper**（GPL-3.0）@`c1036feb`：前台过滤、输入转发行为基准、TaskbarCreated+PID 恢复。
-- **electron-as-wallpaper**（MIT）@`4d76f1bf`：Raw Input Rust 骨架（已裁剪键盘/中侧键；滚轮转发为 Folia 自研补充）。
+- **electron-as-wallpaper**（MIT）@`4d76f1bf`：Raw Input Rust 骨架（已裁剪键盘/中侧键；滚轮转发为 BigOrange 自研补充）。
 
 ## 三、Linux 壁纸模式
 
-- **显示层**：Wayland 经 `windowtolayer` 进程把 Electron 窗口放到 `wlr-layer-shell` bottom 层；X11 用 `_NET_WM_WINDOW_TYPE_DESKTOP` 桌面窗口覆盖主显示器。Folia 本身只负责渲染内容与处理设置；两套共享壁纸模式设置，窗口创建/尺寸/交互限制各自适配。
+- **显示层**：Wayland 经 `windowtolayer` 进程把 Electron 窗口放到 `wlr-layer-shell` bottom 层；X11 用 `_NET_WM_WINDOW_TYPE_DESKTOP` 桌面窗口覆盖主显示器。BigOrange 本身只负责渲染内容与处理设置；两套共享壁纸模式设置，窗口创建/尺寸/交互限制各自适配。
 - **启动与切换**：启动先读壁纸模式与会话类型再决定是否起包装进程；跳板进程只在包装进程成功创建后才退出。包装缺失或启动失败时清除壁纸模式、以普通窗口启动。运行中切换写入持久化配置、短暂合并连续操作，等渲染端返回播放快照后 relaunch（环境标记 + 清理一次性 Wayland socket 与包装标记）；快照以短 TTL 临时持久化，重启后恢复歌曲、队列、进度与播放状态。
-- **故障恢复**（`electron/wallpaperWatchdog.cjs`）：包装状态下监视父进程存活，同时处理窗口创建失败与 renderer 崩溃；以固定父进程身份 + 存在性检查识别包装退出，恢复幂等、避免多故障事件重复拉起。连续启动失败达阈值自动关闭壁纸模式；正常启动或稳定运行后清计数。Wayland 进程模型：跳板 spawn `windowtolayer`（wtl），wtl 再 spawn 真正的包装 Folia（`WAYLAND_SOCKET=<fd>`）；包装子进程的父进程是 wtl，wtl 一死 socketpair EOF、Chromium 通常毫秒级崩溃、watchdog 来不及响应——watchdog 的价值在于 wtl 非致命退出时的恢复与崩溃循环 breaker。计数键 `wallpaper_wrapped_crash_count`。
+- **故障恢复**（`electron/wallpaperWatchdog.cjs`）：包装状态下监视父进程存活，同时处理窗口创建失败与 renderer 崩溃；以固定父进程身份 + 存在性检查识别包装退出，恢复幂等、避免多故障事件重复拉起。连续启动失败达阈值自动关闭壁纸模式；正常启动或稳定运行后清计数。Wayland 进程模型：跳板 spawn `windowtolayer`（wtl），wtl 再 spawn 真正的包装 BigOrange（`WAYLAND_SOCKET=<fd>`）；包装子进程的父进程是 wtl，wtl 一死 socketpair EOF、Chromium 通常毫秒级崩溃、watchdog 来不及响应——watchdog 的价值在于 wtl 非致命退出时的恢复与崩溃循环 breaker。计数键 `wallpaper_wrapped_crash_count`。
 - **X11 特殊处理**：桌面窗口取主显示器完整 bounds 且在首次映射前完成尺寸设置（防显示缩放导致的工作区裁剪）；不参与普通窗口尺寸记忆（防止退出壁纸模式后把全屏桌面尺寸带回普通窗口）；无背景合成层、透明区域显示为黑；不用 watchdog，异常靠下次启动自愈。
-- **打包**：`windowtolayer` 用固定上游提交 + 仓库补丁构建（`packaging/linux/build-windowtolayer.mjs` + `packaging/linux/patches/`），补丁无法应用直接失败；产物及许可证随 Linux 包放 `resources`。联调：`npm run build:windowtolayer` → `build/windowtolayer`（或 `npm run dev:electron:wallpaper`，`dev:electron*` 注入 `FOLIA_WINDOWTOLAYER_PATH=build/windowtolayer`）；二进制缺失时开关自动回退关闭。
+- **打包**：`windowtolayer` 用固定上游提交 + 仓库补丁构建（`packaging/linux/build-windowtolayer.mjs` + `packaging/linux/patches/`），补丁无法应用直接失败；产物及许可证随 Linux 包放 `resources`。联调：`npm run build:windowtolayer` → `build/windowtolayer`（或 `npm run dev:electron:wallpaper`，`dev:electron*` 注入 `BIGORANGE_WINDOWTOLAYER_PATH=build/windowtolayer`）；二进制缺失时开关自动回退关闭。
 
 ## 四、macOS 壁纸模式
 

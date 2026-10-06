@@ -6,7 +6,7 @@ import {
     shouldApplyInitialGridFocus,
 } from '@/library/suites/grid/shared/gridViewRestore';
 
-// test/unit/folia-grid/gridViewRestore.test.ts
+// test/unit/bigorange-grid/gridViewRestore.test.ts
 // 网格相机的两条规则：恢复时聚焦到哪张卡，以及初始定位什么时候才允许发生。
 
 const ENTRIES = ['a-0', 'b-0', 'c-0', 'a-1'];
@@ -15,7 +15,7 @@ const emptySession = { focusedEntryKey: null, query: '' };
 
 describe('grid restore target', () => {
     it('keys the grid layout by full collection identity under a versioned prefix', () => {
-        expect(gridViewStateStorageKey('online:netease:playlist:1')).toBe('folia_gridview_state:v2:online:netease:playlist:1');
+        expect(gridViewStateStorageKey('online:netease:playlist:1')).toBe('bigorange_gridview_state:v2:online:netease:playlist:1');
     });
 
     it('prefers the session focus, which another renderer may have moved, over the grid blob', () => {

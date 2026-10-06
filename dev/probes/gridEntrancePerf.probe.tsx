@@ -128,7 +128,7 @@ const GridEntrancePerfProbe: React.FC = () => {
                 worstFrame: sorted.length > 0 ? sorted[sorted.length - 1] : 0,
                 // 32ms ≈ 两帧：低于这个数的抖动肉眼基本看不出来
                 slowFrames: frameGaps.filter(gap => gap > 32).length,
-                cards: document.querySelectorAll('[data-folia-grid-item-id]').length,
+                cards: document.querySelectorAll('[data-bigorange-grid-item-id]').length,
             });
             setRunning(false);
         };

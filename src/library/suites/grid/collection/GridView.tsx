@@ -9,7 +9,7 @@ import { formatSongName } from '../../../../utils/songNameFormatter';
 import { getSizedCoverUrl } from '../../../../utils/coverUrl';
 import { getSongCoverUrl } from '../../../../services/onlineMusic/songMetadata';
 import { colorWithAlpha } from '../../../../components/visualizer/colorMix';
-import { useFoliaHexViewport } from '../shared/useFoliaHexViewport';
+import { useBigOrangeHexViewport } from '../shared/useBigOrangeHexViewport';
 import { PolaroidCard, type GridItem } from '../shared/PolaroidCard';
 import { squareGridCardBox } from '../shared/gridCardLayout';
 import {
@@ -730,7 +730,7 @@ export const GridView: React.FC<GridViewProps> = ({
         renderedIndexes,
         renderedIndexesRef,
         updateRenderedIndexesForViewport,
-    } = useFoliaHexViewport({
+    } = useBigOrangeHexViewport({
         itemCount: gridItems.length,
         spacingX: layoutConfig.spacingX,
         spacingY: layoutConfig.spacingY,
@@ -1032,12 +1032,12 @@ export const GridView: React.FC<GridViewProps> = ({
                             return;
                         }
 
-                        if (cardWrapperRefs.current[idx]?.dataset.foliaGridItemId === String(item.id)) {
+                        if (cardWrapperRefs.current[idx]?.dataset.bigorangeGridItemId === String(item.id)) {
                             cardWrapperRefs.current[idx] = null;
                             cardFrameStyleCachesRef.current[idx] = undefined;
                         }
                     }}
-                    className="absolute select-none pointer-events-auto folia-grid-card-frame"
+                    className="absolute select-none pointer-events-auto bigorange-grid-card-frame"
                     style={{
                         transformOrigin: 'center center',
                         contain: 'layout style',

@@ -91,7 +91,7 @@ export const invokeModNetFetch = async (
 ): Promise<{ ok: boolean; result?: unknown; error?: string }> =>
     bridge()?.invokeModNetFetch(modId, url, init) ?? { ok: false, error: 'no-electron-bridge' };
 
-/** folium.ui.pickFile: native open dialog; resolves to a session folia-mod:// URL or null. */
+/** folium.ui.pickFile: native open dialog; resolves to a session bigorange-mod:// URL or null. */
 export const invokeModPickFile = async (
     modId: string,
     accept: string,

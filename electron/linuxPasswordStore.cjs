@@ -2,7 +2,7 @@
 //
 // Chromium picks its Linux password backend from `XDG_CURRENT_DESKTOP` and falls back to the
 // plaintext `basic_text` store for every desktop it does not recognise (Hyprland, sway, i3, river…).
-// Folia's KuGou and QQ repositories refuse `basic_text` on purpose, so those users silently lose
+// BigOrange's KuGou and QQ repositories refuse `basic_text` on purpose, so those users silently lose
 // their logins on every restart even though a Secret Service is running. Selecting the libsecret
 // backend explicitly restores persistence; when no Secret Service answers, Chromium reports the
 // encryption as unavailable and the repositories degrade exactly as they do today.
@@ -28,7 +28,7 @@ const isKdeSession = desktop => String(desktop || '')
   .some(part => KDE_DESKTOP_PATTERN.test(part.trim()));
 
 /**
- * Returns the `--password-store` value Folia should append, or `null` to leave Chromium's own
+ * Returns the `--password-store` value BigOrange should append, or `null` to leave Chromium's own
  * detection untouched.
  */
 function resolveLinuxPasswordStore({ platform = process.platform, env = process.env, argv = process.argv } = {}) {
@@ -36,7 +36,7 @@ function resolveLinuxPasswordStore({ platform = process.platform, env = process.
   // An explicit launch flag always wins so users can debug or opt out without editing the app.
   if (hasPasswordStoreArgument(argv)) return null;
 
-  const override = String(env.FOLIA_PASSWORD_STORE || '').trim();
+  const override = String(env.BIGORANGE_PASSWORD_STORE || '').trim();
   if (override) {
     if (override === 'auto') return null;
     return SUPPORTED_BACKENDS.has(override) ? override : null;

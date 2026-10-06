@@ -194,7 +194,7 @@ const panWall = async (page) => {
 };
 
 const runMode = async (mode) => {
-    const userDataDir = mkdtempSync(path.join(tmpdir(), `folia-cover-${mode}-`));
+    const userDataDir = mkdtempSync(path.join(tmpdir(), `bigorange-cover-${mode}-`));
     const marker = path.basename(userDataDir);
     const readRaw = createProcessSampler(marker);
 

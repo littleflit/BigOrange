@@ -6,7 +6,7 @@ import { UserGuideFeatureCard } from './UserGuideFeatureCard';
 import { UserGuideTipCard } from './UserGuideTipCard';
 import { PLAYER_PAGE_SHORTCUTS, type GuidePage, type UserGuideShortcut } from './userGuideContent';
 import { NewFeaturesIntro } from './NewFeaturesIntro';
-import foliaIcon from '../../../build/icon.png';
+import bigorangeIcon from '../../../build/icon.png';
 
 // src/components/modal/UserGuidePageContent.tsx
 
@@ -83,7 +83,7 @@ export const UserGuidePageContent: React.FC<UserGuidePageContentProps> = ({
                         icon={Lock}
                         iconClassName={isDaylight ? 'text-amber-500' : 'text-amber-300'}
                         title={t('userGuide.clickThrough.trayTitle', 'Use the tray icon')}
-                        description={t('userGuide.clickThrough.trayDesc', 'Right-click the Folia tray icon and choose the click-through option to enable or disable it.')}
+                        description={t('userGuide.clickThrough.trayDesc', 'Right-click the BigOrange tray icon and choose the click-through option to enable or disable it.')}
                     />
                     <UserGuideFeatureCard
                         {...featureCardClasses}
@@ -195,7 +195,7 @@ export const UserGuidePageContent: React.FC<UserGuidePageContentProps> = ({
                     icon={Palette}
                     iconClassName={isDaylight ? 'text-rose-500' : 'text-rose-300'}
                     title={t('userGuide.theme.title', 'Color themes')}
-                    description={t('userGuide.theme.desc', 'Customize Folia with your own light and dark color themes, or generate an AI theme from the current song.')}
+                    description={t('userGuide.theme.desc', 'Customize BigOrange with your own light and dark color themes, or generate an AI theme from the current song.')}
                 />
                 <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <UserGuideFeatureCard
@@ -210,7 +210,7 @@ export const UserGuidePageContent: React.FC<UserGuidePageContentProps> = ({
                         icon={WandSparkles}
                         iconClassName={isDaylight ? 'text-purple-500' : 'text-purple-300'}
                         title={t('ui.generateAITheme', 'Generate AI Theme')}
-                        description={t('userGuide.theme.aiDesc', 'When AI theme settings are configured, Folia can create song-aware colors and optionally auto-apply cached song themes.')}
+                        description={t('userGuide.theme.aiDesc', 'When AI theme settings are configured, BigOrange can create song-aware colors and optionally auto-apply cached song themes.')}
                     />
                 </div>
             </>
@@ -220,13 +220,13 @@ export const UserGuidePageContent: React.FC<UserGuidePageContentProps> = ({
     return (
         <div className="flex flex-col items-center justify-center min-h-[320px] text-center">
             <div className={`w-24 h-24 rounded-3xl ${isDaylight ? 'bg-black/[0.03]' : 'bg-white/5'} border ${isDaylight ? 'border-black/10' : 'border-white/10'} flex items-center justify-center mb-6 shadow-lg`}>
-                <img src={foliaIcon} alt="Folia" className="w-16 h-16" />
+                <img src={bigorangeIcon} alt="BigOrange" className="w-16 h-16" />
             </div>
             <h2 className={`text-3xl font-bold mb-3 ${textPrimary}`}>
                 {t('userGuide.ready.title', 'Selamat Menggunakan')}
             </h2>
             <p className={`text-sm ${textSecondary} max-w-xs leading-relaxed`}>
-                {t('userGuide.ready.subtitle', 'Nikmati perjalanan musik Anda dengan Folia.')}
+                {t('userGuide.ready.subtitle', 'Nikmati perjalanan musik Anda dengan BigOrange.')}
             </p>
         </div>
     );

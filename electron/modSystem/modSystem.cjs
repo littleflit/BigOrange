@@ -2,7 +2,7 @@
 // The Folium mod loader (Node side): discovers mods from the mods directories,
 // validates manifests, resolves dependencies, activates each mod's `main` entry
 // in a per-mod error boundary, and serves the renderer half (`client` entries,
-// rpc, storage) over IPC and the folia-mod:// protocol. Designed to fail per-mod
+// rpc, storage) over IPC and the bigorange-mod:// protocol. Designed to fail per-mod
 // instead of crashing the host application.
 //
 // Trust model: a mod runs only after the user confirms it in a main-process
@@ -144,23 +144,23 @@ const TRUST_DIALOG_LOCALE = {
 };
 
 const IPC = {
-    list: 'folia-mods:list',
-    setEnabled: 'folia-mods:set-enabled',
-    reload: 'folia-mods:reload',
-    rpc: 'folia-mods:rpc',
-    storage: 'folia-mods:storage',
-    netFetch: 'folia-mods:net-fetch',
-    pickFile: 'folia-mods:pick-file',
-    restoreFile: 'folia-mods:restore-file',
-    releaseFile: 'folia-mods:release-file',
-    pushRuntimeSnapshot: 'folia-mods:push-runtime-snapshot',
-    exportCancel: 'folia-mods:export-cancel',
-    ffmpegStatus: 'folia-mods:ffmpeg-status',
-    openDirectory: 'folia-mods:open-directory',
-    installZip: 'folia-mods:install-zip',
-    fStateChanged: 'folia-mods:state-changed',
-    fExportProgress: 'folia-mods:export-progress',
-    fLog: 'folia-mods:log',
+    list: 'bigorange-mods:list',
+    setEnabled: 'bigorange-mods:set-enabled',
+    reload: 'bigorange-mods:reload',
+    rpc: 'bigorange-mods:rpc',
+    storage: 'bigorange-mods:storage',
+    netFetch: 'bigorange-mods:net-fetch',
+    pickFile: 'bigorange-mods:pick-file',
+    restoreFile: 'bigorange-mods:restore-file',
+    releaseFile: 'bigorange-mods:release-file',
+    pushRuntimeSnapshot: 'bigorange-mods:push-runtime-snapshot',
+    exportCancel: 'bigorange-mods:export-cancel',
+    ffmpegStatus: 'bigorange-mods:ffmpeg-status',
+    openDirectory: 'bigorange-mods:open-directory',
+    installZip: 'bigorange-mods:install-zip',
+    fStateChanged: 'bigorange-mods:state-changed',
+    fExportProgress: 'bigorange-mods:export-progress',
+    fLog: 'bigorange-mods:log',
 };
 
 const cloneJson = (value) => JSON.parse(JSON.stringify(value));
@@ -276,7 +276,7 @@ const createModSystem = ({ app, BrowserWindow, getMainWindow, getLocaleKey, isFe
 
     const hostInfo = () => ({
         folium: { major: FOLIUM_VERSION.major, minor: FOLIUM_VERSION.minor },
-        folia: typeof app.getVersion === 'function' ? app.getVersion() : null,
+        bigorange: typeof app.getVersion === 'function' ? app.getVersion() : null,
     });
 
     /*
@@ -456,12 +456,12 @@ const createModSystem = ({ app, BrowserWindow, getMainWindow, getLocaleKey, isFe
         return { enabled: true, trustStale: false };
     };
 
-    // folia-mod:// URL for a mod's client entry. The digest is carried as a
+    // bigorange-mod:// URL for a mod's client entry. The digest is carried as a
     // version query so the renderer's ES module map treats a changed mod as a
     // different module instead of replaying the code it already imported.
     const clientUrl = (runtime) => (
         runtime.manifest.client
-            ? `folia-mod://${runtime.manifest.id}/${runtime.manifest.client}?v=${shortDigest(runtime.digest)}`
+            ? `bigorange-mod://${runtime.manifest.id}/${runtime.manifest.client}?v=${shortDigest(runtime.digest)}`
             : null
     );
 
@@ -479,7 +479,7 @@ const createModSystem = ({ app, BrowserWindow, getMainWindow, getLocaleKey, isFe
             permissions: entry.manifest.permissions,
             experimental: entry.manifest.experimental ?? [],
             embedOrigins: entry.manifest.embedOrigins ?? [],
-            folia: entry.manifest.folia ?? null,
+            bigorange: entry.manifest.bigorange ?? null,
             hasMain: Boolean(entry.manifest.main),
             // Client entries are only exposed for mods that are enabled and
             // loaded; the protocol handler enforces the same rule per request.
@@ -600,7 +600,7 @@ const createModSystem = ({ app, BrowserWindow, getMainWindow, getLocaleKey, isFe
         permissions: [],
         experimental: [],
         embedOrigins: [],
-        folia: null,
+        bigorange: null,
         main: null,
         client: null,
     });
@@ -712,7 +712,7 @@ const createModSystem = ({ app, BrowserWindow, getMainWindow, getLocaleKey, isFe
             }
             // A mod pinned to host versions (it uses folium.internals) never runs
             // on a host outside that range: internals carry no compatibility promise.
-            const range = runtime.manifest.folia;
+            const range = runtime.manifest.bigorange;
             if (range && !satisfiesHostRange(hostVersion, range)) {
                 runtime.status = 'error';
                 runtime.error = 'host-version-mismatch';
@@ -778,7 +778,7 @@ const createModSystem = ({ app, BrowserWindow, getMainWindow, getLocaleKey, isFe
                 ? locale.signatureInvalid(signature.reason ?? 'invalid')
                 : locale.signatureUnsigned;
         const permissions = Array.isArray(runtime.manifest.permissions) ? runtime.manifest.permissions : [];
-        const { client, experimental = [], embedOrigins = [], folia } = runtime.manifest;
+        const { client, experimental = [], embedOrigins = [], bigorange } = runtime.manifest;
         const detail = [
             signature.status === 'verified' ? locale.verifiedRisk : locale.risk,
             '',
@@ -787,7 +787,7 @@ const createModSystem = ({ app, BrowserWindow, getMainWindow, getLocaleKey, isFe
             client ? `${locale.client}${client}` : locale.noClient,
             ...(experimental.length > 0 ? [`${locale.experimental}${experimental.join(', ')}`] : []),
             ...(embedOrigins.length > 0 ? [`${locale.embedOrigins}${embedOrigins.join(', ')}`] : []),
-            ...(folia ? [`${locale.internals}${folia}`] : []),
+            ...(bigorange ? [`${locale.internals}${bigorange}`] : []),
             `${locale.location}${runtime.dirPath ?? '-'}`,
             `${locale.fingerprint}${shortDigest(digest)}`,
             '',
@@ -958,7 +958,7 @@ const createModSystem = ({ app, BrowserWindow, getMainWindow, getLocaleKey, isFe
     /*
      * folium.ui.pickFile: the user chooses the file in a native dialog, so no
      * permission is involved; the mod only ever gets an unguessable
-     * folia-mod://_files/<token>/<name> URL, valid until the app quits.
+     * bigorange-mod://_files/<token>/<name> URL, valid until the app quits.
      * With `persist` the pick is also recorded as a file grant (fileGrants.cjs)
      * and the handle carries its opaque id for folium.ui.restoreFile.
      */
@@ -974,7 +974,7 @@ const createModSystem = ({ app, BrowserWindow, getMainWindow, getLocaleKey, isFe
         return {
             token,
             handle: {
-                url: `folia-mod://_files/${token}/${encodeURIComponent(name)}`,
+                url: `bigorange-mod://_files/${token}/${encodeURIComponent(name)}`,
                 name,
                 size: stat.size,
             },
@@ -1329,7 +1329,7 @@ const createModSystem = ({ app, BrowserWindow, getMainWindow, getLocaleKey, isFe
         getModClients: () => listClientDescriptors(),
     });
 
-    // folia-mod:// resolves only enabled, successfully loaded mods. Disabled
+    // bigorange-mod:// resolves only enabled, successfully loaded mods. Disabled
     // or broken mods disappear from the protocol on the next loadAll pass.
     const resolveModDirectory = (modId) => {
         const runtime = mods.get(modId);

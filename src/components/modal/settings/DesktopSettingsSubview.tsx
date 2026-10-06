@@ -26,7 +26,7 @@ import { usePlayerChromeSettingsStore } from '../../../stores/usePlayerChromeSet
 // src/components/modal/settings/DesktopSettingsSubview.tsx
 // Desktop-only window, tray, update, and AI settings separated from the global settings modal.
 
-const AUR_PACKAGE_URL = 'https://aur.archlinux.org/packages/folia-major-bin';
+const AUR_PACKAGE_URL = 'https://aur.archlinux.org/packages/bigorange-bin';
 
 type ElectronSettingsState = {
     GEMINI_API_KEY: string;
@@ -300,7 +300,7 @@ const DesktopSettingsSubview: React.FC<DesktopSettingsSubviewProps> = ({
                         <ShieldAlert size={16} className="shrink-0 mt-0.5" />
                         <div className="space-y-0.5 text-left">
                             <span className="font-semibold">重要提示：</span>
-                            <span>隐藏任务栏图标后，应用只会在系统托盘显示。如需找回主窗口，请双击或右键点击托盘中的 Folia 图标。建议同时配合启用“最小化到托盘”。</span>
+                            <span>隐藏任务栏图标后，应用只会在系统托盘显示。如需找回主窗口，请双击或右键点击托盘中的 BigOrange 图标。建议同时配合启用“最小化到托盘”。</span>
                         </div>
                     </motion.div>
                 )}
@@ -325,7 +325,7 @@ const DesktopSettingsSubview: React.FC<DesktopSettingsSubviewProps> = ({
                     </div>
                     {isMac && (
                         <div className="px-1 text-xs leading-relaxed text-left text-amber-500">
-                            {t('options.wallpaperModeMacPermissionHint') || 'Mac wallpaper mode needs Input Monitoring: enable Folia in System Settings → Privacy & Security → Input Monitoring, then restart the app.'}
+                            {t('options.wallpaperModeMacPermissionHint') || 'Mac wallpaper mode needs Input Monitoring: enable BigOrange in System Settings → Privacy & Security → Input Monitoring, then restart the app.'}
                         </div>
                     )}
                 </SettingsAnchor>

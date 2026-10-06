@@ -142,7 +142,7 @@ const createHarness = (overrides: Partial<WatchdogOptions> = {}) => {
     store,
     env,
     spawnFn: (cmd, args, opts) => { spawnCalls.push({ cmd, args, opts }); return child; },
-    execPath: () => '/usr/bin/folia',
+    execPath: () => '/usr/bin/bigorange',
     argv: () => ['--flag'],
     getPpid: () => 100,
     exit: (code) => { exits.push(code); },
@@ -155,10 +155,10 @@ const createHarness = (overrides: Partial<WatchdogOptions> = {}) => {
 
 describe('wallpaper mode predicates', () => {
   it('isWallpaperWrapped recognizes the wrapper marker only', () => {
-    expect(isWallpaperWrapped({ FOLIA_WRAPPED_BY_WINDOWTOLAYER: '1' })).toBe(true);
+    expect(isWallpaperWrapped({ BIGORANGE_WRAPPED_BY_WINDOWTOLAYER: '1' })).toBe(true);
     expect(isWallpaperWrapped({})).toBe(false);
-    expect(isWallpaperWrapped({ FOLIA_WRAPPED_BY_WINDOWTOLAYER: '0' })).toBe(false);
-    expect(isWallpaperWrapped({ FOLIA_WRAPPED_BY_WINDOWTOLAYER: 'true' })).toBe(false);
+    expect(isWallpaperWrapped({ BIGORANGE_WRAPPED_BY_WINDOWTOLAYER: '0' })).toBe(false);
+    expect(isWallpaperWrapped({ BIGORANGE_WRAPPED_BY_WINDOWTOLAYER: 'true' })).toBe(false);
   });
 
   it('isWallpaperModeEnabled reads the stored boolean exactly', () => {
@@ -184,7 +184,7 @@ describe('wallpaper mode predicates', () => {
 describe('watchdog trigger point 1 — window build failure', () => {
   it('recovers while wrapped: clears the mode, relaunches a plain process, exits on spawn', () => {
     const { watchdog, store, spawnCalls, exits, child } = createHarness({
-      env: { FOLIA_WRAPPED_BY_WINDOWTOLAYER: '1' },
+      env: { BIGORANGE_WRAPPED_BY_WINDOWTOLAYER: '1' },
     });
 
     expect(watchdog.handleWindowBuildFailure()).toBe(true);
@@ -192,9 +192,9 @@ describe('watchdog trigger point 1 — window build failure', () => {
     expect(spawnCalls).toHaveLength(1);
 
     const { opts } = spawnCalls[0];
-    expect(opts.env.FOLIA_RELAUNCH).toBe('1');
+    expect(opts.env.BIGORANGE_RELAUNCH).toBe('1');
     expect(opts.env.WAYLAND_SOCKET).toBeUndefined();
-    expect(opts.env.FOLIA_WRAPPED_BY_WINDOWTOLAYER).toBeUndefined();
+    expect(opts.env.BIGORANGE_WRAPPED_BY_WINDOWTOLAYER).toBeUndefined();
     expect(opts.detached).toBe(true);
     expect(opts.stdio).toBe('ignore');
     expect(exits).toHaveLength(0); // only after the child actually spawns
@@ -215,7 +215,7 @@ describe('watchdog trigger point 1 — window build failure', () => {
 describe('watchdog trigger point 1 — renderer crash', () => {
   it('recovers on a wrapped renderer crash', () => {
     const { watchdog, spawnCalls } = createHarness({
-      env: { FOLIA_WRAPPED_BY_WINDOWTOLAYER: '1' },
+      env: { BIGORANGE_WRAPPED_BY_WINDOWTOLAYER: '1' },
     });
 
     expect(watchdog.handleRendererGone({ reason: 'crashed' })).toBe(true);
@@ -224,7 +224,7 @@ describe('watchdog trigger point 1 — renderer crash', () => {
 
   it('ignores non-crash renderer terminations', () => {
     const { watchdog, spawnCalls } = createHarness({
-      env: { FOLIA_WRAPPED_BY_WINDOWTOLAYER: '1' },
+      env: { BIGORANGE_WRAPPED_BY_WINDOWTOLAYER: '1' },
     });
 
     expect(watchdog.handleRendererGone({ reason: 'oom' })).toBe(false);
@@ -244,28 +244,28 @@ describe('watchdog trigger point 1 — renderer crash', () => {
 describe('relaunchSelfNormal', () => {
   it('spawns with the relaunch marker and the wrapper env stripped, unrelated vars preserved', () => {
     const { watchdog, spawnCalls } = createHarness({
-      env: { FOLIA_WRAPPED_BY_WINDOWTOLAYER: '1', WAYLAND_SOCKET: '9', HOME: '/home/u' },
+      env: { BIGORANGE_WRAPPED_BY_WINDOWTOLAYER: '1', WAYLAND_SOCKET: '9', HOME: '/home/u' },
     });
 
     watchdog.relaunchSelfNormal();
     expect(spawnCalls).toHaveLength(1);
     const { cmd, args, opts } = spawnCalls[0];
-    expect(cmd).toBe('/usr/bin/folia');
+    expect(cmd).toBe('/usr/bin/bigorange');
     expect(args).toEqual(['--flag']);
-    expect(opts.env.FOLIA_RELAUNCH).toBe('1');
+    expect(opts.env.BIGORANGE_RELAUNCH).toBe('1');
     expect(opts.env.WAYLAND_SOCKET).toBeUndefined();
-    expect(opts.env.FOLIA_WRAPPED_BY_WINDOWTOLAYER).toBeUndefined();
+    expect(opts.env.BIGORANGE_WRAPPED_BY_WINDOWTOLAYER).toBeUndefined();
     expect(opts.env.HOME).toBe('/home/u');
     expect(opts.detached).toBe(true);
     expect(opts.stdio).toBe('ignore');
   });
 
   it('does not mutate the process environment it was given', () => {
-    const env: Env = { FOLIA_WRAPPED_BY_WINDOWTOLAYER: '1', WAYLAND_SOCKET: '9' };
+    const env: Env = { BIGORANGE_WRAPPED_BY_WINDOWTOLAYER: '1', WAYLAND_SOCKET: '9' };
     const { watchdog } = createHarness({ env });
 
     watchdog.relaunchSelfNormal();
-    expect(env.FOLIA_WRAPPED_BY_WINDOWTOLAYER).toBe('1');
+    expect(env.BIGORANGE_WRAPPED_BY_WINDOWTOLAYER).toBe('1');
     expect(env.WAYLAND_SOCKET).toBe('9');
   });
 
@@ -304,7 +304,7 @@ describe('recoverToNormalWindow', () => {
 
   it('is idempotent when multiple watchdog triggers arrive together', () => {
     const { watchdog, spawnCalls } = createHarness({
-      env: { FOLIA_WRAPPED_BY_WINDOWTOLAYER: '1' },
+      env: { BIGORANGE_WRAPPED_BY_WINDOWTOLAYER: '1' },
     });
 
     expect(watchdog.handleRendererGone({ reason: 'crashed' })).toBe(true);

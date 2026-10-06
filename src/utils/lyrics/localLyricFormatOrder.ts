@@ -1,6 +1,6 @@
 // src/utils/lyrics/localLyricFormatOrder.ts
 // User-orderable priority of sidecar lyric file formats. When one track has several sidecar lyric
-// files, the import keeps the one whose format ranks first. `.fia` is Folia's own export and always
+// files, the import keeps the one whose format ranks first. `.fia` is BigOrange's own export and always
 // ranks above every orderable format.
 
 export const LOCAL_LYRIC_FILE_FORMATS = ['lrc', 'vtt', 'ttml', 'qrc', 'yrc', 'krc'] as const;

@@ -371,7 +371,7 @@ const IntegrationSettingsSubview: React.FC<IntegrationSettingsSubviewProps> = ({
                                     {t('options.enableDiscordRichPresence') || 'Enable Discord playback status'}
                                 </div>
                                 <div className="text-[10px] opacity-40 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
-                                    {t('options.discordRichPresenceDesc') || 'Show the current Folia track in Discord desktop. Folia connects with its built-in application identity.'}
+                                    {t('options.discordRichPresenceDesc') || 'Show the current BigOrange track in Discord desktop. BigOrange connects with its built-in application identity.'}
                                 </div>
                             </div>
                             <button

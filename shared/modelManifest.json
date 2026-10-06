@@ -13,11 +13,11 @@
     "",
     "Mirrors are tried in order and the first one whose bytes match the hash wins. hf-mirror is",
     "first because it is the only route reachable from mainland China, which is where most of",
-    "Folia's listeners are; it serves everyone else too, so this is not a special case, it is the",
+    "BigOrange's listeners are; it serves everyone else too, so this is not a special case, it is the",
     "order that works for the most people. The GitHub release is our own mirror of last resort.",
     "",
     "Both models are MIT, which is what makes hosting our own copies allowed at all. A CC-BY-NC",
-    "model could never be listed here while Folia is AGPL-3.0 - see the licence field.",
+    "model could never be listed here while BigOrange is AGPL-3.0 - see the licence field.",
     "",
     "The third entry is not a model - it is the Python the model runs in, and it is the one entry",
     "with a `platforms` block because there is a different archive per OS. A platform missing from",
@@ -55,9 +55,9 @@
     "note": ""
   },
   "mirrors": [
-    "https://hf-mirror.com/HUAI4236/folia-models/resolve/main/{file}",
-    "https://huggingface.co/HUAI4236/folia-models/resolve/main/{file}",
-    "https://github.com/AZURE-HUAI/folia-models/releases/download/weights-v1/{file}"
+    "https://hf-mirror.com/HUAI4236/bigorange-models/resolve/main/{file}",
+    "https://huggingface.co/HUAI4236/bigorange-models/resolve/main/{file}",
+    "https://github.com/AZURE-HUAI/bigorange-models/releases/download/weights-v1/{file}"
   ],
   "models": [
     {
@@ -89,17 +89,17 @@
       "note": "CPython 3.11.16 + onnxruntime 1.29.0 + numpy 2.4.6, built by build/buildPythonRuntime.mjs. Separation runs here rather than in Electron's own onnxruntime-node because `enable_mem_reuse` is bound only by onnxruntime's Python API, and turning it off is what takes one separation from 2543MB to under 500MB. A directory rather than a file: it is unpacked into <models>/runtime/ and the interpreter is <models>/runtime/python.exe, or bin/python3 off Windows.",
       "platforms": {
         "win32-x64": {
-          "file": "folia-runtime-win32-x64.zip",
+          "file": "bigorange-runtime-win32-x64.zip",
           "bytes": 35633855,
           "sha256": "50a5829ac928071ab2eecaf2667e5dab9c3af2b4b44fb5bb4b7acfb9863cdacd"
         },
         "darwin-arm64": {
-          "file": "folia-runtime-darwin-arm64.zip",
+          "file": "bigorange-runtime-darwin-arm64.zip",
           "bytes": 44380755,
           "sha256": "f8313150254d699396b4ff4c9289bdd2864ba3268bd137e5aeb17963be318cde"
         },
         "linux-x64": {
-          "file": "folia-runtime-linux-x64.zip",
+          "file": "bigorange-runtime-linux-x64.zip",
           "bytes": 60509680,
           "sha256": "cf1347f5621fed74f8b2dea243ea1365824ac77ab52ddc2183ca8a77180b60da"
         }

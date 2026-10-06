@@ -147,7 +147,7 @@ const MAC_WALLPAPER_DOCK_MARKER = '.wallpaper-dock-autohidden';
 // prompt. An explicit `override` (from options.testMode) wins over the env switch.
 function isMacWallpaperTestMode(env, override) {
   if (typeof override === 'boolean') return override;
-  return env.FOLIA_MAC_WALLPAPER_SELFTEST === '1';
+  return env.BIGORANGE_MAC_WALLPAPER_SELFTEST === '1';
 }
 
 // --- FFI state (lazily initialised once per process) ---
@@ -217,13 +217,13 @@ function initEventTap() {
     const cf = koffi.load('/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation');
     const libc = koffi.load('/usr/lib/libSystem.B.dylib');
 
-    koffi.struct('FOLIA_CGPoint', { x: 'double', y: 'double' });
+    koffi.struct('BIGORANGE_CGPoint', { x: 'double', y: 'double' });
     // Display-frame queries: the Finder desktop backdrop and the Dock's full-display surface are
     // recognised by comparing their bounds against the display that contains the probe point.
-    koffi.struct('FOLIA_CGRect', { x: 'double', y: 'double', width: 'double', height: 'double' });
+    koffi.struct('BIGORANGE_CGRect', { x: 'double', y: 'double', width: 'double', height: 'double' });
 
     const fn = {
-      CGEventGetLocation: cg.func('FOLIA_CGPoint CGEventGetLocation(void *event)'),
+      CGEventGetLocation: cg.func('BIGORANGE_CGPoint CGEventGetLocation(void *event)'),
       CGEventGetIntegerValueField: cg.func('int64 CGEventGetIntegerValueField(void *event, uint32 field)'),
       CGEventTapCreate: cg.func('void *CGEventTapCreate(uint32 tap, uint32 place, uint32 options, uint64 mask, void *cb, void *userInfo)'),
       CGEventTapEnable: cg.func('void CGEventTapEnable(void *port, bool enable)'),
@@ -231,8 +231,8 @@ function initEventTap() {
       CGRequestListenEventAccess: cg.func('void CGRequestListenEventAccess(void)'),
       CGWindowListCopyWindowInfo: cg.func('void *CGWindowListCopyWindowInfo(uint32 option, uint32 rel)'),
       CGRectMakeWithDictionaryRepresentation: cg.func('bool CGRectMakeWithDictionaryRepresentation(void *dict, _Out_ void *rect)'),
-      CGGetDisplaysWithPoint: cg.func('uint32 CGGetDisplaysWithPoint(uint32 maxDisplays, FOLIA_CGPoint point, _Out_ void *displays, _Out_ void *count)'),
-      CGDisplayBounds: cg.func('FOLIA_CGRect CGDisplayBounds(uint32 display)'),
+      CGGetDisplaysWithPoint: cg.func('uint32 CGGetDisplaysWithPoint(uint32 maxDisplays, BIGORANGE_CGPoint point, _Out_ void *displays, _Out_ void *count)'),
+      CGDisplayBounds: cg.func('BIGORANGE_CGRect CGDisplayBounds(uint32 display)'),
       CFMachPortCreateRunLoopSource: cf.func('void *CFMachPortCreateRunLoopSource(void *allocator, void *port, long order)'),
       CFRunLoopGetMain: cf.func('void *CFRunLoopGetMain(void)'),
       CFRunLoopAddSource: cf.func('void CFRunLoopAddSource(void *rl, void *source, void *mode)'),
@@ -256,7 +256,7 @@ function initEventTap() {
       kWindowAlpha: exportedConst('kCGWindowAlpha'),
     };
 
-    const TapProto = koffi.proto('void *FOLIA_TapCb(void *proxy, uint32 type, void *event, void *userInfo)');
+    const TapProto = koffi.proto('void *BIGORANGE_TapCb(void *proxy, uint32 type, void *event, void *userInfo)');
     eventTapState = {
       ok: true,
       koffi,
@@ -946,7 +946,7 @@ function createMacWallpaperController(options = {}) {
       return listenAccessGranted();
     },
     // Surfaces the macOS Input Monitoring prompt (only effective once per app identity). The
-    // user must enable Folia in System Settings if the preflight still reports false.
+    // user must enable BigOrange in System Settings if the preflight still reports false.
     requestPermission() {
       const s = initEventTap();
       if (!s.ok) return false;

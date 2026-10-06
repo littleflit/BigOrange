@@ -1,29 +1,28 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/b5d0e863-48be-497b-b0e9-4bd8d8ce9bf0" alt="Folia" width="100%" />
+  <img src="https://github.com/user-attachments/assets/b5d0e863-48be-497b-b0e9-4bd8d8ce9bf0" alt="BigOrange" width="100%" />
 </p>
 
 <div align="center">
-<a href="https://trendshift.io/repositories/71740?utm_source=repository-badge&amp;utm_medium=badge&amp;utm_campaign=badge-repository-71740" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/repositories/71740" alt="chthollyphile%2Ffolia-major | Trendshift" width="250" height="55"/></a>
 
-# Folia
+# BigOrange
 
 Lyrics Reimagined // 辞曲新境
 
-[![GitHub release](https://img.shields.io/github/v/release/chthollyphile/folia-major?label=release)](https://github.com/chthollyphile/folia-major/releases)
-[![License](https://img.shields.io/github/license/chthollyphile/folia-major)](https://github.com/chthollyphile/folia-major/blob/main/LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/chthollyphile/folia-major?style=social)](https://github.com/chthollyphile/folia-major/stargazers)
+[![GitHub release](https://img.shields.io/github/v/release/littleflit/BigOrange?label=release)](https://github.com/littleflit/BigOrange/releases)
+[![License](https://img.shields.io/github/license/littleflit/BigOrange)](https://github.com/littleflit/BigOrange/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/littleflit/BigOrange?style=social)](https://github.com/littleflit/BigOrange/stargazers)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D24-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/chthollyphile/folia-major)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/littleflit/BigOrange)
 [![Discord](https://img.shields.io/discord/1541051241822687232?logo=discord&logoColor=white&label=Join%20our%20Discord)](https://discord.gg/dMDBTHxeKd)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-35-orange.svg?style=flat-square)](CONTRIBUTORS.md)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-[获取方式](https://github.com/chthollyphile/folia-major#%E8%8E%B7%E5%8F%96%E6%96%B9%E5%BC%8F)
+[获取方式](https://github.com/littleflit/BigOrange#%E8%8E%B7%E5%8F%96%E6%96%B9%E5%BC%8F)
 ·
-[Vercel 部署](https://vercel.com/new/clone?repository-url=https://github.com/chthollyphile/folia-major)
+[Vercel 部署](https://vercel.com/new/clone?repository-url=https://github.com/littleflit/BigOrange)
 ·
-[使用指南](https://folia-site.cielaniska.top/guide/)
+[使用指南](https://bigorange-site.cielaniska.top/guide/)
 ·
 [技术说明](docs/technical.md)
 
@@ -31,11 +30,11 @@ Lyrics Reimagined // 辞曲新境
 
 ## 项目简介
 
-Folia是一个以全屏沉浸式歌词播放为核心的在线音乐播放器，支持网易云、酷狗、Navidrome 和本地音乐库，通过智能歌词匹配，AI生成配色主题，以及多种全屏歌词动画为用户提供独特的听歌体验。
+BigOrange是一个以全屏沉浸式歌词播放为核心的在线音乐播放器，支持网易云、酷狗、Navidrome 和本地音乐库，通过智能歌词匹配，AI生成配色主题，以及多种全屏歌词动画为用户提供独特的听歌体验。
 
 提供基于Electron的 windows/ macOS/ Linux 桌面端版本与基于 Node.js 的 Web 版本，支持多平台部署。
 
-如果希望能够在移动设备上使用，或在浏览器上体验，可以选择[一键部署到 Vercel](https://folia-site.cielaniska.top/guide/deploy-vercel) 的 Web 版本，或自行部署到其他支持 Node.js 的平台。
+如果希望能够在移动设备上使用，或在浏览器上体验，可以选择[一键部署到 Vercel](https://bigorange-site.cielaniska.top/guide/deploy-vercel) 的 Web 版本，或自行部署到其他支持 Node.js 的平台。
 
 ## 展示
 
@@ -112,7 +111,7 @@ https://github.com/user-attachments/assets/704f195a-2194-434b-86e8-8f36290e5cc4
 | 本地音乐支持 | 可导入本地音频文件，在本地安全保存索引信息，不上传文件内容。详细用法见 [本地音乐库管理](docs/local-library-management.md)。 |
 | 智能歌词匹配 | 本地歌曲可自动匹配在线歌词与封面，也支持手动修正匹配结果。 |
 | 本地歌词文件识别 | 自动加载同目录同名 `.lrc`、`.vtt`、`.ttml`、`.qrc`、`.yrc`、`.krc` 歌词文件，或歌词文件内嵌 LRC 歌词。适配 LDDC 生成的增强型逐字歌词格式。 |
-| Now Playing 接入 | 支持通过本机 [Now Playing](https://github.com/Widdit/now-playing-service/) 服务接入外部播放器的歌曲、时间轴与歌词信息，并驱动 Folia 的舞台视图与全屏歌词渲染。 |
+| Now Playing 接入 | 支持通过本机 [Now Playing](https://github.com/Widdit/now-playing-service/) 服务接入外部播放器的歌曲、时间轴与歌词信息，并驱动 BigOrange 的舞台视图与全屏歌词渲染。 |
 | AI 主题生成 | 基于歌曲情绪与歌词内容生成沉浸式背景与视觉参数。 |
 | 多端体验 | 提供 Web 部署方式，同时支持桌面端打包分发。 |
 | 模组系统（实验性） | 桌面版可通过 Folium 模组添加歌词动画、背景、播放页图层、命令等，并从 [模组市场](https://folium-compound.vercel.app) 安装官方认证的模组。详见 [模组系统](#模组系统folium-v1x)。 |
@@ -123,13 +122,13 @@ https://github.com/user-attachments/assets/704f195a-2194-434b-86e8-8f36290e5cc4
 
 ### 一键部署
 
-如果你希望快速上线 Web 版本，请阅读 [Vercel 一键部署指南](https://folia-site.cielaniska.top/guide/deploy-vercel) 来创建项目
+如果你希望快速上线 Web 版本，请阅读 [Vercel 一键部署指南](https://bigorange-site.cielaniska.top/guide/deploy-vercel) 来创建项目
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/chthollyphile/folia-major) 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/littleflit/BigOrange) 
 
 项目也支持一键部署到 Cloudflare，请参考 Vercel 的部署教程进行相应调整。
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/chthollyphile/folia-major)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/littleflit/BigOrange)
 
 Vercel 与 Cloudflare 上的 QQ 音乐不再需要额外部署一个常驻 API 实例：把 `VITE_QQ_API_BASE` 填成 `/api/qq`，再配一个 `QQ_SESSION_SECRET`（服务端密钥，**不加 `VITE_` 前缀**）即可。这种形态默认只支持微信扫码登录，且播放前必须先登录；Cloudflare 上可以再绑定一个 Durable Object，增加 QQ 扫码登录方式。完整步骤、平台差异和排错方法见 [QQ 音乐部署指南](docs/qq-music-deployment.md)。
 
@@ -137,15 +136,14 @@ Vercel 与 Cloudflare 上的 QQ 音乐不再需要额外部署一个常驻 API �
 
 关于移动端：
 
-目前推荐移动端用户部署 Web 版本/自托管版本之后，通过chrome for android / iOS Safari 创建 PWA应用（也就是将网页应用添加到桌面，Folia web版本支持安装为PWA应用）来使用。
+目前推荐移动端用户部署 Web 版本/自托管版本之后，通过chrome for android / iOS Safari 创建 PWA应用（也就是将网页应用添加到桌面，BigOrange web版本支持安装为PWA应用）来使用。
 
 有一定技术的用户可以使用 capacitor 将本项目的web版本打包成为可安装的安卓apk，具体方法可参考示范仓库：[chthollyphile/folia-sonnet](https://github.com/chthollyphile/folia-sonnet)
 
 ### 直接下载
 
-- **Windows / macOS / Linux**: 最新版本的安装包请前往 [Releases 页面](https://github.com/chthollyphile/folia-major/releases/latest) 下载。
-- **Arch Linux**: 可通过 AUR 获取 [folia-major-bin](https://aur.archlinux.org/packages/folia-major-bin)。
-- **Flatpak**: 社区提供的第三方 flatpak，详情见 [Flatpark](https://flatpark.org/apps/top.izuna.foliamajor/)。
+- **Windows / macOS / Linux**: 最新版本的安装包请前往 [Releases 页面](https://github.com/littleflit/BigOrange/releases/latest) 下载。
+- **Arch Linux**: 可通过 AUR 获取 `bigorange-bin`（待发布）。
 
 > [!IMPORTANT]
 > 如果国内网络从 GitHub Releases 下载较慢，可以使用 [夸克网盘](https://pan.quark.cn/s/6e4c6fa3bc6f) 或 [百度云](https://pan.baidu.com/s/1f0x3g-8PMcNCO-TJ5z1rPw?pwd=flia) 下载。网盘链接仅提供 Windows 与 Apple silicon 的正式版安装包.
@@ -154,7 +152,7 @@ Linux 包、Wayland / Hyprland 遥控窗和桌面端细节见 [技术与开发�
 
 ## 文档与开发
 
-更完整的使用说明请访问 [Folia Guide](https://folia-site.cielaniska.top/guide/)。
+更完整的使用说明请访问 [BigOrange Guide](https://bigorange-site.cielaniska.top/guide/)。
 
 部署、环境变量、本地开发、Stage API、常用脚本和技术栈见 [技术与开发说明](docs/technical.md)。
 
@@ -163,7 +161,7 @@ Linux 包、Wayland / Hyprland 遥控窗和桌面端细节见 [技术与开发�
 > [!NOTE]
 > 模组系统是实验性功能，仅桌面版可用，默认关闭，需要在「设置 → 实验室 → 模组系统」中开启。
 
-Folium 是 Folia 的模组平台。模组可以添加新的歌词动画模式和背景类型、在播放页上叠加内容、给进度条加按钮和标记、注册命令与设置分区、在歌词显示前改写歌词，也可以通过 Node 入口调用 ffmpeg 等本地能力。模组以可信代码运行，每个模组在启用前都要在原生窗口中确认，文件变化后需要重新确认。
+Folium 是 BigOrange 的模组平台。模组可以添加新的歌词动画模式和背景类型、在播放页上叠加内容、给进度条加按钮和标记、注册命令与设置分区、在歌词显示前改写歌词，也可以通过 Node 入口调用 ffmpeg 等本地能力。模组以可信代码运行，每个模组在启用前都要在原生窗口中确认，文件变化后需要重新确认。
 
 - **模组市场**：[folium-compound.vercel.app](https://folium-compound.vercel.app) 提供官方模组和经过审查的社区模组，下载 zip 后拖进模组面板即可安装。
 - **官方认证**：市场里的模组都带有 Folium 签名，安装后显示「官方认证」；没有签名的第三方模组显示「未验证」，同样可以使用。
@@ -174,20 +172,20 @@ Folium 是 Folia 的模组平台。模组可以添加新的歌词动画模式和
 
 ## Sync Server
 
-Folia 提供了可选的官方同步服务端 `sync-server`，用于在多个设备之间同步外观设置与 AI 主题库。服务端由用户自行托管，适合希望跨设备同步配色主题的用户。
+BigOrange 提供了可选的官方同步服务端 `sync-server`，用于在多个设备之间同步外观设置与 AI 主题库。服务端由用户自行托管，适合希望跨设备同步配色主题的用户。
 
 支持以下部署方式：
 
 - **Cloudflare Workers / D1**：免服务器运维的 Serverless 部署，推荐使用。
-  [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/chthollyphile/folia-major/tree/main/sync-server)
+  [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/littleflit/BigOrange/tree/main/sync-server)
 - **Docker**：镜像与 Compose 入口见 [Docker 部署目录](deploy/docker/README.md)。
 - **Node.js 自托管**：使用 SQLite，适合本地或不方便使用 Docker 的环境。
 
-详细的环境变量、Token 配置与部署步骤请参阅 [Sync-Server 部署指南](https://folia-site.cielaniska.top/guide/deploy-sync)。部署完成后，在 Folia 的“存储设置”中填写服务端地址和 `SYNC_TOKEN` 即可启用同步。
+详细的环境变量、Token 配置与部署步骤请参阅 [Sync-Server 部署指南](https://bigorange-site.cielaniska.top/guide/deploy-sync)。部署完成后，在 BigOrange 的“存储设置”中填写服务端地址和 `SYNC_TOKEN` 即可启用同步。
 
 ## 本地音乐与匹配说明
 
-Folia 会读取音频文件元数据、同目录歌词和封面，并可通过网易云、QQ 音乐或酷狗音乐补全歌曲信息。自动匹配按网易云、QQ、酷狗依次回退；匹配不准确时，可以手动选择候选、恢复首次导入的本地信息，或进一步合并、拆分艺术家与专辑实体。
+BigOrange 会读取音频文件元数据、同目录歌词和封面，并可通过网易云、QQ 音乐或酷狗音乐补全歌曲信息。自动匹配按网易云、QQ、酷狗依次回退；匹配不准确时，可以手动选择候选、恢复首次导入的本地信息，或进一步合并、拆分艺术家与专辑实体。
 
 完整的导入、重扫、匹配、实体编辑、歌单、缓存和故障排查说明见 [本地音乐库管理](docs/local-library-management.md)。
 

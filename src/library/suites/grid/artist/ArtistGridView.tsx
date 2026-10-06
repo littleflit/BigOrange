@@ -44,7 +44,7 @@ import {
 } from '../transitions/morphGeometry';
 import { useGridViewSettingsStore } from '../../../../stores/useGridViewSettingsStore';
 import { HexGridCoord, CubeCoord, getHexCubicSpiral } from '../shared/hexViewport';
-import { useFoliaHexViewport } from '../shared/useFoliaHexViewport';
+import { useBigOrangeHexViewport } from '../shared/useBigOrangeHexViewport';
 import { CollectionListItem, SidePanelList } from '../../../../components/shared/SidePanelList';
 import { GridListSearchButton } from '../../../../components/shared/GridListSearchButton';
 import { useGridCommandFilter } from '../../../../hooks/useGridCommandFilter';
@@ -68,7 +68,7 @@ import { setStatusMessage } from '../../../../stores/useStatusMessageStore';
  *
  * P4.2 起筛选词与「看到哪一项」（条目键：song:… / album:…）在浏览会话里（core/bindings/useArtistView），
  * 换 suite 不丢；这里另存的 sessionStorage 记录只放网格自己的布局（相机位置与焦点卡的下标），键带版本与完整的
- * collectionKey（folia_artist_grid_state:v2:<key>），旧版只按来源与 id 存的记录不再读取。
+ * collectionKey（bigorange_artist_grid_state:v2:<key>），旧版只按来源与 id 存的记录不再读取。
  * 动作的能力来自 core（声明 ∩ 能力），并作为 artist surface 发布到命令面板。
  */
 
@@ -124,7 +124,7 @@ type ArtistGridRestoreTarget = {
     stored: StoredArtistGridNavigationState | null;
 };
 
-export const ARTIST_GRID_STATE_STORAGE_PREFIX = 'folia_artist_grid_state:v2:';
+export const ARTIST_GRID_STATE_STORAGE_PREFIX = 'bigorange_artist_grid_state:v2:';
 
 export const artistGridStateStorageKey = (sessionKey: string): string => `${ARTIST_GRID_STATE_STORAGE_PREFIX}${sessionKey}`;
 
@@ -563,7 +563,7 @@ const ArtistGridView: React.FC<ArtistGridViewProps> = ({
         renderedIndexes,
         renderedIndexesRef,
         updateRenderedIndexesForViewport,
-    } = useFoliaHexViewport({
+    } = useBigOrangeHexViewport({
         itemCount: gridItems.length,
         spacingX: layoutConfig.spacingX,
         spacingY: layoutConfig.spacingY,

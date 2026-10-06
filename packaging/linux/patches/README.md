@@ -2,7 +2,7 @@
 
 ## windowtolayer
 
-**Program**: windowtolayer — a GPL-3.0 program bundled with the Folia Linux package to
+**Program**: windowtolayer — a GPL-3.0 program bundled with the BigOrange Linux package to
 implement desktop wallpaper mode (`wlr-layer-shell` bottom layer).
 **Upstream**: https://gitlab.freedesktop.org/mstoeckl/windowtolayer
 **Base revision**: `618a482d791e90f4977d643c206417f6aee73936`
@@ -23,7 +23,7 @@ The patch logs and skips such messages instead of exiting.
 ### `windowtolayer-single-layer-window.patch` (only the main window becomes the wallpaper)
 
 Upstream converts *every* `xdg_toplevel` the wrapped client creates into a
-`zwlr_layer_surface_v1`, and filters the compositor's `xdg_wm_base` global out entirely. Folia
+`zwlr_layer_surface_v1`, and filters the compositor's `xdg_wm_base` global out entirely. BigOrange
 wraps its whole process, so the remote control window, detached devtools and GTK dialogs all
 turned into full-size bottom-layer surfaces stacked on top of the wallpaper.
 

@@ -96,7 +96,7 @@ const MorphExitLayer: React.FC<MorphExitLayerProps> = ({
                 a stray click mid-flight must not re-trigger navigation
                 underneath the scattering cards. Hidden from AT: no content. */}
             <div
-                data-folia-collection-morph="input-blocker"
+                data-bigorange-collection-morph="input-blocker"
                 aria-hidden="true"
                 className="fixed inset-0"
                 style={{ zIndex: COLLECTION_MORPH_Z_INDEX + 10, pointerEvents: 'auto' }}
@@ -104,7 +104,7 @@ const MorphExitLayer: React.FC<MorphExitLayerProps> = ({
             />
             <motion.div
                 key={`${key}-backdrop`}
-                data-folia-collection-morph="exit-backdrop"
+                data-bigorange-collection-morph="exit-backdrop"
                 aria-hidden="true"
                 className="fixed inset-0 pointer-events-none"
                 style={{ zIndex: COLLECTION_MORPH_Z_INDEX - 1, background: 'var(--bg-color)' }}
@@ -134,7 +134,7 @@ const MorphExitLayer: React.FC<MorphExitLayerProps> = ({
                 return (
                     <motion.div
                         key={`${key}-squad-${index}`}
-                        data-folia-collection-morph="squad"
+                        data-bigorange-collection-morph="squad"
                         aria-hidden="true"
                         className="fixed rounded-xl overflow-hidden pointer-events-none"
                         style={{
@@ -207,7 +207,7 @@ const MorphExitLayer: React.FC<MorphExitLayerProps> = ({
                 destination exists. */}
             <motion.div
                 key={`${key}-frame`}
-                data-folia-collection-morph="frame"
+                data-bigorange-collection-morph="frame"
                 aria-hidden="true"
                 className="fixed rounded-2xl border shadow-[0_10px_28px_rgba(0,0,0,0.3)] pointer-events-none overflow-hidden"
                 style={{
@@ -239,7 +239,7 @@ const MorphExitLayer: React.FC<MorphExitLayerProps> = ({
             {/* Cover crossfades back into the home artwork mid-flight. */}
             <motion.div
                 key={`${key}-cover`}
-                data-folia-collection-morph="cover"
+                data-bigorange-collection-morph="cover"
                 aria-hidden="true"
                 className="fixed overflow-hidden rounded-xl pointer-events-none"
                 style={{
@@ -293,7 +293,7 @@ const MorphExitLayer: React.FC<MorphExitLayerProps> = ({
                 non-uniform scale would stretch the glyphs. */}
             <motion.div
                 key={`${key}-title`}
-                data-folia-collection-morph="title"
+                data-bigorange-collection-morph="title"
                 aria-hidden="true"
                 className="fixed pointer-events-none"
                 style={{

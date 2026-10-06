@@ -8,8 +8,8 @@ import {
 } from './hexViewport';
 import type { HexGridCoord } from './hexViewport';
 
-// Shared React viewport state for Folia's hex-grid card surfaces.
-export interface UseFoliaHexViewportOptions {
+// Shared React viewport state for BigOrange's hex-grid card surfaces.
+export interface UseBigOrangeHexViewportOptions {
     itemCount: number;
     spacingX: number;
     spacingY: number;
@@ -19,7 +19,7 @@ export interface UseFoliaHexViewportOptions {
     coords?: HexGridCoord[];
 }
 
-export const useFoliaHexViewport = ({
+export const useBigOrangeHexViewport = ({
     itemCount,
     spacingX,
     spacingY,
@@ -27,7 +27,7 @@ export const useFoliaHexViewport = ({
     renderRing,
     fallbackIndexRef,
     coords: customCoords,
-}: UseFoliaHexViewportOptions) => {
+}: UseBigOrangeHexViewportOptions) => {
     const generatedCoordsRef = useRef<HexGridCoord[]>([]);
     const generatedSpacingRef = useRef({ x: spacingX, y: spacingY });
     const coords = useMemo<HexGridCoord[]>(() => {

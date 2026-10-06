@@ -33,10 +33,10 @@ const RAW_CAPPELLA_ITEM_MAX_BYTES = 4 * 1024 * 1024;
 const TOTAL_CSS_MAX_BYTES = 12 * 1024 * 1024;
 const GIF_MIME = 'image/gif';
 
-const OBS_CSS_BACKGROUND_VAR = '--folia-obs-custom-bg';
-const OBS_CSS_PORTRAIT_VAR = '--folia-obs-custom-portrait';
-const OBS_CSS_CAPPELLA_EMOJIS_VAR = '--folia-obs-cappella-emojis';
-const OBS_CSS_CAPPELLA_AVATARS_VAR = '--folia-obs-cappella-avatars';
+const OBS_CSS_BACKGROUND_VAR = '--bigorange-obs-custom-bg';
+const OBS_CSS_PORTRAIT_VAR = '--bigorange-obs-custom-portrait';
+const OBS_CSS_CAPPELLA_EMOJIS_VAR = '--bigorange-obs-cappella-emojis';
+const OBS_CSS_CAPPELLA_AVATARS_VAR = '--bigorange-obs-cappella-avatars';
 
 // {id, name, url} — the shape both Cappella packs share and the overlay consumes.
 interface NamedImageAsset {
@@ -296,7 +296,7 @@ export const buildObsCustomCss = async (): Promise<BuildObsCustomCssResult | nul
   }
 
   const css = [
-    '/* Folia OBS custom assets. Paste into OBS Browser Source -> Custom CSS. */',
+    '/* BigOrange OBS custom assets. Paste into OBS Browser Source -> Custom CSS. */',
     'body { background-color: rgba(0, 0, 0, 0); margin: 0; overflow: hidden; }',
     ':root {',
     ...declarations,

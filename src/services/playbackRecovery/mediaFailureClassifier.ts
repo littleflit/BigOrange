@@ -22,7 +22,7 @@ export const classifyMediaElementFailure = (
     if (code === MEDIA_ERR_NETWORK) return { kind: 'network', eligibleForTranscode: false, code };
     if (code === MEDIA_ERR_DECODE) return { kind: 'decode', eligibleForTranscode: true, code };
     if (code === MEDIA_ERR_SRC_NOT_SUPPORTED) {
-        const isRecoveredOutput = typeof source === 'string' && source.startsWith('folia-transcode:');
+        const isRecoveredOutput = typeof source === 'string' && source.startsWith('bigorange-transcode:');
         return { kind: 'unsupported', eligibleForTranscode: !isRecoveredOutput, code };
     }
     return { kind: 'unknown', eligibleForTranscode: false, code };

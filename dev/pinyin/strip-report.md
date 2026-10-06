@@ -383,7 +383,7 @@ R3 照抄标题 —— 与任一语言的完整 title/description 相同；R4 �
 
 ### transition-mode-crossfade
 
-保留：`crossfade`、`folia crossfade`、`transition mode crossfade`、`交叉淡化`、`过渡模式交叉淡化`、`gdmscf`
+保留：`crossfade`、`bigorange crossfade`、`transition mode crossfade`、`交叉淡化`、`过渡模式交叉淡化`、`gdmscf`
 
 - 删 `jiaochadanhua` —— R1 全拼，来源 `交叉淡化`
 - 删 `guodumoshijiaochadanhua` —— R1 全拼，来源 `过渡模式交叉淡化`
@@ -391,7 +391,7 @@ R3 照抄标题 —— 与任一语言的完整 title/description 相同；R4 �
 
 ### transition-mode-automix
 
-保留：`automix`、`folia automix`、`transition mode automix`、`自动混音`、`过渡模式自动混音`、`gdmsauto`
+保留：`automix`、`bigorange automix`、`transition mode automix`、`自动混音`、`过渡模式自动混音`、`gdmsauto`
 
 - 删 `zidonghunyin` —— R1 全拼，来源 `自动混音`
 - 删 `guodumoshizidonghunyin` —— R1 全拼，来源 `过渡模式自动混音`

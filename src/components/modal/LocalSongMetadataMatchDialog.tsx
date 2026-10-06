@@ -111,7 +111,7 @@ export const LocalSongMetadataMatchDialog = ({ song, assignment, isDaylight, onC
     const panelTheme = isDaylight ? 'border-black/10 bg-white text-zinc-900' : 'border-white/10 bg-zinc-950 text-white';
 
     return (
-        <div data-folia-keyboard-window="true" className="fixed inset-0 z-[140] flex items-center justify-center bg-black/65 p-4 backdrop-blur-xl">
+        <div data-bigorange-keyboard-window="true" className="fixed inset-0 z-[140] flex items-center justify-center bg-black/65 p-4 backdrop-blur-xl">
             <div role="dialog" aria-modal="true" className={`${panelTheme} flex max-h-[82vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border shadow-2xl`}>
                 <header className="flex items-center justify-between border-b border-current/10 px-5 py-4">
                     <div className="min-w-0">

@@ -9,10 +9,10 @@ import { expect, test } from './fixtures';
 // 注意：合成层是 portal 到 document.body 的，所以它们只能在 page 上查，不在 mount() 返回的
 // #root 里。探针自己的 UI（按钮、状态读数）才从 #root 查。
 
-const MORPH_LAYER = '[data-folia-collection-morph]';
-const FRAME = '[data-folia-collection-morph="frame"]';
-const COVER = '[data-folia-collection-morph="cover"]';
-const BLOCKER = '[data-folia-collection-morph="input-blocker"]';
+const MORPH_LAYER = '[data-bigorange-collection-morph]';
+const FRAME = '[data-bigorange-collection-morph="frame"]';
+const COVER = '[data-bigorange-collection-morph="cover"]';
+const BLOCKER = '[data-bigorange-collection-morph="input-blocker"]';
 
 /**
  * 采样某个元素在接下来一段时间里的 transform 矩阵。形变层现在动画的是**盒子**，
@@ -73,14 +73,14 @@ const recordFlight = async (page: Page): Promise<void> => {
             coverSources: [] as string[], titleTexts: [] as string[], plans: [] as string[],
         };
         const capture = () => {
-            record.frame = Math.max(record.frame, count('[data-folia-collection-morph="frame"]'));
-            record.cover = Math.max(record.cover, count('[data-folia-collection-morph="cover"]'));
-            record.title = Math.max(record.title, count('[data-folia-collection-morph="title"]'));
-            record.blocker = Math.max(record.blocker, count('[data-folia-collection-morph="input-blocker"]'));
-            record.layer = Math.max(record.layer, count('[data-folia-collection-morph]'));
-            push(record.coverSources, Array.from(document.querySelectorAll<HTMLImageElement>('[data-folia-collection-morph="cover"] img'))
+            record.frame = Math.max(record.frame, count('[data-bigorange-collection-morph="frame"]'));
+            record.cover = Math.max(record.cover, count('[data-bigorange-collection-morph="cover"]'));
+            record.title = Math.max(record.title, count('[data-bigorange-collection-morph="title"]'));
+            record.blocker = Math.max(record.blocker, count('[data-bigorange-collection-morph="input-blocker"]'));
+            record.layer = Math.max(record.layer, count('[data-bigorange-collection-morph]'));
+            push(record.coverSources, Array.from(document.querySelectorAll<HTMLImageElement>('[data-bigorange-collection-morph="cover"] img'))
                 .map(image => image.getAttribute('src') ?? ''));
-            push(record.titleTexts, [document.querySelector('[data-folia-collection-morph="title"]')?.textContent?.trim() ?? '']);
+            push(record.titleTexts, [document.querySelector('[data-bigorange-collection-morph="title"]')?.textContent?.trim() ?? '']);
             const plan = document.querySelector('[data-probe-plan]')?.textContent?.trim() ?? '';
             if (plan && plan !== 'none') push(record.plans, [plan]);
         };
@@ -134,13 +134,13 @@ const measureCircleLanding = async (page: Page, timeoutMs = 6000) => (
                     target.known = true;
                 }
             }
-            const frame = read('[data-folia-collection-morph="frame"]');
+            const frame = read('[data-bigorange-collection-morph="frame"]');
             if (frame) {
                 sawLayer = true;
                 if (target.known
                     && Math.abs(frame.width - target.width) <= 2
                     && Math.abs(frame.height - target.height) <= 2) {
-                    samples.push({ frame, cover: read('[data-folia-collection-morph="cover"]') });
+                    samples.push({ frame, cover: read('[data-bigorange-collection-morph="cover"]') });
                 }
             } else if (sawLayer) {
                 break;
@@ -162,7 +162,7 @@ const measureOpenMilestones = async (page: Page, timeoutMs = 6000) => (
     page.evaluate(async (limit: number) => {
         const start = performance.now();
         const readBox = () => {
-            const el = document.querySelector('[data-folia-collection-morph="frame"]');
+            const el = document.querySelector('[data-bigorange-collection-morph="frame"]');
             if (!el) return null;
             const r = el.getBoundingClientRect();
             return { x: r.x, y: r.y, w: r.width, h: r.height };
@@ -193,10 +193,10 @@ const measureOpenMilestones = async (page: Page, timeoutMs = 6000) => (
             }
             // 封锁层可能在采样开始前就挂上了，所以要求合成层先出现过再消失。
             if (blockerGone === null && startBox
-                && !document.querySelector('[data-folia-collection-morph="input-blocker"]')) {
+                && !document.querySelector('[data-bigorange-collection-morph="input-blocker"]')) {
                 blockerGone = elapsed;
             }
-            if (layersGone === null && startBox && !document.querySelector('[data-folia-collection-morph]')) {
+            if (layersGone === null && startBox && !document.querySelector('[data-bigorange-collection-morph]')) {
                 layersGone = elapsed;
             }
             const heroCover = document.querySelector<HTMLImageElement>('[data-probe-detail-cover]');
@@ -364,7 +364,7 @@ test('a nested back flies onto the card while the card is still flying in', asyn
 test('only the incoming grid carries the active mark while two grids overlap', async ({ mount, page }) => {
     // 这条盖的是标记组件本身：collectionMorph 探针是手写属性的，测不到 useIsPresent 的翻转。
     const root = await mount('activeGridMarker');
-    const active = page.locator('[data-folia-active-grid]');
+    const active = page.locator('[data-bigorange-active-grid]');
 
     await expect(active).toHaveCount(1);
     await expect(active).toHaveAttribute('data-probe-grid', 'grid-0');

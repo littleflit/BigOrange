@@ -474,7 +474,7 @@ export const CollectionMorphOverlay: React.FC<CollectionMorphOverlayProps> = ({ 
             const now = Date.now();
             const coverEl = el.querySelector<HTMLImageElement>('img');
             const coverRect = rectOfElement(coverEl);
-            const titleEl = el.querySelector<HTMLElement>('h3, [data-folia-card-title], [class*="font-bold"]');
+            const titleEl = el.querySelector<HTMLElement>('h3, [data-bigorange-card-title], [class*="font-bold"]');
             const titleRect = rectOfElement(titleEl);
             const wrapperSettled = isMorphTargetSettled(
                 lastWrapperRect && { key: 'wrapper', frame: lastWrapperRect, cover: lastWrapperRect, title: lastWrapperRect },

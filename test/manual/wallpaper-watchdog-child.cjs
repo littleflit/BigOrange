@@ -1,5 +1,5 @@
 // test/manual/wallpaper-watchdog-child.cjs
-// Stand-in for the wrapped Folia process used by wallpaper-watchdog-sim.ts. Plain Node, no
+// Stand-in for the wrapped BigOrange process used by wallpaper-watchdog-sim.ts. Plain Node, no
 // Electron: it wires the real electron/wallpaperWatchdog.cjs module with stubbed side effects and
 // reports its own lifecycle to a status file, so the simulation proves the watchdog's parent
 // liveness probe actually recovers after the fake windowtolayer dies.
@@ -34,9 +34,9 @@ const watchdog = createWallpaperWatchdog({
   spawnFn: (cmd, args, opts) => {
     append(
       `relaunch-spawned ${cmd} ${args.join(' ')} ` +
-      `FOLIA_RELAUNCH=${opts.env.FOLIA_RELAUNCH} ` +
+      `BIGORANGE_RELAUNCH=${opts.env.BIGORANGE_RELAUNCH} ` +
       `WAYLAND_SOCKET=${opts.env.WAYLAND_SOCKET ?? ''} ` +
-      `WRAPPED=${opts.env.FOLIA_WRAPPED_BY_WINDOWTOLAYER ?? ''}`
+      `WRAPPED=${opts.env.BIGORANGE_WRAPPED_BY_WINDOWTOLAYER ?? ''}`
     );
     return {
       on: (event, cb) => { if (event === 'spawn') cb(); },

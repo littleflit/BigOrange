@@ -10,7 +10,7 @@ vi.mock('@/services/themePreferences', () => ({ readStoredLastAppliedThemePointe
 vi.mock('@/services/themeCache', () => ({ getLastDualTheme: vi.fn() }));
 vi.mock('@/utils/appearanceCodec', () => ({
     readSavedCustomTheme: vi.fn(),
-    compressConfig: vi.fn(() => 'folia-theme://x'),
+    compressConfig: vi.fn(() => 'bigorange-theme://x'),
 }));
 
 import { readEffectiveExportTheme } from '@/services/obs/currentObsUrl';

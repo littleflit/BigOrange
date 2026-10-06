@@ -28,12 +28,12 @@ describe('playback representation registry', () => {
             sourceRevision: 'size:mtime',
             representationId: 'transcode:abc',
             kind: 'transcoded',
-            url: 'folia-transcode://media/key/audio.flac',
+            url: 'bigorange-transcode://media/key/audio.flac',
             mimeType: 'audio/flac',
             timelineOffsetSec: 0,
         });
         expect(getPlaybackAnalysisKey(song)).toBe('local:local-id@transcode:abc');
-        expect(getPlaybackRepresentation(song)?.url).toContain('folia-transcode:');
+        expect(getPlaybackRepresentation(song)?.url).toContain('bigorange-transcode:');
         expect(getPlaybackRepresentationForRevision('local:local-id', 'size:mtime')).not.toBeNull();
         expect(getPlaybackRepresentationForRevision('local:local-id', 'changed')).toBeNull();
         expect(getPlaybackRepresentationForRevision('local:local-id', 'size:mtime')).toBeNull();
@@ -45,7 +45,7 @@ describe('playback representation registry', () => {
             sourceRevision: 'old',
             representationId: 'transcode:old',
             kind: 'transcoded',
-            url: 'folia-transcode://media/old/audio.flac',
+            url: 'bigorange-transcode://media/old/audio.flac',
             mimeType: 'audio/flac',
             timelineOffsetSec: 0,
         });

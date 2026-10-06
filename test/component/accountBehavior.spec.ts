@@ -102,9 +102,9 @@ const closeSwitcher = async (page: Page) => {
 };
 const gridLogoutButtons = (page: Page) => menu(page).getByRole('button', { name: 'Logout' });
 const gridCloseButton = (page: Page) => loginDialog(page).getByRole('button', { name: 'Close login' });
-// TUI 的账户层也挂 data-folia-keyboard-window、标题也是这句，所以排除掉它（[data-tui-account]）。
+// TUI 的账户层也挂 data-bigorange-keyboard-window、标题也是这句，所以排除掉它（[data-tui-account]）。
 const gridConfirmDialog = (page: Page): Locator => (
-    page.locator('[data-folia-keyboard-window]:not([data-tui-account])')
+    page.locator('[data-bigorange-keyboard-window]:not([data-tui-account])')
         .filter({ has: page.getByRole('heading', { name: 'Switch online music provider' }) })
 );
 const gridConnectPanel = (page: Page) => page.getByRole('group', { name: 'Connect platform accounts' });

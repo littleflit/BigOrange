@@ -1,6 +1,6 @@
 // src/library/core/model/collectionPaging.ts
 // 分页追加的去重规则：后续页里已出现过的 key 丢弃，先到先得、保持顺序。
-// 原在 components/folia-grid/progressiveGrid.ts；补页循环要搬进 services，不能反向 import 组件目录。
+// 原在 components/bigorange-grid/progressiveGrid.ts；补页循环要搬进 services，不能反向 import 组件目录。
 
 export const appendUniqueByKey = <T>(
     current: readonly T[],

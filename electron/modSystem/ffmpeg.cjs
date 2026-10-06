@@ -34,11 +34,11 @@ const TRANSCODE_RUNTIME_DIR = 'ffmpeg-audio';
  */
 const RUNTIME_SLOTS = Object.freeze({
     [MODS_RUNTIME_DIR]: Object.freeze({
-        envVar: 'FOLIA_FFMPEG_PATH',
+        envVar: 'BIGORANGE_FFMPEG_PATH',
         localDirName: 'ffmpeg-8.1.2',
     }),
     [TRANSCODE_RUNTIME_DIR]: Object.freeze({
-        envVar: 'FOLIA_TRANSCODE_FFMPEG_PATH',
+        envVar: 'BIGORANGE_TRANSCODE_FFMPEG_PATH',
         localDirName: TRANSCODE_RUNTIME_DIR,
     }),
 });

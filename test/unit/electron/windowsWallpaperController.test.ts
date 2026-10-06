@@ -120,7 +120,7 @@ function createHarness(overrides: Partial<ControllerOptions> = {}): Harness {
   const store: StoreLike = overrides.store ?? createFakeStore({ [WALLPAPER_MODE_SETTING_KEY]: true });
   const controller = createWindowsWallpaperController({
     store,
-    helperPath: () => 'C:\\fake\\folia-wallpaper-helper.exe',
+    helperPath: () => 'C:\\fake\\bigorange-wallpaper-helper.exe',
     getHwnd: () => 1234,
     onDegrade,
     onReattachNeeded,
@@ -404,7 +404,7 @@ describe('watchdog state machine', () => {
     children[0].writeStdout('{"event":"attached"}\n');
     // The structured `kind` is the contract (the message text is not parsed by the controller).
     children[0].writeStdout(
-      '{"event":"error","message":"folia window was destroyed together with the WorkerW; the main process must rebuild it","kind":"window-destroyed"}\n'
+      '{"event":"error","message":"bigorange window was destroyed together with the WorkerW; the main process must rebuild it","kind":"window-destroyed"}\n'
     );
     expect(controller.isAttached()).toBe(false);
     expect(onReattachNeeded).toHaveBeenCalledTimes(1);

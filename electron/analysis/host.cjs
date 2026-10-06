@@ -93,12 +93,12 @@ const createAnalysisHost = ({ app, ipcMain, getModelsDirs, deadlines = DEADLINE_
             // answering null means it fails invisibly - measured, not assumed: with `inherit` not
             // one of the worker's lines reached the terminal.
             stdio: 'pipe',
-            // So the worker is unmistakable in app.getAppMetrics() - it lands as Utility/folia-analysis
+            // So the worker is unmistakable in app.getAppMetrics() - it lands as Utility/bigorange-analysis
             // instead of an anonymous Utility PID. Ignored by Electron if unsupported.
-            serviceName: 'folia-analysis',
+            serviceName: 'bigorange-analysis',
             // env defaults to a copy of process.env only when omitted; once we pass it we must carry
             // the parent's own across. The flag is what makes a GPU demotion outlive the kill.
-            env: forceCpu ? { ...process.env, FOLIA_ANALYSIS_FORCE_CPU: '1' } : { ...process.env },
+            env: forceCpu ? { ...process.env, BIGORANGE_ANALYSIS_FORCE_CPU: '1' } : { ...process.env },
         });
         child = started;
 

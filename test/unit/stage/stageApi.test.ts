@@ -49,7 +49,7 @@ const withStageApi = async (options: {
     onControlRequest?: (payload: any) => void;
     onQueueRequest?: (payload: any) => void;
 } = {}) => {
-    const tempRoot = await mkdtemp(path.join(os.tmpdir(), 'folia-stage-api-'));
+    const tempRoot = await mkdtemp(path.join(os.tmpdir(), 'bigorange-stage-api-'));
     const port = await getFreePort();
     const store = createStore();
     const settings = {
@@ -183,7 +183,7 @@ const buildStageQueueItems = (count: number) => Array.from({ length: count }, (_
     id: String(42 + index),
     source: 'netease',
     title: `Track ${index + 1}`,
-    artist: 'Folia',
+    artist: 'BigOrange',
     album: 'Stage',
     durationMs: 180000 + index,
     coverUrl: null,
@@ -259,7 +259,7 @@ describe('stageApi http contract', () => {
             },
             body: JSON.stringify({
                 title: 'Stage Lyrics',
-                artist: 'Folia',
+                artist: 'BigOrange',
                 lyricSource: {
                     type: 'local',
                     lrcContent: '[00:00.00]Hello world',
@@ -278,7 +278,7 @@ describe('stageApi http contract', () => {
         expect(postPayload.activeEntryKind).toBe('lyrics');
         expect(postPayload.lyricsSession).toMatchObject({
             title: 'Stage Lyrics',
-            artist: 'Folia',
+            artist: 'BigOrange',
             lyricSource: {
                 type: 'local',
                 lrcContent: '[00:00.00]Hello world',
@@ -464,7 +464,7 @@ describe('stageApi http contract', () => {
             searchStageSongs: async () => [{
                 songId: 7,
                 title: 'Player Route',
-                artists: ['Folia'],
+                artists: ['BigOrange'],
                 album: 'Stage',
                 durationMs: 123000,
                 coverUrl: null,
@@ -804,7 +804,7 @@ describe('stageApi http contract', () => {
                 id: '43',
                 source: 'netease',
                 title: 'Next Track',
-                artist: 'Folia',
+                artist: 'BigOrange',
                 album: 'Stage',
                 durationMs: 90000,
                 coverUrl: null,

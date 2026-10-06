@@ -22,7 +22,7 @@ import { gunzipSync, unzipSync, zip } from 'fflate';
 //   node build/buildPythonRuntime.mjs                # every platform
 //   node build/buildPythonRuntime.mjs win32-x64      # just one
 //
-// Writes dist-runtime/folia-runtime-<platform>.zip and prints the manifest block to paste into
+// Writes dist-runtime/bigorange-runtime-<platform>.zip and prints the manifest block to paste into
 // shared/modelManifest.json. Cross-building is the point: every platform is assembled from this
 // one machine, out of prebuilt CPython distributions and platform-tagged wheels, so no step
 // needs the target OS. Nothing is COMPILED here - it is download, unpack, delete, re-archive.
@@ -254,14 +254,14 @@ const buildOne = async (platform) => {
     // would make the manifest's sha256 something only this machine at this minute could produce.
     // With it, anyone can re-run this file and check the published archive against their own.
     await mkdir(OUT, { recursive: true });
-    const archive = join(OUT, `folia-runtime-${platform}.zip`);
+    const archive = join(OUT, `bigorange-runtime-${platform}.zip`);
     const packed = await new Promise((resolve, reject) => {
         zip(entries, { level: 9, mtime: EPOCH }, (error, data) => (error ? reject(error) : resolve(data)));
     });
     await writeFile(archive, packed);
 
     console.log(`  ${Object.keys(entries).length} files, ${mb(raw)} unpacked -> ${mb(packed.length)} zipped`);
-    return { platform, file: `folia-runtime-${platform}.zip`, bytes: packed.length, sha256: sha256(packed) };
+    return { platform, file: `bigorange-runtime-${platform}.zip`, bytes: packed.length, sha256: sha256(packed) };
 };
 
 const wanted = process.argv.slice(2);

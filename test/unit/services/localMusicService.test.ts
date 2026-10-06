@@ -397,9 +397,9 @@ describe('localMusicService', () => {
         expect(coverFileLookup).toHaveBeenCalledOnce();
     });
 
-    it('applies root .foliaignore rules to files, snapshots, and nested directories', async () => {
+    it('applies root .bigorangeignore rules to files, snapshots, and nested directories', async () => {
         const selectedHandle = new FakeDirectoryHandle('Music', [
-            new FakeFileHandle('.foliaignore', {
+            new FakeFileHandle('.bigorangeignore', {
                 content: 'Ignored/\n*.tmp.mp3\n!keep.tmp.mp3\n',
                 type: 'text/plain',
             }),
@@ -433,11 +433,11 @@ describe('localMusicService', () => {
         }));
     });
 
-    it('applies nested .foliaignore rules relative to each directory', async () => {
+    it('applies nested .bigorangeignore rules relative to each directory', async () => {
         const selectedHandle = new FakeDirectoryHandle('Music', [
-            new FakeFileHandle('.foliaignore', { content: '*.mp3\n', type: 'text/plain' }),
+            new FakeFileHandle('.bigorangeignore', { content: '*.mp3\n', type: 'text/plain' }),
             new FakeDirectoryHandle('Album', [
-                new FakeFileHandle('.foliaignore', { content: '!keep.mp3\n*.flac\n', type: 'text/plain' }),
+                new FakeFileHandle('.bigorangeignore', { content: '!keep.mp3\n*.flac\n', type: 'text/plain' }),
                 new FakeFileHandle('keep.mp3'),
                 new FakeFileHandle('drop.mp3'),
                 new FakeFileHandle('drop.flac'),
@@ -501,8 +501,8 @@ describe('localMusicService', () => {
         ]);
     });
 
-    it('prefers a Folia .fia sidecar over an .lrc of the same name', async () => {
-        const fiaContent = '{"format":"folia-lyricdata","version":1,"song":{},"lyrics":{"lines":[]}}';
+    it('prefers a BigOrange .fia sidecar over an .lrc of the same name', async () => {
+        const fiaContent = '{"format":"bigorange-lyricdata","version":1,"song":{},"lyrics":{"lines":[]}}';
         const selectedHandle = new FakeDirectoryHandle('Music', [
             new FakeDirectoryHandle('Disc 1', [
                 new FakeFileHandle('Track 01.mp3'),

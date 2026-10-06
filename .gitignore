@@ -29,8 +29,8 @@ dist-ssr
 dev-dist/
 example/
 release/
-packaging/aur/folia-major-bin/FIRST_RELEASE.md
-packaging/aur/folia-major-bin/README.md
+packaging/aur/bigorange-bin/FIRST_RELEASE.md
+packaging/aur/bigorange-bin/README.md
 .codex
 .codex-tmp
 .wrangler/tmp
@@ -79,11 +79,11 @@ mods/*.zip
 
 
 # Built by packaging/windows/build-wallpaper-helper.mjs (Windows wallpaper mode helper).
-build/folia-wallpaper-helper.exe
+build/bigorange-wallpaper-helper.exe
 packaging/windows/wallpaper-helper/target/
 
 # Local Rust Spout sender build artifacts.
-build/folia-spout-sender.exe
+build/bigorange-spout-sender.exe
 packaging/windows/spout-sender/target/
 
 # Python bytecode from the htdemucs runner, written beside it by the downloaded runtime.

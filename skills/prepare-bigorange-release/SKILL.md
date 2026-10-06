@@ -1,9 +1,9 @@
 ---
-name: prepare-folia-release
-description: Prepare a new stable Folia release from the commits since the latest reachable stable vA.B.C tag. Use when entering a new-version or Realeco release flow, drafting user-facing changes, updating NewFeaturesIntro content and locales, bumping desktop and Docker versions, synchronizing realeco-release/package metadata, or producing paste-ready Markdown release notes.
+name: prepare-bigorange-release
+description: Prepare a new stable BigOrange release from the commits since the latest reachable stable vA.B.C tag. Use when entering a new-version or Realeco release flow, drafting user-facing changes, updating NewFeaturesIntro content and locales, bumping desktop and Docker versions, synchronizing realeco-release/package metadata, or producing paste-ready Markdown release notes.
 ---
 
-# Prepare Folia Release
+# Prepare BigOrange Release
 
 Prepare release files and hand the user paste-ready notes. Do not commit, tag, push, publish, or trigger a workflow unless the user explicitly requests that separate action; pushing `realeco-release` on `main` can start the production release workflow.
 

@@ -35,7 +35,7 @@ export type SettingsModalState = {
 };
 
 // Separate from the retired guide key so people who saw the old carousel still receive the Ponder lesson.
-const LAST_SEEN_GUIDE_VERSION_STORAGE_KEY = 'folia_last_seen_ponder_onboarding_version';
+const LAST_SEEN_GUIDE_VERSION_STORAGE_KEY = 'bigorange_last_seen_ponder_onboarding_version';
 
 export type SettingsModalUiState = {
     appLanguagePreference: AppLanguagePreference;

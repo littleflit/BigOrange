@@ -47,7 +47,7 @@ describe('stageClientDemo helpers', () => {
             baseUrl: 'http://127.0.0.1:32107',
             token: 'demo-token',
             title: 'Stage Lyrics',
-            artist: 'Folia',
+            artist: 'BigOrange',
             lyricSourceJson: JSON.stringify({
                 type: 'local',
                 lrcContent: '[00:00.00]Hello world',
@@ -59,7 +59,7 @@ describe('stageClientDemo helpers', () => {
         expect(result.endpoint).toBe('http://127.0.0.1:32107/stage/lyrics');
         expect(JSON.parse(String(result.init.body))).toEqual({
             title: 'Stage Lyrics',
-            artist: 'Folia',
+            artist: 'BigOrange',
             lyricSource: {
                 type: 'local',
                 lrcContent: '[00:00.00]Hello world',

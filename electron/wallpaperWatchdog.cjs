@@ -3,8 +3,8 @@
 // liveness watchdog and recovery-to-normal-window plumbing, extracted from main.cjs so the
 // recovery paths can be unit-tested and simulated without an Electron runtime or a compositor.
 //
-// Process model: a "jumpboard" Folia spawns windowtolayer (wtl); wtl spawns the real wrapped
-// Folia child with WAYLAND_SOCKET=<fd>. The wrapped child's parent is wtl. If wtl dies the
+// Process model: a "jumpboard" BigOrange spawns windowtolayer (wtl); wtl spawns the real wrapped
+// BigOrange child with WAYLAND_SOCKET=<fd>. The wrapped child's parent is wtl. If wtl dies the
 // socketpair EOFs and Chromium usually crashes in milliseconds — the watchdog cannot beat that.
 // Its value is (a) recovering when the main process survives wtl exiting for a non-fatal reason,
 // and (b) the crash-loop breaker stopping a persistent re-wrap loop on the next launch.
@@ -17,7 +17,7 @@ function isWallpaperModeEnabled(store) {
 }
 
 function isWallpaperWrapped(env) {
-  return env.FOLIA_WRAPPED_BY_WINDOWTOLAYER === '1';
+  return env.BIGORANGE_WRAPPED_BY_WINDOWTOLAYER === '1';
 }
 
 function isX11WallpaperMode({ platform, env, store }) {
@@ -48,11 +48,11 @@ function createWallpaperWatchdog(options = {}) {
   let recovering = false;
   let parentProbeHandle = null;
 
-  // Relaunches Folia as a plain (non-wrapped) process without touching the stored mode.
+  // Relaunches BigOrange as a plain (non-wrapped) process without touching the stored mode.
   function relaunchSelfNormal() {
-    const childEnv = { ...env, FOLIA_RELAUNCH: '1' }; // marker lets the new process win the lock race
+    const childEnv = { ...env, BIGORANGE_RELAUNCH: '1' }; // marker lets the new process win the lock race
     delete childEnv.WAYLAND_SOCKET;
-    delete childEnv.FOLIA_WRAPPED_BY_WINDOWTOLAYER;
+    delete childEnv.BIGORANGE_WRAPPED_BY_WINDOWTOLAYER;
     const child = spawnFn(execPath(), argv(), { env: childEnv, detached: true, stdio: 'ignore' });
     child.on('error', (err) => {
       // The current process keeps running; just log so the half-state is visible in the console.

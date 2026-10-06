@@ -13,7 +13,7 @@ const LUMIERE_NEUTRAL_OFFSET = ((0xb9e72008 ^ lumiereScaleMask) + Math.imul(0x5e
 // src/components/visualizer/lumiere/program.ts
 // 绘光的切块与选光位：切块（一个镜头 1–2 行，长间隙出间奏镜头）与选光位（按段落性质 / energy 定 mood，
 // 族不连续重复、最近用过的不马上再用）。纯数据，不碰 Pixi。整首歌的编译（分段、转场、开场）在 lumiereProgram.ts。
-// folia 里是全自动的：没有锁定风格、风格库偏好与族限制，energy 恒为 null（按段落性质定 mood）。
+// bigorange 里是全自动的：没有锁定风格、风格库偏好与族限制，energy 恒为 null（按段落性质定 mood）。
 export interface LumiereShot {
     id: string;
     kind: string;
@@ -173,7 +173,7 @@ export const planShots = (
 
 /**
  * 选光位：全部光位 → 间奏限定族 → mood → 避开最近用过的与上一个的族，每一步筛空了就退回上一步。
- * energy 为 null 时按段落性质定 mood（folia 里总是 null）。
+ * energy 为 null 时按段落性质定 mood（bigorange 里总是 null）。
  */
 export const castShot = (options: {
     seed: string;

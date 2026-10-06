@@ -9,7 +9,7 @@ import { findLatestActiveLineIndex } from '../../utils/appPlaybackHelpers';
 import { buildObsBrowserSourceConfigSignature, resolveObsBrowserSourceClockTime } from '../../utils/obsBrowserSource';
 
 // src/components/obs/ObsBrowserSourceApp.tsx
-// Read-only OBS browser source renderer driven by Folia's main playback clock.
+// Read-only OBS browser source renderer driven by BigOrange's main playback clock.
 
 const EMPTY_SPECTRUM = new Uint8Array(0);
 
@@ -56,7 +56,7 @@ const ObsBrowserSourceApp: React.FC = () => {
         document.body.style.backgroundColor = 'transparent';
         document.documentElement.style.backgroundColor = 'transparent';
         document.body.style.overflow = 'hidden';
-        document.title = 'Folia OBS';
+        document.title = 'BigOrange OBS';
     }, []);
 
     useEffect(() => {
@@ -169,7 +169,7 @@ const ObsBrowserSourceApp: React.FC = () => {
     if (!config) {
         return (
             <div className="h-screen w-screen bg-transparent grid place-items-center text-white/70 text-sm">
-                {connected ? t('obs.waitingForPlayback', 'Waiting for Folia playback') : t('obs.connecting', 'Connecting to Folia')}
+                {connected ? t('obs.waitingForPlayback', 'Waiting for BigOrange playback') : t('obs.connecting', 'Connecting to BigOrange')}
             </div>
         );
     }

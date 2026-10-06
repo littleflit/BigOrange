@@ -3,7 +3,7 @@ import { getPlaybackSongKey } from '../../utils/appPlaybackGuards';
 import { getCacheEntriesByKey } from '../db';
 import { omni } from '../onlineMusic/omni';
 import { saveLyricCacheSongMetadataBySongKey, songToExportMetadata, type LyricCacheSongMetadata } from './lyricCacheMetadata';
-import type { FoliaLyricDocumentSong } from '../../utils/lyrics/foliaLyricDocument';
+import type { BigOrangeLyricDocumentSong } from '../../utils/lyrics/bigorangeLyricDocument';
 import { mapWithConcurrency, type ExportableLyric, type LyricExportRunContext } from './types';
 
 // src/services/lyricExport/resolveExportMetadata.ts
@@ -79,7 +79,7 @@ const offsetKeyFrom = (entry: ExportableLyric, songId: string | number | undefin
     entry.providerRef && songId !== undefined && songId !== '' ? { offsetKey: songId } : {}
 );
 
-const isComplete = (song: FoliaLyricDocumentSong) => Boolean(song.title && song.artist);
+const isComplete = (song: BigOrangeLyricDocumentSong) => Boolean(song.title && song.artist);
 
 /** Last resort: the lyrics' own `[ti:]` / `[ar:]` tags, only for whatever is still unknown. */
 const withLyricTagFallback = (entry: ExportableLyric): ExportableLyric => (
@@ -88,7 +88,7 @@ const withLyricTagFallback = (entry: ExportableLyric): ExportableLyric => (
         : { ...entry, song: mergeSong(entry.song, { title: entry.lyrics.title, artist: entry.lyrics.artist }) }
 );
 
-const mergeSong = (base: FoliaLyricDocumentSong, extra: FoliaLyricDocumentSong | undefined): FoliaLyricDocumentSong => ({
+const mergeSong = (base: BigOrangeLyricDocumentSong, extra: BigOrangeLyricDocumentSong | undefined): BigOrangeLyricDocumentSong => ({
     ...base,
     title: base.title || extra?.title,
     artist: base.artist || extra?.artist,

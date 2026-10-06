@@ -1,7 +1,7 @@
 import type { DualTheme, Theme } from '../types';
 
 // src/services/baseThemes.ts
-// Folia's built-in default preset, the theme a user sees before saving a custom one or applying an
+// BigOrange's built-in default preset, the theme a user sees before saving a custom one or applying an
 // AI theme. Kept as a dependency-free leaf so non-UI consumers (the OBS URL builder) can bake it
 // without reaching into App.
 

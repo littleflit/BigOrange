@@ -64,7 +64,7 @@ const ProbeBody: React.FC = () => {
                     type="button"
                     data-probe-clear-seen
                     onClick={() => {
-                        localStorage.removeItem('folia_ponder_seen');
+                        localStorage.removeItem('bigorange_ponder_seen');
                         location.reload();
                     }}
                     className="rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-semibold text-zinc-200 hover:bg-white/10"

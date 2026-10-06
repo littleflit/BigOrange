@@ -166,7 +166,7 @@ describe('per-word line close-out (avoid disappearing early under a large offset
   });
 });
 
-// Whole-line (text_detailed is {}): no internal duration, so line duration is capped by Folia's native parseLRC reading time (text.length*0.5+2,
+// Whole-line (text_detailed is {}): no internal duration, so line duration is capped by BigOrange's native parseLRC reading time (text.length*0.5+2,
 // capped only when the gap > that value AND > 5s). A short line facing a long instrumental gap should leave a blank and defer to attachInterludes for the interlude,
 // rather than hanging the previous line all the way to the next line's start (matching native LRC rendering).
 const twoPlainLines = (nextLineStart: number, text = 'ab'): PlayerCapAllLyricsData => ({

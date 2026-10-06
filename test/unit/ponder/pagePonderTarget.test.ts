@@ -94,7 +94,7 @@ describe('resolvePagePonderTarget', () => {
 
     /**
      * 第一次那道门压在首页上，按页面 scope 解析出来的是海报墙 —— 而它要教的是
-     * 「Folia 大致怎么转」。所以这一条必须压过页面 scope。
+     * 「BigOrange 大致怎么转」。所以这一条必须压过页面 scope。
      */
     it('第一次那道门开的是总览，不是底下那一页', () => {
         useAppViewStore.setState({ view: 'lattice' });

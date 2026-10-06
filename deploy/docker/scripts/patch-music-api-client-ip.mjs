@@ -12,14 +12,14 @@ const patches = {
 `,
     after: `          if (options.randomCNIP) {
             ip = global.cnIp
-          } else if (process.env.FOLIA_FORWARD_CLIENT_IP === 'true') {
+          } else if (process.env.BIGORANGE_FORWARD_CLIENT_IP === 'true') {
             ip = req.ip
 `,
   },
   kugou: {
     file: 'node_modules/kugoumusicapi/server.js',
     before: '          let ip = req.ip;\n',
-    after: "          let ip = process.env.FOLIA_FORWARD_CLIENT_IP === 'true' ? req.ip : '';\n",
+    after: "          let ip = process.env.BIGORANGE_FORWARD_CLIENT_IP === 'true' ? req.ip : '';\n",
   },
 };
 

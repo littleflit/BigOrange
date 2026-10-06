@@ -315,7 +315,7 @@ export type CommandPaletteSettingsContext = {
     /** 署名块是否吸收相邻行；命令只负责在三态之间轮换。 */
     lyricStaffAbsorbMode: LyricStaffAbsorbMode;
     cycleLyricStaffAbsorbMode: () => void;
-    /** The FOLIA smart-transition switches, stated in each command's title the way the pickers do. */
+    /** The BIGORANGE smart-transition switches, stated in each command's title the way the pickers do. */
     automixEnabled: boolean;
     transitionMode: TransitionMode;
     transitionPerformance: boolean;

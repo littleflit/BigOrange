@@ -1,7 +1,7 @@
 import { onboardingSurface } from './ponderOnboardingShared';
 import type { PonderSceneScript, PonderTargetDefinition } from '../../../types/ponder';
 
-// src/components/ponder/targets/foliaShortcuts.target.ts
+// src/components/ponder/targets/bigorangeShortcuts.target.ts
 // 四个带主修饰键的快捷键，一个一句。
 
 /** 第三章：四个 Ctrl 组合，一个一句。 */
@@ -46,10 +46,10 @@ const shortcuts: PonderSceneScript = {
 };
 
 export default {
-    id: 'folia-shortcuts',
-    titleKey: 'ponder.targets.foliaShortcuts',
+    id: 'bigorange-shortcuts',
+    titleKey: 'ponder.targets.bigorangeShortcuts',
     category: 'basics',
-    summaryKey: 'ponder.summaries.folia_shortcuts',
+    summaryKey: 'ponder.summaries.bigorange_shortcuts',
     hoverSelector: null,
     scenes: [shortcuts],
 } satisfies PonderTargetDefinition;

@@ -58,9 +58,9 @@ export type PonderTargetId =
     | 'local-grid-map-directory-tree'
     // 从 help-page 拆出来的详细教程：入门页只留四章概览，细节各自成目标。
     | 'ponder-basics'
-    | 'folia-transport'
-    | 'folia-shortcuts'
-    | 'folia-desktop'
+    | 'bigorange-transport'
+    | 'bigorange-shortcuts'
+    | 'bigorange-desktop'
     | 'queue-command-surface'
     | 'transition-settings'
     | 'local-library-watch'
@@ -476,7 +476,7 @@ export type PonderTargetDefinition = {
      * 同一个元素被多个目标的选择器同时命中、且命中深度一样时，取 priority 大的。
      *
      * 槽位按钮就是这种情况：它既属于「这两个位置的按钮可以换」，也属于「随机播放在
-     * Folia 里是另一回事」。默认 0。
+     * BigOrange 里是另一回事」。默认 0。
      */
     priority?: number;
     /** 页面教程可以列出本页仍有独立教程的组件，并让用户直接进入。 */

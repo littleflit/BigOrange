@@ -34,7 +34,7 @@ const describeModGrants = (mod: ModRuntimeInfo): string[] => [
     ...mod.permissions,
     ...(mod.experimental ?? []).map((feature) => `experimental:${feature}`),
     ...(mod.embedOrigins ?? []).map((origin) => `embed:${origin}`),
-    ...(mod.folia ? [`internals:${mod.folia}`] : []),
+    ...(mod.bigorange ? [`internals:${mod.bigorange}`] : []),
 ];
 
 /*

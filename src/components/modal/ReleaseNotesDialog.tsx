@@ -37,7 +37,7 @@ const ReleaseNotesDialog: React.FC<ReleaseNotesDialogProps> = ({ isOpen, isDayli
         <motion.div
             {...overlayBackdropMotion}
             transition={calm ? OVERLAY_CALM_TRANSITION : OVERLAY_TRANSITION}
-            data-folia-keyboard-window="true"
+            data-bigorange-keyboard-window="true"
             data-testid="release-notes-dialog"
             className="fixed inset-0 z-[210] flex items-center justify-center bg-black/65 p-4"
             role="dialog"

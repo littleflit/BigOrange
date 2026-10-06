@@ -137,7 +137,7 @@ describe('ponder registry', () => {
         expect(missing, `这些目标不会出现在思索导航页上：${missing.join(', ')}`).toEqual([]);
     });
 
-    it('「认识 Folia」的四项内容各自成章', () => {
+    it('「认识 BigOrange」的四项内容各自成章', () => {
         expect(findPonderTarget('help-page')?.scenes.map(scene => scene.id)).toEqual([
             'help-page-overview',
             'help-page-command-palette',

@@ -7,7 +7,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 // stay referentially stable, persistence is debounced, and the export window
 // never writes back.
 
-const STORAGE_KEY = 'folia_folium_params_v1';
+const STORAGE_KEY = 'bigorange_folium_params_v1';
 
 const loadStore = async () => {
     vi.resetModules();

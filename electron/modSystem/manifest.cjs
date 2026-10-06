@@ -111,7 +111,7 @@ const satisfiesRange = (version, range) => {
 };
 
 /*
- * Host version ranges (`"folia"`): space-separated comparators that must all
+ * Host version ranges (`"bigorange"`): space-separated comparators that must all
  * hold, e.g. ">=0.7.0 <0.8.0". Supported operators: >=, >, <=, <, =, ^ and a
  * bare version (exact). "*" matches everything. Anything else is invalid.
  */
@@ -204,7 +204,7 @@ const validateManifest = (raw) => {
         permissions: Array.isArray(raw.permissions) ? raw.permissions : [],
         experimental: Array.isArray(raw.experimental) ? raw.experimental : [],
         embedOrigins: Array.isArray(raw.embedOrigins) ? raw.embedOrigins : [],
-        folia: raw.folia ?? null,
+        bigorange: raw.bigorange ?? null,
         preview: raw.preview ?? null,
     };
 
@@ -277,8 +277,8 @@ const validateManifest = (raw) => {
         errors.push('embedOrigins requires the net.embed permission');
     }
 
-    if (manifest.folia !== null && !parseHostRange(manifest.folia)) {
-        errors.push(`mod.folia ${JSON.stringify(manifest.folia)} is not a supported version range (e.g. ">=0.7.0 <0.8.0")`);
+    if (manifest.bigorange !== null && !parseHostRange(manifest.bigorange)) {
+        errors.push(`mod.bigorange ${JSON.stringify(manifest.bigorange)} is not a supported version range (e.g. ">=0.7.0 <0.8.0")`);
     }
 
     return errors.length > 0 ? fail(errors) : ok(manifest);

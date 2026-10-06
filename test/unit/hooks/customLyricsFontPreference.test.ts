@@ -16,7 +16,7 @@ describe('custom lyrics font preference migration', () => {
     it('rejects uploaded font metadata without a font id', () => {
         expect(resolveStoredCustomLyricsFont({
             source: 'uploaded',
-            family: 'FoliaUploadedLyricsFont_missing',
+            family: 'BigOrangeUploadedLyricsFont_missing',
             label: 'Missing',
         })).toBeNull();
     });
@@ -24,12 +24,12 @@ describe('custom lyrics font preference migration', () => {
     it('keeps valid uploaded font metadata', () => {
         expect(resolveStoredCustomLyricsFont({
             source: 'uploaded',
-            family: 'FoliaUploadedLyricsFont_1',
+            family: 'BigOrangeUploadedLyricsFont_1',
             label: 'Uploaded',
             fontId: '1',
         })).toEqual({
             source: 'uploaded',
-            family: 'FoliaUploadedLyricsFont_1',
+            family: 'BigOrangeUploadedLyricsFont_1',
             label: 'Uploaded',
             fontId: '1',
         });

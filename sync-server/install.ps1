@@ -1,4 +1,4 @@
-# Folia Sync Server installer for Windows PowerShell / PowerShell 7.
+# BigOrange Sync Server installer for Windows PowerShell / PowerShell 7.
 
 $ErrorActionPreference = 'Stop'
 
@@ -31,9 +31,9 @@ function Write-SyncTokenReminder {
     param([string]$Token)
     if (-not [string]::IsNullOrWhiteSpace($Token)) {
         Write-Section "=========================================="
-        Write-WarnLine "请注意：Folia 客户端连接密码 (SYNC_TOKEN) 为："
+        Write-WarnLine "请注意：BigOrange 客户端连接密码 (SYNC_TOKEN) 为："
         Write-SuccessLine "[!] $Token"
-        Write-ErrorLine "这是你在 Folia 客户端中连接同步服务端所需的密码。"
+        Write-ErrorLine "这是你在 BigOrange 客户端中连接同步服务端所需的密码。"
         Write-ErrorLine "由于安全原因，这是最后一次在此显示，请务必妥善保存！"
         Write-Section "=========================================="
     }
@@ -101,7 +101,7 @@ function Ensure-EnvFile {
         "SYNC_TOKEN=$syncToken"
         "DASHBOARD_TOKEN=$dashboardToken"
         "PORT=3000"
-        "DB_PATH=./folia-sync.db"
+        "DB_PATH=./bigorange-sync.db"
     ) | Set-Content -Path $envPath -Encoding UTF8
 
     Write-SuccessLine "[*] .env 文件创建成功。"
@@ -127,18 +127,18 @@ function Ensure-Pm2 {
 
 function Get-D1DatabaseId {
     # Create-first strategy matches the bash installer, then falls back to list for existing DBs.
-    Write-Step "正在检查或创建 D1 数据库 'folia-sync' (可能要求跳转浏览器登录)..."
-    $d1Output = (& npx wrangler d1 create folia-sync -c wrangler.toml 2>&1 | Out-String).Trim()
+    Write-Step "正在检查或创建 D1 数据库 'bigorange-sync' (可能要求跳转浏览器登录)..."
+    $d1Output = (& npx wrangler d1 create bigorange-sync -c wrangler.toml 2>&1 | Out-String).Trim()
     if ($d1Output) {
         Write-Host $d1Output
     }
 
     if ($d1Output -match 'already exists') {
-        Write-WarnLine "数据库 'folia-sync' 已存在。正在获取它的 ID..."
+        Write-WarnLine "数据库 'bigorange-sync' 已存在。正在获取它的 ID..."
         $databaseListJson = & npx wrangler d1 list --json 2>$null
         if ($LASTEXITCODE -eq 0 -and $databaseListJson) {
             $databaseList = $databaseListJson | ConvertFrom-Json
-            $match = $databaseList | Where-Object { $_.name -eq 'folia-sync' } | Select-Object -First 1
+            $match = $databaseList | Where-Object { $_.name -eq 'bigorange-sync' } | Select-Object -First 1
             if ($match -and $match.uuid) {
                 return $match.uuid
             }
@@ -190,8 +190,8 @@ function Deploy-NodeWithPm2 {
     Ensure-EnvFile | Out-Null
 
     Write-Step "正在使用 PM2 启动服务..."
-    & pm2 delete folia-sync-server 2>$null
-    & pm2 start dist/node.js --name folia-sync-server
+    & pm2 delete bigorange-sync-server 2>$null
+    & pm2 start dist/node.js --name bigorange-sync-server
     if ($LASTEXITCODE -ne 0) {
         throw "PM2 启动失败。"
     }
@@ -211,7 +211,7 @@ function Deploy-NodeWithPm2 {
     Write-SuccessLine "    部署完成！"
     Write-SuccessLine "=========================================="
     Write-Section "你的同步服务端已在 3000 端口运行。"
-    Write-Host "使用此命令查看日志： pm2 logs folia-sync-server"
+    Write-Host "使用此命令查看日志： pm2 logs bigorange-sync-server"
     Write-Host "若要设置开机自启，请运行： pm2 startup"
 
     $envPath = Join-Path $PSScriptRoot '.env'
@@ -252,7 +252,7 @@ function Deploy-Docker {
     Write-SuccessLine "    部署完成！"
     Write-SuccessLine "=========================================="
     Write-Section "你的同步服务端已映射到本地 13000 端口（容器内 3000）。"
-    Write-Host "使用此命令查看日志： docker logs -f folia-sync"
+    Write-Host "使用此命令查看日志： docker logs -f bigorange-sync"
 
     $envPath = Join-Path $PSScriptRoot '.env'
     $loadedSyncToken = ""
@@ -309,7 +309,7 @@ function Deploy-CloudflareWorkers {
 }
 
 Write-Section "=========================================="
-Write-Section "       Folia 同步服务端安装向导"
+Write-Section "       BigOrange 同步服务端安装向导"
 Write-Section "=========================================="
 Write-Host ''
 Write-Host '请选择部署方式：'

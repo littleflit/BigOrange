@@ -115,7 +115,7 @@ describe('tempera image archive', () => {
     it('normalizes untrusted placement values into the editor range', async () => {
         const { zipSync } = await import('fflate');
         const blob = new Blob([zipSync({
-            'meta.json': strToU8('{"kind":"folia-tempera-pool","schemaVersion":1}'),
+            'meta.json': strToU8('{"kind":"bigorange-tempera-pool","schemaVersion":1}'),
             'pool.json': strToU8(JSON.stringify({
                 layerImages: [{
                     id: 'unsafe',
@@ -145,7 +145,7 @@ describe('tempera image archive', () => {
     it('rolls back earlier records when a later archive write fails', async () => {
         const { zipSync } = await import('fflate');
         const blob = new Blob([zipSync({
-            'meta.json': strToU8('{"kind":"folia-tempera-pool","schemaVersion":1}'),
+            'meta.json': strToU8('{"kind":"bigorange-tempera-pool","schemaVersion":1}'),
             'pool.json': strToU8(JSON.stringify({ layerImages: [placement('a'), placement('b')] })),
             'images/a.png': pngBytes,
             'images/b.png': pngBytes,
@@ -168,7 +168,7 @@ describe('tempera image archive', () => {
         const controller = new AbortController();
         const { zipSync } = await import('fflate');
         const blob = new Blob([zipSync({
-            'meta.json': strToU8('{"kind":"folia-tempera-pool","schemaVersion":1}'),
+            'meta.json': strToU8('{"kind":"bigorange-tempera-pool","schemaVersion":1}'),
             'pool.json': strToU8(JSON.stringify({ layerImages: [placement('a')] })),
             'images/a.png': pngBytes,
         })], { type: 'application/zip' });
@@ -185,7 +185,7 @@ describe('tempera image archive', () => {
         mocks.getTemperaLayerImage.mockImplementation(async (id: string) => storedImage(id, `${id}.png`));
         const { zipSync } = await import('fflate');
         const blob = new Blob([zipSync({
-            'meta.json': strToU8('{"kind":"folia-tempera-pool","schemaVersion":1}'),
+            'meta.json': strToU8('{"kind":"bigorange-tempera-pool","schemaVersion":1}'),
             'pool.json': strToU8(JSON.stringify({
                 layerImages: [placement('a')],
                 layerImageDepth: 'front',
@@ -209,7 +209,7 @@ describe('tempera image archive', () => {
     it('counts manifest entries with no file in the archive', async () => {
         const { zipSync, strToU8 } = await import('fflate');
         const blob = new Blob([zipSync({
-            'meta.json': strToU8('{"kind":"folia-tempera-pool","schemaVersion":1}'),
+            'meta.json': strToU8('{"kind":"bigorange-tempera-pool","schemaVersion":1}'),
             'pool.json': strToU8(JSON.stringify({ layerImages: [placement('ghost')] })),
         })], { type: 'application/zip' });
 

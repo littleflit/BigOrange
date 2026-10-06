@@ -10,7 +10,7 @@ import { getSongCoverUrl } from '@/services/onlineMusic/songMetadata';
 import type { GridItem } from '@/library/suites/grid/shared/polaroidCardParts';
 import type { SongResult } from '@/types';
 
-// test/unit/folia-grid/lazyGridItems.test.ts
+// test/unit/bigorange-grid/lazyGridItems.test.ts
 // 惰性塑形必须与原来的 eager map **逐字段一致**：观感不能因为性能优化变一点点，id 里的
 // 重复序号尤其不能错（它同时是 React key 与移除歌曲时的匹配键）。
 

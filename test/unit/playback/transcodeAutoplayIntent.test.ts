@@ -66,7 +66,7 @@ vi.mock('../../../src/services/automix/crossfadeGraph', () => ({ rampGain: vi.fn
 
 const { usePlaybackAudioBridge } = await import('../../../src/hooks/usePlaybackAudioBridge');
 
-const FAILED_SRC = 'blob:folia/undecodable-track';
+const FAILED_SRC = 'blob:bigorange/undecodable-track';
 
 const createDeck = (error: { code: number } | null) => ({
     error,

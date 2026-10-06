@@ -94,7 +94,7 @@ beforeAll(async () => {
 afterAll(() => new Promise<void>(resolve => server.close(() => resolve())));
 
 beforeEach(() => {
-    root = mkdtempSync(path.join(tmpdir(), 'folia-store-'));
+    root = mkdtempSync(path.join(tmpdir(), 'bigorange-store-'));
     downloadDir = path.join(root, 'models');
     elsewhere = path.join(root, 'Downloads');
     mkdirSync(downloadDir);

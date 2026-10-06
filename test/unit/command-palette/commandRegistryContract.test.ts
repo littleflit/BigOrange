@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { COMMAND_PALETTE_COMMANDS, getAvailableCommandPaletteCommands, getCommandPaletteMatches } from '../../../src/components/command-palette/commandRegistry';
 import { getCommandPrimaryTerm } from '../../../src/components/command-palette/search/commandSearchIndex';
-import { PINYIN_BY_PHRASE } from 'virtual:folia-command-pinyin';
+import { PINYIN_BY_PHRASE } from 'virtual:bigorange-command-pinyin';
 import { assertExecuteShortcutsArePrefixFree } from '../../../src/components/command-palette/executeShortcuts';
 import en from '../../../src/i18n/locales/en';
 import zhCN from '../../../src/i18n/locales/zh-CN';

@@ -81,7 +81,7 @@ const LyricsTimelineModal: React.FC<LyricsTimelineModalProps> = ({
             // The command palette can open above the timeline; its Escape is its own.
             const target = event.target;
             if (target instanceof Element) {
-                const owner = target.closest('[data-folia-keyboard-window="true"]');
+                const owner = target.closest('[data-bigorange-keyboard-window="true"]');
                 if (owner && owner !== windowRef.current) return;
             }
             event.preventDefault();
@@ -220,7 +220,7 @@ const LyricsTimelineModal: React.FC<LyricsTimelineModalProps> = ({
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    data-folia-keyboard-window="true"
+                    data-bigorange-keyboard-window="true"
                     className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-md"
                     onClick={onClose}
                 >

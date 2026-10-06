@@ -1,4 +1,4 @@
-import { PINYIN_BY_PHRASE } from 'virtual:folia-command-pinyin';
+import { PINYIN_BY_PHRASE } from 'virtual:bigorange-command-pinyin';
 import en from '../../../i18n/locales/en';
 import zhCN from '../../../i18n/locales/zh-CN';
 import type { CommandPaletteCommand } from '../types';

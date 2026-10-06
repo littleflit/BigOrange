@@ -250,13 +250,13 @@ test('[grid] browser back from a nested album plays the reverse transition', asy
         const flag = window as unknown as { __exitSeen?: boolean };
         flag.__exitSeen = false;
         new MutationObserver(() => {
-            if (document.querySelector('[data-folia-collection-morph="exit-backdrop"]')) flag.__exitSeen = true;
+            if (document.querySelector('[data-bigorange-collection-morph="exit-backdrop"]')) flag.__exitSeen = true;
         }).observe(document.body, { childList: true, subtree: true });
     });
     await page.goBack();
     await expect.poll(async () => (await historyState(page)).stack).toEqual(['All Songs']);
     await expect.poll(() => page.evaluate(() => Boolean((window as unknown as { __exitSeen?: boolean }).__exitSeen))).toBe(true);
-    await expect(page.locator('[data-folia-collection-morph="exit-backdrop"]')).toHaveCount(0, { timeout: 5_000 });
+    await expect(page.locator('[data-bigorange-collection-morph="exit-backdrop"]')).toHaveCount(0, { timeout: 5_000 });
     await expect(grid(page).getByText('Midnight Train').first()).toBeVisible();
 });
 
@@ -269,13 +269,13 @@ test('[grid] bouncing between an artist and an album keeps the depth at 2–3, a
     await expect(grid(page)).toHaveCount(1);
     await expect(grid(page).getByText('Midnight Train').first()).toBeVisible();
 
-    // 转场期间退场的那一层还在 DOM 里：只看当前那一层（网格给它或它的卡片容器打 data-folia-active-grid）。
+    // 转场期间退场的那一层还在 DOM 里：只看当前那一层（网格给它或它的卡片容器打 data-bigorange-active-grid）。
     const active = (surface: 'artist' | 'collection') => page.locator(
-        `[data-library-renderer="grid"][data-library-surface="${surface}"]:is([data-folia-active-grid], :has([data-folia-active-grid]))`,
+        `[data-library-renderer="grid"][data-library-surface="${surface}"]:is([data-bigorange-active-grid], :has([data-bigorange-active-grid]))`,
     );
     const openArtist = async () => {
         // 曲目卡片上的歌手名（专辑页头的歌手名不是链接）。
-        await active('collection').locator('[data-folia-grid-item-id]').getByText('Test Artist', { exact: true }).first().dispatchEvent('click');
+        await active('collection').locator('[data-bigorange-grid-item-id]').getByText('Test Artist', { exact: true }).first().dispatchEvent('click');
         await expect(active('artist')).toHaveCount(1);
         await expect(active('artist').getByRole('heading', { name: 'Test Artist' })).toBeVisible();
     };

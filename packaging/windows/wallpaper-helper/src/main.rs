@@ -1,10 +1,10 @@
 // packaging/windows/wallpaper-helper/src/main.rs
-// Folia Windows desktop-wallpaper helper: parents the Electron main window into the WorkerW
+// BigOrange Windows desktop-wallpaper helper: parents the Electron main window into the WorkerW
 // layer below the desktop icons, forwards desktop mouse input (move + left button) via Raw
 // Input, and keeps the session alive across explorer restarts. Protocol: JSONL events on
 // stdout, one-line commands on stdin (`detach`), consumed by
 // electron/windowsWallpaperController.cjs. Implementation provenance per module is noted in
-// each file header; overall licensing is AGPL-3.0 (same as Folia).
+// each file header; overall licensing is AGPL-3.0 (same as BigOrange).
 
 mod cli;
 mod events;
@@ -26,10 +26,10 @@ fn main() {
     match cli::parse(&args) {
         Ok(command) => run(command),
         Err(message) => {
-            eprintln!("usage: folia-wallpaper-helper attach --hwnd <n> [--forward-mouse] [--zguard]");
-            eprintln!("       folia-wallpaper-helper move --hwnd <n>");
-            eprintln!("       folia-wallpaper-helper detach --hwnd <n>");
-            eprintln!("       folia-wallpaper-helper refresh");
+            eprintln!("usage: bigorange-wallpaper-helper attach --hwnd <n> [--forward-mouse] [--zguard]");
+            eprintln!("       bigorange-wallpaper-helper move --hwnd <n>");
+            eprintln!("       bigorange-wallpaper-helper detach --hwnd <n>");
+            eprintln!("       bigorange-wallpaper-helper refresh");
             eprintln!("error: {message}");
             std::process::exit(2);
         }
@@ -183,14 +183,14 @@ unsafe fn attach_resident(hwnd: isize, forward_mouse: bool, zguard: bool) {
     message_window::run_message_loop();
 }
 
-/// WM_CLOSE handler on the message thread: un-parent the Folia window, then let the loop end.
+/// WM_CLOSE handler on the message thread: un-parent the BigOrange window, then let the loop end.
 #[cfg(windows)]
 pub fn handle_detach_request() {
     if DETACH_REQUESTED.swap(true, std::sync::atomic::Ordering::SeqCst) {
         return; // already detached
     }
     unsafe {
-        if let Some(hwnd) = monitor::resident_folia_hwnd() {
+        if let Some(hwnd) = monitor::resident_bigorange_hwnd() {
             match attach::detach_window(HWND(hwnd as _)) {
                 Ok(()) => events::emit(&Event::Detached { hwnd }),
                 Err(message) => events::emit(&Event::Error { message, kind: None }),

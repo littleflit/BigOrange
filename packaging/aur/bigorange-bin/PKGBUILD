@@ -1,0 +1,48 @@
+pkgname=bigorange-bin
+pkgver=0.1.4
+pkgrel=1
+pkgdesc="Lyrics Reimagine desktop app packaged from prebuilt releases"
+arch=('x86_64')
+url="https://github.com/littleflit/BigOrange"
+license=('AGPL')
+depends=(
+  'alsa-lib'
+  'gtk3'
+  'libxss'
+  'nss'
+)
+optdepends=(
+  'xdg-utils: desktop integration helpers'
+)
+provides=('bigorange')
+conflicts=('bigorange')
+source=(
+  "https://github.com/littleflit/BigOrange/releases/download/v${pkgver}/bigorange-${pkgver}-linux-x64.tar.gz"
+  'bigorange.desktop'
+  'bigorange.png'
+)
+sha256sums=(
+  'SKIP'
+  '04bb4088a50234bef6b7b9a0236cffa51b7638454c01f1932439faa0b8c344c4'
+  'cffe4a4fe5608706e2522de3b4cd8cc174357a9310493f107553794831312054'
+)
+
+package() {
+  local appdir
+
+  appdir="$(dirname "$(find "${srcdir}" -type f -name 'bigorange' -perm -u+x | head -n1)")"
+  if [[ -z "${appdir}" ]]; then
+    echo "Could not locate packaged bigorange executable in extracted archive" >&2
+    return 1
+  fi
+
+  install -dm755 "${pkgdir}/opt/bigorange"
+  cp -a "${appdir}/." "${pkgdir}/opt/bigorange/"
+
+  install -dm755 "${pkgdir}/usr/bin"
+  ln -sf "/opt/bigorange/bigorange" "${pkgdir}/usr/bin/bigorange"
+
+  install -Dm644 "${srcdir}/bigorange.desktop" \
+    "${pkgdir}/usr/share/applications/bigorange.desktop"
+  install -Dm644 "${srcdir}/bigorange.png" "${pkgdir}/usr/share/pixmaps/bigorange.png"
+}
