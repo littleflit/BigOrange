@@ -50,8 +50,6 @@ declare global {
     mimeType?: string | null;
   }
 
-  type ElectronKugouOperation = import('./services/onlineMusic/kugouTransport').KugouOperation;
-
   interface ElectronAudioCacheStats {
     size: number;
     count: number;
@@ -108,20 +106,6 @@ declare global {
       globalIpv6Count: number;
     };
     requests: ElectronNeteaseLoginRequestRecord[];
-  }
-
-  // `unavailable` means the packaged build shipped without the bundled qq-music-api.
-  interface ElectronQqApiStatus {
-    status: 'starting' | 'running' | 'error' | 'unavailable';
-    port: number | null;
-    error: string | null;
-    updatedAt: number;
-  }
-
-  interface ElectronKugouApiStatus {
-    available: boolean;
-    authenticated: boolean;
-    error: string | null;
   }
 
   interface ElectronTaskbarControlState {
@@ -783,18 +767,6 @@ declare global {
       getNeteaseLoginDiagnostics?: () => Promise<ElectronNeteaseLoginDiagnostics>;
       restartNeteaseApi: () => Promise<ElectronNeteaseApiStatus>;
       onNeteaseApiStatusChanged: (callback: (status: ElectronNeteaseApiStatus) => void) => () => void;
-      getKugouApiStatus: () => Promise<ElectronKugouApiStatus>;
-      bodianRequest: (
-        operation: import('./services/onlineMusic/bodianTransport').BodianOperation,
-        params?: import('./services/onlineMusic/bodianTransport').BodianParams,
-      ) => Promise<import('./services/onlineMusic/bodianTransport').BodianBridgeResult>;
-      kugouRequest: (
-        operation: ElectronKugouOperation,
-        params?: Record<string, string | number | boolean | undefined>,
-      ) => Promise<unknown>;
-      getQqPort: () => Promise<number | null>;
-      getQqApiStatus: () => Promise<ElectronQqApiStatus>;
-      onQqApiStatusChanged: (callback: (status: ElectronQqApiStatus) => void) => () => void;
       minimizeWindow: () => Promise<boolean>;
       toggleMaximizeWindow: () => Promise<boolean>;
       toggleFullscreenWindow: () => Promise<boolean>;

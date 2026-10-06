@@ -4,8 +4,6 @@ import type { AmllDbPlatform, LyricProviderSource, SongResult } from '../../type
 // src/utils/lyrics/lyricSourceLabels.ts
 
 export const getBaseLyricProviderLabel = (source: Exclude<LyricProviderSource, 'amll'>): string => {
-    if (source === 'qq') return i18n.t('lyricProvider.qq');
-    if (source === 'kugou') return i18n.t('lyricProvider.kugou');
     return i18n.t('lyricProvider.netease');
 };
 
@@ -33,7 +31,5 @@ export const getSongNativeLyricProviderSource = (
 ): LyricProviderSource | undefined => {
     const providerId = song?.sourceRef?.kind === 'online' ? song.sourceRef.providerId : undefined;
     if (providerId === 'netease') return 'netease';
-    if (providerId === 'qq') return 'qq';
-    if (providerId === 'kugou') return 'kugou';
     return undefined;
 };

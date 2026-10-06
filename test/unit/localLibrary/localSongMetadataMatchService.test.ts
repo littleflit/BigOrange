@@ -29,7 +29,7 @@ const song = (id: string, patch: Partial<LocalSong> = {}): LocalSong => ({
 });
 
 const candidate = {
-    source: 'qq' as const,
+    source: 'netease' as const,
     songId: 'qq-mid',
     title: 'Song',
     artists: [{ name: 'Artist' }],

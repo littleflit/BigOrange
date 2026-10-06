@@ -1,7 +1,6 @@
 import { getOnlineMusicProvider } from '../../services/onlineMusic/providerRegistry';
 import type { AmllDbPlatform, LyricData, LyricProviderSource, SongResult } from '../../types';
 import { calculateMatchScore, calculateMatchScoreDetails } from './matchScore';
-import { searchQQLyrics, fetchQQLyrics } from './providers/qqLyricProvider';
 import { fetchAmllDbLyrics } from './providers/amllDbProvider';
 import { applyNeteaseChorusByTime } from './chorusEffects';
 import { hasRenderableLyrics } from './validity';
@@ -25,7 +24,7 @@ export type LyricMatchFetchResult = {
     matchedLyricsProviderPlatform?: AmllDbPlatform;
 };
 
-export const LYRIC_MATCH_SOURCES: readonly LyricProviderSource[] = ['netease', 'amll', 'qq', 'kugou'];
+export const LYRIC_MATCH_SOURCES: readonly LyricProviderSource[] = ['netease', 'amll'];
 
 export const sourceSupportsManualSearch = (source: LyricProviderSource): boolean => source !== 'amll';
 
@@ -58,26 +57,22 @@ function shouldProbeAmllDbCandidate(song: SongResult, target: LyricMatchSearchTa
     return details.score >= 72 && details.durationMatched !== false;
 }
 
-// Searches NetEase and QQ candidates, then keeps only candidates that have AMLLDB TTML.
+// Searches NetEase candidates, then keeps only candidates that have AMLLDB TTML.
 export async function searchAmllDbLyricCandidates(
     query: string,
     target: LyricMatchSearchTarget,
 ): Promise<SongResult[]> {
-    const [neteaseResult, qqResult] = await Promise.allSettled([
+    const neteaseResult = await Promise.allSettled([
         getOnlineMusicProvider('netease')?.search?.searchSongs(query, AMLL_DB_SEARCH_LIMIT_PER_SOURCE, 0)
             || Promise.resolve({ items: [], hasMore: false, nextOffset: 0 }),
-        searchQQLyrics(query, 1, AMLL_DB_SEARCH_LIMIT_PER_SOURCE),
     ]);
 
-    const neteaseSongs = neteaseResult.status === 'fulfilled'
-        ? neteaseResult.value.items.map(song => withAmllDbPlatform(song, 'ncm'))
-        : [];
-    const qqSongs = qqResult.status === 'fulfilled'
-        ? qqResult.value.map(song => withAmllDbPlatform(song, 'qq'))
+    const neteaseSongs = neteaseResult[0].status === 'fulfilled'
+        ? neteaseResult[0].value.items.map(song => withAmllDbPlatform(song, 'ncm'))
         : [];
 
     const seen = new Set<string>();
-    const candidates = sortByMatchScore([...neteaseSongs, ...qqSongs], target)
+    const candidates = sortByMatchScore([...neteaseSongs], target)
         .filter(candidate => {
             const key = getAmllDbCandidateKey(candidate);
             if (seen.has(key)) {
@@ -114,13 +109,6 @@ export async function searchLyricsByMatchSource(
         const page = await getOnlineMusicProvider('netease')?.search?.searchSongs(query, 50, 0);
         return sortByMatchScore(page?.items || [], target);
     }
-    if (source === 'qq') {
-        return sortByMatchScore(await searchQQLyrics(query), target);
-    }
-    if (source === 'kugou') {
-        const page = await getOnlineMusicProvider('kugou')?.search?.searchSongs(query, 50, 0);
-        return sortByMatchScore(page?.items || [], target);
-    }
     return searchAmllDbLyricCandidates(query, target);
 }
 
@@ -130,21 +118,6 @@ export async function fetchLyricsForMatchSource(
 ): Promise<LyricMatchFetchResult | null> {
     if (source === 'netease') {
         const result = await getOnlineMusicProvider('netease')?.lyrics?.getLyrics(selectedResult);
-        if (!result) return null;
-        return {
-            lyrics: hasRenderableLyrics(result.lyrics) ? result.lyrics : null,
-            isPureMusic: result.isPureMusic,
-        };
-    }
-    if (source === 'qq') {
-        const lyrics = await fetchQQLyrics(selectedResult);
-        return {
-            lyrics: hasRenderableLyrics(lyrics) ? lyrics : null,
-            isPureMusic: false,
-        };
-    }
-    if (source === 'kugou') {
-        const result = await getOnlineMusicProvider('kugou')?.lyrics?.getLyrics(selectedResult);
         if (!result) return null;
         return {
             lyrics: hasRenderableLyrics(result.lyrics) ? result.lyrics : null,

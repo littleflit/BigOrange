@@ -68,7 +68,7 @@ describe('localLibraryV8Migration', () => {
             title: 'Online Title',
             titleOrigin: 'manual-match',
             onlineMetadata: {
-                source: 'qq',
+                source: 'netease',
                 songId: 'qq-song-mid',
                 albumId: 'qq-album-mid',
                 matchMode: 'legacy',

@@ -35,7 +35,7 @@ describe('localCoverAssetUrl', () => {
         vi.stubGlobal('window', { electron: { hasLocalCoverAsset: vi.fn() } });
         const localUrl = getLocalCoverAssetUrl(assetId);
         const onlineMetadata = {
-            source: 'qq' as const,
+            source: 'netease' as const,
             artists: [],
             coverUrl: 'https://example.test/cover.jpg',
             matchMode: 'manual' as const,

@@ -3,9 +3,6 @@ import type { OnlineMusicProvider, OnlineProviderId, ProviderCapabilities } from
 import type { SongResult } from '../../types';
 import { getPlaybackSourceRef } from '../../utils/appPlaybackGuards';
 import { neteaseProvider } from './neteaseProvider';
-import { kugouProvider } from './kugouProvider';
-import { qqProvider } from './qqProvider';
-import { bodianProvider } from './bodianProvider';
 
 // src/services/onlineMusic/providerRegistry.ts
 
@@ -79,6 +76,3 @@ export const requireOnlineMusicProviderForSong = (song: SongResult): OnlineMusic
 };
 
 registerOnlineMusicProvider(neteaseProvider);
-registerOnlineMusicProvider(kugouProvider);
-registerOnlineMusicProvider(qqProvider);
-registerOnlineMusicProvider(bodianProvider);

@@ -1204,7 +1204,7 @@ export interface NoCopyrightRecommendation {
   expInfo?: unknown | null;
 }
 
-export type LyricProviderSource = 'netease' | 'qq' | 'kugou' | 'amll';
+export type LyricProviderSource = 'netease' | 'amll';
 export type AmllDbPlatform = 'ncm' | 'qq';
 
 export interface ReplayGainInfo {

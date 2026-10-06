@@ -1,10 +1,7 @@
 import { useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 import type { OnlineProviderId, ProviderAccountSummary } from '../types/onlineMusic';
-import { useOnlineProviderAccountStore } from '../stores/useOnlineProviderAccountStore';
 import { useCollectionNavigationStore } from '../stores/useCollectionNavigationStore';
 import { useAppViewStore } from '../stores/useAppViewStore';
-import { setStatusMessage } from '../stores/useStatusMessageStore';
 
 // src/hooks/useHomeProviderRefresh.ts
 //
@@ -23,21 +20,17 @@ type HomeProviderRefreshParams = {
     /** 当前平台账户摘要的新鲜度；正在刷新时不再叠一次。 */
     activeProviderFreshness: ProviderAccountSummary['freshness'] | undefined;
     refreshActiveProviderPlaylists: () => Promise<unknown>;
-    /** Kugou is the one provider whose failure can mean an expired login worth telling the user about. */
-    checkKugouLoginStatus: () => Promise<unknown>;
 };
 
 export const useHomeProviderRefresh = ({
     activeProviderId,
     activeProviderFreshness,
     refreshActiveProviderPlaylists,
-    checkKugouLoginStatus,
 }: HomeProviderRefreshParams) => {
-    const { t } = useTranslation();
+    const lastHomeProviderRefreshRef = useRef<{ providerId: OnlineProviderId; at: number } | null>(null);
     const currentView = useAppViewStore(state => state.view);
     // A collection is open on top of home, so the lists behind it are not what is being looked at.
     const hasCollection = useCollectionNavigationStore(state => Boolean(state.snapshot?.stack.length));
-    const lastHomeProviderRefreshRef = useRef<{ providerId: OnlineProviderId; at: number } | null>(null);
 
     useEffect(() => {
         if (currentView !== 'home' || hasCollection) return;
@@ -52,31 +45,21 @@ export const useHomeProviderRefresh = ({
         }
 
         lastHomeProviderRefreshRef.current = { providerId, at: startedAt };
-        void refreshActiveProviderPlaylists().catch(async error => {
+        void refreshActiveProviderPlaylists().catch(error => {
             if (lastHomeProviderRefreshRef.current?.providerId === providerId
                 && lastHomeProviderRefreshRef.current.at === startedAt) {
                 lastHomeProviderRefreshRef.current = null;
             }
-            console.warn('[Omni] Failed to refresh active provider playlists on home entry', {
+            console.warn('[Omni] Failed to refresh active provider playlists', {
                 providerId,
                 name: error instanceof Error ? error.name : 'Error',
             });
-            const account = useOnlineProviderAccountStore.getState().accounts[providerId];
-            if (providerId !== 'kugou' || !account?.user) return;
-
-            const user = await checkKugouLoginStatus();
-            const refreshedAccount = useOnlineProviderAccountStore.getState().accounts.kugou;
-            if (!user && refreshedAccount?.error === 'auth-required') {
-                setStatusMessage({ type: 'error', text: t('status.loginExpired') });
-            }
         });
     }, [
-        checkKugouLoginStatus,
-        currentView,
-        hasCollection,
         activeProviderFreshness,
         activeProviderId,
+        currentView,
+        hasCollection,
         refreshActiveProviderPlaylists,
-        t,
     ]);
 };

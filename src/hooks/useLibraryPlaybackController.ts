@@ -1258,8 +1258,8 @@ export function useLibraryPlaybackController({
                 album: albumName,
                 preferredSource: settingsLyricSettings.preferredAlternativeLyricSource,
                 providerCandidate: sourceRef.kind === 'online'
-                    && (sourceRef.providerId === 'netease' || sourceRef.providerId === 'kugou')
-                    ? { providerId: sourceRef.providerId as 'netease' | 'kugou', song: currentSong, lyricsResult: ownLyricsResult }
+                    && sourceRef.providerId === 'netease'
+                    ? { providerId: sourceRef.providerId as 'netease', song: currentSong, lyricsResult: ownLyricsResult }
                     : undefined,
             });
 

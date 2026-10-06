@@ -414,7 +414,7 @@ describe('gridViewCollectionAdapters', () => {
                 addedAt: 2,
                 embeddedCover: { size: 20, type: 'image/png' } as unknown as Blob,
                 useOnlineCover: true,
-                onlineMetadata: { source: 'qq' as const, artists: [], coverUrl: 'https://example.com/a.jpg', matchMode: 'manual' as const, matchedAt: 1 },
+                onlineMetadata: { source: 'netease' as const, artists: [], coverUrl: 'https://example.com/a.jpg', matchMode: 'manual' as const, matchedAt: 1 },
             },
             {
                 ...buildLocalSong('song-b', 'B'),
@@ -437,7 +437,7 @@ describe('gridViewCollectionAdapters', () => {
             {
                 ...buildLocalSong('song-a', 'A'),
                 embeddedCover,
-                onlineMetadata: { source: 'qq' as const, artists: [], coverUrl: 'https://example.com/online.jpg', matchMode: 'manual' as const, matchedAt: 1 },
+                onlineMetadata: { source: 'netease' as const, artists: [], coverUrl: 'https://example.com/online.jpg', matchMode: 'manual' as const, matchedAt: 1 },
                 useOnlineCover: true,
             },
         ];

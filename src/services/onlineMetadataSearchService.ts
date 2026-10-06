@@ -2,7 +2,6 @@ import type { LocalSong, LyricProviderSource, SongResult } from '../types';
 import type { LocalSongMetadataSource } from '../types/localLibrary';
 import { getOnlineMusicProvider } from './onlineMusic/providerRegistry';
 import { getProviderSongMetadata } from './onlineMusic/songMetadata';
-import { searchQQLyrics } from '../utils/lyrics/providers/qqLyricProvider';
 import { calculateMatchScoreDetails } from '../utils/lyrics/matchScore';
 import { buildLyricSearchQuery } from '../utils/lyrics/searchQuery';
 import {
@@ -66,11 +65,7 @@ export const normalizeOnlineMetadataCandidate = (
     const albumId = getMatchResultAlbumId(result);
     return {
         source,
-        songId: source === 'qq' && result.qqMid
-            ? result.qqMid
-            : source === 'kugou' && result.kgHash
-                ? result.kgHash
-                : result.id,
+        songId: result.id,
         title: result.name || '',
         artists: getMatchResultArtistEntities(result),
         album: albumName ? { id: albumId, name: albumName } : undefined,
@@ -88,9 +83,7 @@ export const normalizeLyricMatchMetadataCandidate = (
     result: SongResult,
     target: OnlineMetadataSearchTarget,
 ): OnlineMetadataCandidate => {
-    const source: OnlineMetadataSource = lyricSource === 'amll'
-        ? result.amllDbPlatform === 'qq' ? 'qq' : 'netease'
-        : lyricSource;
+    const source: OnlineMetadataSource = 'netease';
     return normalizeOnlineMetadataCandidate(source, result, target);
 };
 
@@ -135,13 +128,11 @@ export async function searchOnlineMetadata(
     if (!safeQuery) return [];
     throwIfAborted(options.signal);
     const limit = options.limit ?? 10;
-    const results = source === 'netease' || source === 'kugou'
-        ? ((await waitForProvider(
-            getOnlineMusicProvider(source)?.search?.searchSongs(safeQuery, limit, 0)
-                || Promise.resolve({ items: [], hasMore: false, nextOffset: 0 }),
-            options.signal,
-        )).items as SongResult[])
-        : await waitForProvider(searchQQLyrics(safeQuery, 1, limit), options.signal);
+    const results = ((await waitForProvider(
+        getOnlineMusicProvider(source)?.search?.searchSongs(safeQuery, limit, 0)
+            || Promise.resolve({ items: [], hasMore: false, nextOffset: 0 }),
+        options.signal,
+    )).items as SongResult[]);
     throwIfAborted(options.signal);
     return results
         .map(result => normalizeOnlineMetadataCandidate(source, result, target))
@@ -149,28 +140,13 @@ export async function searchOnlineMetadata(
         .slice(0, limit);
 }
 
-// Preserves the established NetEase-to-QQ fallback and appends KuGou as the final provider-backed source.
+// Local metadata matching is NetEase-only.
 export async function findAutomaticOnlineMetadataCandidate(
     song: LocalSong,
     signal?: AbortSignal,
 ): Promise<OnlineMetadataCandidate | null> {
     const target = buildLocalSongMetadataSearchTarget(song);
     const query = buildLocalSongMetadataSearchQuery(song);
-    let neteaseCandidates: OnlineMetadataCandidate[] = [];
-    try {
-        neteaseCandidates = await searchOnlineMetadata('netease', query, target, { limit: 10, signal });
-    } catch (error) {
-        if ((error as Error).name === 'AbortError') throw error;
-        console.warn('[LocalMusic] NetEase metadata search failed, falling back to QQ:', error);
-    }
-    if (neteaseCandidates[0]?.titleMatched) return neteaseCandidates[0];
-    try {
-        const qqCandidates = await searchOnlineMetadata('qq', query, target, { limit: 10, signal });
-        if (qqCandidates[0]?.titleMatched) return qqCandidates[0];
-    } catch (error) {
-        if ((error as Error).name === 'AbortError') throw error;
-        console.warn('[LocalMusic] QQ metadata search failed, falling back to KuGou:', error);
-    }
-    const kugouCandidates = await searchOnlineMetadata('kugou', query, target, { limit: 10, signal });
-    return kugouCandidates[0]?.titleMatched ? kugouCandidates[0] : null;
+    const neteaseCandidates = await searchOnlineMetadata('netease', query, target, { limit: 10, signal });
+    return neteaseCandidates[0]?.titleMatched ? neteaseCandidates[0] : null;
 }

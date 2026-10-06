@@ -33,11 +33,7 @@ const LYRIC_PROXY_CORS_HEADERS: Record<string, string> = {
 const LYRIC_PROXY_IGNORED_FORWARD_HEADERS = ['host', 'connection', 'content-length', 'origin', 'referer'];
 
 function isAllowedLyricProxyHost(hostname: string): boolean {
-  return hostname === 'qq.com' || hostname.endsWith('.qq.com') ||
-    hostname === 'y.gtimg.cn' ||
-    hostname === 'kugou.com' || hostname.endsWith('.kugou.com') ||
-    hostname === 'kgimg.com' || hostname.endsWith('.kgimg.com') ||
-    hostname === 'amll-ttml-db.stevexmh.net';
+  return hostname === 'amll-ttml-db.stevexmh.net';
 }
 
 function isAmllDbHost(hostname: string): boolean {

@@ -22,7 +22,7 @@ vi.mock('@/services/coverCache', () => ({
 }));
 
 const candidate: OnlineMetadataCandidate = {
-    source: 'qq',
+    source: 'netease',
     songId: 'qq-song-mid',
     title: 'Canonical Online Title',
     artists: [{ id: 'artist-mid', name: 'Online Artist' }],
@@ -88,7 +88,7 @@ describe('applyLocalSongMatchSelection', () => {
         });
 
         expect(mocks.applyMatchedMetadata.mock.calls[0][1]).toEqual({
-            source: 'qq',
+            source: 'netease',
             songId: 'qq-song-mid',
             title: 'Canonical Online Title',
             artists: candidate.artists,
@@ -135,7 +135,7 @@ describe('applyLocalSongMatchSelection', () => {
         expect(mocks.restoreImportedMetadata).toHaveBeenCalledWith('song-1', expect.objectContaining({
             useOnlineCover: true,
             onlineMetadata: expect.objectContaining({
-                source: 'qq',
+                source: 'netease',
                 songId: 'qq-song-mid',
                 coverUrl: 'https://example.com/cover.jpg',
                 matchMode: 'manual',

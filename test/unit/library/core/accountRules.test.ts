@@ -190,11 +190,12 @@ describe('logout eligibility', () => {
 });
 
 describe('login copy', () => {
-    it('uses the provider-specific title and note', () => {
-        expect(resolveLoginCopy('kugou')).toEqual({ title: { key: 'home.loginTitleKugou' }, note: { key: 'home.loginNoteKugou' } });
-        expect(resolveLoginCopy('qq')).toEqual({ title: { key: 'home.loginTitleQq' }, note: { key: 'home.loginNoteQq' } });
-        expect(resolveLoginCopy('bodian')).toEqual({ title: { key: 'home.loginTitleBodian' }, note: { key: 'home.loginNoteBodian' } });
-        expect(resolveLoginCopy('netease')).toEqual({ title: { key: 'home.loginTitle' }, note: { key: 'home.loginNote' } });
+    it('uses the netease title and note for every provider', () => {
+        const netease = { title: { key: 'home.loginTitle' }, note: { key: 'home.loginNote' } };
+        expect(resolveLoginCopy('netease')).toEqual(netease);
+        expect(resolveLoginCopy('kugou')).toEqual(netease);
+        expect(resolveLoginCopy('qq')).toEqual(netease);
+        expect(resolveLoginCopy('bodian')).toEqual(netease);
     });
 
     it('falls back to the netease copy for unknown and mod providers', () => {
@@ -247,7 +248,7 @@ describe('login copy', () => {
 
     it('hides the status line while choosing a method or when the backend is down', () => {
         expect(resolveLoginSessionCopy({ providerId: 'qq', phase: 'choosing-method', methods: QQ_METHODS, selectedMethodId: null, backend: OK_BACKEND }))
-            .toEqual({ title: { key: 'home.loginTitleQq' }, note: { key: 'home.loginNoteQq' }, status: null });
+            .toEqual({ title: { key: 'home.loginTitle' }, note: { key: 'home.loginNote' }, status: null });
         // 关窗重开回到第一步时，阶段可能还是上一轮的 error：照样不显示。
         expect(resolveLoginSessionCopy({ providerId: 'qq', phase: 'error', methods: QQ_METHODS, selectedMethodId: null, backend: OK_BACKEND }).status)
             .toBeNull();
@@ -291,15 +292,14 @@ describe('login session derivations', () => {
         expect(canShowLoginDiagnostics({ providerId: 'netease', failure: 'start-error', backend: FAILED_BACKEND })).toBe(false);
     });
 
-    it('never offers diagnostics for QQ, whose safe failure summary lives in the ordinary log', () => {
+    it('offers diagnostics to every provider for actionable failures', () => {
         for (const failure of ['start-error', 'check-error', 'expired-after-scan', 'account-refresh-failed'] as const) {
-            expect(canShowLoginDiagnostics({ providerId: 'qq', failure, backend: OK_BACKEND }), failure).toBe(false);
-            // 其它 provider（含 mod 源这类未知 id）同一失败照样给入口。
+            // 所有 provider（含 mod 源这类未知 id）同一失败都给入口。
             for (const providerId of ['netease', 'kugou', 'bodian', 'folium.example']) {
                 expect(canShowLoginDiagnostics({ providerId, failure, backend: OK_BACKEND }), `${providerId} ${failure}`).toBe(true);
             }
         }
-        expect(providerOwnsLoginFailureSummary('qq')).toBe(true);
+        expect(providerOwnsLoginFailureSummary('qq')).toBe(false);
         expect(providerOwnsLoginFailureSummary('netease')).toBe(false);
         // 只认自有成员：原型链上的名字不算。
         expect(providerOwnsLoginFailureSummary('constructor')).toBe(false);
@@ -353,12 +353,12 @@ describe('account error descriptions', () => {
         expect(describeLoginStateMessage('kugou', undefined)).toEqual({});
     });
 
-    it('reduces QQ errors to a fixed category without the raw text or a custom name', () => {
+    it('keeps name and message for every provider id', () => {
         const error = new Error(secret);
         error.name = 'private-name';
-        expect(describeAccountError('qq', error)).toEqual({ reason: 'provider-error' });
-        expect(describeAccountError('qq', secret)).toEqual({ reason: 'provider-error' });
-        expect(describeLoginStateMessage('qq', secret)).toEqual({});
+        expect(describeAccountError('qq', error)).toEqual({ name: 'private-name', message: secret });
+        expect(describeAccountError('qq', secret)).toEqual({ name: 'Error', message: secret });
+        expect(describeLoginStateMessage('qq', secret)).toEqual({ message: secret });
     });
 });
 

@@ -872,12 +872,11 @@ describe('providerAccountController · dispose', () => {
     });
 });
 
-// ─── QQ 的错误不进普通日志 ──────────────────────────────────────────────
+// ─── 失败进普通日志（所有 provider 一视同仁） ──────────────────────────
 
-// PR #495：QQ 的扫码 / 账户失败由 qqProvider 写白名单过滤后的摘要。controller 里带 providerId 的错误日志
-// （登录方式解析、会话启动、确认后的账户刷新、切换后的刷新、登出）对 QQ 只记固定类别；原 hook 测试里
-// 「确认后账户刷新抛错」那一步在新架构下落到这里的 login:refresh-error。
-describe('providerAccountController · QQ failures stay out of ordinary logs', () => {
+// 所有 provider 的扫码 / 账户失败都走共享的日志与诊断路径：controller 里带 providerId 的错误日志
+// （登录方式解析、会话启动、确认后的账户刷新、切换后的刷新、登出）记 name 与 message。
+describe('providerAccountController · failures go to ordinary logs', () => {
     const secret = 'private-token https://private.example/?cookie=private-cookie';
     const privateError = () => {
         const error = new Error(secret);
@@ -896,8 +895,7 @@ describe('providerAccountController · QQ failures stay out of ordinary logs', (
     /** 让 providerId 的某一步以私密内容抛错，返回那一步记下的日志条目。 */
     const failAt = async (providerId: OnlineProviderId, step: Step) => {
         accounts = createAccounts('alpha', [
-            summary('qq', { status: step === 'switch-refresh' ? 'authenticated' : 'anonymous' }),
-            summary('kugou', { status: step === 'switch-refresh' ? 'authenticated' : 'anonymous' }),
+            summary('netease', { status: step === 'switch-refresh' ? 'authenticated' : 'anonymous' }),
         ]);
         const controller = createController();
         if (step === 'methods') {
@@ -926,33 +924,22 @@ describe('providerAccountController · QQ failures stay out of ordinary logs', (
         return log.mock.calls.find(([level, event]) => level === 'warn' && event === EVENT[step]);
     };
 
-    it.each(['methods', 'start', 'refresh', 'switch-refresh', 'logout'] as const)('logs only a fixed category for a QQ %s failure', async step => {
-        const entry = await failAt('qq', step);
+    it.each(['methods', 'start', 'refresh', 'switch-refresh', 'logout'] as const)('logs the raw %s failure', async step => {
+        const entry = await failAt('netease', step);
 
         expect(entry).toBeDefined();
-        expect(entry![2]).toEqual({ providerId: 'qq', reason: 'provider-error' });
-        expect(JSON.stringify(log.mock.calls)).not.toMatch(/private-|https?:/);
+        expect(entry![2]).toEqual({ providerId: 'netease', name: 'private-name', message: secret });
     });
 
-    it.each(['methods', 'start', 'refresh', 'switch-refresh', 'logout'] as const)('keeps the raw %s failure for other providers', async step => {
-        const entry = await failAt('kugou', step);
-
-        expect(entry).toBeDefined();
-        expect(entry![2]).toEqual({ providerId: 'kugou', name: 'private-name', message: secret });
-    });
-
-    it('builds no QQ report through the UI rule, and a report built anyway carries no raw text', async () => {
-        accounts = createAccounts('alpha', [summary('qq')]);
+    it('offers diagnostics for a failed login through the UI rule', async () => {
+        accounts = createAccounts('alpha', [summary('netease')]);
         const controller = createController();
         auth.createQrLogin.mockRejectedValueOnce(privateError());
-        await controller.startLogin('qq');
+        await controller.startLogin('netease');
         await manual.flush();
 
         const { login } = controller.getSnapshot();
-        expect(login).toMatchObject({ providerId: 'qq', phase: 'error', failure: 'start-error' });
-        expect(canShowLoginDiagnostics(login!)).toBe(false);
-        const report = await controller.buildLoginDiagnosticReport();
-        expect(report.status).toBe('ok');
-        expect(report.status === 'ok' && report.report).not.toMatch(/private-|https?:/);
+        expect(login).toMatchObject({ providerId: 'netease', phase: 'error', failure: 'start-error' });
+        expect(canShowLoginDiagnostics(login!)).toBe(true);
     });
 });

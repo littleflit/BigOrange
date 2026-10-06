@@ -22,10 +22,6 @@ const windowsWallpaperModule = require('./windowsWallpaperController.cjs');
 const { createWindowsWallpaperTargetResolver } = require('./windowsWallpaperTarget.cjs');
 const { createWindowsWallpaperMouseInjector } = require('./windowsWallpaperMouse.cjs');
 const macWallpaperModule = require('./macWallpaperController.cjs');
-const { createKugouApiBridge } = require('./kugouApiBridge.cjs');
-const { createBodianApiBridge } = require('./bodianApiBridge.cjs');
-const { createBodianMediaPolicy } = require('./bodian/mediaCors.cjs');
-const { createQqAuthSessionRepository } = require('./qqAuthSessionRepository.cjs');
 const { DEFAULT_DISCORD_APPLICATION_ID, createDiscordPresenceController } = require('./discordPresence.cjs');
 const { createVoiceInputPauseMonitor } = require('./voiceInputPause.cjs');
 const { createDisplaySleepBlocker } = require('./displaySleepBlocker.cjs');
@@ -100,28 +96,6 @@ protocol.registerSchemesAsPrivileged([
   MOD_PROTOCOL_PRIVILEGED_SCHEME,
 ]);
 
-// Trusts only the known KuGou media CDN hostname mismatch while preserving TLS checks elsewhere.
-app.on('certificate-error', (event, _webContents, requestUrl, error, _certificate, callback) => {
-  let isAllowedKugouMediaRequest = false;
-  try {
-    const parsedUrl = new URL(requestUrl);
-    isAllowedKugouMediaRequest =
-      parsedUrl.protocol === 'https:' &&
-      parsedUrl.hostname === 'fs.youthandroid2.kugou.com' &&
-      error === 'net::ERR_CERT_COMMON_NAME_INVALID';
-  } catch {
-    isAllowedKugouMediaRequest = false;
-  }
-
-  if (isAllowedKugouMediaRequest) {
-    event.preventDefault();
-    callback(true);
-    return;
-  }
-
-  callback(false);
-});
-
 // Fix for Arch Linux / Wayland & Vulkan compatibility issues
 if (process.platform === 'linux') {
   // Must run before the ready event: Chromium reads the password backend once while initialising
@@ -190,20 +164,6 @@ const transcodeService = createTranscodeService({
   net: electronNet,
   onCacheWrite: pruneMediaCache,
 });
-// KuGou credentials stay inside the main process and are encrypted lazily after Electron is ready.
-// The bridge refuses Linux's plaintext `basic_text` fallback and degrades to an in-memory session.
-const kugouApiBridge = createKugouApiBridge({ store, safeStorage });
-const bodianMediaPolicy = createBodianMediaPolicy();
-const bodianApiBridge = createBodianApiBridge({ store, safeStorage,
-  onAudioSource: url => bodianMediaPolicy.register(url),
-  requestFactory: (options, onResponse) => {
-    const request = electronNet.request(options);
-    request.on('response', onResponse);
-    return request;
-  },
-});
-const qqAuthSessionRepository = createQqAuthSessionRepository({ store, safeStorage });
-
 // --- Desktop wallpaper mode (Wayland layer-shell via windowtolayer / X11 desktop window) ---
 // Settings keys follow the existing electron-store key/value chain; values are normalized here in
 // the main process so stale or dirty stored values never reach the windowtolayer CLI.
@@ -2867,15 +2827,6 @@ function setupFileSystemAccessPermissionHandlers() {
 function setupCorsBypassHandlers() {
   const ses = session.defaultSession;
 
-  const getKugouMediaRequestInfo = details => {
-    const parsedUrl = new URL(details.url);
-    const isMediaRequest = details.resourceType === 'media' || parsedUrl.hostname.startsWith('fs.');
-    return isMediaRequest ? {
-      protocol: parsedUrl.protocol,
-      hostname: parsedUrl.hostname,
-      resourceType: details.resourceType,
-    } : null;
-  };
   ses.webRequest.onHeadersReceived((details, callback) => {
     const responseHeaders = { ...details.responseHeaders };
     const originUrl = details.url;
@@ -2884,15 +2835,7 @@ function setupCorsBypassHandlers() {
     try {
       const parsedUrl = new URL(originUrl);
       const hostname = parsedUrl.hostname;
-      isTargetDomain =
-        hostname === 'qq.com' ||
-        hostname.endsWith('.qq.com') ||
-        hostname === 'y.gtimg.cn' ||
-        hostname === 'kugou.com' ||
-        hostname.endsWith('.kugou.com') ||
-        // Bodian audio and cover CDNs may omit CORS headers needed by Web Audio and canvas/WebGL.
-        bodianMediaPolicy.allows(details) ||
-        hostname === 'amll-ttml-db.stevexmh.net';
+      isTargetDomain = hostname === 'amll-ttml-db.stevexmh.net';
     } catch (error) {
       isTargetDomain = false;
     }
@@ -2905,18 +2848,6 @@ function setupCorsBypassHandlers() {
     }
 
     callback({ cancel: false, responseHeaders });
-  });
-
-  ses.webRequest.onBeforeRedirect(details => bodianMediaPolicy.followRedirect(details));
-
-  ses.webRequest.onErrorOccurred({ urls: ['*://*.kugou.com/*'] }, details => {
-    const requestInfo = getKugouMediaRequestInfo(details);
-    if (!requestInfo) return;
-    if (requestInfo.resourceType === 'media' && details.error === 'net::ERR_FAILED') return;
-    console.warn('[KuGouMedia] request:error', {
-      ...requestInfo,
-      error: details.error,
-    });
   });
 }
 
@@ -2934,16 +2865,7 @@ function removeCorsResponseHeaders(responseHeaders) {
 }
 
 function isAllowedLyricProxyHost(hostname) {
-  return (
-    hostname === 'qq.com' ||
-    hostname.endsWith('.qq.com') ||
-    hostname === 'y.gtimg.cn' ||
-    hostname === 'kugou.com' ||
-    hostname.endsWith('.kugou.com') ||
-    hostname === 'kgimg.com' ||
-    hostname.endsWith('.kgimg.com') ||
-    hostname === 'amll-ttml-db.stevexmh.net'
-  );
+  return hostname === 'amll-ttml-db.stevexmh.net';
 }
 
 function isAmllDbHost(hostname) {
@@ -4097,10 +4019,6 @@ const {
   refreshAnonymousToken,
   resolveXeapiPublicKey,
 } = require('./neteaseApiStartup.cjs');
-const {
-  isModuleNotFound: isQqApiModuleNotFound,
-  startQqApi: startQqApiServer,
-} = require('./qqApiStartup.cjs');
 
 const net = require('net');
 // null until serveNcmApi is actually listening. A numeric fallback used to be handed to the
@@ -4233,77 +4151,6 @@ function startNeteaseApi() {
   }
 
   return neteaseApiStartPromise;
-}
-
-const QQ_API_STATUS_CHANNEL = 'qq-api-status-changed';
-let qqApiStatus = {
-  status: 'starting',
-  port: null,
-  error: null,
-  updatedAt: Date.now(),
-};
-
-function updateQqApiStatus(nextStatus) {
-  qqApiStatus = {
-    ...qqApiStatus,
-    ...nextStatus,
-    updatedAt: Date.now(),
-  };
-
-  BrowserWindow.getAllWindows().forEach((win) => {
-    if (!win.isDestroyed()) {
-      win.webContents.send(QQ_API_STATUS_CHANNEL, qqApiStatus);
-    }
-  });
-}
-
-let qqApiHandle = null;
-
-// Runs @yakult-green-tea/qq-music-api in-process. Device identifiers remain in their existing file;
-// account credentials are owned by the API and cross this boundary only through an encrypted
-// main-process repository. The renderer continues to receive only an opaque session token.
-async function startQqApi() {
-  updateQqApiStatus({ status: 'starting', port: null, error: null });
-  try {
-    const freePort = await getFreePort();
-    // getFreePort only observes that the port was free a moment ago, so the bind can still lose a
-    // race. Awaiting the handle means 'running' is only published once the socket is really bound.
-    qqApiHandle = await startQqApiServer({
-      port: freePort,
-      stateFilePath: path.join(app.getPath('userData'), 'qq-auth-state', 'qq-device.json'),
-      authSessionRepository: qqAuthSessionRepository,
-    });
-    updateQqApiStatus({ status: 'running', port: freePort, error: null });
-    console.log('QQ API started on port', freePort);
-  } catch (error) {
-    qqApiHandle = null;
-
-    // A build that shipped without the package can never recover, so it is reported as
-    // 'unavailable' rather than 'error'; everything else (a lost port race, a throw from inside the
-    // package) is a real failure and keeps the error status.
-    if (isQqApiModuleNotFound(error)) {
-      updateQqApiStatus({ status: 'unavailable', port: null, error: serializeError(error) });
-      console.warn('[QQ API] Package not installed; QQ provider will stay unavailable in this build');
-      return;
-    }
-
-    updateQqApiStatus({ status: 'error', port: null, error: serializeError(error) });
-    console.error('Failed to start QQ API', error);
-  }
-}
-
-async function stopQqApi() {
-  const handle = qqApiHandle;
-  qqApiHandle = null;
-  if (!handle) {
-    return;
-  }
-
-  try {
-    await handle.close();
-  } catch (error) {
-    console.error('Failed to stop QQ API', error);
-  }
 }
 
 function isElectronDevRuntime() {
@@ -5387,7 +5234,6 @@ app.whenReady().then(async () => {
   // the window from appearing at all on a slow or blocked route. Status reaches the renderer over
   // NETEASE_API_STATUS_CHANNEL, and get-netease-port reports null until the server is listening.
   void startNeteaseApi();
-  await startQqApi();
   try {
     await stageApi.startStageServerIfNeeded();
   } catch (error) {
@@ -5620,7 +5466,6 @@ app.on('before-quit', () => {
     }
   }
   void discordPresence.destroy();
-  void stopQqApi();
   void lyricApi.stop();
 });
 
@@ -6127,20 +5972,6 @@ ipcMain.handle('get-netease-login-diagnostics', () => ({
   },
   ...neteaseLoginDiagnostics.snapshot(),
 }));
-
-// Retrieve dynamic port of the embedded QQ API server; null until it is running.
-ipcMain.handle('get-qq-port', () => qqApiStatus.port);
-
-ipcMain.handle('get-qq-api-status', () => qqApiStatus);
-
-ipcMain.handle('kugou-api-status', () => kugouApiBridge.getStatus());
-ipcMain.handle('kugou-api-request', (_event, operation, params) => kugouApiBridge.request(operation, params));
-ipcMain.handle('bodian-api-request', (event, operation, params) => {
-  if (!isTrustedMainWindowContents(event.sender)) {
-    return { ok: false, error: { code: 'unavailable', message: 'Untrusted Bodian request' } };
-  }
-  return bodianApiBridge.request(operation, params);
-});
 
 ipcMain.handle('window-minimize', () => {
   if (!mainWindow || mainWindow.isDestroyed()) {

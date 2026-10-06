@@ -6,9 +6,6 @@ import { getSongNativeLyricProviderSource } from '@/utils/lyrics/lyricSourceLabe
 describe('getSongNativeLyricProviderSource', () => {
     it('uses the online playback provider as the native lyric source', () => {
         expect(getSongNativeLyricProviderSource({
-            sourceRef: { kind: 'online', providerId: 'kugou', mediaId: 'HASH' },
-        })).toBe('kugou');
-        expect(getSongNativeLyricProviderSource({
             sourceRef: { kind: 'online', providerId: 'netease', mediaId: '1' },
         })).toBe('netease');
     });

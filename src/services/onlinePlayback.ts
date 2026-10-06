@@ -184,9 +184,9 @@ export async function loadOnlineSongLyrics(
                 album: metadata.album?.name,
                 preferredSource: settingsLyricSettings.preferredAlternativeLyricSource,
                 providerCandidate: song.sourceRef?.kind === 'online'
-                    && (song.sourceRef.providerId === 'netease' || song.sourceRef.providerId === 'kugou' || song.sourceRef.providerId === 'qq')
+                    && song.sourceRef.providerId === 'netease'
                     ? {
-                        providerId: song.sourceRef.providerId as 'netease' | 'kugou' | 'qq',
+                        providerId: song.sourceRef.providerId as 'netease',
                         song,
                         lyricsResult: {
                             lyrics: parsedLyrics,

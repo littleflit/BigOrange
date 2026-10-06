@@ -174,7 +174,7 @@ describe('localLibraryCatalogService', () => {
         const imported = await appDatabase.local_library_assignments.get('protected');
         await appDatabase.local_library_assignments.update('protected', { artistOrigin: 'manual' });
         await applyMatchedMetadata('protected', {
-            source: 'qq',
+            source: 'netease',
             songId: 'qq-song-mid',
             title: 'Online Title',
             artists: [{ id: 9, name: 'Online Artist' }],
@@ -189,7 +189,7 @@ describe('localLibraryCatalogService', () => {
             title: 'Online Title',
             titleOrigin: 'auto-match',
             onlineMetadata: {
-                source: 'qq',
+                source: 'netease',
                 songId: 'qq-song-mid',
                 albumId: 'qq-album',
                 title: 'Online Title',

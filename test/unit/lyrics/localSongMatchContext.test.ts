@@ -24,7 +24,7 @@ describe('localSongMatchContext', () => {
             title: 'Correct title',
             titleOrigin: 'manual-match',
             onlineMetadata: {
-                source: 'qq',
+                source: 'netease',
                 songId: 'selected-mid',
                 title: 'Correct title',
                 artists: [{ name: 'Correct artist' }],
@@ -39,7 +39,7 @@ describe('localSongMatchContext', () => {
             artist: 'Correct artist',
             album: 'Correct album',
             durationMs: 200000,
-            metadataCandidate: { source: 'qq', songId: 'selected-mid' },
+            metadataCandidate: { source: 'netease', songId: 'selected-mid' },
         });
     });
 

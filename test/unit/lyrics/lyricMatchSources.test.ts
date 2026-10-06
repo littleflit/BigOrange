@@ -1,33 +1,13 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { neteaseApi } from '@/services/netease';
-import { searchQQLyrics } from '@/utils/lyrics/providers/qqLyricProvider';
 import { fetchAmllDbLyrics } from '@/utils/lyrics/providers/amllDbProvider';
 import { searchAmllDbLyricCandidates } from '@/utils/lyrics/lyricMatchSources';
+import { getOnlineMusicProvider } from '@/services/onlineMusic/providerRegistry';
 
 // test/unit/lyrics/lyricMatchSources.test.ts
-// Covers source-specific lyric matching orchestration.
+// Covers source-specific lyric matching orchestration (NetEase + AMLLDB only).
 
-vi.mock('@/services/netease', () => ({
-    neteaseApi: {
-        cloudSearch: vi.fn(),
-        getLyric: vi.fn(),
-        getChorus: vi.fn(),
-    }
-}));
-
-vi.mock('@/utils/lyrics/neteaseProcessing', () => ({
-    parseNeteaseChorusRanges: vi.fn(() => []),
-    processNeteaseLyrics: vi.fn(),
-}));
-
-vi.mock('@/utils/lyrics/providers/qqLyricProvider', () => ({
-    searchQQLyrics: vi.fn(),
-    fetchQQLyrics: vi.fn(),
-}));
-
-vi.mock('@/utils/lyrics/providers/kugouLyricProvider', () => ({
-    searchKugouLyrics: vi.fn(),
-    fetchKugouLyrics: vi.fn(),
+vi.mock('@/services/onlineMusic/providerRegistry', () => ({
+    getOnlineMusicProvider: vi.fn(),
 }));
 
 vi.mock('@/utils/lyrics/providers/amllDbProvider', () => ({
@@ -49,8 +29,7 @@ const createWordByWordLyrics = () => ({
 });
 
 describe('lyricMatchSources', () => {
-    const cloudSearchMock = vi.mocked(neteaseApi.cloudSearch);
-    const searchQQLyricsMock = vi.mocked(searchQQLyrics);
+    const getProviderMock = vi.mocked(getOnlineMusicProvider);
     const fetchAmllDbLyricsMock = vi.mocked(fetchAmllDbLyrics);
 
     beforeEach(() => {
@@ -62,15 +41,18 @@ describe('lyricMatchSources', () => {
             resolve: (value: ReturnType<typeof createWordByWordLyrics> | null) => void;
         }> = [];
 
-        cloudSearchMock.mockResolvedValue({
-            result: {
-                songs: [
-                    { id: 101, name: 'Song Title', dt: 200000, ar: [{ name: 'Artist Name' }] },
-                    { id: 102, name: 'Song Title', dt: 200000, ar: [{ name: 'Artist Name' }] },
-                ],
+        getProviderMock.mockReturnValue({
+            search: {
+                searchSongs: vi.fn().mockResolvedValue({
+                    items: [
+                        { id: 101, name: 'Song Title', durationMs: 200000, artists: [{ name: 'Artist Name' }] },
+                        { id: 102, name: 'Song Title', durationMs: 200000, artists: [{ name: 'Artist Name' }] },
+                    ],
+                    hasMore: false,
+                    nextOffset: 0,
+                }),
             },
-        });
-        searchQQLyricsMock.mockResolvedValue([]);
+        } as any);
         fetchAmllDbLyricsMock.mockImplementation(() => {
             let resolve!: (value: ReturnType<typeof createWordByWordLyrics> | null) => void;
             const promise = new Promise<ReturnType<typeof createWordByWordLyrics> | null>((res) => {

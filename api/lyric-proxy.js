@@ -32,10 +32,7 @@ const IGNORED_FORWARD_HEADERS = [
     'x-vercel-protection-bypass',
 ];
 function isAllowedLyricProxyHost(hostname) {
-    return hostname === 'qq.com' || hostname.endsWith('.qq.com') ||
-        hostname === 'y.gtimg.cn' ||
-        hostname === 'kugou.com' || hostname.endsWith('.kugou.com') ||
-        hostname === 'amll-ttml-db.stevexmh.net';
+    return hostname === 'amll-ttml-db.stevexmh.net';
 }
 function isAmllDbHost(hostname) {
     return hostname === 'amll-ttml-db.stevexmh.net';
@@ -66,10 +63,6 @@ export default async function handler(req, res) {
             if (!IGNORED_FORWARD_HEADERS.includes(key.toLowerCase())) {
                 headers[key] = req.headers[key];
             }
-        }
-        if (hostname === 'u.y.qq.com') {
-            headers.Cookie = 'tmeLoginType=-1;';
-            headers['User-Agent'] = 'okhttp/3.14.9';
         }
         // Forward the method and body (if present and method is not GET/HEAD)
         const hasBody = ['POST', 'PUT', 'PATCH'].includes(req.method);

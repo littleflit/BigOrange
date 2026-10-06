@@ -24,7 +24,7 @@ vi.mock('@/services/onlineMusic/omni', () => ({
 
 vi.mock('@/stores/useLyricSettingsStore', () => ({
     useLyricSettingsStore: {
-        getState: () => ({ autoUseBestLyric: true, preferredAlternativeLyricSource: 'qq' }),
+        getState: () => ({ autoUseBestLyric: true, preferredAlternativeLyricSource: 'netease' }),
     },
 }));
 
@@ -67,7 +67,7 @@ const song: SongResult = {
     artists: [],
     album: { id: 'album', name: 'Album' },
     durationMs: 1000,
-    sourceRef: { kind: 'online', providerId: 'kugou', mediaId: 'online-song' },
+    sourceRef: { kind: 'online', providerId: 'netease', mediaId: 'online-song' },
 };
 
 describe('online audio ReplayGain plumbing', () => {
@@ -141,19 +141,18 @@ describe('online audio ReplayGain plumbing', () => {
     });
 });
 
-describe('online QQ lyric candidate plumbing', () => {
+describe('online NetEase lyric candidate plumbing', () => {
     beforeEach(() => {
         vi.clearAllMocks();
         songCacheMock.mockResolvedValue(null);
         loadLyricsStateMock.mockResolvedValue(null);
     });
 
-    it('passes the already-loaded QQ song and lyrics to auto-match as its provider candidate', async () => {
-        const qqSong: SongResult = {
+    it('passes the already-loaded NetEase song and lyrics to auto-match as its provider candidate', async () => {
+        const neteaseSong: SongResult = {
             ...song,
             id: 201,
-            qqMid: 'qq-mid',
-            sourceRef: { kind: 'online', providerId: 'qq', mediaId: 'qq-mid' },
+            sourceRef: { kind: 'online', providerId: 'netease', mediaId: '201' },
         };
         const lyrics = {
             lines: [{ startTime: 0, endTime: 1, fullText: 'line', words: [] }],
@@ -169,23 +168,22 @@ describe('online QQ lyric candidate plumbing', () => {
         });
         autoMatchMock.mockResolvedValue({
             lyrics,
-            source: 'qq',
+            source: 'netease',
             id: 201,
-            qqMid: 'qq-mid',
-            song: qqSong,
+            song: neteaseSong,
         });
 
-        await loadOnlineSongLyrics(qqSong, null, null, {
+        await loadOnlineSongLyrics(neteaseSong, null, null, {
             isCurrent: () => true,
             onLyrics: vi.fn(),
             onDone: vi.fn(),
         });
 
         expect(autoMatchMock).toHaveBeenCalledWith('Song', '', 1000, expect.objectContaining({
-            preferredSource: 'qq',
+            preferredSource: 'netease',
             providerCandidate: expect.objectContaining({
-                providerId: 'qq',
-                song: qqSong,
+                providerId: 'netease',
+                song: neteaseSong,
                 lyricsResult: expect.objectContaining({ lyrics, isPureMusic: false }),
             }),
         }));
@@ -245,7 +243,7 @@ describe('instrumental tracks, once auto-match has settled them', () => {
     it('stores the verdict, so the search is not repeated on every play', async () => {
         // Without a stored answer `hasOnlineOverride` stays false, which is the flag that decides
         // whether to auto-match at all - so every instrumental in the library re-ran the full
-        // QQ/NetEase/AMLLDB/Kugou search on every prefetch pass and every play, forever.
+        // NetEase/AMLLDB search on every prefetch pass and every play, forever.
         lyricsMock.mockResolvedValue({
             lyrics: null,
             mainText: null,
@@ -286,8 +284,8 @@ describe('instrumental tracks, once auto-match has settled them', () => {
             isPureMusic: false,
             chorusRanges: [],
         });
-        // song.sourceRef.providerId is 'kugou', so this is the same-provider case.
-        autoMatchMock.mockResolvedValue({ lyrics, source: 'kugou', id: 'online-song', song, isPureMusic: false });
+        // song.sourceRef.providerId is 'netease', so this is the same-provider case.
+        autoMatchMock.mockResolvedValue({ lyrics, source: 'netease', id: 'online-song', song, isPureMusic: false });
 
         const onLyrics = vi.fn();
         const onPureMusicChange = vi.fn();

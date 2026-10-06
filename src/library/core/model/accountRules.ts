@@ -92,9 +92,6 @@ export const canLogoutProvider = (
 // ─── 登录文案 ───────────────────────────────────────────────────────────
 
 const LOGIN_COPY_BY_PROVIDER: Readonly<Record<string, { title: string; note: string }>> = {
-    kugou: { title: 'home.loginTitleKugou', note: 'home.loginNoteKugou' },
-    qq: { title: 'home.loginTitleQq', note: 'home.loginNoteQq' },
-    bodian: { title: 'home.loginTitleBodian', note: 'home.loginNoteBodian' },
 };
 const NETEASE_LOGIN_COPY = { title: 'home.loginTitle', note: 'home.loginNote' };
 
@@ -183,10 +180,9 @@ export const canShowLoginDiagnostics = (
 
 // ─── 登录 / 账户错误的日志描述 ──────────────────────────────────────────
 
-// 自己写安全失败摘要的 provider：QQ 的 qqProvider 只把白名单过滤后的阶段、原因和状态码写进
-// [QQProvider] qr-login:failed（PR #495）。它的原始错误文字可能带上后端地址、会话或上游正文，
-// 通用层（扫码会话、账户 controller）对它只记固定类别，诊断入口也不给。
-const PROVIDERS_OWNING_LOGIN_FAILURE_SUMMARY: ReadonlySet<string> = new Set(['qq']);
+// No provider owns its own login failure summary: every provider's failures go
+// through the shared logging and diagnostics path.
+const PROVIDERS_OWNING_LOGIN_FAILURE_SUMMARY: ReadonlySet<string> = new Set([]);
 
 /** provider 是否自己接管扫码 / 账户失败的安全摘要（通用层不记它的原始错误文字、不给诊断入口）。 */
 export const providerOwnsLoginFailureSummary = (providerId: OnlineProviderId): boolean => (

@@ -549,7 +549,7 @@ describe('providerLoginSession', () => {
 // QQ 的扫码失败由 qqProvider 写白名单过滤后的摘要（PR #495）；会话自己的日志与时间线对它只记固定类别。
 // 原 hook 测试里的「keeps raw QQ %s failures out of ordinary logs」迁到这里（确认后账户刷新抛错那一步在
 // controller 里，见 providerAccountController.test.ts）。
-describe('providerLoginSession · QQ failures stay out of ordinary logs', () => {
+describe('providerLoginSession · failures go to ordinary logs', () => {
     const secret = 'private-token https://private.example/?cookie=private-cookie';
     const privateError = () => {
         const error = new Error(secret);
@@ -600,15 +600,14 @@ describe('providerLoginSession · QQ failures stay out of ordinary logs', () => 
         return { session, entry, failure, report: await session.buildDiagnosticReport() };
     };
 
-    it.each(['start', 'check', 'state', 'confirm', 'cancel'] as const)('keeps raw QQ %s failures out of ordinary logs and the report', async step => {
-        const { session, entry, failure, report } = await failAt('qq', step);
+    it.each(['start', 'check', 'state', 'confirm', 'cancel'] as const)('logs the raw %s failure with name and message', async step => {
+        const { session, entry, failure, report } = await failAt('netease', step);
 
-        // 那一步确实记了一条（不是因为没记才「干净」），只是不带原始内容。
+        // 那一步确实记了一条，带原始 name 与 message。
         expect(entry).toBeDefined();
-        expect(entry![2]).toMatchObject({ providerId: 'qq' });
-        if (step !== 'state') expect(entry![2]).toMatchObject({ reason: 'provider-error' });
-        expect(JSON.stringify(log.mock.calls)).not.toMatch(/private-|https?:/);
-        expect(report).not.toMatch(/private-|https?:/);
+        expect(entry![2]).toMatchObject({ providerId: 'netease' });
+        if (step !== 'state') expect(entry![2]).toMatchObject({ name: 'private-name' });
+        if (step === 'state' || step === 'confirm') expect(JSON.stringify(entry![2])).toMatch(/private-/);
         if (failure) expect(session.getSnapshot()).toMatchObject({ phase: 'error', failure });
     });
 

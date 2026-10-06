@@ -3,7 +3,7 @@ import type { LocalSong } from '../../types';
 // src/utils/lyrics/localSongMatchContext.ts
 
 export interface LocalSongMetadataLyricCandidate {
-    source: 'netease' | 'qq' | 'kugou';
+    source: 'netease';
     songId: number | string;
 }
 
@@ -39,7 +39,7 @@ export const buildLocalSongLyricMatchContext = (
         || '';
     const source = song.onlineMetadata?.source;
     const songId = song.onlineMetadata?.songId;
-    const hasSelectedIdentity = (source === 'netease' || source === 'qq' || source === 'kugou')
+    const hasSelectedIdentity = source === 'netease'
         && songId !== undefined
         && songId !== null
         && String(songId).trim() !== '';

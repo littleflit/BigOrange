@@ -18,7 +18,7 @@ export interface LocalLibraryEntity {
 export type LocalLibraryAssignmentOrigin = 'import' | 'auto-match' | 'manual-match' | 'manual' | 'split';
 
 export type LocalSongTitleOrigin = 'import' | 'auto-match' | 'manual-match';
-export type LocalSongMetadataSource = 'netease' | 'qq' | 'kugou';
+export type LocalSongMetadataSource = 'netease';
 
 export interface LocalSongImportedMetadata {
   title: string;

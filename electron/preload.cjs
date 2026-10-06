@@ -139,16 +139,6 @@ contextBridge.exposeInMainWorld('electron', {
         ipcRenderer.on('netease-api-status-changed', listener);
         return () => ipcRenderer.removeListener('netease-api-status-changed', listener);
     },
-    getKugouApiStatus: () => ipcRenderer.invoke('kugou-api-status'),
-    kugouRequest: (operation, params) => ipcRenderer.invoke('kugou-api-request', operation, params),
-    bodianRequest: (operation, params) => ipcRenderer.invoke('bodian-api-request', operation, params),
-    getQqPort: () => ipcRenderer.invoke('get-qq-port'),
-    getQqApiStatus: () => ipcRenderer.invoke('get-qq-api-status'),
-    onQqApiStatusChanged: (callback) => {
-        const listener = (_event, status) => callback(status);
-        ipcRenderer.on('qq-api-status-changed', listener);
-        return () => ipcRenderer.removeListener('qq-api-status-changed', listener);
-    },
     minimizeWindow: () => ipcRenderer.invoke('window-minimize'),
     toggleMaximizeWindow: () => ipcRenderer.invoke('window-toggle-maximize'),
     toggleFullscreenWindow: () => ipcRenderer.invoke('window-toggle-fullscreen'),

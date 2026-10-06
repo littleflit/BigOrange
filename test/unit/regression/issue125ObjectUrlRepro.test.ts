@@ -35,7 +35,7 @@ describe('issue #125 object URL repro', () => {
                 localCoverAssetId: 'not-a-valid-asset-id',
                 useOnlineCover: true,
                 onlineMetadata: {
-                    source: 'qq',
+                    source: 'netease',
                     title: 'bad-cover-song',
                     artists: [],
                     coverUrl: 'https://example.com/fallback.jpg',

@@ -12,7 +12,7 @@ import type { QrLoginFailureKind } from '../../../src/types/onlineMusic';
 // test/unit/navigation/qrLoginDiagnosticsPresentation.test.ts
 // 登录失败后的诊断区块：是否显示由 core 规则（canShowLoginDiagnostics → 视图的 diagnosticsPrompt）决定，
 // grid 的登录弹窗与 TUI 的 F4 都只认它。这里走「快照 → translateLoginSession → 网格弹窗」这一条，
-// 与 GridAccountSurface 的装配同形；QQ 不给诊断区块（PR #495），其余 provider 保持原样。
+// 与 GridAccountSurface 的装配同形；所有 provider 一视同仁给诊断区块。
 
 const failures: QrLoginFailureKind[] = [
     'start-error', 'check-error', 'expired-after-scan', 'account-refresh-failed',
@@ -50,19 +50,7 @@ const renderFailure = (providerId: string, failure: QrLoginFailureKind) => {
 };
 
 describe('QR login diagnostics presentation', () => {
-    it.each(failures)('removes the entire QQ diagnostics block for %s', failure => {
-        const { view, diagnostics, html, buildReport } = renderFailure('qq', failure);
-        expect(view.canShowDiagnostics).toBe(false);
-        expect(view.diagnosticsPrompt).toBeNull();
-        expect(diagnostics).toBeUndefined();
-        expect(html).not.toContain('home.qrDiagnostics');
-        expect(html).toContain('home.loginError');
-        expect(html).toContain('home.retryQr');
-        expect(html).toContain('home.closeLogin');
-        expect(buildReport).not.toHaveBeenCalled();
-    });
-
-    it.each(['netease', 'kugou'])('keeps %s diagnostics and buttons', providerId => {
+    it.each(['netease'])('keeps %s diagnostics and buttons', providerId => {
         for (const failure of failures) {
             const { view, diagnostics, html, buildReport } = renderFailure(providerId, failure);
             const prompt = failure === 'expired-after-scan' ? 'home.qrDiagnosticsPromptScanned' : 'home.qrDiagnosticsPrompt';
