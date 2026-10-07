@@ -1723,6 +1723,9 @@ let mainWindowAlwaysOnTop = false;
 let mainWindowClickThroughEnabled = false;
 let mainWindowClickThroughUnlockHover = false;
 let mainWindowClickThroughUnlockHoverTimer = null;
+// Last time the renderer asserted unlock from a real hover move. Freshness wins over
+// the cursor poll (see syncMainWindowClickThroughUnlockHoverFromCursor).
+let mainWindowClickThroughLastRendererUnlockAt = 0;
 let mainWindowSkipTaskbarEnabled = false;
 let videoExportWindowRestoreState = null;
 let autoUpdater = null;
@@ -4500,6 +4503,12 @@ function syncMainWindowClickThroughUnlockHoverFromCursor() {
     return false;
   }
 
+  // The renderer asserts unlock on real hover moves. Where the OS cursor position is
+  // unreliable (Wayland) this poll reads stale coordinates and would slam unlock shut
+  // right after the renderer lifted it, so a fresh renderer assertion wins.
+  if (Date.now() - mainWindowClickThroughLastRendererUnlockAt < 1500) {
+    return mainWindowClickThroughUnlockHover;
+  }
   return setMainWindowClickThroughUnlockHover(isCursorInsideMainWindowClickThroughUnlockHotspot());
 }
 
@@ -4549,6 +4558,7 @@ function setMainWindowClickThroughEnabled(enabled) {
   mainWindowClickThroughEnabled = Boolean(enabled);
   if (!mainWindowClickThroughEnabled) {
     mainWindowClickThroughUnlockHover = false;
+    mainWindowClickThroughLastRendererUnlockAt = 0;
     stopMainWindowClickThroughUnlockHoverMonitor();
   }
 
@@ -4565,6 +4575,11 @@ function setMainWindowClickThroughEnabled(enabled) {
 
 function setMainWindowClickThroughUnlockHover(active) {
   const nextActive = Boolean(active) && mainWindowClickThroughEnabled;
+  if (nextActive) {
+    mainWindowClickThroughLastRendererUnlockAt = Date.now();
+  } else if (!mainWindowClickThroughEnabled) {
+    mainWindowClickThroughLastRendererUnlockAt = 0;
+  }
   if (mainWindowClickThroughUnlockHover === nextActive) {
     return mainWindowClickThroughUnlockHover;
   }

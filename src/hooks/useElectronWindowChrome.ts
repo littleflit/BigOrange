@@ -82,6 +82,11 @@ export const useElectronWindowChrome = () => {
             return;
         }
 
+        // Last mousemove that landed inside the hotspot. The heartbeat below keeps
+        // re-asserting unlock while the cursor rests on the button (no moves fire),
+        // so the main-process cursor poll cannot slam it shut mid-click.
+        const lastInsideMoveAt = { current: 0 };
+
         const syncToggleHotspot = (active: boolean) => {
             setIsClickThroughToggleHotspotActive(prev => (prev === active ? prev : active));
             void window.electron!.setMainWindowClickThroughUnlockHover(active);
@@ -89,6 +94,9 @@ export const useElectronWindowChrome = () => {
 
         const handleMouseMove = (event: MouseEvent) => {
             const withinHotspot = isWithinClickThroughUnlockHotspot(event.clientX, event.clientY, window.innerWidth);
+            if (withinHotspot) {
+                lastInsideMoveAt.current = Date.now();
+            }
 
             setIsClickThroughToggleHotspotActive(prev => {
                 if (prev === withinHotspot) {
@@ -101,8 +109,17 @@ export const useElectronWindowChrome = () => {
         };
 
         const handleMouseLeave = () => {
+            lastInsideMoveAt.current = 0;
             syncToggleHotspot(false);
         };
+
+        // The cursor resting on the unlock button fires no moves; without this the
+        // main-process poll would re-apply ignore between hover and click.
+        const heartbeatTimer = window.setInterval(() => {
+            if (Date.now() - lastInsideMoveAt.current < 800) {
+                void window.electron!.setMainWindowClickThroughUnlockHover(true);
+            }
+        }, 500);
 
         window.addEventListener('mousemove', handleMouseMove);
         window.addEventListener('mouseleave', handleMouseLeave);
@@ -110,6 +127,7 @@ export const useElectronWindowChrome = () => {
         return () => {
             window.removeEventListener('mousemove', handleMouseMove);
             window.removeEventListener('mouseleave', handleMouseLeave);
+            window.clearInterval(heartbeatTimer);
             syncToggleHotspot(false);
         };
     }, [isElectronWindow, isMainWindowClickThroughEnabled]);
