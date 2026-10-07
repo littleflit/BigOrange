@@ -14,31 +14,31 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
-// Downloads one pinned BigOrange FFmpeg release asset for the Electron target and
+// Downloads one pinned Folia FFmpeg release asset for the Electron target and
 // stages only its runtime binary plus redistribution metadata for electron-builder.
 
-export const FFMPEG_RELEASE_TAG = "v8.1.2-bigorange.3";
-const RELEASE_BASE_URL = `https://github.com/chthollyphile/bigorange-ffmpeg-build/releases/download/${FFMPEG_RELEASE_TAG}`;
+export const FFMPEG_RELEASE_TAG = "v8.1.2-folia.3";
+const RELEASE_BASE_URL = `https://github.com/chthollyphile/folia-ffmpeg-build/releases/download/${FFMPEG_RELEASE_TAG}`;
 
 export const FFMPEG_ASSETS = Object.freeze({
   "linux-x64": {
-    archive: "ffmpeg-8.1.2-bigorange-x86_64-linux-gnu.tar.gz",
+    archive: "ffmpeg-8.1.2-folia-x86_64-linux-gnu.tar.gz",
     sha256: "6e0cf37cde86ca11d22978f0dfdc50593d986ca596219d0884e024ec141e405a",
   },
   "linux-arm64": {
-    archive: "ffmpeg-8.1.2-bigorange-arm64-linux-gnu.tar.gz",
+    archive: "ffmpeg-8.1.2-folia-arm64-linux-gnu.tar.gz",
     sha256: "0c8defb12e8de8f01d0a4c6a3d1daf02bdd155272de5f360c3f06f3787639b36",
   },
   "mac-x64": {
-    archive: "ffmpeg-8.1.2-bigorange-x86_64-apple-macos10.9.tar.gz",
+    archive: "ffmpeg-8.1.2-folia-x86_64-apple-macos10.9.tar.gz",
     sha256: "6f27eebeb76937708872256f328127926264c9f7f5b9aac3592403db1376e967",
   },
   "mac-arm64": {
-    archive: "ffmpeg-8.1.2-bigorange-arm64-apple-macos11.tar.gz",
+    archive: "ffmpeg-8.1.2-folia-arm64-apple-macos11.tar.gz",
     sha256: "2223c3da4f94f0ef447a3b5e9e4f90188cb3ead7c030b901109069b87cc636fe",
   },
   "win-x64": {
-    archive: "ffmpeg-8.1.2-bigorange-x86_64-w64-mingw32.tar.gz",
+    archive: "ffmpeg-8.1.2-folia-x86_64-w64-mingw32.tar.gz",
     sha256: "266ca412da14330a96859f6b7fb64fc7d8bcd07bf84616179bc18af9900959ec",
   },
 });
@@ -54,7 +54,7 @@ export function resolveFfmpegAsset(platform, arch) {
   const key = `${osName}-${arch}`;
   const asset = FFMPEG_ASSETS[key];
   if (!asset)
-    throw new Error(`No bundled BigOrange FFmpeg release for ${platform}/${arch}`);
+    throw new Error(`No bundled Folia FFmpeg release for ${platform}/${arch}`);
   return {
     ...asset,
     key,
