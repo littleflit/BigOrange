@@ -64,13 +64,10 @@ const {
   parseSegmentationResponse,
 } = require('../shared/lyricSegmentationPrompt.cjs');
 const useLinuxGraphicsDebugMode = process.env.ELECTRON_LINUX_PACKAGED_GRAPHICS === 'true';
-const isAppImageRuntime =
-  process.platform === 'linux' &&
-  (Boolean(process.env.APPIMAGE) || Boolean(process.env.APPDIR) || useLinuxGraphicsDebugMode);
 const linuxGraphicsMode =
   process.platform !== 'linux'
     ? 'system'
-    : (process.env.BIGORANGE_LINUX_GRAPHICS_MODE || (isAppImageRuntime ? 'swiftshader' : 'system'));
+    : (process.env.BIGORANGE_LINUX_GRAPHICS_MODE || (useLinuxGraphicsDebugMode ? 'swiftshader' : 'system'));
 
 // Every custom scheme must be registered in this one call: each
 // registerSchemesAsPrivileged call overwrites the fetch/secure/cors scheme
@@ -118,9 +115,9 @@ if (process.platform === 'linux') {
     // Hard fallback: safest, but usually slower.
     app.disableHardwareAcceleration();
   } else if (linuxGraphicsMode === 'swiftshader') {
-    // AppImage is the only runtime showing broken blur/opacity plus GPU crashes.
-    // Prefer software GL here so Chromium keeps its compositor pipeline
-    // without relying on the host Vulkan / GPU stack.
+    // Software GL: keeps Chromium's compositor pipeline without relying on
+    // the host Vulkan / GPU stack. Opt-in via BIGORANGE_LINUX_GRAPHICS_MODE
+    // or the packaged-graphics dev preview flag.
     app.commandLine.appendSwitch('use-gl', 'angle');
     app.commandLine.appendSwitch('use-angle', 'swiftshader');
     app.commandLine.appendSwitch('enable-unsafe-swiftshader');
