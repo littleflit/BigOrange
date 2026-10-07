@@ -512,6 +512,17 @@ export const omni = {
         return provider.lyrics?.getChorusRanges?.(song.id) ?? [];
     },
 
+    canShowSongComments(song: SongResult): boolean {
+        const provider = getOnlineMusicProviderForSong(song);
+        return providerSupports(provider, 'comments') && Boolean(provider?.comments?.getSongComments);
+    },
+
+    async getSongComments(song: SongResult, limit: number, offset: number) {
+        const provider = providerForSong(song);
+        if (!provider.comments?.getSongComments) return unsupported(provider.id, 'comments');
+        return provider.comments.getSongComments(song.id, limit, offset);
+    },
+
     getSongAvailability(song: SongResult): OmniSongAvailability {
         return providerForSong(song).playback?.getAvailability?.(song) ?? { state: 'unknown' };
     },

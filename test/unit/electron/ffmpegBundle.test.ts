@@ -9,7 +9,7 @@ import {
 
 describe("bundled BigOrange FFmpeg manifest", () => {
   it("pins the BigOrange FFmpeg release whose macOS binaries load only system libraries", () => {
-    expect(FFMPEG_RELEASE_TAG).toBe("v8.1.2-bigorange.3");
+    expect(FFMPEG_RELEASE_TAG).toBe("v8.1.2-folia.3");
     for (const asset of Object.values(FFMPEG_ASSETS)) {
       expect(asset.sha256).toMatch(/^[a-f0-9]{64}$/);
     }
@@ -30,7 +30,7 @@ describe("bundled BigOrange FFmpeg manifest", () => {
 
   it("fails instead of silently bundling a binary for the wrong architecture", () => {
     expect(() => resolveFfmpegAsset("win32", "arm64")).toThrow(
-      "No bundled BigOrange FFmpeg release",
+      "No bundled Folia FFmpeg release",
     );
   });
 });

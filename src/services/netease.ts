@@ -737,6 +737,10 @@ export const neteaseApi = {
     return fetchWithCreds(`/lyric/new?id=${id}`);
   },
 
+  getSongComments: async (id: number, limit = 20, offset = 0) => {
+    return fetchWithCreds(`/comment/music?id=${id}&limit=${limit}&offset=${offset}&timestamp=${Date.now()}`);
+  },
+
   getChorus: async (id: number) => {
     return fetchWithCreds(`/song/chorus?id=${id}`);
   },

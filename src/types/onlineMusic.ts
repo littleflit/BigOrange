@@ -50,6 +50,8 @@ export interface ProviderCapabilities {
     userAlbums?: boolean;
     /** The provider accepts a listening report for a track the user actually played. */
     playbackReports?: boolean;
+    /** The provider serves user comments for a track. */
+    comments?: boolean;
 }
 
 export interface ProviderAvailability {
@@ -374,6 +376,31 @@ export interface OnlineMusicProvider {
     catalog?: OnlineCatalogProvider;
     recommendations?: OnlineRecommendationProvider;
     mutations?: OnlineMutationProvider;
+    comments?: OnlineCommentProvider;
+}
+
+export interface ProviderSongCommentUser {
+    nickname: string;
+    avatarUrl?: string;
+}
+
+export interface ProviderSongComment {
+    id: number | string;
+    user: ProviderSongCommentUser;
+    content: string;
+    timeMs: number;
+    likedCount: number;
+}
+
+export interface ProviderSongCommentPage {
+    items: ProviderSongComment[];
+    latestCount: number;
+    total: number;
+    hasMore: boolean;
+}
+
+export interface OnlineCommentProvider {
+    getSongComments(id: MediaId, limit: number, offset: number): Promise<ProviderSongCommentPage>;
 }
 
 // Public canonical contract consumed through the omni facade. Provider-prefixed

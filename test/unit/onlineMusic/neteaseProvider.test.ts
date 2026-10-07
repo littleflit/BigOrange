@@ -21,6 +21,7 @@ vi.mock('@/services/netease', () => ({
         getLikedSongs: vi.fn(),
         checkQr: vi.fn(),
         scrobbleV1: vi.fn(),
+        getSongComments: vi.fn(),
     },
 }));
 
@@ -304,5 +305,49 @@ describe('neteaseProvider listening reports', () => {
 
         await expect(neteaseProvider.playbackReports!.reportPlayback(reported, { playedSeconds: 45 }))
             .rejects.toMatchObject({ code: 'unavailable' });
+    });
+});
+
+describe('neteaseProvider song comments', () => {
+    beforeEach(() => vi.clearAllMocks());
+
+    it('merges hot comments on the first page and pages latest by offset', async () => {
+        vi.mocked(neteaseApi.getSongComments).mockResolvedValue({
+            hotComments: [
+                { commentId: 1, content: 'hot', time: 1700000000000, likedCount: 99, user: { nickname: 'hot-user', avatarUrl: 'https://example.test/a.jpg' } },
+            ],
+            comments: [
+                { commentId: 2, content: 'latest', time: 1700000001000, likedCount: 3, user: { nickname: 'new-user' } },
+            ],
+            total: 21,
+        } as any);
+
+        const first = await neteaseProvider.comments!.getSongComments(42, 20, 0);
+        expect(neteaseApi.getSongComments).toHaveBeenCalledWith(42, 20, 0);
+        expect(first.items.map(item => item.id)).toEqual([1, 2]);
+        expect(first.items[0]).toMatchObject({ user: { nickname: 'hot-user' }, likedCount: 99 });
+        expect(first.total).toBe(21);
+        expect(first.hasMore).toBe(true);
+
+        vi.mocked(neteaseApi.getSongComments).mockResolvedValue({ hotComments: [], comments: [], total: 20 } as any);
+        const second = await neteaseProvider.comments!.getSongComments(42, 20, 20);
+        expect(second.items).toEqual([]);
+        expect(second.hasMore).toBe(false);
+    });
+
+    it('falls back to anonymous user and zero likes on sparse payloads', async () => {
+        vi.mocked(neteaseApi.getSongComments).mockResolvedValue({
+            comments: [{ commentId: 7, content: 'hi' }],
+            total: 1,
+        } as any);
+
+        const page = await neteaseProvider.comments!.getSongComments(42, 20, 0);
+        expect(page.items[0]).toMatchObject({
+            id: 7,
+            user: { nickname: '匿名用户' },
+            content: 'hi',
+            likedCount: 0,
+        });
+        expect(page.hasMore).toBe(false);
     });
 });

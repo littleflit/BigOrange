@@ -592,6 +592,7 @@ export default {
       "panel-local": { "title": "面板：本地", "description": "打开本地面板 tab" },
       "panel-navi": { "title": "面板：Navidrome", "description": "打开 Navidrome 面板 tab" },
       "panel-onlineLyrics": { "title": "面板：歌词", "description": "打开在线歌词面板 tab" },
+      "panel-comments": { "title": "面板：评论", "description": "打开歌曲评论面板 tab" },
       "lyric-segmentation": { "title": "歌词分词调整", "description": "用 AI 或手动修正这首歌的歌词分词结果" },
       "mods": { "title": "模组（实验性）", "description": "实验性功能：管理模组并导出透明歌词视频" },
       "playback-play": { "title": "播放", "description": "暂停时开始播放" },
@@ -809,7 +810,21 @@ export default {
     "controls": "控制",
     "visualizer": "歌词动画",
     "playlist": "播放列表",
-    "account": "账户"
+    "account": "账户",
+    "comments": "评论"
+  },
+  "comments": {
+    "total": "共 {{count}} 条评论",
+    "loadMore": "加载更多",
+    "loading": "评论加载中…",
+    "empty": "暂无评论",
+    "failed": "评论加载失败",
+    "retry": "重试",
+    "likes": "{{count}} 赞",
+    "justNow": "刚刚",
+    "minutesAgo": "{{count}} 分钟前",
+    "hoursAgo": "{{count}} 小时前",
+    "daysAgo": "{{count}} 天前"
   },
   "lyricExport": {
     "exported": "歌词已导出",

@@ -13,4 +13,5 @@ export const panelCommands: CommandPaletteCommand[] = [
     createPanelCommand('local', 'Panel: local', 'Open the local panel tab', ['local panel', '本地面板']),
     createPanelCommand('navi', 'Panel: Navidrome', 'Open the Navidrome panel tab', ['panel navi', 'navi panel', 'navidrome 面板', '服务器面板']),
     createPanelCommand('onlineLyrics', 'Panel: lyrics', 'Open the online lyrics panel tab', ['lyrics panel', '歌词面板']),
+    createPanelCommand('comments', 'Panel: comments', 'Open the song comments panel tab', ['comments panel', '评论面板', '评论']),
 ];

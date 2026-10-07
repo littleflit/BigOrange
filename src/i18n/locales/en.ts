@@ -592,6 +592,7 @@ export default {
       "panel-local": { "title": "Panel: local", "description": "Open the local panel tab" },
       "panel-navi": { "title": "Panel: Navidrome", "description": "Open the Navidrome panel tab" },
       "panel-onlineLyrics": { "title": "Panel: lyrics", "description": "Open the online lyrics panel tab" },
+      "panel-comments": { "title": "Panel: comments", "description": "Open the song comments panel tab" },
       "lyric-segmentation": { "title": "Adjust lyric word segmentation", "description": "Fix how this song\u2019s lyrics are split into words, with AI or by hand" },
       "mods": { "title": "Mods (Experimental)", "description": "Experimental: manage mods and export transparent lyric videos" },
       "playback-play": { "title": "Play", "description": "Start playback when paused" },
@@ -809,7 +810,21 @@ export default {
     "controls": "Controls",
     "visualizer": "Lyrics Animation",
     "playlist": "Playlist",
-    "account": "Account"
+    "account": "Account",
+    "comments": "Comments"
+  },
+  "comments": {
+    "total": "{{count}} comments",
+    "loadMore": "Load more",
+    "loading": "Loading comments…",
+    "empty": "No comments yet",
+    "failed": "Failed to load comments",
+    "retry": "Retry",
+    "likes": "{{count}} likes",
+    "justNow": "just now",
+    "minutesAgo": "{{count}} min ago",
+    "hoursAgo": "{{count}} h ago",
+    "daysAgo": "{{count}} d ago"
   },
   "lyricExport": {
     "exported": "Lyrics exported",

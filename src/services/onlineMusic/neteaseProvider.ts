@@ -6,6 +6,8 @@ import type {
     OnlineMusicProvider,
     ProviderCollection,
     ProviderLyricsResult,
+    ProviderSongComment,
+    ProviderSongCommentPage,
     ProviderSongAvailability,
     ProviderSongReplacement,
     ProviderArtistSummary,
@@ -112,6 +114,25 @@ const extractCloudLyricText = (response: any): string => (
 );
 
 const neteaseChorusRangesCache = new Map<string, Promise<Array<{ startTime: number; endTime: number }>>>();
+
+const normalizeSongComment = (raw: any): ProviderSongComment => ({
+    id: raw?.commentId ?? raw?.id ?? 0,
+    user: {
+        nickname: raw?.user?.nickname || '匿名用户',
+        avatarUrl: raw?.user?.avatarUrl,
+    },
+    content: String(raw?.content || ''),
+    timeMs: Number(raw?.time ?? raw?.timeStr ?? 0) || 0,
+    likedCount: Number(raw?.likedCount ?? 0) || 0,
+});
+
+const getSongComments = async (id: MediaId, limit: number, offset: number): Promise<ProviderSongCommentPage> => {
+    const response = await neteaseApi.getSongComments(toNeteaseId(id), limit, offset);
+    const latest = (response?.comments || []).map(normalizeSongComment);
+    const hot = offset === 0 ? (response?.hotComments || []).map(normalizeSongComment) : [];
+    const total = Number(response?.total ?? latest.length) || 0;
+    return { items: [...hot, ...latest], latestCount: latest.length, total, hasMore: offset + latest.length < total };
+};
 
 const getNeteaseChorusRanges = async (songId: MediaId): Promise<Array<{ startTime: number; endTime: number }>> => {
     const parsedId = toNeteaseId(songId);
@@ -253,6 +274,7 @@ export const neteaseProvider: OnlineMusicProvider = {
         likes: true,
         userAlbums: true,
         playbackReports: true,
+        comments: true,
     },
     normalizeSong: normalizeNeteaseSong,
     normalizeUser,
@@ -338,6 +360,7 @@ export const neteaseProvider: OnlineMusicProvider = {
         },
     },
     lyrics: { getLyrics, getChorusRanges: getNeteaseChorusRanges },
+    comments: { getSongComments },
     auth: {
         async getLoginStatus() {
             const loginResponse = await neteaseApi.getLoginStatus();
