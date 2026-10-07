@@ -23,6 +23,7 @@ vi.mock('@/services/netease', () => ({
         scrobbleV1: vi.fn(),
         getSongComments: vi.fn(),
         searchUsers: vi.fn(),
+        getUserRecord: vi.fn(),
     },
 }));
 
@@ -378,5 +379,34 @@ describe('neteaseProvider user search', () => {
         expect(page.total).toBe(42);
         expect(page.hasMore).toBe(true);
         expect(page.nextOffset).toBe(2);
+    });
+});
+
+describe('neteaseProvider listening ranking', () => {
+    beforeEach(() => vi.clearAllMocks());
+
+    it('normalizes week and all-time records with play counts', async () => {
+        vi.mocked(neteaseApi.getUserRecord).mockResolvedValue({
+            weekData: [
+                { playCount: 12, score: 95, song: { id: 5, name: 'Hit', ar: [{ name: 'Singer' }], al: { name: 'Album' }, dt: 200000 } },
+                { playCount: 3, score: 20 },
+            ],
+        } as any);
+
+        const entries = await neteaseProvider.library!.getListeningRanking!(9, 'week');
+        expect(neteaseApi.getUserRecord).toHaveBeenCalledWith(9, 1);
+        expect(entries).toHaveLength(1);
+        expect(entries[0]).toMatchObject({ playCount: 12, score: 95 });
+        expect(entries[0].song.name).toBe('Hit');
+    });
+
+    it('requests all-time records with type 0 and rejects empty payloads', async () => {
+        vi.mocked(neteaseApi.getUserRecord).mockResolvedValue({ allData: [] } as any);
+        const entries = await neteaseProvider.library!.getListeningRanking!(9, 'all');
+        expect(neteaseApi.getUserRecord).toHaveBeenCalledWith(9, 0);
+        expect(entries).toEqual([]);
+
+        vi.mocked(neteaseApi.getUserRecord).mockResolvedValue({} as any);
+        await expect(neteaseProvider.library!.getListeningRanking!(9, 'all')).rejects.toMatchObject({ name: 'OnlineProviderError' });
     });
 });

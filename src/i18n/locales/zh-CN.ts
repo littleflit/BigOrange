@@ -1006,7 +1006,13 @@ export default {
     "qualityExhigh": "极高",
     "qualityLossless": "无损",
     "qualityHires": "Hi-Res",
-    "vipOnly": "VIP 专属"
+    "vipOnly": "VIP 专属",
+    "listeningRanking": "听歌排行",
+    "rankingWeek": "最近一周",
+    "rankingAll": "全部时间",
+    "rankingPlays": "{{count}} 次",
+    "rankingEmpty": "暂无排行数据",
+    "rankingFailed": "排行加载失败"
   },
   "playlist": {
     "play": "播放",

@@ -1007,7 +1007,13 @@ export default {
     "qualityExhigh": "Very High",
     "qualityLossless": "Lossless",
     "qualityHires": "Hi-Res",
-    "vipOnly": "VIP Only"
+    "vipOnly": "VIP Only",
+    "listeningRanking": "Listening Ranking",
+    "rankingWeek": "Recent Week",
+    "rankingAll": "All Time",
+    "rankingPlays": "{{count}} plays",
+    "rankingEmpty": "No ranking data",
+    "rankingFailed": "Failed to load ranking"
   },
   "playlist": {
     "play": "Play",

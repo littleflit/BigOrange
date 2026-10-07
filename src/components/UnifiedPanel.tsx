@@ -905,6 +905,8 @@ const UnifiedPanel: React.FC<UnifiedPanelProps> = ({
                                             onClearCache={onClearCache}
                                             onSyncData={onSyncData}
                                             isSyncing={isSyncing}
+                                            onPlaySong={song => onPlaySong(song, [song])}
+                                            isDaylight={isDaylight}
                                             onNavigateHome={() => {
                                                 onToggle();
                                                 onNavigateHome();

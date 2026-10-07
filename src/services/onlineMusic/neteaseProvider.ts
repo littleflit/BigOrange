@@ -444,6 +444,20 @@ export const neteaseProvider: OnlineMusicProvider = {
             const items = (response?.data || []).map((item: any) => normalizeCollection(item, 'album'));
             return { items, hasMore: Boolean(response?.hasMore), nextOffset: offset + items.length };
         },
+        async getListeningRanking(userId, range) {
+            const response = await neteaseApi.getUserRecord(toNeteaseId(userId), range === 'week' ? 1 : 0);
+            const records = range === 'week' ? response?.weekData : response?.allData;
+            if (!Array.isArray(records)) {
+                throw new OnlineProviderError('unavailable', 'NetEase returned no listening ranking', 'netease');
+            }
+            return records
+                .filter((record: any) => record?.song)
+                .map((record: any) => ({
+                    song: normalizeNeteaseSong(record.song),
+                    playCount: Number(record?.playCount ?? 0) || 0,
+                    score: Number(record?.score ?? 0) || 0,
+                }));
+        },
         async getCloudCollection(user) {
             const response = await neteaseApi.getUserCloud(1, 0);
             const trackCount = Number(response?.count || 0);

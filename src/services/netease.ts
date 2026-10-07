@@ -749,8 +749,7 @@ export const neteaseApi = {
     return fetchWithCreds(`/cloud/lyric/get?uid=${uid}&sid=${sid}`);
   },
 
-  getUserCloud: async (limit = 200, offset = 0) => {
-    const res = await fetchWithCreds(`/user/cloud?limit=${limit}&offset=${offset}`);
+  getUserCloud: async (limit = 200, offset = 0) => {    const res = await fetchWithCreds(`/user/cloud?limit=${limit}&offset=${offset}`);
     const normalizedSongs = (res.data || []).map((item: any) => normalizeSongResult({
       ...item,
       t: item?.t ?? 1,
@@ -764,8 +763,11 @@ export const neteaseApi = {
     };
   },
 
-  getUserCloudDetail: async (ids: number[] | number) => {
-    const idParam = Array.isArray(ids) ? ids.join(',') : String(ids);
+  getUserRecord: async (uid: number, type: 0 | 1 = 0) => {
+    return fetchWithCreds(`/user/record?uid=${uid}&type=${type}&timestamp=${Date.now()}`);
+  },
+
+  getUserCloudDetail: async (ids: number[] | number) => {    const idParam = Array.isArray(ids) ? ids.join(',') : String(ids);
     const res = await fetchWithCreds(`/user/cloud/detail?id=${idParam}`);
     return {
       ...res,

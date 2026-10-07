@@ -306,9 +306,16 @@ export interface OnlineAuthProvider {
     getQrLoginDiagnostics?(): Promise<string[]>;
 }
 
+export interface ProviderRecordEntry {
+    song: UnifiedSong;
+    playCount: number;
+    score: number;
+}
+
 export interface OnlineLibraryProvider {
     getUserPlaylists(userId: MediaId, limit: number, offset: number): Promise<ProviderPage<ProviderCollection>>;
     getLikedSongIds?(userId: MediaId): Promise<MediaId[]>;
+    getListeningRanking?(userId: MediaId, range: 'all' | 'week'): Promise<ProviderRecordEntry[]>;
     /** Full liked-track records, used when a provider needs more than the song id (e.g. KuGou fileId). */
     getLikedSongs?(userId: MediaId): Promise<UnifiedSong[]>;
     getUserAlbums?(userId: MediaId, limit: number, offset: number): Promise<ProviderPage<ProviderCollection>>;

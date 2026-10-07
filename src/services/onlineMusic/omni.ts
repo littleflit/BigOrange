@@ -417,6 +417,12 @@ export const omni = {
         return [];
     },
 
+    async getListeningRanking(providerId: OmniProviderId, userId: MediaId, range: 'all' | 'week') {
+        const library = requireOnlineMusicProvider(providerId).library;
+        if (!library?.getListeningRanking) return unsupported(providerId, 'listening-ranking');
+        return library.getListeningRanking(userId, range);
+    },
+
     async getCloudCollection(user?: OmniUser): Promise<OmniCollection | null> {
         return withActiveProvider(async provider => provider.library?.getCloudCollection?.(user) ?? null);
     },

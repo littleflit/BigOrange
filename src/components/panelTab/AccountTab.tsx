@@ -3,12 +3,14 @@ import { motion } from 'framer-motion';
 import { LogOut, SlidersHorizontal, HardDrive, Trash2, RefreshCw, Crown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import type { AudioQualityPreference, ProviderUser } from '../../types/onlineMusic';
+import type { UnifiedSong } from '../../types';
 import type { LibraryAccountController } from '../../library/core/contracts/account';
 import type { LibraryAccountSnapshot } from '../../library/core/contracts/account';
 import { useLibraryAccountProviders, useLibraryAccountSelector } from '../../library/core/bindings/useLibraryAccount';
 import { canLogoutProvider } from '../../library/core/model/accountRules';
 import { useOnlineProviderAccountStore } from '../../stores/useOnlineProviderAccountStore';
 import { omni } from '../../services/onlineMusic/omni';
+import ListeningRankingSection from './ListeningRankingSection';
 
 interface AccountTabProps {
     user: ProviderUser | null;
@@ -21,6 +23,8 @@ interface AccountTabProps {
     onSyncData: () => void;
     isSyncing: boolean;
     onNavigateHome: () => void;
+    onPlaySong: (song: UnifiedSong) => void;
+    isDaylight: boolean;
 }
 
 const AUDIO_QUALITY_OPTIONS: Array<{
@@ -45,6 +49,8 @@ const AccountTab: React.FC<AccountTabProps> = ({
     onSyncData,
     isSyncing,
     onNavigateHome,
+    onPlaySong,
+    isDaylight,
 }) => {
     const { t } = useTranslation();
     // 当前平台取 controller 快照里回落过的那个，与登出的判定（只有当前且已登录的平台能登出）一致。
@@ -166,6 +172,14 @@ const AccountTab: React.FC<AccountTabProps> = ({
                 <RefreshCw size={14} className={isSyncing ? "animate-spin" : ""} />
                 {isSyncing ? t('account.syncing') : t('account.syncData')}
             </button>}
+
+            {activeUser && activeProviderId === 'netease' && (
+                <ListeningRankingSection
+                    userId={activeUser.id}
+                    isDaylight={isDaylight}
+                    onPlaySong={onPlaySong}
+                />
+            )}
         </motion.div>
     );
 };
