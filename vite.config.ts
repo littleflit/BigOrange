@@ -158,29 +158,52 @@ export default async function viteConfig(_config: ConfigEnv): Promise<UserConfig
     }
   }
 
+  // 版本后缀挂一句随机古诗，不再调上游 namoe 服务。
+  const POEM_LINES = [
+    '床前明月光', '举头望明月', '低头思故乡',
+    '白日依山尽', '黄河入海流', '欲穷千里目', '更上一层楼',
+    '春眠不觉晓', '处处闻啼鸟', '夜来风雨声', '花落知多少',
+    '空山新雨后', '天气晚来秋', '明月松间照', '清泉石上流',
+    '大漠孤烟直', '长河落日圆',
+    '海内存知己', '天涯若比邻',
+    '会当凌绝顶', '一览众山小',
+    '感时花溅泪', '恨别鸟惊心',
+    '春风又绿江南岸', '明月何时照我还',
+    '孤帆远影碧空尽', '唯见长江天际流',
+    '两岸猿声啼不住', '轻舟已过万重山',
+    '朝辞白帝彩云间', '千里江陵一日还',
+    '举杯邀明月', '对影成三人',
+    '人生得意须尽欢', '莫使金樽空对月',
+    '天生我材必有用', '千金散尽还复来',
+    '长风破浪会有时', '直挂云帆济沧海',
+    '安能摧眉折腰事权贵', '使我不得开心颜',
+    '明月出天山', '苍茫云海间',
+    '小时不识月', '呼作白玉盘',
+    '露从今夜白', '月是故乡明',
+    '春种一粒粟', '秋收万颗子',
+    '锄禾日当午', '汗滴禾下土',
+    '独在异乡为异客', '每逢佳节倍思亲',
+    '劝君更尽一杯酒', '西出阳关无故人',
+    '桃花潭水深千尺', '不及汪伦送我情',
+    '桃花一簇开无主', '可爱深红爱浅红',
+    '好雨知时节', '当春乃发生',
+    '随风潜入夜', '润物细无声',
+    '国破山河在', '城春草木深',
+    '烽火连三月', '家书抵万金',
+    '两个黄鹂鸣翠柳', '一行白鹭上青天',
+    '窗含西岭千秋雪', '门泊东吴万里船',
+    '千山鸟飞绝', '万径人踪灭',
+    '孤舟蓑笠翁', '独钓寒江雪',
+    '松下问童子', '言师采药去',
+    '只在此山中', '云深不知处',
+    '红豆生南国', '春来发几枝',
+    '愿君多采撷', '此物最相思',
+    '海上生明月', '天涯共此时',
+  ];
   let commitSuffix = '';
   const canResolveCommitName = /^[0-9a-f]{7,40}$/i.test(commitHash) && !/^0+$/.test(commitHash);
   if (canResolveCommitName) {
-    try {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 2000);
-      const res = await fetch(`https://namoe.izuna.top/api/namoe?hash=${commitHash}`, {
-        signal: controller.signal
-      });
-      clearTimeout(timeout);
-
-      if (res.ok) {
-        const data = await res.json() as { name?: string };
-        if (data?.name) {
-          commitSuffix = `/${data.name}`;
-        }
-      }
-    } catch (e) {
-      // Ignore errors during fetch to prevent build failure
-    }
-  }
-  if (process.env.REQUIRE_COMMIT_NAME === 'true' && canResolveCommitName && !commitSuffix) {
-    throw new Error(`Could not resolve the commit name for ${commitHash}`);
+    commitSuffix = `/${POEM_LINES[Math.floor(Math.random() * POEM_LINES.length)]}`;
   }
 
   const appVersionLabel = process.env.APP_VERSION_LABEL?.trim() || 'Realeco';
