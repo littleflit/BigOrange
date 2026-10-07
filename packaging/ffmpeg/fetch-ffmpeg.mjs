@@ -143,8 +143,8 @@ export async function prepareBundledFfmpeg({
     if (asset.binaryName === "ffmpeg")
       await chmod(path.join(stagingDir, asset.binaryName), 0o755);
     await cp(
-      path.join(archiveRoot, "share", "bigorange-ffmpeg"),
-      path.join(stagingDir, "share", "bigorange-ffmpeg"),
+      path.join(archiveRoot, "share", "folia-ffmpeg"),
+      path.join(stagingDir, "share", "folia-ffmpeg"),
       { recursive: true },
     );
     await rm(targetDir, { recursive: true, force: true });
