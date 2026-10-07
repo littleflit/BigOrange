@@ -1,4 +1,0 @@
-interface:
-  display_name: "Prepare BigOrange Release"
-  short_description: "Prepare BigOrange stable release metadata"
-  default_prompt: "Use $prepare-bigorange-release to prepare the next stable BigOrange release and return paste-ready Markdown release notes."
