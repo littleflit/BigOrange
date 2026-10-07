@@ -63,6 +63,9 @@ export type PlayerChromeSettingsState = {
     autoHideCursorWithPlayerChrome: boolean;
     showOpenPanelCloseButton: boolean;
     showSpectrumWidget: boolean;
+    showProgressShuffleButton: boolean;
+    showProgressVolumeButton: boolean;
+    showProgressLikeButton: boolean;
     setTransparentPlayerBackgroundFromSystem: (enabled: boolean) => void;
     handleTogglePlayerPageNativeBlur: (enable: boolean) => void;
     handleToggleHidePlayerProgressBar: (enable: boolean) => void;
@@ -80,6 +83,9 @@ export type PlayerChromeSettingsState = {
     handleToggleAutoHideCursorWithPlayerChrome: (enable: boolean) => void;
     handleToggleOpenPanelCloseButton: (enable: boolean) => void;
     handleToggleSpectrumWidget: (enable: boolean) => void;
+    handleToggleProgressShuffleButton: (enable: boolean) => void;
+    handleToggleProgressVolumeButton: (enable: boolean) => void;
+    handleToggleProgressLikeButton: (enable: boolean) => void;
 };
 
 export const usePlayerChromeSettingsStore = create<PlayerChromeSettingsState>((set, get) => ({
@@ -107,6 +113,9 @@ export const usePlayerChromeSettingsStore = create<PlayerChromeSettingsState>((s
     autoHideCursorWithPlayerChrome: getStoredBoolean('auto_hide_cursor_with_player_chrome', true),
     showOpenPanelCloseButton: getStoredBoolean('show_open_panel_close_button', true),
     showSpectrumWidget: getStoredBoolean('show_spectrum_widget', true),
+    showProgressShuffleButton: getStoredBoolean('show_progress_shuffle_button', true),
+    showProgressVolumeButton: getStoredBoolean('show_progress_volume_button', true),
+    showProgressLikeButton: getStoredBoolean('show_progress_like_button', true),
     setTransparentPlayerBackgroundFromSystem: (enabled) => {
         setStoredBoolean('transparent_player_background', enabled);
         set({ transparentPlayerBackground: enabled });
@@ -229,6 +238,18 @@ export const usePlayerChromeSettingsStore = create<PlayerChromeSettingsState>((s
         setStoredBoolean('show_spectrum_widget', enable);
         set({ showSpectrumWidget: enable });
     },
+    handleToggleProgressShuffleButton: (enable) => {
+        setStoredBoolean('show_progress_shuffle_button', enable);
+        set({ showProgressShuffleButton: enable });
+    },
+    handleToggleProgressVolumeButton: (enable) => {
+        setStoredBoolean('show_progress_volume_button', enable);
+        set({ showProgressVolumeButton: enable });
+    },
+    handleToggleProgressLikeButton: (enable) => {
+        setStoredBoolean('show_progress_like_button', enable);
+        set({ showProgressLikeButton: enable });
+    },
 }));
 
 /**
@@ -252,6 +273,9 @@ export const selectPlayerChromeSettingsSnapshot = (state: PlayerChromeSettingsSt
     autoHideCursorWithPlayerChrome: state.autoHideCursorWithPlayerChrome,
     showOpenPanelCloseButton: state.showOpenPanelCloseButton,
     showSpectrumWidget: state.showSpectrumWidget,
+    showProgressShuffleButton: state.showProgressShuffleButton,
+    showProgressVolumeButton: state.showProgressVolumeButton,
+    showProgressLikeButton: state.showProgressLikeButton,
     handleToggleHidePlayerProgressBar: state.handleToggleHidePlayerProgressBar,
     handleSetPlayerBottomBarOffset: state.handleSetPlayerBottomBarOffset,
     handleSetPlayerControlSlot: state.handleSetPlayerControlSlot,
@@ -268,5 +292,8 @@ export const selectPlayerChromeSettingsSnapshot = (state: PlayerChromeSettingsSt
     handleToggleAutoHideCursorWithPlayerChrome: state.handleToggleAutoHideCursorWithPlayerChrome,
     handleToggleOpenPanelCloseButton: state.handleToggleOpenPanelCloseButton,
     handleToggleSpectrumWidget: state.handleToggleSpectrumWidget,
+    handleToggleProgressShuffleButton: state.handleToggleProgressShuffleButton,
+    handleToggleProgressVolumeButton: state.handleToggleProgressVolumeButton,
+    handleToggleProgressLikeButton: state.handleToggleProgressLikeButton,
     handleWallpaperTransparentRefused: state.handleWallpaperTransparentRefused,
 });

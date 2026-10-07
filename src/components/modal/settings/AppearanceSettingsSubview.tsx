@@ -61,6 +61,9 @@ type AppearanceSettingsSubviewProps = {
     onOpenAiSettings: () => void;
     onToggleTransparentPlayerBackground: (enabled: boolean) => void;
     onToggleSpectrumWidget: (enabled: boolean) => void;
+    onToggleProgressShuffleButton: (enabled: boolean) => void;
+    onToggleProgressVolumeButton: (enabled: boolean) => void;
+    onToggleProgressLikeButton: (enabled: boolean) => void;
     onToggleAutoHidePlayerChrome: (enabled: boolean) => void;
     onToggleAutoHideCursorWithPlayerChrome: (enabled: boolean) => void;
     onSaveCustomTheme: (dualTheme: DualTheme) => void;
@@ -72,6 +75,9 @@ type AppearanceSettingsSubviewProps = {
     toggleOffBackgroundClass: string;
     transparentPlayerBackground: boolean;
     showSpectrumWidget: boolean;
+    showProgressShuffleButton: boolean;
+    showProgressVolumeButton: boolean;
+    showProgressLikeButton: boolean;
     autoHidePlayerChrome: boolean;
     autoHideCursorWithPlayerChrome: boolean;
     stageTrackPillMode: 'auto' | 'always' | 'never';
@@ -112,6 +118,9 @@ const AppearanceSettingsSubview: React.FC<AppearanceSettingsSubviewProps> = ({
     onOpenAiSettings,
     onToggleTransparentPlayerBackground,
     onToggleSpectrumWidget,
+    onToggleProgressShuffleButton,
+    onToggleProgressVolumeButton,
+    onToggleProgressLikeButton,
     onToggleAutoHidePlayerChrome,
     onToggleAutoHideCursorWithPlayerChrome,
     onSaveCustomTheme,
@@ -123,6 +132,9 @@ const AppearanceSettingsSubview: React.FC<AppearanceSettingsSubviewProps> = ({
     toggleOffBackgroundClass,
     transparentPlayerBackground,
     showSpectrumWidget,
+    showProgressShuffleButton,
+    showProgressVolumeButton,
+    showProgressLikeButton,
     autoHidePlayerChrome,
     autoHideCursorWithPlayerChrome,
     stageTrackPillMode,
@@ -687,6 +699,57 @@ const AppearanceSettingsSubview: React.FC<AppearanceSettingsSubviewProps> = ({
                                 style={{ backgroundColor: showSpectrumWidget ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
                             >
                                 <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${showSpectrumWidget ? 'translate-x-6' : 'translate-x-0'}`} />
+                            </button>
+                        </div>
+                        <div className="pt-2 border-t border-white/5 flex items-center justify-between gap-4">
+                            <div className="space-y-1">
+                                <div className="text-sm font-medium flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
+                                    {t('options.progressShuffleButton')}
+                                </div>
+                                <div className="text-xs opacity-50 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
+                                    {t('options.progressShuffleButtonDesc')}
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => onToggleProgressShuffleButton(!showProgressShuffleButton)}
+                                className={`w-12 h-6 rounded-full p-1 transition-colors shrink-0 ${!showProgressShuffleButton ? toggleOffBackgroundClass : ''}`}
+                                style={{ backgroundColor: showProgressShuffleButton ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
+                            >
+                                <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${showProgressShuffleButton ? 'translate-x-6' : 'translate-x-0'}`} />
+                            </button>
+                        </div>
+                        <div className="pt-2 border-t border-white/5 flex items-center justify-between gap-4">
+                            <div className="space-y-1">
+                                <div className="text-sm font-medium flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
+                                    {t('options.progressVolumeButton')}
+                                </div>
+                                <div className="text-xs opacity-50 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
+                                    {t('options.progressVolumeButtonDesc')}
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => onToggleProgressVolumeButton(!showProgressVolumeButton)}
+                                className={`w-12 h-6 rounded-full p-1 transition-colors shrink-0 ${!showProgressVolumeButton ? toggleOffBackgroundClass : ''}`}
+                                style={{ backgroundColor: showProgressVolumeButton ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
+                            >
+                                <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${showProgressVolumeButton ? 'translate-x-6' : 'translate-x-0'}`} />
+                            </button>
+                        </div>
+                        <div className="pt-2 border-t border-white/5 flex items-center justify-between gap-4">
+                            <div className="space-y-1">
+                                <div className="text-sm font-medium flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
+                                    {t('options.progressLikeButton')}
+                                </div>
+                                <div className="text-xs opacity-50 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
+                                    {t('options.progressLikeButtonDesc')}
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => onToggleProgressLikeButton(!showProgressLikeButton)}
+                                className={`w-12 h-6 rounded-full p-1 transition-colors shrink-0 ${!showProgressLikeButton ? toggleOffBackgroundClass : ''}`}
+                                style={{ backgroundColor: showProgressLikeButton ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
+                            >
+                                <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${showProgressLikeButton ? 'translate-x-6' : 'translate-x-0'}`} />
                             </button>
                         </div>
                         <div className="pt-2 border-t border-white/5 flex items-center justify-between gap-4">

@@ -259,6 +259,12 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
         handleToggleOpenPanelCloseButton: onToggleOpenPanelCloseButton,
         showSpectrumWidget,
         handleToggleSpectrumWidget: onToggleSpectrumWidget,
+        handleToggleProgressShuffleButton: onToggleProgressShuffleButton,
+        handleToggleProgressVolumeButton: onToggleProgressVolumeButton,
+        handleToggleProgressLikeButton: onToggleProgressLikeButton,
+        showProgressShuffleButton,
+        showProgressVolumeButton,
+        showProgressLikeButton,
     } = usePlayerChromeSettingsStore(useShallow(selectPlayerChromeSettingsSnapshot));
     const {
         lyricsCustomFontFamily,
@@ -1673,6 +1679,12 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                                                 onToggleTransparentPlayerBackground={resolvedToggleTransparentPlayerBackground}
                                                 showSpectrumWidget={showSpectrumWidget}
                                                 onToggleSpectrumWidget={onToggleSpectrumWidget}
+                                                showProgressShuffleButton={showProgressShuffleButton}
+                                                onToggleProgressShuffleButton={onToggleProgressShuffleButton}
+                                                showProgressVolumeButton={showProgressVolumeButton}
+                                                onToggleProgressVolumeButton={onToggleProgressVolumeButton}
+                                                showProgressLikeButton={showProgressLikeButton}
+                                                onToggleProgressLikeButton={onToggleProgressLikeButton}
                                                 onToggleAutoHidePlayerChrome={onToggleAutoHidePlayerChrome}
                                                 onToggleAutoHideCursorWithPlayerChrome={onToggleAutoHideCursorWithPlayerChrome}
                                                 onSaveCustomTheme={onSaveCustomTheme}

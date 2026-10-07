@@ -1,6 +1,9 @@
 import React, { useCallback, useLayoutEffect, useRef } from 'react';
 import { MotionValue, useMotionValueEvent } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { Heart, Shuffle, Volume2 } from 'lucide-react';
 import { FoliumControlButtonSlot, FoliumProgressLayers, useFoliumProgressContext } from '../mods/folium/registries/progress';
+import type { PlayerControlSlotContext } from './floating-player/playerControlSlotActions';
 
 // Folium public parts (mods/README.md): `data-folium-part` marks what mod CSS may
 // restyle — progress.root / track / fill / thumb / time / duration. Colors come
@@ -21,6 +24,11 @@ interface ProgressBarProps {
     edgeStyle?: 'rounded' | 'square';
     /** The collapsed floating capsule: mod buttons with hideWhenCollapsed stay out. */
     collapsed?: boolean;
+    /** Native progress-bar buttons (imitates the more-progress-buttons mod). Omit to hide. */
+    slotContext?: PlayerControlSlotContext;
+    showShuffleButton?: boolean;
+    showVolumeButton?: boolean;
+    showLikeButton?: boolean;
 }
 
 
@@ -30,6 +38,34 @@ const formatTime = (time: number) => {
     const seconds = Math.floor(time % 60);
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 };
+
+const PROGRESS_BUTTON_CLASS = 'flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-md opacity-70 transition-opacity hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-20';
+
+const ProgressBarButton: React.FC<{
+    title: string;
+    disabled?: boolean;
+    active?: boolean;
+    filled?: boolean;
+    onClick: () => void;
+    children: React.ReactNode;
+}> = ({ title, disabled, active, filled, onClick, children }) => (
+    <button
+        type="button"
+        title={title}
+        aria-label={title}
+        disabled={disabled}
+        onClick={(event) => {
+            event.stopPropagation();
+            if (!disabled) onClick();
+        }}
+        className={`${PROGRESS_BUTTON_CLASS} ${active ? 'opacity-100' : ''}`}
+    >
+        {React.cloneElement(children as React.ReactElement<{ size?: number; fill?: string }>, {
+            size: 15,
+            ...(filled !== undefined ? { fill: filled ? 'currentColor' : 'none' } : {}),
+        })}
+    </button>
+);
 
 const ProgressBar: React.FC<ProgressBarProps> = ({
     currentTime,
@@ -43,6 +79,10 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
     disabled = false,
     edgeStyle = 'rounded',
     collapsed = false,
+    slotContext,
+    showShuffleButton = true,
+    showVolumeButton = true,
+    showLikeButton = true,
 }) => {
     const progressRef = useRef<HTMLDivElement>(null);
     const thumbRef = useRef<HTMLDivElement>(null);
@@ -142,6 +182,9 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
         disabled,
         colors: { fill: primaryColor, track: trackColor, text: secondaryColor },
     });
+    const { t } = useTranslation();
+    const showLeading = Boolean(slotContext) && showShuffleButton && !collapsed;
+    const showTrailing = Boolean(slotContext) && (showVolumeButton || showLikeButton) && !collapsed;
 
     return (
         <div
@@ -154,6 +197,21 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
             } as React.CSSProperties}
         >
             <FoliumControlButtonSlot slot="progress.leading" ctx={foliumCtx} collapsed={collapsed} />
+            {showLeading && (
+                <button
+                    type="button"
+                    title={t('options.playerControlSlotAction_shuffle')}
+                    aria-label={t('options.playerControlSlotAction_shuffle')}
+                    onClick={(event) => {
+                        event.stopPropagation();
+                        slotContext?.onShuffle();
+                    }}
+                    className={PROGRESS_BUTTON_CLASS}
+                    style={{ color: secondaryColor }}
+                >
+                    <Shuffle size={15} />
+                </button>
+            )}
 
             <span
                 ref={timeRef}
@@ -215,6 +273,29 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
             </span>
 
             <FoliumControlButtonSlot slot="progress.trailing" ctx={foliumCtx} collapsed={collapsed} />
+            {showTrailing && (
+                <span className="flex shrink-0 items-center gap-1" style={{ color: secondaryColor }}>
+                    {showVolumeButton && (
+                        <ProgressBarButton
+                            title={t('options.playerControlSlotAction_volume')}
+                            onClick={() => slotContext?.invokeCommandById('playback-volume')}
+                        >
+                            <Volume2 />
+                        </ProgressBarButton>
+                    )}
+                    {showLikeButton && (
+                        <ProgressBarButton
+                            title={t('options.playerControlSlotAction_like')}
+                            disabled={slotContext?.likeDisabled}
+                            active={slotContext?.isLiked}
+                            filled={slotContext?.isLiked}
+                            onClick={() => slotContext?.onLike()}
+                        >
+                            <Heart />
+                        </ProgressBarButton>
+                    )}
+                </span>
+            )}
         </div>
     );
 };

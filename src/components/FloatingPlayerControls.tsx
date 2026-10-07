@@ -8,6 +8,7 @@ import { PlayerState, LyricData, Theme } from '../types';
 import LyricsTimelineModal from './modal/LyricsTimelineModal';
 import TrackTitleNavigator from './floating-player/TrackTitleNavigator';
 import PlayerControlSlotButton from './floating-player/PlayerControlSlotButton';
+
 import PlayerBottomBarPositioner from './floating-player/PlayerBottomBarPositioner';
 import { usePlayerBottomBarBottomPx } from '../hooks/usePlayerBottomBarBottomPx';
 import { playerBottomBarLiveOffset } from '../stores/motionSignals';
@@ -495,6 +496,9 @@ const ExpandedView: React.FC<ExpandedViewProps> = ({
     slotSecondary,
     slotContext,
 }) => {
+    const showProgressShuffleButton = usePlayerChromeSettingsStore(state => state.showProgressShuffleButton);
+    const showProgressVolumeButton = usePlayerChromeSettingsStore(state => state.showProgressVolumeButton);
+    const showProgressLikeButton = usePlayerChromeSettingsStore(state => state.showProgressLikeButton);
     return (
         <div className="grid w-full grid-cols-[1fr_auto_1fr] items-center gap-x-4 gap-y-2 sm:grid-cols-[auto_minmax(0,1fr)_auto]">
             {/* Desktop Layout - responsive grid positions apply from the sm breakpoint */}
@@ -575,6 +579,10 @@ const ExpandedView: React.FC<ExpandedViewProps> = ({
                     secondaryColor={secondaryColor}
                     trackColor={trackColor}
                     disabled={controlsDisabled}
+                    slotContext={slotContext}
+                    showShuffleButton={showProgressShuffleButton}
+                    showVolumeButton={showProgressVolumeButton}
+                    showLikeButton={showProgressLikeButton}
                 />
             </div>
         </div>
