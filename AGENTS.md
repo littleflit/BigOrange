@@ -17,3 +17,8 @@
 
 - 功能增删、改名、目录或流程变化后，顺手把 `README.md` 改到与现状一致。
 - 不说废话，只写纯文字：直接陈述事实，不加表情、客套话和多余排版。
+
+## Releases 只保留最新三个
+
+- 发新版本后删除多余的旧 Release 和对应的 Tag，始终只留三个。
+- 用 `gh release list` 确认，用 `gh release delete <tag> --yes` 删除。
