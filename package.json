@@ -183,6 +183,7 @@
     "linux": {
       "artifactName": "${name}-${version}-linux-${arch}.${ext}",
       "target": [
+        "AppImage",
         "tar.gz",
         "deb",
         "rpm"
