@@ -1738,6 +1738,8 @@ export default {
     "nativeBlurBackgroundNotice": "当前已开启原生毛玻璃背景，背景设置无效",
     "autoHidePlayerChrome": "自动隐藏控制栏",
     "autoHidePlayerChromeDesc": "开启后，自动隐藏播放页的进度条和右侧按钮。",
+    "spectrumWidget": "频谱小组件",
+    "spectrumWidgetDesc": "在播放页左下角显示 48 段实时频谱。",
     "autoHideCursorWithPlayerChrome": "同时隐藏鼠标指针",
     "autoHideCursorWithPlayerChromeDesc": "控制栏收起后鼠标指针一起消失，移动鼠标即可唤回。关闭后只隐藏控制栏，保留指针。",
     "stageTrackPill": "歌曲信息卡片",

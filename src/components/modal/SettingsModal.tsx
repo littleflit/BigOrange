@@ -257,6 +257,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
         handleToggleAutoHidePlayerChrome: onToggleAutoHidePlayerChrome,
         handleToggleAutoHideCursorWithPlayerChrome: onToggleAutoHideCursorWithPlayerChrome,
         handleToggleOpenPanelCloseButton: onToggleOpenPanelCloseButton,
+        showSpectrumWidget,
+        handleToggleSpectrumWidget: onToggleSpectrumWidget,
     } = usePlayerChromeSettingsStore(useShallow(selectPlayerChromeSettingsSnapshot));
     const {
         lyricsCustomFontFamily,
@@ -1669,6 +1671,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                                                 aiApiKeyStatus={aiApiKeyStatus}
                                                 onOpenAiSettings={() => useSettingsModalStore.getState().openSettings('options', 'desktop', null, 'electronSettings')}
                                                 onToggleTransparentPlayerBackground={resolvedToggleTransparentPlayerBackground}
+                                                showSpectrumWidget={showSpectrumWidget}
+                                                onToggleSpectrumWidget={onToggleSpectrumWidget}
                                                 onToggleAutoHidePlayerChrome={onToggleAutoHidePlayerChrome}
                                                 onToggleAutoHideCursorWithPlayerChrome={onToggleAutoHideCursorWithPlayerChrome}
                                                 onSaveCustomTheme={onSaveCustomTheme}

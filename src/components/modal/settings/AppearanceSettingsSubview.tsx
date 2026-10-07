@@ -60,6 +60,7 @@ type AppearanceSettingsSubviewProps = {
     aiApiKeyStatus: 'loading' | 'configured' | 'missing';
     onOpenAiSettings: () => void;
     onToggleTransparentPlayerBackground: (enabled: boolean) => void;
+    onToggleSpectrumWidget: (enabled: boolean) => void;
     onToggleAutoHidePlayerChrome: (enabled: boolean) => void;
     onToggleAutoHideCursorWithPlayerChrome: (enabled: boolean) => void;
     onSaveCustomTheme: (dualTheme: DualTheme) => void;
@@ -70,6 +71,7 @@ type AppearanceSettingsSubviewProps = {
     themeParkInitialTheme: DualTheme;
     toggleOffBackgroundClass: string;
     transparentPlayerBackground: boolean;
+    showSpectrumWidget: boolean;
     autoHidePlayerChrome: boolean;
     autoHideCursorWithPlayerChrome: boolean;
     stageTrackPillMode: 'auto' | 'always' | 'never';
@@ -109,6 +111,7 @@ const AppearanceSettingsSubview: React.FC<AppearanceSettingsSubviewProps> = ({
     aiApiKeyStatus,
     onOpenAiSettings,
     onToggleTransparentPlayerBackground,
+    onToggleSpectrumWidget,
     onToggleAutoHidePlayerChrome,
     onToggleAutoHideCursorWithPlayerChrome,
     onSaveCustomTheme,
@@ -119,6 +122,7 @@ const AppearanceSettingsSubview: React.FC<AppearanceSettingsSubviewProps> = ({
     themeParkInitialTheme,
     toggleOffBackgroundClass,
     transparentPlayerBackground,
+    showSpectrumWidget,
     autoHidePlayerChrome,
     autoHideCursorWithPlayerChrome,
     stageTrackPillMode,
@@ -666,6 +670,23 @@ const AppearanceSettingsSubview: React.FC<AppearanceSettingsSubviewProps> = ({
                                 style={{ backgroundColor: transparentPlayerBackground ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
                             >
                                 <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${transparentPlayerBackground ? 'translate-x-6' : 'translate-x-0'}`} />
+                            </button>
+                        </div>
+                        <div className="pt-2 border-t border-white/5 flex items-center justify-between gap-4">
+                            <div className="space-y-1">
+                                <div className="text-sm font-medium flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
+                                    {t('options.spectrumWidget')}
+                                </div>
+                                <div className="text-xs opacity-50 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
+                                    {t('options.spectrumWidgetDesc')}
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => onToggleSpectrumWidget(!showSpectrumWidget)}
+                                className={`w-12 h-6 rounded-full p-1 transition-colors shrink-0 ${!showSpectrumWidget ? toggleOffBackgroundClass : ''}`}
+                                style={{ backgroundColor: showSpectrumWidget ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
+                            >
+                                <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${showSpectrumWidget ? 'translate-x-6' : 'translate-x-0'}`} />
                             </button>
                         </div>
                         <div className="pt-2 border-t border-white/5 flex items-center justify-between gap-4">

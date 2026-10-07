@@ -62,6 +62,7 @@ export type PlayerChromeSettingsState = {
     autoHidePlayerChrome: boolean;
     autoHideCursorWithPlayerChrome: boolean;
     showOpenPanelCloseButton: boolean;
+    showSpectrumWidget: boolean;
     setTransparentPlayerBackgroundFromSystem: (enabled: boolean) => void;
     handleTogglePlayerPageNativeBlur: (enable: boolean) => void;
     handleToggleHidePlayerProgressBar: (enable: boolean) => void;
@@ -78,6 +79,7 @@ export type PlayerChromeSettingsState = {
     handleToggleAutoHidePlayerChrome: (enable: boolean) => void;
     handleToggleAutoHideCursorWithPlayerChrome: (enable: boolean) => void;
     handleToggleOpenPanelCloseButton: (enable: boolean) => void;
+    handleToggleSpectrumWidget: (enable: boolean) => void;
 };
 
 export const usePlayerChromeSettingsStore = create<PlayerChromeSettingsState>((set, get) => ({
@@ -104,6 +106,7 @@ export const usePlayerChromeSettingsStore = create<PlayerChromeSettingsState>((s
     // controls it would have clicked. Opt-out, so auto-hide can keep the pointer if wanted.
     autoHideCursorWithPlayerChrome: getStoredBoolean('auto_hide_cursor_with_player_chrome', true),
     showOpenPanelCloseButton: getStoredBoolean('show_open_panel_close_button', true),
+    showSpectrumWidget: getStoredBoolean('show_spectrum_widget', true),
     setTransparentPlayerBackgroundFromSystem: (enabled) => {
         setStoredBoolean('transparent_player_background', enabled);
         set({ transparentPlayerBackground: enabled });
@@ -222,6 +225,10 @@ export const usePlayerChromeSettingsStore = create<PlayerChromeSettingsState>((s
             text: i18n.t('notifications.' + (enable ? 'panelCloseBtnShown' : 'panelCloseBtnHidden')),
         });
     },
+    handleToggleSpectrumWidget: (enable) => {
+        setStoredBoolean('show_spectrum_widget', enable);
+        set({ showSpectrumWidget: enable });
+    },
 }));
 
 /**
@@ -244,6 +251,7 @@ export const selectPlayerChromeSettingsSnapshot = (state: PlayerChromeSettingsSt
     autoHidePlayerChrome: state.autoHidePlayerChrome,
     autoHideCursorWithPlayerChrome: state.autoHideCursorWithPlayerChrome,
     showOpenPanelCloseButton: state.showOpenPanelCloseButton,
+    showSpectrumWidget: state.showSpectrumWidget,
     handleToggleHidePlayerProgressBar: state.handleToggleHidePlayerProgressBar,
     handleSetPlayerBottomBarOffset: state.handleSetPlayerBottomBarOffset,
     handleSetPlayerControlSlot: state.handleSetPlayerControlSlot,
@@ -259,5 +267,6 @@ export const selectPlayerChromeSettingsSnapshot = (state: PlayerChromeSettingsSt
     handleToggleAutoHidePlayerChrome: state.handleToggleAutoHidePlayerChrome,
     handleToggleAutoHideCursorWithPlayerChrome: state.handleToggleAutoHideCursorWithPlayerChrome,
     handleToggleOpenPanelCloseButton: state.handleToggleOpenPanelCloseButton,
+    handleToggleSpectrumWidget: state.handleToggleSpectrumWidget,
     handleWallpaperTransparentRefused: state.handleWallpaperTransparentRefused,
 });

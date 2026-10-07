@@ -407,6 +407,7 @@ export default function App() {
         hideFullscreenButton,
         handleToggleTransparentPlayerBackground,
     } = usePlayerChromeSettingsStore(useShallow(selectPlayerChromeSettingsSnapshot));
+    const showSpectrumWidget = usePlayerChromeSettingsStore(state => state.showSpectrumWidget);
     const {
         hidePlayerTranslationSubtitle,
         lyricsFontStyle,
@@ -2701,7 +2702,7 @@ export default function App() {
                 {currentView === 'player' && (
                     <SpectrumWidget
                         analyserRef={analyserRef}
-                        visible={Boolean(displaySong)}
+                        visible={showSpectrumWidget && Boolean(displaySong)}
                         isDaylight={isDaylight}
                     />
                 )}

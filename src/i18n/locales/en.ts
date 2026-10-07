@@ -1739,6 +1739,8 @@ export default {
     "nativeBlurBackgroundNotice": "Native glassmorphism blur is enabled; lyrics animation background settings are currently overridden.",
     "autoHidePlayerChrome": "Auto-hide player controls",
     "autoHidePlayerChromeDesc": "When enabled, the player progress bar and right side buttons will automatically hide when the mouse leaves the window for more than 3 seconds.",
+    "spectrumWidget": "Spectrum widget",
+    "spectrumWidgetDesc": "Show a live 48-band spectrum in the bottom-left corner of the player page.",
     "autoHideCursorWithPlayerChrome": "Hide the cursor as well",
     "autoHideCursorWithPlayerChromeDesc": "Once the controls are hidden, the mouse pointer goes away with them and comes back on the next mouse move. Turn this off to auto-hide the controls but keep the pointer.",
     "stageTrackPill": "Now playing card",
