@@ -1664,8 +1664,11 @@ const crashLog = createCrashLog({
 });
 // Keep native crash dumps beside the text reports so one folder contains the evidence needed
 // to identify the faulting module. Dumps stay on this machine until the user shares them.
+// Crashpad database dir for terminateOwnCrashpadHandler (set beside crashLog init).
+let crashPadDatabaseDir = null;
 if (crashLog.dir) {
   const crashDumpDir = path.join(crashLog.dir, 'crash-dumps');
+  crashPadDatabaseDir = crashDumpDir;
   try {
     fs.mkdirSync(crashDumpDir, { recursive: true });
     app.setPath('crashDumps', crashDumpDir);
@@ -5411,6 +5414,43 @@ app.whenReady().then(async () => {
 // window being destroyed externally (see the Windows wallpaper branch below).
 let isAppQuitting = false;
 
+// AppImage unmounts its squashfs as soon as the main process exits. Chromium's crashpad
+// handler outlives that moment and faults (SIGBUS) on the vanished executable pages,
+// popping a crash dialog on every quit. Terminate our own handler first. Uploads are
+// disabled, so nothing is lost; a TERM death dumps no core.
+let crashpadTerminatedForQuit = false;
+function terminateOwnCrashpadHandler() {
+  if (process.platform !== 'linux' || !process.env.APPIMAGE || crashpadTerminatedForQuit || !crashPadDatabaseDir) {
+    return;
+  }
+  crashpadTerminatedForQuit = true;
+  let entries = [];
+  try {
+    entries = fs.readdirSync('/proc');
+  } catch {
+    return;
+  }
+  for (const entry of entries) {
+    if (!/^\d+$/.test(entry) || Number(entry) === process.pid) {
+      continue;
+    }
+    let cmdline = '';
+    try {
+      cmdline = fs.readFileSync(`/proc/${entry}/cmdline`, 'utf8');
+    } catch {
+      continue;
+    }
+    if (!cmdline.includes('chrome_crashpad_handler') || !cmdline.includes(crashPadDatabaseDir)) {
+      continue;
+    }
+    try {
+      process.kill(Number(entry), 'SIGTERM');
+    } catch {
+      // Already gone; the unmount race is what we are avoiding.
+    }
+  }
+}
+
 let isSwappingMainWindow = false;
 
 app.on('window-all-closed', () => {
@@ -5436,6 +5476,7 @@ app.on('window-all-closed', () => {
 app.on('before-quit', () => {
   transcodeService.dispose();
   isAppQuitting = true;
+  terminateOwnCrashpadHandler();
   clearPendingWindowPlaybackHandoffRequests();
   if (modSystem) {
     try {
