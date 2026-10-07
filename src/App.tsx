@@ -985,6 +985,7 @@ export default function App() {
         playOnlineQueueFromStart,
         handleQueueAddAndPlay,
         handleSearchOverlaySubmit,
+        handleSearchSourceSwitch,
         handleSearchLoadMore,
         handleSearchResultPlay,
         handleSearchResultAddToQueue,
@@ -1045,6 +1046,10 @@ export default function App() {
         }
         setStatusMsg({ type: 'error', text: t('search.catalogUnavailable') });
     }, [navigateToCollection, setStatusMsg, t]);
+    const handleSearchResultCollectionOpen = useCallback(
+        (collection: GridViewCollectionDescriptor) => navigateToCollection(collection, 'search'),
+        [navigateToCollection],
+    );
     const handleSearchResultAlbumOpen = useCallback(async (
         track: UnifiedSong,
         albumName: string,
@@ -2219,10 +2224,12 @@ export default function App() {
         theme,
         closeSearchView,
         handleSearchOverlaySubmit,
+        handleSearchSourceSwitch,
         handleSearchLoadMore,
         handleSearchResultPlay,
         handleSearchResultAddToQueue,
         handleSearchResultArtistOpen,
+        handleSearchResultCollectionOpen,
         handleSearchResultAlbumOpen,
         devDebugSnapshot,
         effectiveLoopMode,

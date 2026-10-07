@@ -292,6 +292,18 @@ export const neteaseProvider: OnlineMusicProvider = {
             const total = Number(response.result?.songCount || items.length);
             return { items, total, hasMore: offset + items.length < total, nextOffset: offset + items.length };
         },
+        async searchUsers(query, limit, offset) {
+            const response = await neteaseApi.searchUsers(query, limit, offset);
+            const raws = response?.result?.userprofiles || [];
+            const items = raws.map((raw: any) => ({
+                id: raw?.userId ?? raw?.id ?? 0,
+                nickname: raw?.nickname || '',
+                avatarUrl: raw?.avatarUrl,
+                signature: raw?.signature,
+            }));
+            const total = Number(response?.result?.userprofileCount ?? items.length) || 0;
+            return { items, total, hasMore: offset + items.length < total, nextOffset: offset + items.length };
+        },
     },
     playback: {
         async getSongDetail(id) {

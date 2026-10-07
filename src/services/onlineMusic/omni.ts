@@ -18,6 +18,7 @@ import type {
     OnlineMusicProvider,
     PersonalFmRequestOptions,
     ProviderCatalogEntityKind,
+    ProviderSearchUser,
     QrLoginMethod,
     QrLoginState,
 } from '../../types/onlineMusic';
@@ -210,6 +211,12 @@ export const omni = {
         return provider.search.searchSongs(query, page.limit, page.offset);
     },
 
+    async searchUsers(query: string, page: PageInput): Promise<OmniPage<ProviderSearchUser>> {
+        return withActiveProvider(async provider => {
+            if (!providerSupports(provider, 'search') || !provider.search?.searchUsers) return emptyPage<ProviderSearchUser>(page.offset);
+            return provider.search.searchUsers(query, page.limit, page.offset);
+        });
+    },
     async getLoginStatus(providerId: OmniProviderId): Promise<OmniUser | null> {
         const provider = requireOnlineMusicProvider(providerId);
         if (!provider.auth) return unsupported(providerId, 'auth');

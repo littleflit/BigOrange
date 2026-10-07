@@ -1035,6 +1035,10 @@ export default {
     "sourceLocal": "本地",
     "sourceNavidrome": "Navidrome",
     "playTrack": "播放歌曲",
+    "songs": "歌曲",
+    "users": "用户",
+    "backToUsers": "返回用户列表",
+    "playlistTrackCount": "共 {{count}} 首",
     "error": "搜索失败，请重试。",
     "retry": "重试",
     "catalogUnavailable": "无法打开该专辑或歌手：在线平台未返回有效的目录 ID。"

@@ -235,6 +235,14 @@ export class OnlineProviderError extends Error {
 
 export interface OnlineSearchProvider {
     searchSongs(query: string, limit: number, offset: number): Promise<ProviderPage<UnifiedSong>>;
+    searchUsers?(query: string, limit: number, offset: number): Promise<ProviderPage<ProviderSearchUser>>;
+}
+
+export interface ProviderSearchUser {
+    id: MediaId;
+    nickname: string;
+    avatarUrl?: string;
+    signature?: string;
 }
 
 export interface OnlinePlaybackProvider {

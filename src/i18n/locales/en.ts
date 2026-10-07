@@ -1036,6 +1036,10 @@ export default {
     "sourceLocal": "Local",
     "sourceNavidrome": "Navidrome",
     "playTrack": "Play track",
+    "songs": "Songs",
+    "users": "Users",
+    "backToUsers": "Back to users",
+    "playlistTrackCount": "{{count}} tracks",
     "error": "Search failed. Please try again.",
     "retry": "Retry",
     "catalogUnavailable": "This album or artist cannot be opened because the provider did not return a valid catalog ID."

@@ -4,12 +4,14 @@ import { AlertCircle, Loader2, Search, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useShallow } from 'zustand/react/shallow';
 import type { Theme, UnifiedSong } from '../../../types';
+import type { GridViewCollectionDescriptor } from '../../../library/core/contracts/collection';
 import type { MediaId } from '../../../types/onlineMusic';
 import {
     type SearchSource,
     useSearchNavigationStore,
 } from '../../../stores/useSearchNavigationStore';
 import SearchResultsList from './SearchResultsList';
+import UserSearchPanel from './UserSearchPanel';
 import { useCollectionNavigationStore } from '../../../stores/useCollectionNavigationStore';
 import { useOnlineProviderAccountStore } from '../../../stores/useOnlineProviderAccountStore';
 import { omni } from '../../../services/onlineMusic/omni';
@@ -21,11 +23,13 @@ type SearchWorkspaceProps = {
     isDaylight: boolean;
     onClose: () => void;
     onSubmitSearch: (source?: SearchSource) => void;
+    onSwitchSource: (source: SearchSource) => void;
     onLoadMore: () => void;
     onPlayTrack: (track: UnifiedSong) => void;
     onAddTrackToQueue: (track: UnifiedSong) => void;
     onOpenArtist: (track: UnifiedSong, artistName: string, artistId?: MediaId, entityId?: string) => void;
     onOpenAlbum: (track: UnifiedSong, albumName: string, albumId?: MediaId, entityId?: string) => void;
+    onOpenCollection: (collection: GridViewCollectionDescriptor) => void;
 };
 
 const SearchWorkspace: React.FC<SearchWorkspaceProps> = ({
@@ -33,11 +37,13 @@ const SearchWorkspace: React.FC<SearchWorkspaceProps> = ({
     isDaylight,
     onClose,
     onSubmitSearch,
+    onSwitchSource,
     onLoadMore,
     onPlayTrack,
     onAddTrackToQueue,
     onOpenArtist,
     onOpenAlbum,
+    onOpenCollection,
 }) => {
     const { t } = useTranslation();
     const {
@@ -68,6 +74,10 @@ const SearchWorkspace: React.FC<SearchWorkspaceProps> = ({
     const results = searchResults || [];
     const activeOnlineProviderId = useOnlineProviderAccountStore(state => state.activeProviderId);
     const sources = useMemo<SearchSource[]>(() => [activeOnlineProviderId, 'local', 'navidrome'], [activeOnlineProviderId]);
+    const [searchKind, setSearchKind] = React.useState<'songs' | 'users'>('songs');
+    const [userSearchNonce, setUserSearchNonce] = React.useState(0);
+    const showKindSwitch = searchSourceTab === 'netease';
+    const showUsers = showKindSwitch && searchKind === 'users';
     const hasCollection = useCollectionNavigationStore(state => Boolean(state.snapshot?.stack.length));
     const getSourceLabel = (source: SearchSource) => {
         if (source === 'local') return t('search.sourceLocal');
@@ -111,6 +121,12 @@ const SearchWorkspace: React.FC<SearchWorkspaceProps> = ({
                                 }`}
                                 onSubmit={(event) => {
                                     event.preventDefault();
+                                    if (showUsers) {
+                                        if (searchQuery.trim()) {
+                                            setUserSearchNonce(nonce => nonce + 1);
+                                        }
+                                        return;
+                                    }
                                     onSubmitSearch();
                                 }}
                             >
@@ -146,7 +162,8 @@ const SearchWorkspace: React.FC<SearchWorkspaceProps> = ({
                                     key={source}
                                     onClick={() => {
                                         if (source !== searchSourceTab) {
-                                            onSubmitSearch(source);
+                                            setSearchKind('songs');
+                                            onSwitchSource(source);
                                         }
                                     }}
                                     className={`rounded-full px-4 py-2 text-xs font-medium transition-colors ${
@@ -165,10 +182,46 @@ const SearchWorkspace: React.FC<SearchWorkspaceProps> = ({
                                 </button>
                             ))}
                         </nav>
+                        {showKindSwitch && (
+                            <nav className="flex gap-2 overflow-x-auto pb-1">
+                                {(['songs', 'users'] as const).map(kind => (
+                                    <button
+                                        type="button"
+                                        key={kind}
+                                        onClick={() => {
+                                            setSearchKind(kind);
+                                            if (kind === 'users' && searchQuery.trim()) {
+                                                setUserSearchNonce(nonce => nonce + 1);
+                                            }
+                                        }}
+                                        className={`rounded-full px-4 py-1.5 text-xs font-medium transition-colors ${
+                                            kind === searchKind
+                                                ? 'shadow-sm'
+                                                : isDaylight
+                                                    ? 'bg-black/5 text-black/60 hover:bg-black/10'
+                                                    : 'bg-white/5 text-white/60 hover:bg-white/10'
+                                        }`}
+                                        style={kind === searchKind ? {
+                                            backgroundColor: theme.accentColor,
+                                            color: theme.backgroundColor,
+                                        } : undefined}
+                                    >
+                                        {kind === 'songs' ? t('search.songs') : t('search.users')}
+                                    </button>
+                                ))}
+                            </nav>
+                        )}
                     </header>
 
                     <div className="mx-auto mt-3 min-h-0 w-full max-w-5xl flex-1">
-                        {isSearching ? (
+                        {showUsers ? (
+                            <UserSearchPanel
+                                query={searchQuery.trim()}
+                                searchNonce={userSearchNonce}
+                                isDaylight={isDaylight}
+                                onOpenCollection={onOpenCollection}
+                            />
+                        ) : isSearching ? (
                             <div className="flex h-full items-center justify-center">
                                 <Loader2 className="h-9 w-9 animate-spin opacity-45" />
                             </div>

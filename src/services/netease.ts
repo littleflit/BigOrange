@@ -784,12 +784,15 @@ export const neteaseApi = {
   getUnavailableSongReplacement,
 
   // --- Search ---
-  cloudSearch: async (keywords: string, limit = 30, offset = 0) => {
-    const res = await fetchWithCreds(`/cloudsearch?keywords=${encodeURIComponent(keywords)}&limit=${limit}&offset=${offset}`);
+  cloudSearch: async (keywords: string, limit = 30, offset = 0) => {    const res = await fetchWithCreds(`/cloudsearch?keywords=${encodeURIComponent(keywords)}&limit=${limit}&offset=${offset}`);
     if (res.result) {
       res.result.songs = mergeSongsWithPrivileges(res.result.songs, res.result.privileges ?? res.privileges);
     }
     return res;
+  },
+
+  searchUsers: async (keywords: string, limit = 30, offset = 0) => {
+    return fetchWithCreds(`/cloudsearch?keywords=${encodeURIComponent(keywords)}&type=1002&limit=${limit}&offset=${offset}`);
   },
 
   // --- Radio ---

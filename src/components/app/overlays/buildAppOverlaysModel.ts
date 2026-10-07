@@ -82,10 +82,12 @@ export type AppOverlaysDeps = {
     theme: any;
     closeSearchView: () => void;
     handleSearchOverlaySubmit: SearchOverlayProps['onSubmitSearch'];
+    handleSearchSourceSwitch: SearchOverlayProps['onSwitchSource'];
     handleSearchLoadMore: () => Promise<void>;
     handleSearchResultPlay: (track: UnifiedSong) => void;
     handleSearchResultAddToQueue: (track: UnifiedSong) => void;
     handleSearchResultArtistOpen: SearchOverlayProps['onOpenArtist'];
+    handleSearchResultCollectionOpen: SearchOverlayProps['onOpenCollection'];
     handleSearchResultAlbumOpen: SearchOverlayProps['onOpenAlbum'];
     devDebugSnapshot: any;
     effectiveLoopMode: 'off' | 'all' | 'one';
@@ -129,10 +131,12 @@ export const buildAppOverlaysModel = ({
     isDaylight,
     closeSearchView,
     handleSearchOverlaySubmit,
+    handleSearchSourceSwitch,
     handleSearchLoadMore,
     handleSearchResultPlay,
     handleSearchResultAddToQueue,
     handleSearchResultArtistOpen,
+    handleSearchResultCollectionOpen,
     handleSearchResultAlbumOpen,
     isDevDebugOverlayVisible,
     isMemoryMonitorVisible,
@@ -218,10 +222,12 @@ export const buildAppOverlaysModel = ({
             isDaylight,
             onClose: closeSearchView,
             onSubmitSearch: handleSearchOverlaySubmit,
+            onSwitchSource: handleSearchSourceSwitch,
             onLoadMore: handleSearchLoadMore,
             onPlayTrack: handleSearchResultPlay,
             onAddTrackToQueue: handleSearchResultAddToQueue,
             onOpenArtist: handleSearchResultArtistOpen,
+            onOpenCollection: handleSearchResultCollectionOpen,
             onOpenAlbum: handleSearchResultAlbumOpen,
         }
         : null,

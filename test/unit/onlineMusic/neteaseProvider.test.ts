@@ -22,6 +22,7 @@ vi.mock('@/services/netease', () => ({
         checkQr: vi.fn(),
         scrobbleV1: vi.fn(),
         getSongComments: vi.fn(),
+        searchUsers: vi.fn(),
     },
 }));
 
@@ -351,5 +352,31 @@ describe('neteaseProvider song comments', () => {
             likedCount: 0,
         });
         expect(page.hasMore).toBe(false);
+    });
+});
+
+describe('neteaseProvider user search', () => {
+    beforeEach(() => vi.clearAllMocks());
+
+    it('normalizes user profiles and pages by offset', async () => {
+        vi.mocked(neteaseApi.searchUsers).mockResolvedValue({
+            result: {
+                userprofiles: [
+                    { userId: 11, nickname: 'dj', avatarUrl: 'https://example.test/a.jpg', signature: 'hi' },
+                    { userId: 12, nickname: 'fan' },
+                ],
+                userprofileCount: 42,
+            },
+        } as any);
+
+        const page = await neteaseProvider.search!.searchUsers!('dj', 20, 0);
+        expect(neteaseApi.searchUsers).toHaveBeenCalledWith('dj', 20, 0);
+        expect(page.items).toEqual([
+            { id: 11, nickname: 'dj', avatarUrl: 'https://example.test/a.jpg', signature: 'hi' },
+            { id: 12, nickname: 'fan', avatarUrl: undefined, signature: undefined },
+        ]);
+        expect(page.total).toBe(42);
+        expect(page.hasMore).toBe(true);
+        expect(page.nextOffset).toBe(2);
     });
 });

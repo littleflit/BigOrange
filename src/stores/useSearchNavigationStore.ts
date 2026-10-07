@@ -57,12 +57,17 @@ interface SearchNavigationState {
     hideSearchOverlay: () => void;
     resetRuntime: (onlineProviderId?: OnlineProviderId) => void;
     followOnlineProvider: (providerId: OnlineProviderId) => void;
+    switchSearchSourceTab: (sourceTab: SearchSource) => void;
     submitSearch: (payload: { query?: string; sourceTab: SearchSource; deps: SearchExecutorDeps; returnView?: SearchReturnView; }) => Promise<boolean>;
     loadMoreSearchResults: (payload: { deps: SearchExecutorDeps; }) => Promise<void>;
 }
 
 const getSearchCacheKey = (query: string, sourceTab: SearchSource) => (
     `${sourceTab}:${query.trim().toLowerCase()}`
+);
+
+export const getSearchCacheEntry = (query: string, sourceTab: SearchSource) => (
+    useSearchNavigationStore.getState().searchCache[getSearchCacheKey(query, sourceTab)]
 );
 
 export const resolveSearchSource = (tab: HomeViewTab | SearchSource): SearchSource => {
@@ -229,6 +234,21 @@ export const useSearchNavigationStore = create<SearchNavigationState>((set, get)
         };
     }),
     hideSearchOverlay: () => set({ isSearchOpen: false, searchReturnView: 'home' }),
+    // Source pills always switch the tab, even with an empty query. Cached results
+    // for the query+source come back; a fresh search is the submit path's job.
+    switchSearchSourceTab: (sourceTab: SearchSource) => set(state => {
+        const cached = state.searchCache[getSearchCacheKey(state.searchQuery, sourceTab)];
+        return {
+            searchSourceTab: sourceTab,
+            searchResults: cached?.results ?? null,
+            searchError: null,
+            isSearching: false,
+            isLoadingMore: false,
+            offset: cached?.offset ?? 0,
+            hasMore: cached?.hasMore ?? false,
+            scrollTop: cached?.scrollTop ?? 0,
+        };
+    }),
     resetRuntime: (onlineProviderId) => set(state => ({
         searchQuery: '',
         searchSourceTab: onlineProviderId ?? state.searchSourceTab,

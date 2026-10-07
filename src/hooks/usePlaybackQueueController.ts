@@ -36,7 +36,7 @@ import { useTranslation } from 'react-i18next';
 import { currentTime } from '../stores/motionSignals';
 import { setIsPanelOpen, setPanelTab } from '../stores/useAppViewStore';
 import { useAudioSettingsStore } from '../stores/useAudioSettingsStore';
-import { useSearchNavigationStore } from '../stores/useSearchNavigationStore';
+import { getSearchCacheEntry, useSearchNavigationStore } from '../stores/useSearchNavigationStore';
 import { showLatticeFmNotice, usePlaybackEntryViewStore } from '../stores/usePlaybackEntryViewStore';
 import { useStableActionSurface } from './useStableCallbacks';
 import { hasBeforePlayHook, runBeforePlayHook } from '../services/hostExtensionHooks';
@@ -775,8 +775,7 @@ export function usePlaybackQueueController({
         void playSong(song, nextQueue, false);
     }, [playQueue, playSong]);
 
-    const handleSearchOverlaySubmit = useCallback(async (requestedSource?: SearchSource) => {
-        const trimmedQuery = searchQuery.trim();
+    const handleSearchOverlaySubmit = useCallback(async (requestedSource?: SearchSource) => {        const trimmedQuery = searchQuery.trim();
         if (!trimmedQuery) {
             return;
         }
@@ -812,8 +811,18 @@ export function usePlaybackQueueController({
         t,
     ]);
 
-    const handleSearchLoadMore = useCallback(async () => {
-        await searchDeps.loadMoreSearchResults({
+    // Source pills switch the tab immediately (even with an empty query) and only
+    // search when there is a query with no cached results for it.
+    const handleSearchSourceSwitch = useCallback((source: SearchSource) => {
+        const store = useSearchNavigationStore.getState();
+        store.switchSearchSourceTab(source);
+        const trimmedQuery = store.searchQuery.trim();
+        if (trimmedQuery && !getSearchCacheEntry(trimmedQuery, source)) {
+            void handleSearchOverlaySubmit(source);
+        }
+    }, [handleSearchOverlaySubmit]);
+
+    const handleSearchLoadMore = useCallback(async () => {        await searchDeps.loadMoreSearchResults({
             deps: {
                 localSongs,
                 localLibraryCatalog,
@@ -1332,6 +1341,7 @@ export function usePlaybackQueueController({
         playOnlineQueueFromStart,
         handleQueueAddAndPlay,
         handleSearchOverlaySubmit,
+        handleSearchSourceSwitch,
         handleSearchLoadMore,
         handleSearchResultPlay,
         handleSearchResultAddToQueue,
