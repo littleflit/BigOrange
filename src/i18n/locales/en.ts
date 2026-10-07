@@ -815,6 +815,8 @@ export default {
   },
   "comments": {
     "total": "{{count}} comments",
+    "hot": "Hot",
+    "latest": "Latest",
     "loadMore": "Load more",
     "loading": "Loading comments…",
     "empty": "No comments yet",

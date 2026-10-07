@@ -6,12 +6,14 @@ import type { ProviderSongComment } from '../../types/onlineMusic';
 import { omni } from '../../services/onlineMusic/omni';
 
 // src/components/panelTab/SongCommentsTab.tsx
-// 当前在线歌曲的网易云评论：热门置顶 + 最新分页加载。
+// 当前在线歌曲的网易云评论：热门和最新切换，最新分页加载。
 
 interface SongCommentsTabProps {
     song: SongResult;
     isDaylight: boolean;
 }
+
+type CommentView = 'hot' | 'latest';
 
 const PAGE_LIMIT = 20;
 
@@ -27,7 +29,9 @@ const formatCommentTime = (timeMs: number, t: (key: string) => string): string =
 
 const SongCommentsTab: React.FC<SongCommentsTabProps> = ({ song, isDaylight }) => {
     const { t } = useTranslation();
-    const [items, setItems] = useState<ProviderSongComment[]>([]);
+    const [view, setView] = useState<CommentView>('hot');
+    const [hotItems, setHotItems] = useState<ProviderSongComment[]>([]);
+    const [latestItems, setLatestItems] = useState<ProviderSongComment[]>([]);
     const [total, setTotal] = useState(0);
     const [latestLoaded, setLatestLoaded] = useState(0);
     const [hasMore, setHasMore] = useState(false);
@@ -48,10 +52,17 @@ const SongCommentsTab: React.FC<SongCommentsTabProps> = ({ song, isDaylight }) =
         try {
             const page = await omni.getSongComments(song, PAGE_LIMIT, offset);
             if (requestId.current !== current) return;
-            setItems(previous => (append ? [...previous, ...page.items] : page.items));
+            const latest = page.items.slice(page.hotCount);
+            if (append) {
+                setLatestItems(previous => [...previous, ...latest]);
+                setLatestLoaded(previous => previous + page.latestCount);
+            } else {
+                setHotItems(page.items.slice(0, page.hotCount));
+                setLatestItems(latest);
+                setLatestLoaded(page.latestCount);
+            }
             setTotal(page.total);
             setHasMore(page.hasMore);
-            setLatestLoaded(previous => (append ? previous + page.latestCount : page.latestCount));
         } catch (requestError) {
             if (requestId.current !== current) return;
             if (!append) {
@@ -66,7 +77,9 @@ const SongCommentsTab: React.FC<SongCommentsTabProps> = ({ song, isDaylight }) =
     }, [song]);
 
     useEffect(() => {
-        setItems([]);
+        setView('hot');
+        setHotItems([]);
+        setLatestItems([]);
         setTotal(0);
         setLatestLoaded(0);
         setHasMore(false);
@@ -83,6 +96,32 @@ const SongCommentsTab: React.FC<SongCommentsTabProps> = ({ song, isDaylight }) =
     };
 
     const secondaryText = isDaylight ? 'text-zinc-500' : 'text-zinc-400';
+    const tabContainerBg = isDaylight ? 'bg-black/5' : 'bg-white/5';
+    const activePillBg = isDaylight ? 'bg-white shadow-[0_2px_8px_rgba(0,0,0,0.06)]' : 'bg-zinc-800/80 shadow-[0_2px_8px_rgba(0,0,0,0.2)]';
+    const activeTextColor = isDaylight ? 'text-zinc-900 font-semibold' : 'text-white font-semibold';
+    const inactiveTextColor = isDaylight ? 'text-zinc-500 hover:text-zinc-800' : 'text-zinc-400 hover:text-zinc-200';
+
+    const visibleItems = view === 'hot' ? hotItems : latestItems;
+
+    const renderItem = (item: ProviderSongComment) => (
+        <div key={`${item.id}`} className="flex gap-3 rounded-xl p-2">
+            {item.user.avatarUrl
+                ? <img src={item.user.avatarUrl} alt="" className="h-8 w-8 shrink-0 rounded-full" loading="lazy" />
+                : <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-xs">?</div>}
+            <div className="min-w-0 flex-1">
+                <div className="flex items-baseline gap-2">
+                    <span className="truncate text-xs font-semibold">{item.user.nickname}</span>
+                    <span className={`shrink-0 text-[10px] ${secondaryText}`}>{formatCommentTime(item.timeMs, t)}</span>
+                </div>
+                <p className="mt-0.5 whitespace-pre-wrap break-words text-[13px] leading-5">{item.content}</p>
+                {item.likedCount > 0 && (
+                    <div className={`mt-1 text-[11px] ${secondaryText}`}>
+                        {t('comments.likes').replace('{{count}}', String(item.likedCount))}
+                    </div>
+                )}
+            </div>
+        </div>
+    );
 
     if (loading) {
         return <div className={`p-6 text-center text-sm ${secondaryText}`}>{t('comments.loading')}</div>;
@@ -104,37 +143,31 @@ const SongCommentsTab: React.FC<SongCommentsTabProps> = ({ song, isDaylight }) =
         );
     }
 
-    if (items.length === 0) {
-        return <div className={`p-6 text-center text-sm ${secondaryText}`}>{t('comments.empty')}</div>;
-    }
-
     return (
         <div className="flex h-full flex-col">
-            <div className={`flex items-center gap-1.5 px-4 py-2 text-xs ${secondaryText}`}>
-                <MessageCircle size={13} />
-                {t('comments.total').replace('{{count}}', String(total))}
+            <div className="flex items-center justify-between px-4 py-2">
+                <div className={`flex rounded-full p-0.5 text-xs ${tabContainerBg}`}>
+                    {(['hot', 'latest'] as const).map(tab => (
+                        <button
+                            key={tab}
+                            type="button"
+                            onClick={() => setView(tab)}
+                            className={`rounded-full px-3 py-1 ${view === tab ? `${activePillBg} ${activeTextColor}` : inactiveTextColor}`}
+                        >
+                            {tab === 'hot' ? t('comments.hot') : t('comments.latest')}
+                        </button>
+                    ))}
+                </div>
+                <div className={`flex items-center gap-1 text-[11px] ${secondaryText}`}>
+                    <MessageCircle size={12} />
+                    {t('comments.total').replace('{{count}}', String(total))}
+                </div>
             </div>
             <div className="min-h-0 flex-1 space-y-1 overflow-y-auto px-4 pb-4 custom-scrollbar">
-                {items.map(item => (
-                    <div key={`${item.id}`} className="flex gap-3 rounded-xl p-2">
-                        {item.user.avatarUrl
-                            ? <img src={item.user.avatarUrl} alt="" className="h-8 w-8 shrink-0 rounded-full" loading="lazy" />
-                            : <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-xs">?</div>}
-                        <div className="min-w-0 flex-1">
-                            <div className="flex items-baseline gap-2">
-                                <span className="truncate text-xs font-semibold">{item.user.nickname}</span>
-                                <span className={`shrink-0 text-[10px] ${secondaryText}`}>{formatCommentTime(item.timeMs, t)}</span>
-                            </div>
-                            <p className="mt-0.5 whitespace-pre-wrap break-words text-[13px] leading-5">{item.content}</p>
-                            {item.likedCount > 0 && (
-                                <div className={`mt-1 text-[11px] ${secondaryText}`}>
-                                    {t('comments.likes').replace('{{count}}', String(item.likedCount))}
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                ))}
-                {hasMore && (
+                {visibleItems.length === 0
+                    ? <div className={`p-6 text-center text-sm ${secondaryText}`}>{t('comments.empty')}</div>
+                    : visibleItems.map(renderItem)}
+                {view === 'latest' && hasMore && (
                     <button
                         type="button"
                         onClick={handleLoadMore}

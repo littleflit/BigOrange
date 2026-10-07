@@ -325,6 +325,8 @@ describe('neteaseProvider song comments', () => {
         const first = await neteaseProvider.comments!.getSongComments(42, 20, 0);
         expect(neteaseApi.getSongComments).toHaveBeenCalledWith(42, 20, 0);
         expect(first.items.map(item => item.id)).toEqual([1, 2]);
+        expect(first.hotCount).toBe(1);
+        expect(first.latestCount).toBe(1);
         expect(first.items[0]).toMatchObject({ user: { nickname: 'hot-user' }, likedCount: 99 });
         expect(first.total).toBe(21);
         expect(first.hasMore).toBe(true);

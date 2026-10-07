@@ -131,7 +131,7 @@ const getSongComments = async (id: MediaId, limit: number, offset: number): Prom
     const latest = (response?.comments || []).map(normalizeSongComment);
     const hot = offset === 0 ? (response?.hotComments || []).map(normalizeSongComment) : [];
     const total = Number(response?.total ?? latest.length) || 0;
-    return { items: [...hot, ...latest], latestCount: latest.length, total, hasMore: offset + latest.length < total };
+    return { items: [...hot, ...latest], latestCount: latest.length, hotCount: hot.length, total, hasMore: offset + latest.length < total };
 };
 
 const getNeteaseChorusRanges = async (songId: MediaId): Promise<Array<{ startTime: number; endTime: number }>> => {

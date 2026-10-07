@@ -395,6 +395,7 @@ export interface ProviderSongComment {
 export interface ProviderSongCommentPage {
     items: ProviderSongComment[];
     latestCount: number;
+    hotCount: number;
     total: number;
     hasMore: boolean;
 }

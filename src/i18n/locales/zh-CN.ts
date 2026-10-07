@@ -815,6 +815,8 @@ export default {
   },
   "comments": {
     "total": "共 {{count}} 条评论",
+    "hot": "热门",
+    "latest": "最新",
     "loadMore": "加载更多",
     "loading": "评论加载中…",
     "empty": "暂无评论",
