@@ -2782,30 +2782,26 @@ export default {
       }
     },
     "v0_7_13": {
-      "intro": "0.7.13 新增桌面波点音乐、平台登录胶囊切换、队列切歌后保持打开与绘光径迹开关，并改善 FLAC 兼容性和歌词分词导入。",
-      "bodian": {
-        "title": "桌面端接入波点音乐",
-        "description": "支持扫码登录、搜索、播放、逐字歌词、个人曲库、喜欢歌曲与自建歌单歌曲增删。仅桌面端支持，播放需中国大陆网络；暂不支持收藏歌单和专辑的写入，Hi-Res 回退普通 FLAC。"
+      "intro": "BigOrange 相对上游的精简与修复：只留网易云与中英双语，新增评论查看，修掉 GPU 与退出问题。",
+      "neteaseOnly": {
+        "title": "只保留网易云音源",
+        "description": "移除酷狗、QQ、波点三个音源，搜索、播放、歌词匹配与本地补全只走网易云。"
       },
-      "providerLogin": {
-        "title": "平台登录胶囊切换",
-        "description": "首页登录入口改为可展开的胶囊按钮，选中的平台显示完整名称，可在同一入口切换平台并登录。"
+      "songComments": {
+        "title": "音乐评论查看",
+        "description": "网易云歌曲播放面板新增评论 Tab，热门与最新可切换，最新支持分页加载。"
       },
-      "queueKeepOpen": {
-        "title": "队列切歌后保持打开",
-        "description": "可在命令面板队列中开启切歌后保持打开，连续选歌时保留筛选条件，并平滑定位当前播放歌曲。默认仍会在选歌后关闭。"
+      "gpuRendering": {
+        "title": "AppImage 默认走系统 GPU",
+        "description": "不再强制软渲染，画面更流畅；仍可用环境变量切回软渲染。"
       },
-      "flacCompatibility": {
-        "title": "改善本地 FLAC 兼容性",
-        "description": "修复异常封面元数据导致的标签、封面读取和播放失败，兼容封面格式标记与实际图片不一致等情况，原始音乐文件保持不变。"
+      "clickThroughFix": {
+        "title": "点击穿透关得掉",
+        "description": "修复悬停解锁被轮询拍灭的问题，鼠标停在按钮上也能正常关闭穿透。"
       },
-      "segmentationImport": {
-        "title": "歌词分词导入更兼容",
-        "description": "粘贴分词支持带代码块的 JSON、lines 对象和仅含非空歌词行的结果，并改善空行与标点对齐；歌词稍后加载时也能正常使用。"
-      },
-      "lumiereTrails": {
-        "title": "绘光可隐藏歌词径迹",
-        "description": "绘光设置新增隐藏歌词径迹开关，关闭轨迹线显示的同时保留文字的飞行路径。"
+      "quitCrashFix": {
+        "title": "退出不再弹崩溃框",
+        "description": "退出前先结束自家 crashpad 进程，避免 AppImage 卸载时的崩溃弹窗。"
       }
     },
     "v0_7_12": {

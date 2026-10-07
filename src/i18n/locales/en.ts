@@ -2783,30 +2783,26 @@ export default {
       }
     },
     "v0_7_13": {
-      "intro": "0.7.13 adds Bodian Music on desktop, a platform login switcher, an option to keep the queue open after changing songs, and a Lumiere trail toggle, with better FLAC compatibility and lyric segmentation imports.",
-      "bodian": {
-        "title": "Bodian Music on Desktop",
-        "description": "Scan to log in, search, play, view word-by-word lyrics, browse your library, like songs, and edit tracks in your own playlists. Desktop only; playback requires a mainland China network. Saving playlists and albums is not supported yet, and Hi-Res falls back to standard FLAC."
+      "intro": "BigOrange trims providers to NetEase with Chinese and English only, adds comment viewing, and fixes GPU and quit issues.",
+      "neteaseOnly": {
+        "title": "NetEase Only",
+        "description": "Removed KuGou, QQ, and Bodian sources. Search, playback, lyric matching, and local metadata all use NetEase."
       },
-      "providerLogin": {
-        "title": "Platform Login Switcher",
-        "description": "The home login area now uses expandable pill buttons. The selected platform shows its full name, letting you switch platforms and log in from the same place."
+      "songComments": {
+        "title": "Song Comments",
+        "description": "NetEase songs get a comments tab in the player panel, with Hot and Latest views and paging for latest."
       },
-      "queueKeepOpen": {
-        "title": "Keep the Queue Open",
-        "description": "Choose to keep the command palette queue open after changing songs, preserving your filter for consecutive selections and smoothly centering the playing song. It still closes after selection by default."
+      "gpuRendering": {
+        "title": "System GPU by Default on AppImage",
+        "description": "No more forced software rendering. You can still switch back with an environment variable."
       },
-      "flacCompatibility": {
-        "title": "Better Local FLAC Compatibility",
-        "description": "Fixes tag, cover, and playback failures caused by malformed cover metadata, including image format labels that do not match the embedded picture. Your original music files stay unchanged."
+      "clickThroughFix": {
+        "title": "Click-Through Can Be Turned Off",
+        "description": "Fixed the unlock hover being stomped by polling. Resting the cursor on the button keeps it clickable."
       },
-      "segmentationImport": {
-        "title": "More Flexible Segmentation Imports",
-        "description": "Pasted segmentation accepts JSON in code fences, lines objects, and results containing only nonblank lyric lines, with better blank-line and punctuation alignment. The panel also works when lyrics arrive after opening."
-      },
-      "lumiereTrails": {
-        "title": "Hide Lumiere Lyric Trails",
-        "description": "A new Lumiere setting hides lyric trail lines while keeping the text's flight paths."
+      "quitCrashFix": {
+        "title": "No More Crash Dialog on Quit",
+        "description": "The app terminates its own crashpad process before quitting, avoiding the AppImage unmount crash popup."
       }
     },
     "v0_7_12": {
