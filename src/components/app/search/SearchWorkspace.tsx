@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { AlertCircle, Loader2, Search, X } from 'lucide-react';
+import { AlertCircle, ChevronDown, Loader2, Search, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useShallow } from 'zustand/react/shallow';
 import type { Theme, UnifiedSong } from '../../../types';
@@ -78,6 +78,28 @@ const SearchWorkspace: React.FC<SearchWorkspaceProps> = ({
     const [userSearchNonce, setUserSearchNonce] = React.useState(0);
     const showKindSwitch = searchSourceTab === 'netease';
     const showUsers = showKindSwitch && searchKind === 'users';
+    const [sourceMenuOpen, setSourceMenuOpen] = React.useState(false);
+    const sourceMenuRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        if (!sourceMenuOpen) return;
+        const handlePointerDown = (event: PointerEvent) => {
+            if (sourceMenuRef.current && !sourceMenuRef.current.contains(event.target as Node)) {
+                setSourceMenuOpen(false);
+            }
+        };
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                setSourceMenuOpen(false);
+            }
+        };
+        window.addEventListener('pointerdown', handlePointerDown);
+        window.addEventListener('keydown', handleKeyDown);
+        return () => {
+            window.removeEventListener('pointerdown', handlePointerDown);
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [sourceMenuOpen]);
     const hasCollection = useCollectionNavigationStore(state => Boolean(state.snapshot?.stack.length));
     const getSourceLabel = (source: SearchSource) => {
         if (source === 'local') return t('search.sourceLocal');
@@ -155,33 +177,46 @@ const SearchWorkspace: React.FC<SearchWorkspaceProps> = ({
                             </button>
                         </div>
 
-                        <nav className="flex gap-2 overflow-x-auto pb-1">
-                            {sources.map(source => (
-                                <button
-                                    type="button"
-                                    key={source}
-                                    onClick={() => {
-                                        if (source !== searchSourceTab) {
-                                            setSearchKind('songs');
-                                            onSwitchSource(source);
-                                        }
-                                    }}
-                                    className={`rounded-full px-4 py-2 text-xs font-medium transition-colors ${
-                                        source === searchSourceTab
-                                            ? 'shadow-sm'
-                                            : isDaylight
-                                                ? 'bg-black/5 text-black/60 hover:bg-black/10'
-                                                : 'bg-white/5 text-white/60 hover:bg-white/10'
-                                    }`}
-                                    style={source === searchSourceTab ? {
-                                        backgroundColor: theme.accentColor,
-                                        color: theme.backgroundColor,
-                                    } : undefined}
-                                >
-                                    {getSourceLabel(source)}
-                                </button>
-                            ))}
-                        </nav>
+                        <div className="relative" ref={sourceMenuRef}>
+                            <button
+                                type="button"
+                                onClick={() => setSourceMenuOpen(open => !open)}
+                                className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-medium transition-colors ${
+                                    isDaylight
+                                        ? 'bg-black/5 text-black/70 hover:bg-black/10'
+                                        : 'bg-white/5 text-white/70 hover:bg-white/10'
+                                }`}
+                            >
+                                {getSourceLabel(searchSourceTab)}
+                                <ChevronDown size={13} className={`transition-transform ${sourceMenuOpen ? 'rotate-180' : ''}`} />
+                            </button>
+                            {sourceMenuOpen && (
+                                <div className={`absolute left-0 top-full z-20 mt-1 min-w-32 overflow-hidden rounded-2xl border py-1 ${
+                                    isDaylight ? 'border-black/10 bg-white shadow-lg' : 'border-white/10 bg-zinc-900 shadow-xl'
+                                }`}>
+                                    {sources.map(source => (
+                                        <button
+                                            type="button"
+                                            key={source}
+                                            onClick={() => {
+                                                setSourceMenuOpen(false);
+                                                if (source !== searchSourceTab) {
+                                                    setSearchKind('songs');
+                                                    onSwitchSource(source);
+                                                }
+                                            }}
+                                            className={`block w-full px-4 py-2 text-left text-xs transition-colors ${
+                                                source === searchSourceTab
+                                                    ? isDaylight ? 'bg-black/5 font-semibold text-black' : 'bg-white/10 font-semibold text-white'
+                                                    : isDaylight ? 'text-black/60 hover:bg-black/5' : 'text-white/60 hover:bg-white/5'
+                                            }`}
+                                        >
+                                            {getSourceLabel(source)}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                         {showKindSwitch && (
                             <nav className="flex gap-2 overflow-x-auto pb-1">
                                 {(['songs', 'users'] as const).map(kind => (
