@@ -22,3 +22,4 @@
 
 - 发新版本后删除多余的旧 Release 和对应的 Tag，始终只留三个。
 - 用 `gh release list` 确认，用 `gh release delete <tag> --yes` 删除。
+- Release 内容只写软件运行方法，不写更新日志。
