@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=BigOrange
-Comment=Lyrics Reimagine
-Exec=bigorange
-Icon=bigorange
-Terminal=false
-Type=Application
-Categories=AudioVideo;Player;
-StartupWMClass=bigorange

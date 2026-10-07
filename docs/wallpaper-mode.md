@@ -1,6 +1,8 @@
 # BigOrange 壁纸模式
 
-BigOrange 渲染为桌面歌词壁纸，窗口常驻桌面最底层。三平台各成一条互不干扰的实现路径：Windows 经 Rust helper 把窗口 `SetParent` 挂入 WorkerW 层；Linux 经 `windowtolayer` 放进 `wlr-layer-shell` bottom 层或用 X11 桌面窗口；macOS 无边框窗口原地沉到 Finder 图标层之下、系统壁纸之上。
+> 本 fork 只发 AppImage，只走下面的 Linux 路径。Windows helper 与 mac 打包已移除，相关章节仅留作架构参考。
+
+BigOrange 渲染为桌面歌词壁纸，窗口常驻桌面最底层。Linux 经 `windowtolayer` 放进 `wlr-layer-shell` bottom 层或用 X11 桌面窗口。
 
 平台共享壁纸模式的设置键、渲染端门控与交互边界；窗口创建、尺寸处理与交互限制各自适配本平台窗口系统。代码位于 `electron/`（主进程接线）、`packaging/`（helper 构建）与渲染端设置卡。
 

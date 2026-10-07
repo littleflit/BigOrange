@@ -307,10 +307,10 @@ function reconcileWindowsWallpaperWindowTransparency() {
   recreateMainWindowWithTransparencyMode(isTransparentPlayerBackgroundEnabled(), null);
 }
 
-// The helper ships as resources/bigorange-wallpaper-helper.exe (built by
-// packaging/windows/build-wallpaper-helper.mjs). BIGORANGE_WALLPAPER_HELPER_PATH overrides it for
-// non-packaged (dev) runs, mirroring BIGORANGE_WINDOWTOLAYER_PATH. A missing binary just disables
-// wallpaper mode (attach reports 'missing' and the renderer learns via wallpaper-mode-changed).
+// The helper is Windows-only and not shipped by this fork (AppImage-only):
+// resolveWallpaperHelperPath below only honours BIGORANGE_WALLPAPER_HELPER_PATH for
+// non-packaged (dev) runs. A missing binary just disables wallpaper mode
+// (attach reports 'missing' and the renderer learns via wallpaper-mode-changed).
 function resolveWallpaperHelperPath() {
   const override = process.env.BIGORANGE_WALLPAPER_HELPER_PATH;
   if (override) {
