@@ -6,8 +6,8 @@ import type { Theme } from '../../types';
 
 // src/components/modal/AiHelpPromptModal.tsx
 
-const BIGORANGE_GUIDE_URL = 'https://bigorange-site.cielaniska.top/guide/llm-routing';
-const BIGORANGE_DOCS_URL = 'https://bigorange-site.cielaniska.top/guide/';
+const BIGORANGE_GUIDE_URL = 'https://folia-site.cielaniska.top/guide/llm-routing';
+const BIGORANGE_DOCS_URL = 'https://folia-site.cielaniska.top/guide/';
 const BIGORANGE_REPOSITORY_URL = 'https://github.com/littleflit/BigOrange';
 
 type AiHelpPromptModalProps = {

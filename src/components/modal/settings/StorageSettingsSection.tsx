@@ -312,7 +312,7 @@ const StorageSettingsSection: React.FC<StorageSettingsSectionProps> = ({
                             <div className="text-xs opacity-50 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
                                 {t('options.r2SyncEnableDesc') || 'Sync appearance settings and AI themes through your own Cloudflare D1 Worker or self-hosted sync service.'}{' '}
                                 <a
-                                    href="https://bigorange-site.cielaniska.top/guide/deploy-sync"
+                                    href="https://folia-site.cielaniska.top/guide/deploy-sync"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="underline underline-offset-2 hover:opacity-80"

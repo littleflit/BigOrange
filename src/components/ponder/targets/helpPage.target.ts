@@ -167,7 +167,7 @@ const docs: PonderSceneScript = {
     titleKey: 'ponder.scenes.helpPageDocs',
     action: {
         kind: 'openUrl',
-        url: 'https://bigorange-site.cielaniska.top/guide/',
+        url: 'https://folia-site.cielaniska.top/guide/',
         labelKey: 'ponder.actions.openDocs',
     },
     anchors: ONBOARDING_ILLUSTRATION,
