@@ -12,17 +12,11 @@ Lyrics Reimagined // 辞曲新境
 [![License](https://img.shields.io/github/license/littleflit/BigOrange)](https://github.com/littleflit/BigOrange/blob/main/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/littleflit/BigOrange?style=social)](https://github.com/littleflit/BigOrange/stargazers)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D24-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/littleflit/BigOrange)
-[![Discord](https://img.shields.io/discord/1541051241822687232?logo=discord&logoColor=white&label=Join%20our%20Discord)](https://discord.gg/dMDBTHxeKd)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-35-orange.svg?style=flat-square)](CONTRIBUTORS.md)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [获取方式](https://github.com/littleflit/BigOrange#%E8%8E%B7%E5%8F%96%E6%96%B9%E5%BC%8F)
-·
-[Vercel 部署](https://vercel.com/new/clone?repository-url=https://github.com/littleflit/BigOrange)
-·
-[使用指南](https://bigorange-site.cielaniska.top/guide/)
 ·
 [技术说明](docs/technical.md)
 
@@ -30,11 +24,11 @@ Lyrics Reimagined // 辞曲新境
 
 ## 项目简介
 
-BigOrange是一个以全屏沉浸式歌词播放为核心的在线音乐播放器，支持网易云、酷狗、Navidrome 和本地音乐库，通过智能歌词匹配，AI生成配色主题，以及多种全屏歌词动画为用户提供独特的听歌体验。
+BigOrange是一个以全屏沉浸式歌词播放为核心的在线音乐播放器，支持网易云、Navidrome 和本地音乐库，通过智能歌词匹配，AI生成配色主题，以及多种全屏歌词动画为用户提供独特的听歌体验。界面语言为中文和英文。
 
 提供基于Electron的 windows/ macOS/ Linux 桌面端版本与基于 Node.js 的 Web 版本，支持多平台部署。
 
-如果希望能够在移动设备上使用，或在浏览器上体验，可以选择[一键部署到 Vercel](https://bigorange-site.cielaniska.top/guide/deploy-vercel) 的 Web 版本，或自行部署到其他支持 Node.js 的平台。
+移动设备或浏览器使用 Web 版本，自行部署到支持 Node.js 的平台后即可访问。
 
 ## 展示
 
@@ -122,15 +116,11 @@ https://github.com/user-attachments/assets/704f195a-2194-434b-86e8-8f36290e5cc4
 
 ### 一键部署
 
-如果你希望快速上线 Web 版本，请阅读 [Vercel 一键部署指南](https://bigorange-site.cielaniska.top/guide/deploy-vercel) 来创建项目
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/littleflit/BigOrange) 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/littleflit/BigOrange)
 
 项目也支持一键部署到 Cloudflare，请参考 Vercel 的部署教程进行相应调整。
 
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/littleflit/BigOrange)
-
-Vercel 与 Cloudflare 上的 QQ 音乐不再需要额外部署一个常驻 API 实例：把 `VITE_QQ_API_BASE` 填成 `/api/qq`，再配一个 `QQ_SESSION_SECRET`（服务端密钥，**不加 `VITE_` 前缀**）即可。这种形态默认只支持微信扫码登录，且播放前必须先登录；Cloudflare 上可以再绑定一个 Durable Object，增加 QQ 扫码登录方式。完整步骤、平台差异和排错方法见 [QQ 音乐部署指南](docs/qq-music-deployment.md)。
 
 自托管用户可以使用 [Docker Compose 全栈部署](deploy/docker/README.md)。本地音乐目录访问依赖可信 HTTPS 安全上下文，部署文档包含 NAS 反向代理和证书要求。
 
@@ -145,14 +135,9 @@ Vercel 与 Cloudflare 上的 QQ 音乐不再需要额外部署一个常驻 API �
 - **Windows / macOS / Linux**: 最新版本的安装包请前往 [Releases 页面](https://github.com/littleflit/BigOrange/releases/latest) 下载。
 - **Arch Linux**: 可通过 AUR 获取 `bigorange-bin`（待发布）。
 
-> [!IMPORTANT]
-> 如果国内网络从 GitHub Releases 下载较慢，可以使用 [夸克网盘](https://pan.quark.cn/s/6e4c6fa3bc6f) 或 [百度云](https://pan.baidu.com/s/1f0x3g-8PMcNCO-TJ5z1rPw?pwd=flia) 下载。网盘链接仅提供 Windows 与 Apple silicon 的正式版安装包.
-
 Linux 包、Wayland / Hyprland 遥控窗和桌面端细节见 [技术与开发说明](docs/technical.md)。
 
 ## 文档与开发
-
-更完整的使用说明请访问 [BigOrange Guide](https://bigorange-site.cielaniska.top/guide/)。
 
 部署、环境变量、本地开发、Stage API、常用脚本和技术栈见 [技术与开发说明](docs/technical.md)。
 
@@ -181,19 +166,13 @@ BigOrange 提供了可选的官方同步服务端 `sync-server`，用于在多�
 - **Docker**：镜像与 Compose 入口见 [Docker 部署目录](deploy/docker/README.md)。
 - **Node.js 自托管**：使用 SQLite，适合本地或不方便使用 Docker 的环境。
 
-详细的环境变量、Token 配置与部署步骤请参阅 [Sync-Server 部署指南](https://bigorange-site.cielaniska.top/guide/deploy-sync)。部署完成后，在 BigOrange 的“存储设置”中填写服务端地址和 `SYNC_TOKEN` 即可启用同步。
+详细的环境变量、Token 配置与部署步骤见 [sync-server 说明](sync-server/README.md)和 [Docker 部署目录](deploy/docker/README.md)。部署完成后，在 BigOrange 的“存储设置”中填写服务端地址和 `SYNC_TOKEN` 即可启用同步。
 
 ## 本地音乐与匹配说明
 
-BigOrange 会读取音频文件元数据、同目录歌词和封面，并可通过网易云、QQ 音乐或酷狗音乐补全歌曲信息。自动匹配按网易云、QQ、酷狗依次回退；匹配不准确时，可以手动选择候选、恢复首次导入的本地信息，或进一步合并、拆分艺术家与专辑实体。
+BigOrange 会读取音频文件元数据、同目录歌词和封面，并可通过网易云补全歌曲信息。匹配不准确时，可以手动选择候选、恢复首次导入的本地信息，或进一步合并、拆分艺术家与专辑实体。
 
 完整的导入、重扫、匹配、实体编辑、歌单、缓存和故障排查说明见 [本地音乐库管理](docs/local-library-management.md)。
-
-## Community
-
-加入discord社群，共同交流，获得帮助
-
-[![Discord](https://img.shields.io/discord/1541051241822687232?logo=discord&logoColor=white&label=Join%20our%20Discord)](https://discord.gg/dMDBTHxeKd)
 
 ## 贡献者
 
@@ -218,9 +197,7 @@ BigOrange 会读取音频文件元数据、同目录歌词和封面，并可通�
 - [chenmozhijin/LDDC](https://github.com/chenmozhijin/LDDC)
 - [NeteaseCloudMusicApiEnhanced](https://github.com/NeteaseCloudMusicApiEnhanced/api-enhanced)
 - [chenglou/pretext](https://github.com/chenglou/pretext)
-- [MakcRe/KuGouMusicApi](https://github.com/MakcRe/KuGouMusicApi)
 - [paper-design/shaders](https://github.com/paper-design/shaders)
-- [yakult-green-tea/qq-music-api](https://github.com/yakult-green-tea/qq-music-api)
 
 本项目接入了 [Apple Music-like Lyrics TTML 逐词歌词库](https://github.com/amll-dev/amll-ttml-db) 以提供高质量的歌词文件，感谢此歌词库的作者和贡献者们。
 

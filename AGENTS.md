@@ -12,3 +12,8 @@
 
 - 为节省额度，`littleflit/BigOrange` 的 Actions 默认关闭，不随意开启。
 - 需要验证改动时在本地跑（`npm run typecheck` / 单测），不靠云端 workflow。
+
+## README 随项目自动同步
+
+- 功能增删、改名、目录或流程变化后，顺手把 `README.md` 改到与现状一致。
+- 不说废话，只写纯文字：直接陈述事实，不加表情、客套话和多余排版。
