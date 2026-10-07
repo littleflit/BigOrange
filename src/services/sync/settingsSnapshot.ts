@@ -65,6 +65,7 @@ export const buildSyncedVisualSettings = (state: SyncableSettingsState): SyncedV
     soraBackgroundTuning: state.soraBackgroundTuning,
     monetTuning: state.monetTuning,
     pendoloTuning: state.pendoloTuning,
+    rings52hzTuning: state.rings52hzTuning,
     sonnetTuning: state.sonnetTuning,
     temperaTuning: state.temperaTuning,
     lumiereTuning: state.lumiereTuning,
@@ -132,6 +133,7 @@ export const applySyncedVisualSettings = (
     if (settings.soraBackgroundTuning !== undefined) state.handleSetSoraBackgroundTuning(settings.soraBackgroundTuning as Parameters<SyncableSettingsState['handleSetSoraBackgroundTuning']>[0]);
     if (settings.visualizerTunings === undefined && settings.monetTuning !== undefined) state.handleSetMonetTuning(settings.monetTuning as Parameters<SyncableSettingsState['handleSetMonetTuning']>[0]);
     if (settings.visualizerTunings === undefined && settings.pendoloTuning !== undefined) state.handleSetPendoloTuning(settings.pendoloTuning as Parameters<SyncableSettingsState['handleSetPendoloTuning']>[0]);
+    if (settings.visualizerTunings === undefined && settings.rings52hzTuning !== undefined) state.handleSetRings52hzTuning(settings.rings52hzTuning as Parameters<SyncableSettingsState['handleSetRings52hzTuning']>[0]);
     if (settings.visualizerTunings === undefined && settings.sonnetTuning !== undefined) state.handleSetSonnetTuning(settings.sonnetTuning as Parameters<SyncableSettingsState['handleSetSonnetTuning']>[0]);
     if (settings.visualizerTunings === undefined && settings.temperaTuning !== undefined) state.handleSetTemperaTuning(settings.temperaTuning as Parameters<SyncableSettingsState['handleSetTemperaTuning']>[0]);
     if (settings.visualizerTunings === undefined && settings.lumiereTuning !== undefined) state.handleSetLumiereTuning(settings.lumiereTuning as Parameters<SyncableSettingsState['handleSetLumiereTuning']>[0]);

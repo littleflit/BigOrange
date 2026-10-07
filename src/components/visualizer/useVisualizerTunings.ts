@@ -18,6 +18,7 @@ export const useVisualizerTunings = () => useVisualizerSettingsStore(useShallow(
     diorama: state.dioramaTuning,
     monet: state.monetTuning,
     pendolo: state.pendoloTuning,
+    rings52hz: state.rings52hzTuning,
     sonnet: state.sonnetTuning,
     tempera: state.temperaTuning,
     lumiere: state.lumiereTuning,

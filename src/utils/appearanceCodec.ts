@@ -7,6 +7,7 @@ import {
     DEFAULT_MONET_TUNING,
     DEFAULT_NOMAND_BACKGROUND_TUNING,
     DEFAULT_PENDOLO_TUNING,
+    DEFAULT_RINGS52HZ_TUNING,
     DEFAULT_SONNET_TUNING,
     DEFAULT_TEMPERA_TUNING,
     type DualTheme,
@@ -366,6 +367,21 @@ const decompressPendolo = (o: any): any => ({
     enableLineGlow: o.elg !== undefined ? o.elg : DEFAULT_PENDOLO_TUNING.enableLineGlow,
 });
 
+const compressRings52hz = (t: any): any => ({
+    r: t.reach,
+    bs: t.beatSensitivity,
+    s: t.sensitivity,
+    o: t.opacity,
+    fs: t.fontScale,
+});
+const decompressRings52hz = (o: any): any => ({
+    reach: o.r ?? DEFAULT_RINGS52HZ_TUNING.reach,
+    beatSensitivity: o.bs ?? DEFAULT_RINGS52HZ_TUNING.beatSensitivity,
+    sensitivity: o.s ?? DEFAULT_RINGS52HZ_TUNING.sensitivity,
+    opacity: o.o ?? DEFAULT_RINGS52HZ_TUNING.opacity,
+    fontScale: o.fs ?? DEFAULT_RINGS52HZ_TUNING.fontScale,
+});
+
 const compressSonnet = (t: any): any => ({
     ci: t.cameraIntensity,
     tm: t.typographyMotion,
@@ -545,6 +561,7 @@ export const compressConfig = (config: any): string => {
     if (config.soraBackgroundTuning) minified.sbt = compressSoraBackground(config.soraBackgroundTuning);
     if (config.monetTuning) minified.mt = compressMonet(config.monetTuning);
     if (config.pendoloTuning) minified.pdt = compressPendolo(config.pendoloTuning);
+    if (config.rings52hzTuning) minified.r52 = compressRings52hz(config.rings52hzTuning);
     if (config.sonnetTuning) minified.snt = compressSonnet(config.sonnetTuning);
     if (config.temperaTuning) minified.tmp = compressTempera(config.temperaTuning);
     if (config.lumiereTuning) minified.lmt = compressLumiere(config.lumiereTuning);
@@ -612,6 +629,7 @@ export const decompressConfig = (str: string): any => {
         || parsed.lff !== undefined
         || parsed.sfi !== undefined
         || parsed.pdt !== undefined
+        || parsed.r52 !== undefined
         || parsed.snt !== undefined
         || parsed.fst !== undefined
         // The now playing card's three keys. Listed like the rest so a hand-written JSON that only
@@ -672,6 +690,7 @@ export const decompressConfig = (str: string): any => {
         if (parsed.sbt) decompressed.soraBackgroundTuning = decompressSoraBackground(parsed.sbt);
         if (parsed.mt) decompressed.monetTuning = decompressMonet(parsed.mt);
         if (parsed.pdt) decompressed.pendoloTuning = decompressPendolo(parsed.pdt);
+        if (parsed.r52) decompressed.rings52hzTuning = decompressRings52hz(parsed.r52);
         if (parsed.snt) decompressed.sonnetTuning = decompressSonnet(parsed.snt);
         if (parsed.tmp) decompressed.temperaTuning = decompressTempera(parsed.tmp);
         if (parsed.lmt) decompressed.lumiereTuning = decompressLumiere(parsed.lmt);
@@ -699,7 +718,7 @@ export const decompressConfig = (str: string): any => {
             'subtitleFontFallbackFamilies', 'visualizerTunings', 'classicTuning',
             'cadenzaTuning', 'partitaTuning', 'fumeTuning', 'claddaghTuning', 'cappellaTuning',
             'tiltTuning', 'dioramaTuning', 'monetBackgroundTuning', 'nomandBackgroundTuning', 'latentBackgroundTuning', 'soraBackgroundTuning', 'monetTuning',
-            'pendoloTuning', 'sonnetTuning', 'temperaTuning', 'lumiereTuning', 'foliumParams',
+            'pendoloTuning', 'rings52hzTuning', 'sonnetTuning', 'temperaTuning', 'lumiereTuning', 'foliumParams',
             'urlBackgroundList', 'urlBackgroundSelectedId',
             'songThemeAutoSwitchEnabled', 'songThemeAutoGenerateEnabled', 'themeGenerationSource', 'followSystemTheme',
             'stageTrackPillMode', 'stageTrackPillTimeoutSec', 'stageTrackPillOnHome',

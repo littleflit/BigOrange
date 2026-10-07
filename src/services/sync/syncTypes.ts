@@ -60,6 +60,7 @@ export type SyncedVisualSettings = {
     soraBackgroundTuning?: unknown;
     monetTuning?: unknown;
     pendoloTuning?: unknown;
+    rings52hzTuning?: unknown;
     sonnetTuning?: unknown;
     temperaTuning?: unknown;
     lumiereTuning?: unknown;

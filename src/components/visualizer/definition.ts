@@ -12,6 +12,7 @@ import {
     type FumeTuning,
     type Line,
     type LumiereTuning,
+    type Rings52hzTuning,
     type MonetPortraitImage,
     type MonetTuning,
     type PartitaTuning,
@@ -28,7 +29,7 @@ import type { VisualizerBackgroundConfig } from './backgrounds/definition';
 
 // src/components/visualizer/definition.ts
 // Shared contracts for discoverable visualizer modes.
-export type VisualizerTuningKind = 'none' | 'classic' | 'cadenza' | 'partita' | 'fume' | 'claddagh' | 'cappella' | 'tilt' | 'monet' | 'diorama' | 'pendolo' | 'sonnet' | 'tempera' | 'lumiere';
+export type VisualizerTuningKind = 'none' | 'classic' | 'cadenza' | 'partita' | 'fume' | 'claddagh' | 'cappella' | 'tilt' | 'monet' | 'diorama' | 'pendolo' | 'sonnet' | 'tempera' | 'lumiere' | 'rings52hz';
 
 export interface VisualizerSharedProps {
     currentTime: MotionValue<number>;
@@ -95,6 +96,7 @@ export interface VisualizerSharedProps {
     temperaTuning?: TemperaTuning;
     onTemperaTuningChange?: (patch: Partial<TemperaTuning>) => void;
     lumiereTuning?: LumiereTuning;
+    rings52hzTuning?: Rings52hzTuning;
     onLumiereTuningChange?: (patch: Partial<LumiereTuning>) => void;
 }
 
@@ -143,6 +145,8 @@ export interface VisualizerSettingsPanelProps {
     onTemperaTuningChange?: (patch: Partial<TemperaTuning>) => void;
     lumiereTuning?: LumiereTuning;
     onLumiereTuningChange?: (patch: Partial<LumiereTuning>) => void;
+    rings52hzTuning?: Rings52hzTuning;
+    onRings52hzTuningChange?: (patch: Partial<Rings52hzTuning>) => void;
     /** Mark slider drag start so onChange only updates draft. */
     onSliderPointerDown?: () => void;
     /** Commit draft values to persistent store on slider release. */
@@ -162,12 +166,14 @@ export interface VisualizerSettingsResetProps {
     resetSonnetTuning?: () => void;
     resetTemperaTuning?: () => void;
     resetLumiereTuning?: () => void;
+    resetRings52hzTuning?: () => void;
     setDraftFumeTuning?: (tuning: FumeTuning) => void;
     setDraftCladdaghTuning?: (tuning: CladdaghTuning) => void;
     setDraftPendoloTuning?: (tuning: PendoloTuning) => void;
     setDraftSonnetTuning?: (tuning: SonnetTuning) => void;
     setDraftTemperaTuning?: (tuning: TemperaTuning) => void;
     setDraftLumiereTuning?: (tuning: LumiereTuning) => void;
+    setDraftRings52hzTuning?: (tuning: Rings52hzTuning) => void;
 }
 
 export interface VisualizerRegistryEntry {

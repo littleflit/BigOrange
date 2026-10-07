@@ -7,7 +7,7 @@
 
 import { create } from 'zustand';
 import { getVisualizerModeLabel } from '../components/visualizer/registry';
-import { DEFAULT_CADENZA_TUNING, DEFAULT_CAPPELLA_TUNING, DEFAULT_CLADDAGH_TUNING, DEFAULT_CLASSIC_TUNING, DEFAULT_DIORAMA_TUNING, DEFAULT_FUME_TUNING, DEFAULT_LATENT_BACKGROUND_TUNING, DEFAULT_LUMIERE_TUNING, DEFAULT_MONET_BACKGROUND_TUNING, DEFAULT_MONET_TUNING, DEFAULT_NOMAND_BACKGROUND_TUNING, DEFAULT_PARTITA_TUNING, DEFAULT_PENDOLO_TUNING, DEFAULT_SONNET_TUNING, DEFAULT_SORA_BACKGROUND_TUNING, DEFAULT_TEMPERA_TUNING, DEFAULT_TILT_TUNING, type CadenzaTuning, type CappellaTuning, type CladdaghTuning, type ClassicTuning, type DioramaTuning, type FumeTuning, type LatentBackgroundTuning, type LumiereTuning, type MonetBackgroundTuning, type MonetTuning, type NomandBackgroundTuning, type PartitaTuning, type PendoloTuning, type SonnetTuning, type SoraBackgroundTuning, type TemperaTuning, type TiltTuning, type UrlBackgroundItem, type VisualizerBackgroundMode, type VisualizerFrameRate, type VisualizerMode } from '../types';
+import { DEFAULT_CADENZA_TUNING, DEFAULT_CAPPELLA_TUNING, DEFAULT_CLADDAGH_TUNING, DEFAULT_CLASSIC_TUNING, DEFAULT_DIORAMA_TUNING, DEFAULT_FUME_TUNING, DEFAULT_LATENT_BACKGROUND_TUNING, DEFAULT_LUMIERE_TUNING, DEFAULT_MONET_BACKGROUND_TUNING, DEFAULT_MONET_TUNING, DEFAULT_NOMAND_BACKGROUND_TUNING, DEFAULT_PARTITA_TUNING, DEFAULT_PENDOLO_TUNING, DEFAULT_RINGS52HZ_TUNING, DEFAULT_SONNET_TUNING, DEFAULT_SORA_BACKGROUND_TUNING, DEFAULT_TEMPERA_TUNING, DEFAULT_TILT_TUNING, type CadenzaTuning, type CappellaTuning, type CladdaghTuning, type ClassicTuning, type DioramaTuning, type FumeTuning, type LatentBackgroundTuning, type LumiereTuning, type MonetBackgroundTuning, type MonetTuning, type NomandBackgroundTuning, type PartitaTuning, type PendoloTuning, type Rings52hzTuning, type SonnetTuning, type SoraBackgroundTuning, type TemperaTuning, type TiltTuning, type UrlBackgroundItem, type VisualizerBackgroundMode, type VisualizerFrameRate, type VisualizerMode } from '../types';
 import { VISUALIZER_FRAME_RATE_STORAGE_KEY, setGlobalVisualizerFrameRate } from '../utils/frameRateLimiter';
 import { GLOW_BLUR_QUANTIZE_STORAGE_KEY, readStoredGlowBlurQuantize, setGlowBlurQuantized } from '../utils/glowBlurQuantize';
 import { sanitizeUrlBackgroundItem, sanitizeUrlBackgroundList } from '../utils/urlBackground';
@@ -17,7 +17,7 @@ import { buildStoredCappellaEmojiPack, clearCustomCappellaEmojiPack, isSupported
 import { buildStoredMonetBackgroundImage, clearMonetBackgroundImage, isSupportedMonetBackgroundFile, saveMonetBackgroundImage } from '../services/monetBackgroundImage';
 import { buildStoredMonetPortraitImage, clearMonetPortraitImage, isSupportedMonetPortraitFile, saveMonetPortraitImage } from '../services/monetPortraitImage';
 import { setStatusMessage } from './useStatusMessageStore';
-import { LUMIERE_TUNING_STORAGE_KEY, VISUALIZER_OPACITY_STORAGE_KEY, clampCladdaghEllipseTiltDeg, clampCladdaghFocusScaleRatio, clampCladdaghLetterSpacingOffset, clampCladdaghRadiusScale, clampClassicBreathingFloatMultiplier, clampClassicWordSpacing, clampFumeBackgroundObjectOpacity, clampFumeCameraSpeed, clampFumeGlowIntensity, clampFumeHeroScale, clampFumeTextHoldRatio, clampPartitaStagger, clampUnit, readStoredBackgroundOpacity, readStoredCadenzaTuning, readStoredCappellaTuning, readStoredCladdaghTuning, readStoredClassicTuning, readStoredDioramaTuning, readStoredFumeTuning, readStoredLatentBackgroundTuning, readStoredLumiereTuning, readStoredMonetBackgroundTuning, readStoredMonetTuning, readStoredNomandBackgroundTuning, readStoredPartitaTuning, readStoredPendoloTuning, readStoredSonnetTuning, readStoredSoraBackgroundTuning, readStoredTemperaTuning, readStoredTiltTuning, readStoredUrlBackgroundList, readStoredUrlBackgroundSelectedId, readStoredVisualizerBackgroundMode, readStoredVisualizerFrameRate, readStoredVisualizerMode, readStoredVisualizerOpacity, resolveCappellaAvatarSource, resolveFumeCameraTrackingMode, resolvePendoloNumber, resolveStoredDioramaTuning, resolveStoredLatentBackgroundTuning, resolveStoredMonetBackgroundTuning, resolveStoredMonetTuning, resolveStoredNomandBackgroundTuning, resolveStoredSoraBackgroundTuning, sanitizeTemperaLayerImages } from './visualizerSettingsPersistence';
+import { LUMIERE_TUNING_STORAGE_KEY, RINGS52HZ_TUNING_STORAGE_KEY, VISUALIZER_OPACITY_STORAGE_KEY, clampCladdaghEllipseTiltDeg, clampCladdaghFocusScaleRatio, clampCladdaghLetterSpacingOffset, clampCladdaghRadiusScale, clampClassicBreathingFloatMultiplier, clampClassicWordSpacing, clampFumeBackgroundObjectOpacity, clampFumeCameraSpeed, clampFumeGlowIntensity, clampFumeHeroScale, clampFumeTextHoldRatio, clampPartitaStagger, clampUnit, readStoredBackgroundOpacity, readStoredCadenzaTuning, readStoredCappellaTuning, readStoredCladdaghTuning, readStoredClassicTuning, readStoredDioramaTuning, readStoredFumeTuning, readStoredLatentBackgroundTuning, readStoredLumiereTuning, readStoredMonetBackgroundTuning, readStoredMonetTuning, readStoredNomandBackgroundTuning, readStoredPartitaTuning, readStoredPendoloTuning, readStoredRings52hzTuning, readStoredSonnetTuning, readStoredSoraBackgroundTuning, readStoredTemperaTuning, readStoredTiltTuning, readStoredUrlBackgroundList, readStoredUrlBackgroundSelectedId, readStoredVisualizerBackgroundMode, readStoredVisualizerFrameRate, readStoredVisualizerMode, readStoredVisualizerOpacity, resolveCappellaAvatarSource, resolveFumeCameraTrackingMode, resolvePendoloNumber, resolveStoredDioramaTuning, resolveStoredLatentBackgroundTuning, resolveStoredMonetBackgroundTuning, resolveStoredMonetTuning, resolveStoredNomandBackgroundTuning, resolveStoredSoraBackgroundTuning, sanitizeTemperaLayerImages } from './visualizerSettingsPersistence';
 import { getStoredBoolean, setStoredBoolean } from './storagePrimitives';
 import { useVisualizerAssetStore } from './useVisualizerAssetStore';
 import { normalizeLumiereTuning } from '../utils/lumiereTuning';
@@ -49,6 +49,7 @@ export type VisualizerSettingsState = {
     soraBackgroundTuning: SoraBackgroundTuning;
     monetTuning: MonetTuning;
     pendoloTuning: PendoloTuning;
+    rings52hzTuning: Rings52hzTuning;
     sonnetTuning: SonnetTuning;
     temperaTuning: TemperaTuning;
     lumiereTuning: LumiereTuning;
@@ -94,7 +95,9 @@ export type VisualizerSettingsState = {
     handleSetMonetTuning: (patch: Partial<MonetTuning>) => void;
     handleResetMonetTuning: () => void;
     handleSetPendoloTuning: (patch: Partial<PendoloTuning>) => void;
+    handleSetRings52hzTuning: (patch: Partial<Rings52hzTuning>) => void;
     handleResetPendoloTuning: () => void;
+    handleResetRings52hzTuning: () => void;
     handleSetSonnetTuning: (patch: Partial<SonnetTuning>) => void;
     handleResetSonnetTuning: () => void;
     handleSetTemperaTuning: (patch: Partial<TemperaTuning>) => void;
@@ -137,6 +140,7 @@ export const useVisualizerSettingsStore = create<VisualizerSettingsState>((set, 
     soraBackgroundTuning: readStoredSoraBackgroundTuning(),
     monetTuning: readStoredMonetTuning(),
     pendoloTuning: readStoredPendoloTuning(),
+    rings52hzTuning: readStoredRings52hzTuning(),
     sonnetTuning: readStoredSonnetTuning(),
     temperaTuning: readStoredTemperaTuning(),
     lumiereTuning: readStoredLumiereTuning(),
@@ -423,6 +427,29 @@ export const useVisualizerSettingsStore = create<VisualizerSettingsState>((set, 
         }
         set({ pendoloTuning: DEFAULT_PENDOLO_TUNING });
         setStatusMessage({ type: 'info', text: i18n.t('notifications.pendoloReset') });
+    },
+    handleSetRings52hzTuning: (patch) => {
+        const prev = get().rings52hzTuning;
+        const clamp = (value: number | undefined, fallback: number, min: number, max: number): number => (
+            typeof value === 'number' && Number.isFinite(value) ? Math.min(max, Math.max(min, value)) : fallback
+        );
+        const next: Rings52hzTuning = {
+            reach: clamp(patch.reach, prev.reach, 0.4, 2),
+            beatSensitivity: clamp(patch.beatSensitivity, prev.beatSensitivity, 0.4, 2.5),
+            sensitivity: clamp(patch.sensitivity, prev.sensitivity, 0.2, 3),
+            opacity: clamp(patch.opacity, prev.opacity, 0.1, 1),
+            fontScale: clamp(patch.fontScale, prev.fontScale, 0.6, 1.6),
+        };
+        if (typeof window !== 'undefined') {
+            localStorage.setItem(RINGS52HZ_TUNING_STORAGE_KEY, JSON.stringify(next));
+        }
+        set({ rings52hzTuning: next });
+    },
+    handleResetRings52hzTuning: () => {
+        if (typeof window !== 'undefined') {
+            localStorage.setItem(RINGS52HZ_TUNING_STORAGE_KEY, JSON.stringify(DEFAULT_RINGS52HZ_TUNING));
+        }
+        set({ rings52hzTuning: DEFAULT_RINGS52HZ_TUNING });
     },
     handleSetSonnetTuning: (patch: Partial<SonnetTuning>) => {
         const prev = get().sonnetTuning;
@@ -862,6 +889,7 @@ export const selectVisualizerSettingsSnapshot = (state: VisualizerSettingsState)
     handleResetNomandBackgroundTuning: state.handleResetNomandBackgroundTuning,
     handleResetPartitaTuning: state.handleResetPartitaTuning,
     handleResetPendoloTuning: state.handleResetPendoloTuning,
+    handleResetRings52hzTuning: state.handleResetRings52hzTuning,
     handleResetSonnetTuning: state.handleResetSonnetTuning,
     handleResetSoraBackgroundTuning: state.handleResetSoraBackgroundTuning,
     handleResetTemperaTuning: state.handleResetTemperaTuning,
@@ -881,6 +909,7 @@ export const selectVisualizerSettingsSnapshot = (state: VisualizerSettingsState)
     handleSetNomandBackgroundTuning: state.handleSetNomandBackgroundTuning,
     handleSetPartitaTuning: state.handleSetPartitaTuning,
     handleSetPendoloTuning: state.handleSetPendoloTuning,
+    handleSetRings52hzTuning: state.handleSetRings52hzTuning,
     handleSetSonnetTuning: state.handleSetSonnetTuning,
     handleSetSoraBackgroundTuning: state.handleSetSoraBackgroundTuning,
     handleSetTemperaTuning: state.handleSetTemperaTuning,
@@ -904,6 +933,7 @@ export const selectVisualizerSettingsSnapshot = (state: VisualizerSettingsState)
     nomandBackgroundTuning: state.nomandBackgroundTuning,
     partitaTuning: state.partitaTuning,
     pendoloTuning: state.pendoloTuning,
+    rings52hzTuning: state.rings52hzTuning,
     randomVisualizerModePerSong: state.randomVisualizerModePerSong,
     sonnetTuning: state.sonnetTuning,
     soraBackgroundTuning: state.soraBackgroundTuning,

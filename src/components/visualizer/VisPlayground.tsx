@@ -17,6 +17,7 @@ import {
     DEFAULT_NOMAND_BACKGROUND_TUNING,
     DEFAULT_PARTITA_TUNING,
     DEFAULT_PENDOLO_TUNING,
+    DEFAULT_RINGS52HZ_TUNING,
     DEFAULT_SONNET_TUNING,
     DEFAULT_TEMPERA_TUNING,
     DEFAULT_TILT_TUNING,
@@ -37,6 +38,7 @@ import {
     type NomandBackgroundTuning,
     type PartitaTuning,
     type PendoloTuning,
+    type Rings52hzTuning,
     type SonnetTuning,
     type TemperaTuning,
     type StoredCustomLyricsFont,
@@ -145,6 +147,9 @@ interface VisPlaygroundProps {
     onMonetTuningChange?: (patch: Partial<MonetTuning>) => void;
     onResetMonetTuning?: () => void;
     onPendoloTuningChange?: (patch: Partial<PendoloTuning>) => void;
+    rings52hzTuning?: Rings52hzTuning;
+    onRings52hzTuningChange?: (patch: Partial<Rings52hzTuning>) => void;
+    onResetRings52hzTuning?: () => void;
     onResetPendoloTuning?: () => void;
     onSonnetTuningChange?: (patch: Partial<SonnetTuning>) => void;
     onResetSonnetTuning?: () => void;
@@ -320,6 +325,7 @@ const VisPlayground: React.FC<VisPlaygroundProps> = ({
     dioramaTuning = DEFAULT_DIORAMA_TUNING,
     monetTuning = DEFAULT_MONET_TUNING,
     pendoloTuning = DEFAULT_PENDOLO_TUNING,
+    rings52hzTuning = DEFAULT_RINGS52HZ_TUNING,
     sonnetTuning = DEFAULT_SONNET_TUNING,
     temperaTuning = DEFAULT_TEMPERA_TUNING,
     lumiereTuning = DEFAULT_LUMIERE_TUNING,
@@ -378,6 +384,8 @@ const VisPlayground: React.FC<VisPlaygroundProps> = ({
     onResetMonetTuning,
     onPendoloTuningChange,
     onResetPendoloTuning,
+    onRings52hzTuningChange,
+    onResetRings52hzTuning,
     onSonnetTuningChange,
     onResetSonnetTuning,
     onTemperaTuningChange,
@@ -441,6 +449,7 @@ const VisPlayground: React.FC<VisPlaygroundProps> = ({
     const [draftLatentBackgroundTuning, setDraftLatentBackgroundTuning] = useState<LatentBackgroundTuning>(latentBackgroundTuning);
     const [draftMonetTuning, setDraftMonetTuning] = useState<MonetTuning>(monetTuning);
     const [draftPendoloTuning, setDraftPendoloTuning] = useState<PendoloTuning>(pendoloTuning);
+    const [draftRings52hzTuning, setDraftRings52hzTuning] = useState<Rings52hzTuning>(rings52hzTuning);
     const [draftSonnetTuning, setDraftSonnetTuning] = useState<SonnetTuning>(sonnetTuning);
     const [draftTemperaTuning, setDraftTemperaTuning] = useState<TemperaTuning>(temperaTuning);
     const [draftLumiereTuning, setDraftLumiereTuning] = useState<LumiereTuning>(lumiereTuning);
@@ -557,10 +566,11 @@ const VisPlayground: React.FC<VisPlaygroundProps> = ({
         diorama: draftDioramaTuning,
         monet: draftMonetTuning,
         pendolo: draftPendoloTuning,
+        rings52hz: draftRings52hzTuning,
         sonnet: draftSonnetTuning,
         tempera: previewTemperaTuning,
         lumiere: draftLumiereTuning,
-    }), [cadenzaTuning, cappellaTuning, draftClassicTuning, draftDioramaTuning, draftLumiereTuning, draftMonetTuning, draftPendoloTuning, draftSonnetTuning, draftTiltTuning, previewTemperaTuning, resolvedCladdaghTuning, resolvedFumeTuning, resolvedPartitaTuning]);
+    }), [cadenzaTuning, cappellaTuning, draftClassicTuning, draftDioramaTuning, draftLumiereTuning, draftMonetTuning, draftPendoloTuning, draftRings52hzTuning, draftSonnetTuning, draftTiltTuning, previewTemperaTuning, resolvedCladdaghTuning, resolvedFumeTuning, resolvedPartitaTuning]);
     const currentFontLabel = customFontLabel || customFontFamily || t('options.customFont');
     const fontStyleOptions: PresetOption<Theme['fontStyle'] | 'custom'>[] = useMemo(() => ([
         ...builtinFontOptions,
@@ -608,6 +618,7 @@ const VisPlayground: React.FC<VisPlaygroundProps> = ({
     useEffect(() => { setDraftLatentBackgroundTuning(latentBackgroundTuning); }, [latentBackgroundTuning]);
     useEffect(() => { setDraftMonetTuning(monetTuning); }, [monetTuning]);
     useEffect(() => { setDraftPendoloTuning(pendoloTuning); }, [pendoloTuning]);
+    useEffect(() => { setDraftRings52hzTuning(rings52hzTuning); }, [rings52hzTuning]);
     useEffect(() => { setDraftSonnetTuning(sonnetTuning); }, [sonnetTuning]);
     useEffect(() => { setDraftTemperaTuning(temperaTuning); }, [temperaTuning]);
     useEffect(() => { setDraftLumiereTuning(lumiereTuning); }, [lumiereTuning]);
@@ -675,6 +686,7 @@ const VisPlayground: React.FC<VisPlaygroundProps> = ({
             setDraftFumeTuning,
             setDraftCladdaghTuning,
             setDraftPendoloTuning,
+            setDraftRings52hzTuning,
             setDraftSonnetTuning,
             setDraftTemperaTuning,
             setDraftLumiereTuning,
@@ -1015,6 +1027,16 @@ const VisPlayground: React.FC<VisPlaygroundProps> = ({
         }
     };
 
+    const handleRings52hzTuningDraft = (patch: Partial<Rings52hzTuning>) => {
+        const next = { ...draftRings52hzTuning, ...patch };
+        setDraftRings52hzTuning(next);
+        if (!isDraggingSlider.current) {
+            onRings52hzTuningChange?.(patch);
+        } else {
+            pendingCommitRef.current = () => onRings52hzTuningChange?.(patch);
+        }
+    };
+
     const handleSonnetTuningDraft = (patch: Partial<SonnetTuning>) => {
         const next = { ...draftSonnetTuning, ...patch };
         setDraftSonnetTuning(next);
@@ -1308,6 +1330,8 @@ const VisPlayground: React.FC<VisPlaygroundProps> = ({
                         onMonetTuningChange={handleMonetTuningDraft}
                         pendoloTuning={draftPendoloTuning}
                         onPendoloTuningChange={handlePendoloTuningDraft}
+                        rings52hzTuning={draftRings52hzTuning}
+                        onRings52hzTuningChange={handleRings52hzTuningDraft}
                         sonnetTuning={draftSonnetTuning}
                         onSonnetTuningChange={handleSonnetTuningDraft}
                         temperaTuning={draftTemperaTuning}

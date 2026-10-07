@@ -19,6 +19,7 @@ describe('visualizer registry', () => {
             'cadenza',
             'partita',
             'fume',
+            'rings52hz',
             'tilt',
             'claddagh',
             'monet',

@@ -351,6 +351,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
         handleResetMonetTuning: onResetMonetTuning,
         handleSetPendoloTuning: onPendoloTuningChange,
         handleResetPendoloTuning: onResetPendoloTuning,
+        handleSetRings52hzTuning: onRings52hzTuningChange,
+        handleResetRings52hzTuning: onResetRings52hzTuning,
         handleSetSonnetTuning: onSonnetTuningChange,
         handleResetSonnetTuning: onResetSonnetTuning,
         handleSetTemperaTuning: onTemperaTuningChange,
@@ -391,6 +393,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
         soraBackgroundTuning,
         monetTuning,
         pendoloTuning,
+        rings52hzTuning,
         sonnetTuning,
         temperaTuning,
         lumiereTuning,
@@ -2017,6 +2020,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                         dioramaTuning={dioramaTuning}
                         monetTuning={monetTuning}
                         pendoloTuning={pendoloTuning}
+                        rings52hzTuning={rings52hzTuning}
                         sonnetTuning={sonnetTuning}
                         temperaTuning={temperaTuning}
                         lumiereTuning={lumiereTuning}
@@ -2075,6 +2079,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                         onResetMonetTuning={onResetMonetTuning}
                         onPendoloTuningChange={onPendoloTuningChange}
                         onResetPendoloTuning={onResetPendoloTuning}
+                        onRings52hzTuningChange={onRings52hzTuningChange}
+                        onResetRings52hzTuning={onResetRings52hzTuning}
                         onSonnetTuningChange={onSonnetTuningChange}
                         onResetSonnetTuning={onResetSonnetTuning}
                         onTemperaTuningChange={onTemperaTuningChange}
@@ -2111,6 +2117,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                             diorama: dioramaTuning,
                             monet: monetTuning,
                             pendolo: pendoloTuning,
+                            rings52hz: rings52hzTuning,
                             sonnet: sonnetTuning,
                             tempera: temperaTuning,
                             lumiere: lumiereTuning,

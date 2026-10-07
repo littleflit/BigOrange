@@ -185,6 +185,7 @@
 - `src/components/visualizer/monet/entry.tsx`
 - `src/components/visualizer/partita/entry.tsx`
 - `src/components/visualizer/pendolo/entry.tsx`
+- `src/components/visualizer/rings52hz/entry.tsx`
 - `src/components/visualizer/sonnet/entry.tsx`
 - `src/components/visualizer/still/entry.tsx`
 - `src/components/visualizer/tempera/entry.tsx`
@@ -202,6 +203,7 @@
 - `src/components/visualizer/monet/tuning.ts`
 - `src/components/visualizer/partita/tuning.ts`
 - `src/components/visualizer/pendolo/tuning.ts`
+- `src/components/visualizer/rings52hz/tuning.ts`
 - `src/components/visualizer/sonnet/tuning.ts`
 - `src/components/visualizer/tempera/tuning.ts`
 - `src/components/visualizer/tilt/tuning.ts`

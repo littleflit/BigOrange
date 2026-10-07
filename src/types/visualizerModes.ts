@@ -23,6 +23,7 @@ export const BUILTIN_VISUALIZER_MODES = [
     'monet',
     'partita',
     'pendolo',
+    'rings52hz',
     'sonnet',
     'still',
     'tempera',

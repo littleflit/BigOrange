@@ -114,6 +114,7 @@ exports[`store contract > keeps every localStorage key the stores read or write 
   "remote_control_click_through",
   "remote_control_hide_titlebar",
   "remote_control_skip_taskbar",
+  "rings52hz_tuning",
   "show_harmony_subtitle",
   "show_home_tab_albums",
   "show_home_tab_local",

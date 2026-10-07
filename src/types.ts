@@ -512,6 +512,22 @@ export interface PendoloTuning {
   enableLineGlow?: boolean;
 }
 
+export interface Rings52hzTuning {
+  reach: number;
+  beatSensitivity: number;
+  sensitivity: number;
+  opacity: number;
+  fontScale: number;
+}
+
+export const DEFAULT_RINGS52HZ_TUNING: Rings52hzTuning = {
+  reach: 1,
+  beatSensitivity: 1,
+  sensitivity: 1,
+  opacity: 0.8,
+  fontScale: 1,
+};
+
 export const DEFAULT_PENDOLO_TUNING: PendoloTuning = {
   arcRadius: 0.42,
   arcAngleDeg: 100,

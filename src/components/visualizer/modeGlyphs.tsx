@@ -171,6 +171,14 @@ const BACKGROUND_MODE_GLYPHS: Record<string, React.ReactNode> = {
             <path d="M3.5 9.5h17" opacity="0.55" />
         </>
     ),
+    // 52Hz：居中歌词行，涟漪沿字形轮廓扩散
+    rings52hz: (
+        <>
+            <circle cx="12" cy="12" r="3" />
+            <circle cx="12" cy="12" r="6.5" opacity="0.55" />
+            <circle cx="12" cy="12" r="10" opacity="0.3" />
+        </>
+    ),
     // 空：稀疏星点
     sora: (
         <>

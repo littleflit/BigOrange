@@ -47,6 +47,7 @@ export const visualizerCommands: CommandPaletteCommand[] = [
     createVisualizerCommand('claddagh', 'Visualizer: Claddagh', 'Switch to Claddagh visualizer', ['claddagh', '回环']),
     createVisualizerCommand('monet', 'Visualizer: Monet', 'Switch to Monet visualizer', ['monet', '莫奈', '切换到可视化：莫奈', '切换到可视化莫奈']),
     createVisualizerCommand('pendolo', 'Visualizer: Pendolo', 'Switch to Pendolo visualizer', ['pendolo', '擒纵', '摆轮', 'pd', '切换到可视化：擒纵', '切换到可视化擒纵']),
+    createVisualizerCommand('rings52hz', 'Visualizer: 52Hz', 'Switch to 52Hz visualizer', ['rings52hz', '52hz', '52赫兹', '年轮', '涟漪', '切换到可视化：52Hz', '切换到可视化52Hz']),
     createVisualizerCommand('cappella', 'Visualizer: Cappella', 'Switch to cappella visualizer', ['cappella', '群唱']),
     createVisualizerCommand('diorama', 'Visualizer: Diorama', 'Switch to Diorama visualizer', ['diorama', '镜台', '切换到可视化：镜台', '切换到可视化镜台']),
     createVisualizerCommand('still', 'Visualizer: Still', 'Switch to the static low-resource visualizer', ['still', 'static', 'low resource', '静止', '静态', '低占用']),

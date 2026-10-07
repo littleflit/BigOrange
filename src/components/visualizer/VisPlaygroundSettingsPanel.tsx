@@ -12,6 +12,7 @@ import {
     type MonetTuning,
     type PartitaTuning,
     type PendoloTuning,
+    type Rings52hzTuning,
     type SonnetTuning,
     type TemperaTuning,
     type Theme,
@@ -109,6 +110,8 @@ interface VisPlaygroundSettingsPanelProps {
     onCladdaghTuningChange?: (patch: Partial<CladdaghTuning>) => void;
     pendoloTuning?: PendoloTuning;
     onPendoloTuningChange?: (patch: Partial<PendoloTuning>) => void;
+    rings52hzTuning?: Rings52hzTuning;
+    onRings52hzTuningChange?: (patch: Partial<Rings52hzTuning>) => void;
     sonnetTuning?: SonnetTuning;
     onSonnetTuningChange?: (patch: Partial<SonnetTuning>) => void;
     temperaTuning?: TemperaTuning;
@@ -382,6 +385,8 @@ const VisPlaygroundSettingsPanel: React.FC<VisPlaygroundSettingsPanelProps> = (p
         onMonetTuningChange,
         pendoloTuning,
         onPendoloTuningChange,
+        rings52hzTuning,
+        onRings52hzTuningChange,
         sonnetTuning,
         onSonnetTuningChange,
         temperaTuning,
@@ -757,6 +762,8 @@ const VisPlaygroundSettingsPanel: React.FC<VisPlaygroundSettingsPanelProps> = (p
                             onMonetTuningChange,
                             pendoloTuning,
                             onPendoloTuningChange,
+                            rings52hzTuning,
+                            onRings52hzTuningChange,
                             sonnetTuning,
                             onSonnetTuningChange,
                             temperaTuning,

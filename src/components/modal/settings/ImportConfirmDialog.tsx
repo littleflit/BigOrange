@@ -101,6 +101,7 @@ const TUNING_MODES: Record<string, string> = {
     dioramaTuning: 'diorama',
     monetTuning: 'monet',
     pendoloTuning: 'pendolo',
+    rings52hzTuning: 'rings52hz',
     sonnetTuning: 'sonnet',
     temperaTuning: 'tempera',
     lumiereTuning: 'lumiere',
