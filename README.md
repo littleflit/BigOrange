@@ -1,206 +1,97 @@
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/b5d0e863-48be-497b-b0e9-4bd8d8ce9bf0" alt="BigOrange" width="100%" />
-</p>
+BigOrange
+Lyrics Reimagined 辞曲新境
 
-<div align="center">
+项目简介
 
-# BigOrange
+BigOrange 是以全屏沉浸式歌词播放为核心的在线音乐播放器，支持网易云、Navidrome 和本地音乐库。功能包括智能歌词匹配、AI 生成配色主题、多种全屏歌词动画。界面语言为中文和英文。
 
-Lyrics Reimagined // 辞曲新境
+提供 Electron 桌面端版本（Windows、macOS、Linux）与基于 Node.js 的 Web 版本，支持多平台部署。移动设备或浏览器使用 Web 版本，自行部署到支持 Node.js 的平台后即可访问。
 
-[![GitHub release](https://img.shields.io/github/v/release/littleflit/BigOrange?label=release)](https://github.com/littleflit/BigOrange/releases)
-[![License](https://img.shields.io/github/license/littleflit/BigOrange)](https://github.com/littleflit/BigOrange/blob/main/LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/littleflit/BigOrange?style=social)](https://github.com/littleflit/BigOrange/stargazers)
-[![Node.js](https://img.shields.io/badge/node-%3E%3D24-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-35-orange.svg?style=flat-square)](CONTRIBUTORS.md)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+核心能力
 
-[获取方式](https://github.com/littleflit/BigOrange#%E8%8E%B7%E5%8F%96%E6%96%B9%E5%BC%8F)
-·
-[技术说明](docs/technical.md)
+在线搜索与播放：搜索歌曲、歌手或专辑后即可播放，自动加载相关封面与歌词。
+本地音乐支持：可导入本地音频文件，在本地安全保存索引信息，不上传文件内容。详细用法见 docs/local-library-management.md。
+智能歌词匹配：本地歌曲可自动匹配在线歌词与封面，也支持手动修正匹配结果。
+本地歌词文件识别：自动加载同目录同名 .lrc、.vtt、.ttml、.qrc、.yrc、.krc 歌词文件，或歌词文件内嵌 LRC 歌词。适配 LDDC 生成的增强型逐字歌词格式。
+Now Playing 接入：支持通过本机 Now Playing 服务接入外部播放器的歌曲、时间轴与歌词信息，并驱动 BigOrange 的舞台视图与全屏歌词渲染。服务地址 https://github.com/Widdit/now-playing-service/
+AI 主题生成：基于歌曲情绪与歌词内容生成沉浸式背景与视觉参数。
+多端体验：提供 Web 部署方式，同时支持桌面端打包分发。
+模组系统（实验性）：桌面版可通过 Folium 模组添加歌词动画、背景、播放页图层、命令等，模组市场地址 https://folium-compound.vercel.app
 
-</div>
-
-## 项目简介
-
-BigOrange是一个以全屏沉浸式歌词播放为核心的在线音乐播放器，支持网易云、Navidrome 和本地音乐库，通过智能歌词匹配，AI生成配色主题，以及多种全屏歌词动画为用户提供独特的听歌体验。界面语言为中文和英文。
-
-提供基于Electron的 windows/ macOS/ Linux 桌面端版本与基于 Node.js 的 Web 版本，支持多平台部署。
-
-移动设备或浏览器使用 Web 版本，自行部署到支持 Node.js 的平台后即可访问。
-
-## 展示
-
-![visualizer](./img/visualizer.png)
-
-### 演示视频
-
-https://github.com/user-attachments/assets/af806cf1-f67f-4b88-b2e7-57db507e9e81
-
-https://github.com/user-attachments/assets/fd27f4f0-64b9-4c57-8c3b-10df767f934b
-
-https://github.com/user-attachments/assets/704f195a-2194-434b-86e8-8f36290e5cc4
-
-### 部分主题预览
-
-<table>
-  <tr>
-    <td width="50%">
-      <img src="./img/preview-fume.png" alt="Fume 主题预览" />
-    </td>
-    <td width="50%">
-      <img src="./img/preview-lumi.png" alt="Lumi 主题预览" />
-    </td>
-  </tr>
-  <tr>
-    <td align="center"><strong>浮名</strong></td>
-    <td align="center"><strong>流光</strong></td>
-  </tr>
-  <tr>
-    <td width="50%">
-      <img src="./img/preview-cad.png" alt="Cad 主题预览" />
-    </td>
-    <td width="50%">
-      <img src="./img/preview-pat.png" alt="Pat 主题预览" />
-    </td>
-  </tr>
-  <tr>
-    <td align="center"><strong>心象</strong></td>
-    <td align="center"><strong>云阶</strong></td>
-  </tr>
-  <tr>
-    <td width="50%">
-      <img src="./img/preview-cappella.jpg" alt="群唱 主题预览" />
-    </td>
-    <td width="50%">
-      <img src="./img/preview-tilt.png" alt="Tilt 主题预览" />
-    </td>
-  </tr>
-  <tr>
-    <td align="center"><strong>群唱</strong></td>
-    <td align="center"><strong>倾诉</strong></td>
-  </tr>
-    <tr>
-    <td width="50%">
-      <img src="./img/preview-diorama.png" alt="镜台 主题预览" />
-    </td>
-    <td width="50%">
-      <img src="./img/preview-pendolo.png" alt="时计 主题预览" />
-    </td>
-  </tr>
-  <tr>
-    <td align="center"><strong>镜台</strong></td>
-    <td align="center"><strong>时计</strong></td>
-  </tr>
-</table>
-
-不同的歌词动画具有不同的排版氛围和可调参数，让全屏歌词拥有如同文字PV般的丰富视觉效果，同时又能兼顾响应式布局，自动适配不同窗口尺寸。
-
-## 核心能力
-
-| 模块 | 说明 |
-| --- | --- |
-| 在线搜索与播放 | 搜索歌曲、歌手或专辑后即可播放，并自动加载相关封面与歌词。 |
-| 本地音乐支持 | 可导入本地音频文件，在本地安全保存索引信息，不上传文件内容。详细用法见 [本地音乐库管理](docs/local-library-management.md)。 |
-| 智能歌词匹配 | 本地歌曲可自动匹配在线歌词与封面，也支持手动修正匹配结果。 |
-| 本地歌词文件识别 | 自动加载同目录同名 `.lrc`、`.vtt`、`.ttml`、`.qrc`、`.yrc`、`.krc` 歌词文件，或歌词文件内嵌 LRC 歌词。适配 LDDC 生成的增强型逐字歌词格式。 |
-| Now Playing 接入 | 支持通过本机 [Now Playing](https://github.com/Widdit/now-playing-service/) 服务接入外部播放器的歌曲、时间轴与歌词信息，并驱动 BigOrange 的舞台视图与全屏歌词渲染。 |
-| AI 主题生成 | 基于歌曲情绪与歌词内容生成沉浸式背景与视觉参数。 |
-| 多端体验 | 提供 Web 部署方式，同时支持桌面端打包分发。 |
-| 模组系统（实验性） | 桌面版可通过 Folium 模组添加歌词动画、背景、播放页图层、命令等，并从 [模组市场](https://folium-compound.vercel.app) 安装官方认证的模组。详见 [模组系统](#模组系统folium-v1x)。 |
-
-## 获取方式
+获取方式
 
 桌面版内置前后端运行环境，适合希望即装即用的用户。
 
-### 一键部署
+一键部署
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/littleflit/BigOrange)
+Vercel 一键部署 https://vercel.com/new/clone?repository-url=https://github.com/littleflit/BigOrange
+Cloudflare 一键部署 https://deploy.workers.cloudflare.com/?url=https://github.com/littleflit/BigOrange
 
-项目也支持一键部署到 Cloudflare，请参考 Vercel 的部署教程进行相应调整。
+自托管用户可以使用 Docker Compose 全栈部署，见 deploy/docker/README.md。本地音乐目录访问依赖可信 HTTPS 安全上下文，部署文档包含 NAS 反向代理和证书要求。
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/littleflit/BigOrange)
+移动端：部署 Web 版本或自托管版本后，通过 Android Chrome 或 iOS Safari 创建 PWA 应用（将网页应用添加到桌面）来使用。
 
-自托管用户可以使用 [Docker Compose 全栈部署](deploy/docker/README.md)。本地音乐目录访问依赖可信 HTTPS 安全上下文，部署文档包含 NAS 反向代理和证书要求。
+有一定技术的用户可以使用 capacitor 将 Web 版本打包成可安装的安卓 apk，可参考示范仓库 https://github.com/chthollyphile/folia-sonnet
 
-关于移动端：
+直接下载
 
-目前推荐移动端用户部署 Web 版本/自托管版本之后，通过chrome for android / iOS Safari 创建 PWA应用（也就是将网页应用添加到桌面，BigOrange web版本支持安装为PWA应用）来使用。
+Windows、macOS、Linux 最新安装包前往 Releases 页面下载 https://github.com/littleflit/BigOrange/releases/latest
+Arch Linux 可通过 AUR 获取 bigorange-bin（待发布）。
 
-有一定技术的用户可以使用 capacitor 将本项目的web版本打包成为可安装的安卓apk，具体方法可参考示范仓库：[chthollyphile/folia-sonnet](https://github.com/chthollyphile/folia-sonnet)
+Linux 包、Wayland 和 Hyprland 遥控窗、桌面端细节见 docs/technical.md。
 
-### 直接下载
+文档与开发
 
-- **Windows / macOS / Linux**: 最新版本的安装包请前往 [Releases 页面](https://github.com/littleflit/BigOrange/releases/latest) 下载。
-- **Arch Linux**: 可通过 AUR 获取 `bigorange-bin`（待发布）。
+部署、环境变量、本地开发、Stage API、常用脚本和技术栈见 docs/technical.md。
 
-Linux 包、Wayland / Hyprland 遥控窗和桌面端细节见 [技术与开发说明](docs/technical.md)。
+模组系统 Folium v1.x
 
-## 文档与开发
-
-部署、环境变量、本地开发、Stage API、常用脚本和技术栈见 [技术与开发说明](docs/technical.md)。
-
-## 模组系统（Folium v1.x）
-
-> [!NOTE]
-> 模组系统是实验性功能，仅桌面版可用，默认关闭，需要在「设置 → 实验室 → 模组系统」中开启。
+模组系统是实验性功能，仅桌面版可用，默认关闭，需要在设置、实验室、模组系统中开启。
 
 Folium 是 BigOrange 的模组平台。模组可以添加新的歌词动画模式和背景类型、在播放页上叠加内容、给进度条加按钮和标记、注册命令与设置分区、在歌词显示前改写歌词，也可以通过 Node 入口调用 ffmpeg 等本地能力。模组以可信代码运行，每个模组在启用前都要在原生窗口中确认，文件变化后需要重新确认。
 
-- **模组市场**：[folium-compound.vercel.app](https://folium-compound.vercel.app) 提供官方模组和经过审查的社区模组，下载 zip 后拖进模组面板即可安装。
-- **官方认证**：市场里的模组都带有 Folium 签名，安装后显示「官方认证」；没有签名的第三方模组显示「未验证」，同样可以使用。
-- **开发与贡献**：[模组开发与贡献指南](docs/folium/contributing.md)，从写第一个模组、本地调试，到提交到模组市场、审查与签名、发布更新。
-- **API 参考**：[Folium API 参考](docs/folium/api.md)，由契约文件生成的完整接口文档，按注册表、上下文、事件、服务等分类查询。
-- **平台规范**：[Folium 规范](mods/README.md)，包括清单字段、权限、注册表语义、事件、安全模型与版本策略。
-- **示范模组**：仓库的 [`mods/`](mods/) 目录，覆盖歌词动画、调参、进度条、播放页图层与透明视频导出。
+模组市场 https://folium-compound.vercel.app 提供官方模组和经过审查的社区模组，下载 zip 后拖进模组面板即可安装。市场里的模组都带有 Folium 签名，安装后显示官方认证，没有签名的第三方模组显示未验证，同样可以使用。
 
-## Sync Server
+模组开发与贡献指南见 docs/folium/contributing.md。Folium API 参考见 docs/folium/api.md。平台规范见 mods/README.md。示范模组在仓库的 mods 目录，覆盖歌词动画、调参、进度条、播放页图层与透明视频导出。
 
-BigOrange 提供了可选的官方同步服务端 `sync-server`，用于在多个设备之间同步外观设置与 AI 主题库。服务端由用户自行托管，适合希望跨设备同步配色主题的用户。
+Sync Server
 
-支持以下部署方式：
+BigOrange 提供可选的官方同步服务端 sync-server，用于在多个设备之间同步外观设置与 AI 主题库。服务端由用户自行托管，适合希望跨设备同步配色主题的用户。
 
-- **Cloudflare Workers / D1**：免服务器运维的 Serverless 部署，推荐使用。
-  [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/littleflit/BigOrange/tree/main/sync-server)
-- **Docker**：镜像与 Compose 入口见 [Docker 部署目录](deploy/docker/README.md)。
-- **Node.js 自托管**：使用 SQLite，适合本地或不方便使用 Docker 的环境。
+支持 Cloudflare Workers 加 D1 部署（免服务器运维，推荐），部署地址 https://deploy.workers.cloudflare.com/?url=https://github.com/littleflit/BigOrange/tree/main/sync-server
+支持 Docker，镜像与 Compose 入口见 deploy/docker/README.md。
+支持 Node.js 自托管，使用 SQLite，适合本地或不方便使用 Docker 的环境。
 
-详细的环境变量、Token 配置与部署步骤见 [sync-server 说明](sync-server/README.md)和 [Docker 部署目录](deploy/docker/README.md)。部署完成后，在 BigOrange 的“存储设置”中填写服务端地址和 `SYNC_TOKEN` 即可启用同步。
+详细的环境变量、Token 配置与部署步骤见 sync-server/README.md 和 deploy/docker/README.md。部署完成后，在 BigOrange 的存储设置中填写服务端地址和 SYNC_TOKEN 即可启用同步。
 
-## 本地音乐与匹配说明
+本地音乐与匹配说明
 
 BigOrange 会读取音频文件元数据、同目录歌词和封面，并可通过网易云补全歌曲信息。匹配不准确时，可以手动选择候选、恢复首次导入的本地信息，或进一步合并、拆分艺术家与专辑实体。
 
-完整的导入、重扫、匹配、实体编辑、歌单、缓存和故障排查说明见 [本地音乐库管理](docs/local-library-management.md)。
+完整的导入、重扫、匹配、实体编辑、歌单、缓存和故障排查说明见 docs/local-library-management.md。
 
-## 贡献者
+贡献者
 
-感谢所有为本项目进行 Issue 提交、Bug 报告、想法建议、测试与代码编写的贡献者，均依据 all-contributors 规范进行统计
+感谢所有提交 Issue、Bug 报告、想法建议、测试与代码编写的贡献者，均依据 all-contributors 规范统计。贡献记录见 CONTRIBUTORS.md。
 
-由于列表过长，贡献记录请见 [贡献者名单](CONTRIBUTORS.md)。
+法律与免责声明
 
-## 法律与免责声明
+本项目在 AI 的广泛协助下开发，可能存在细微或不易察觉的问题。
 
-本项目在 AI 的广泛协助下开发，因此仍可能存在细微或不易察觉的问题。若给你带来不便，敬请理解。
+本项目主要用于展示播放动效、界面设计与相关工程实现。应用中涉及的在线音乐流媒体、歌词、专辑封面及其他内容，版权均归对应权利人所有。
 
-本项目主要用于展示播放动效、界面设计与相关工程实现。应用中涉及的在线音乐流媒体、歌词、专辑封面及其他内容，其版权均归对应权利人所有。
+本仓库及其源代码仅供个人学习、技术交流与非营利测试使用。请勿用于商业盈利用途。因对在线资源的传播、加工或再分发引发的版权纠纷或其他责任，均由使用者自行承担，项目开发者不承担相关责任。
 
-本仓库及其源代码仅供个人学习、技术交流与非营利测试使用。请勿将其用于商业盈利用途。若因对在线资源的传播、加工或再分发而引发版权纠纷或其他责任，均由使用者自行承担，项目开发者不承担相关责任。
+请始终尊重数字版权，在条件允许时通过官方平台支持正版音乐。
 
-请始终尊重数字版权，并在条件允许时通过官方平台支持正版音乐。
+致谢
 
-## 致谢
+https://github.com/chenmozhijin/LDDC
+https://github.com/NeteaseCloudMusicApiEnhanced/api-enhanced
+https://github.com/chenglou/pretext
+https://github.com/paper-design/shaders
+https://github.com/amll-dev/amll-ttml-db
 
-特别感谢以下项目和资源：
+许可证
 
-- [chenmozhijin/LDDC](https://github.com/chenmozhijin/LDDC)
-- [NeteaseCloudMusicApiEnhanced](https://github.com/NeteaseCloudMusicApiEnhanced/api-enhanced)
-- [chenglou/pretext](https://github.com/chenglou/pretext)
-- [paper-design/shaders](https://github.com/paper-design/shaders)
-
-本项目接入了 [Apple Music-like Lyrics TTML 逐词歌词库](https://github.com/amll-dev/amll-ttml-db) 以提供高质量的歌词文件，感谢此歌词库的作者和贡献者们。
-
-## 许可证
-
-本项目基于 `AGPL-3.0` 许可证开源。
+本项目基于 AGPL-3.0 许可证开源。
