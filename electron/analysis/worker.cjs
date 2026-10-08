@@ -255,7 +255,13 @@ const load = async (name) => {
         return null;
     }
 
-    const ort = require('onnxruntime-node');
+    let ort;
+    try {
+        ort = require('onnxruntime-node');
+    } catch {
+        console.warn(`[${name}] onnxruntime-node not installed - beat detection disabled`);
+        return null;
+    }
     const order = (FORCE_CPU || pinnedToCpu.has(name)) ? ['cpu'] : [...(PROVIDERS[name] ?? []), 'cpu'];
     let last = '';
     for (const provider of order) {
@@ -312,7 +318,12 @@ const runBeatThis = async (chunks) => {
     if (!session) return null;
     if (!Array.isArray(chunks) || !chunks.length) return decline('beat-this', 'no spectrogram chunks in the request');
 
-    const ort = require('onnxruntime-node');
+    let ort;
+    try {
+        ort = require('onnxruntime-node');
+    } catch {
+        return decline('beat-this', 'onnxruntime-node not installed');
+    }
     const beat = [];
     const downbeat = [];
     for (const chunk of chunks) {
