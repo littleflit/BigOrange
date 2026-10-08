@@ -413,9 +413,9 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
     const resolvedToggleTransparentPlayerBackground = onToggleTransparentPlayerBackground ?? onToggleTransparentPlayerBackgroundFromStore;
     const setIsSubSettingsViewOpen = useSettingsModalStore(state => state.setIsSubSettingsViewOpen);
     const [activeTab, setActiveTab] = useState<'help' | 'options'>(initialTab);
-    const [tabDirection, setTabDirection] = useState<'left' | 'right'>('right');
+    const [tabDirection, setTabDirection] = useState<'left' | 'right'>('left');
     const handleTabChange = (tab: 'help' | 'options') => {
-        setTabDirection(tab === 'options' ? 'left' : 'right');
+        setTabDirection(tab === 'options' ? 'right' : 'left');
         setActiveTab(tab);
     };
     // A bare open (no subview, no anchor) restores the last section the user entered; any named target wins.
@@ -1339,12 +1339,12 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                 <div className="relative shrink-0 z-10 mb-6 select-none">
                     <div className="flex items-center gap-6">
                         <button
-                            onClick={() => handleTabChange('help')}
-                            className={`relative text-2xl font-bold transition-colors pb-2 ${activeTab === 'help' ? 'opacity-100' : 'opacity-40 hover:opacity-80'}`}
+                            onClick={() => handleTabChange('options')}
+                            className={`relative text-2xl font-bold transition-colors pb-2 ${activeTab === 'options' ? 'opacity-100' : 'opacity-40 hover:opacity-80'}`}
                             style={{ color: 'var(--text-primary)' }}
                         >
-                            {t('help.title') || "Help"}
-                            {activeTab === 'help' && (
+                            {t('ui.options') || "Options"}
+                            {activeTab === 'options' && (
                                 <motion.div
                                     className="absolute bottom-0 left-0 right-0 h-[3px] rounded-full"
                                     style={{ backgroundColor: theme?.accentColor || (isDaylight ? '#18181b' : '#f4f4f5') }}
@@ -1355,12 +1355,12 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                             )}
                         </button>
                         <button
-                            onClick={() => handleTabChange('options')}
-                            className={`relative text-2xl font-bold transition-colors pb-2 ${activeTab === 'options' ? 'opacity-100' : 'opacity-40 hover:opacity-80'}`}
+                            onClick={() => handleTabChange('help')}
+                            className={`relative text-2xl font-bold transition-colors pb-2 ${activeTab === 'help' ? 'opacity-100' : 'opacity-40 hover:opacity-80'}`}
                             style={{ color: 'var(--text-primary)' }}
                         >
-                            {t('ui.options') || "Options"}
-                            {activeTab === 'options' && (
+                            {t('help.title') || "Help"}
+                            {activeTab === 'help' && (
                                 <motion.div
                                     className="absolute bottom-0 left-0 right-0 h-[3px] rounded-full"
                                     style={{ backgroundColor: theme?.accentColor || (isDaylight ? '#18181b' : '#f4f4f5') }}
