@@ -41,6 +41,7 @@ export function SidePanelList<T>({
     const { t } = useTranslation();
     const [listHeight, setListHeight] = useState(400);
     const listContainerRef = useRef<HTMLDivElement>(null);
+    const panelRef = useRef<HTMLDivElement>(null);
     const virtualListRef = useRef<any>(null);
     const bottomBarBottomPx = useSidePanelBottomPx();
 
@@ -94,10 +95,32 @@ export function SidePanelList<T>({
             }
     }, [isOpen, focusedIndex]);
 
+    // 点击面板外部关闭面板
+    useEffect(() => {
+        if (!isOpen) {
+            return undefined;
+        }
+
+        const handlePointerDown = (event: PointerEvent) => {
+            const target = event.target;
+            if (!(target instanceof Node)) {
+                return;
+            }
+
+            if (!panelRef.current?.contains(target)) {
+                onClose();
+            }
+        };
+
+        document.addEventListener('pointerdown', handlePointerDown);
+        return () => document.removeEventListener('pointerdown', handlePointerDown);
+    }, [isOpen, onClose]);
+
     return (
         <AnimatePresence>
             {isOpen && (
                 <motion.div
+                    ref={panelRef}
                     initial={{ opacity: 0, x: 60, scale: 0.95 }}
                     animate={{ opacity: 1, x: 0, scale: 1 }}
                     exit={{ opacity: 0, x: 60, scale: 0.95 }}
