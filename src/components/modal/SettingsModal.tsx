@@ -141,7 +141,7 @@ const hasElectronBridge = () => typeof window !== 'undefined' && Boolean((window
 
 const SettingsModal: React.FC<SettingsModalProps> = ({
     onClose,
-    initialTab = 'help',
+    initialTab = 'options',
     initialSubview = null,
     initialVisualizerSection = null,
     initialAnchor = null,
