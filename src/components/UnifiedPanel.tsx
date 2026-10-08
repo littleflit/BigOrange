@@ -626,6 +626,18 @@ const UnifiedPanel: React.FC<UnifiedPanelProps> = ({
             className="absolute right-0 z-[60] flex flex-col items-end gap-4 pointer-events-none"
             onClick={(e) => e.stopPropagation()}
         >
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="fixed inset-0 z-[55]"
+                        onClick={onToggle}
+                    />
+                )}
+            </AnimatePresence>
             <div className="pr-4 md:pr-8">
                 <AnimatePresence>
                     {isOpen && (
