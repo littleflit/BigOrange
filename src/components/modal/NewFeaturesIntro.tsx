@@ -27,18 +27,25 @@ export const NewFeaturesIntro: React.FC<NewFeaturesIntroProps> = ({ isDaylight, 
                 {t(`${NEW_FEATURES_RELEASE.i18nKey}.intro`)}
             </p>
 
-            <div className="mt-5 grid grid-cols-[repeat(auto-fit,minmax(min(100%,12rem),1fr))] gap-3 pb-2">
-                {NEW_FEATURES_RELEASE.features.map((feature) => (
-                    <UserGuideFeatureCard
-                        key={feature.id}
-                        {...featureCardClasses}
-                        icon={feature.icon}
-                        iconClassName={isDaylight ? feature.daylightIconClassName : feature.darkIconClassName}
-                        title={t(`${NEW_FEATURES_RELEASE.i18nKey}.${feature.id}.title`)}
-                        description={t(`${NEW_FEATURES_RELEASE.i18nKey}.${feature.id}.description`)}
-                    />
-                ))}
-            </div>
+            {NEW_FEATURES_RELEASE.sections.map((section) => (
+                <div key={section.id} className="mt-5 flex flex-col">
+                    <h4 className={`mb-3 text-sm font-bold tracking-tight ${textPrimary}`}>
+                        {t(section.titleKey)}
+                    </h4>
+                    <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,12rem),1fr))] gap-3 pb-2">
+                        {section.features.map((feature) => (
+                            <UserGuideFeatureCard
+                                key={feature.id}
+                                {...featureCardClasses}
+                                icon={feature.icon}
+                                iconClassName={isDaylight ? feature.daylightIconClassName : feature.darkIconClassName}
+                                title={t(`${NEW_FEATURES_RELEASE.i18nKey}.${feature.id}.title`)}
+                                description={t(`${NEW_FEATURES_RELEASE.i18nKey}.${feature.id}.description`)}
+                            />
+                        ))}
+                    </div>
+                </div>
+            ))}
         </div>
     );
 };

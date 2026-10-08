@@ -2838,7 +2838,17 @@ export default {
       }
     },
     "v0_7_15": {
-      "intro": "0.7.15 improves Chinese text handling in local lyrics and MP3 tags, makes QR login steadier with clearer help when it fails, supports shortcuts from simulated input, and fixes ever-growing back history between artist and album pages and transcoding on Apple Silicon.",
+      "intro": "0.7.15 merges upstream improvements — better Chinese handling in local lyrics and MP3 tags, steadier QR login — plus BigOrange's own fixes for the track panel and the settings landing tab.",
+      "bigorange": {
+        "title": "BigOrange Updates"
+      },
+      "upstream": {
+        "title": "Upstream Updates"
+      },
+      "settingsDefaultTab": {
+        "title": "Gear Opens Options Directly",
+        "description": "Clicking the gear now lands on the options page instead of help; help is still one click away at the top."
+      },
       "localLyrics": {
         "title": "Better Local Lyric Files",
         "description": "KRC lyrics are now decrypted, GBK encoding is detected, and line endings are normalized, so lyrics from older tools no longer parse as empty. Blank lines no longer push original lines into the translation track. When a bilingual LRC puts translations on the wrong timestamps, BigOrange tells you during playback and explains the fix on the Local tab of the playback panel."
