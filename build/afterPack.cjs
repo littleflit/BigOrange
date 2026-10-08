@@ -96,80 +96,8 @@ async function removeChromiumLicenseHtml(context) {
   }
 }
 
-// Remove software rendering libraries that are only needed for GPU-less environments.
-// Desktop users with GPUs don't need these, and they take up significant space.
-async function removeSoftwareRenderingLibraries(context) {
-  const filesToRemove = [
-    'libGLESv2.so',
-    'libvk_swiftshader.so',
-    'libvulkan.so.1',
-  ];
-  for (const file of filesToRemove) {
-    const filePath = path.join(context.appOutDir, file);
-    if (await pathExists(filePath)) {
-      await fs.rm(filePath, { force: true });
-      console.log(`[afterPack] removed ${file}`);
-    }
-  }
-}
-
-// Trim icudtl.dat to only include locales the app actually uses (en-US, zh-CN).
-// The full ICU data is ~11MB; trimming it saves ~5-8MB.
-async function trimIcuDataFile(context) {
-  const icuFile = path.join(context.appOutDir, 'icudtl.dat');
-  if (!(await pathExists(icuFile))) return;
-
-  const { spawnSync } = await import('node:child_process');
-  const os = await import('node:os');
-
-  const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'bigorange-icu-'));
-  try {
-    // Extract icudtl.dat to a directory
-    const extractResult = spawnSync('icupkg', ['-x', icuFile, '-d', tempDir], {
-      stdio: 'pipe',
-    });
-    if (extractResult.status !== 0) {
-      console.warn('[afterPack] icupkg extract failed, keeping original icudtl.dat');
-      return;
-    }
-
-    // Remove unneeded locale data - keep only en-US and zh-CN related data
-    const extractedDir = path.join(tempDir, 'icudtl');
-    if (await pathExists(extractedDir)) {
-      const entries = await fs.readdir(extractedDir, { withFileTypes: true });
-      const keepPatterns = [/^en/, /^zh/, /^root/, /^unidata/, /^curr/, /^lang/, /^zone/, /^unit/, /^rbnf/, /^coll/];
-      for (const entry of entries) {
-        if (entry.isDirectory() && !keepPatterns.some(p => p.test(entry.name))) {
-          await fs.rm(path.join(extractedDir, entry.name), { recursive: true, force: true });
-        }
-      }
-    }
-
-    // Repack the trimmed data
-    const repackResult = spawnSync('icupkg', ['-c', path.join(tempDir, 'icudtl.dat'), '-d', tempDir], {
-      stdio: 'pipe',
-    });
-    if (repackResult.status !== 0) {
-      console.warn('[afterPack] icupkg repack failed, keeping original icudtl.dat');
-      return;
-    }
-
-    // Replace the original file
-    const trimmedFile = path.join(tempDir, 'icudtl.dat');
-    if (await pathExists(trimmedFile)) {
-      await fs.copyFile(trimmedFile, icuFile);
-      const stats = await fs.stat(icuFile);
-      console.log(`[afterPack] trimmed icudtl.dat to ${(stats.size / 1024 / 1024).toFixed(1)}MB`);
-    }
-  } finally {
-    await fs.rm(tempDir, { recursive: true, force: true });
-  }
-}
-
 exports.default = async (context) => {
   await removeChromiumLicenseHtml(context);
-  await removeSoftwareRenderingLibraries(context);
-  await trimIcuDataFile(context);
   await pruneOnnxRuntimeBinaries(context);
   if (context.electronPlatformName === 'darwin') {
     const { verifyBundledKoffi } = await import('../packaging/macos/prepare-koffi.mjs');
