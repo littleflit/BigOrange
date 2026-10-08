@@ -96,8 +96,37 @@ async function removeChromiumLicenseHtml(context) {
   }
 }
 
+// Remove software rendering libraries that are only needed for GPU-less environments.
+// Desktop users with GPUs don't need these, and they take up significant space.
+async function removeSoftwareRenderingLibraries(context) {
+  const filesToRemove = [
+    'libGLESv2.so',
+    'libvk_swiftshader.so',
+    'libvulkan.so.1',
+  ];
+  for (const file of filesToRemove) {
+    const filePath = path.join(context.appOutDir, file);
+    if (await pathExists(filePath)) {
+      await fs.rm(filePath, { force: true });
+      console.log(`[afterPack] removed ${file}`);
+    }
+  }
+}
+
+// Remove the crashpad handler for crash reporting.
+// It's not needed if we don't collect crash reports.
+async function removeCrashpadHandler(context) {
+  const crashpadFile = path.join(context.appOutDir, 'chrome_crashpad_handler');
+  if (await pathExists(crashpadFile)) {
+    await fs.rm(crashpadFile, { force: true });
+    console.log('[afterPack] removed chrome_crashpad_handler');
+  }
+}
+
 exports.default = async (context) => {
   await removeChromiumLicenseHtml(context);
+  await removeSoftwareRenderingLibraries(context);
+  await removeCrashpadHandler(context);
   await pruneOnnxRuntimeBinaries(context);
   if (context.electronPlatformName === 'darwin') {
     const { verifyBundledKoffi } = await import('../packaging/macos/prepare-koffi.mjs');
