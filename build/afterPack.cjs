@@ -86,7 +86,18 @@ async function warnIfTargetHasNoBinary(binariesDir, targetPlatform, keptArchitec
   );
 }
 
+// Remove the Chromium license HTML file that Electron includes by default.
+// It's a large file (~20MB) that serves no functional purpose in the packaged app.
+async function removeChromiumLicenseHtml(context) {
+  const licenseFile = path.join(context.appOutDir, 'LICENSES.chromium.html');
+  if (await pathExists(licenseFile)) {
+    await fs.rm(licenseFile, { force: true });
+    console.log('[afterPack] removed LICENSES.chromium.html');
+  }
+}
+
 exports.default = async (context) => {
+  await removeChromiumLicenseHtml(context);
   await pruneOnnxRuntimeBinaries(context);
   if (context.electronPlatformName === 'darwin') {
     const { verifyBundledKoffi } = await import('../packaging/macos/prepare-koffi.mjs');
