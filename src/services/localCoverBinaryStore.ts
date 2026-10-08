@@ -47,6 +47,7 @@ const hasElectronBridge = (): boolean => (
   && typeof window.electron?.hasLocalCoverAsset === 'function'
   && typeof window.electron?.saveLocalCoverAsset === 'function'
   && typeof window.electron?.removeLocalCoverAsset === 'function'
+  && typeof window.electron?.clearLocalCoverAssets === 'function'
 );
 
 export const isLocalCoverWebRuntimeSupported = (): boolean => {
