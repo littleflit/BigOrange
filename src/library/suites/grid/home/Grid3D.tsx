@@ -319,7 +319,7 @@ export const Grid3D: React.FC<Grid3DProps> = (props) => {
                             BigOrange
                         </h1>
                         <button
-                            onClick={() => onOpenSettings?.('help')}
+                            onClick={() => onOpenSettings?.('options')}
                             className={`relative flex items-center gap-1.5 p-2 rounded-full hover:bg-white/10 transition-all ml-4 ${showUpdateIndicator
                                     ? 'opacity-90 hover:opacity-100'
                                     : 'opacity-40 hover:opacity-100'
@@ -569,7 +569,7 @@ export const Grid3D: React.FC<Grid3DProps> = (props) => {
                             overview={homeResources.navidromeOverview}
                             directoryKey={directoryKey}
                             declaredHomeActions={declaredActions}
-                            onOpenSettings={() => onOpenSettings?.('help')}
+                            onOpenSettings={() => onOpenSettings?.('options')}
                             onOpenGridView={onOpenGridView}
                         />
                     </div>
