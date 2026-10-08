@@ -24,3 +24,13 @@
 - 用 `gh release list` 确认，用 `gh release delete <tag> --yes` 删除。
 - Release 内容只写软件运行方法，不写更新日志。
 - 版本号在上游版本后加 `-bigorange.N` 后缀，不直接递增数字，避免与上游未来版本撞号。
+
+## 版本更新弹窗只写当前大版本
+
+- `newFeaturesRelease.ts` 的卡片只放当前大版本的变化，旧版卡片下掉，文案保留在 locale 里。
+- 发新大版本时换 `i18nKey`、换卡片、重写文案，不堆积历史。
+- 上游合并带来的卡片文案要改成 BigOrange 口径：Folia 改名，去掉已移除功能（如 QQ）的描述。
+
+## 提交邮箱用 noreply
+
+- 本地 `user.email` 用 `littleflit@users.noreply.github.com`，账号开了阻止暴露邮箱的推送后真实邮箱推不上去。
