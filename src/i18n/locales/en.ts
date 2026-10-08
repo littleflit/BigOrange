@@ -1483,6 +1483,7 @@ export default {
     "modelEnablesBeatGrid": "Beat This!",
     "modelEnablesStems": "HTDemucs",
     "modelEnablesRuntime": "Required component",
+    "modelEnablesOrt": "Beat engine",
     "modelScopeAutomix": "Automix",
     "modelScopePerformance": "Performance mode",
     "modelInstalled": "Installed",

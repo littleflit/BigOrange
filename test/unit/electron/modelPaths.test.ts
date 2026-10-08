@@ -13,6 +13,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 const require = createRequire(import.meta.url);
 const {
     resolveModelFile, modelsPresent, resolveRuntime, resolveRuntimeDir, RUNTIME_BIN,
+    resolveOrtDir, resolveOrtPackage, ortPresent, ORT_NAME,
 } = require('../../../electron/analysis/modelPaths.cjs');
 
 let root: string;
@@ -30,6 +31,14 @@ const putRuntime = (dir: string) => {
     mkdirSync(path.dirname(exe), { recursive: true });
     writeFileSync(exe, 'not really python');
     return exe;
+};
+
+/** An ort-node pack that would pass the check: the loadable entry, and nothing else. */
+const putOrtPack = (dir: string) => {
+    const entry = path.join(dir, ORT_NAME, 'node_modules', 'onnxruntime-node', 'dist', 'index.js');
+    mkdirSync(path.dirname(entry), { recursive: true });
+    writeFileSync(entry, 'not really onnxruntime');
+    return path.join(dir, ORT_NAME, 'node_modules', 'onnxruntime-node');
 };
 
 beforeAll(() => {
@@ -53,11 +62,13 @@ describe('finding model weights', () => {
     it('takes each model from the first directory that has it, independently', () => {
         put(downloadDir, 'beat_this');
         put(bundledDir, 'htdemucs');
+        putOrtPack(userDir);
         const dirs = [userDir, downloadDir, bundledDir];
 
         expect(resolveModelFile(dirs, 'beat_this')).toBe(path.join(downloadDir, 'beat_this.onnx'));
         expect(resolveModelFile(dirs, 'htdemucs')).toBe(path.join(bundledDir, 'htdemucs.onnx'));
         // htdemucs is false with its weights RIGHT THERE, and that is the point - see below.
+        // beat_this is true only because the ort pack is in one of the directories too.
         expect(modelsPresent(dirs)).toEqual({ beat_this: true, htdemucs: false });
     });
 
@@ -81,13 +92,34 @@ describe('finding model weights', () => {
         expect(resolveRuntimeDir([alone])).toBe(path.join(alone, 'runtime'));
     });
 
-    // beat_this runs in Electron's own onnxruntime-node and never touches the sidecar, so the
-    // runtime's absence must not drag it down with htdemucs.
-    it('leaves beat_this alone when there is no runtime', () => {
+    // beat_this runs in onnxruntime-node, which is a download now rather than the bundle -
+    // so weights alone report exactly what they are: not runnable. The settings page promising
+    // the full engine off weights with no runtime behind them is the failure the header is about.
+    it('does not call beat_this present until the ort pack is there too', () => {
         const alone = path.join(root, 'beat-only');
         mkdirSync(alone, { recursive: true });
         put(alone, 'beat_this');
+
+        expect(resolveModelFile([alone], 'beat_this')).toBe(path.join(alone, 'beat_this.onnx'));
+        expect(modelsPresent([alone])).toEqual({ beat_this: false, htdemucs: false });
+        expect(ortPresent([alone])).toBe(false);
+        expect(resolveOrtPackage([alone])).toBeNull();
+
+        const pack = putOrtPack(alone);
         expect(modelsPresent([alone])).toEqual({ beat_this: true, htdemucs: false });
+        expect(ortPresent([alone])).toBe(true);
+        expect(resolveOrtPackage([alone])).toBe(pack);
+        expect(resolveOrtDir([alone])).toBe(path.join(alone, ORT_NAME));
+    });
+
+    // The folder can be there while the payload is not: an extraction that died half way,
+    // or a delete that got part way through. Either way it cannot run anything.
+    it('does not call an empty ort-node folder a runtime', () => {
+        const hollow = path.join(root, 'hollow-ort');
+        mkdirSync(path.join(hollow, ORT_NAME, 'node_modules'), { recursive: true });
+        put(hollow, 'beat_this');
+        expect(resolveOrtDir([hollow])).toBeNull();
+        expect(modelsPresent([hollow]).beat_this).toBe(false);
     });
 
     // The folder can be there while the interpreter is not: an extraction that died half way,

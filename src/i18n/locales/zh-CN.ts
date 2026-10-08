@@ -1482,6 +1482,7 @@ export default {
     "modelEnablesBeatGrid": "Beat This!",
     "modelEnablesStems": "HTDemucs",
     "modelEnablesRuntime": "必要组件",
+    "modelEnablesOrt": "节拍引擎",
     "modelScopeAutomix": "Automix",
     "modelScopePerformance": "表现模式",
     "modelInstalled": "已安装",

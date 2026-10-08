@@ -53,6 +53,26 @@ const runtime = {
     sha256: sha256(archiveBytes),
 };
 
+/**
+ * The ort-node stand-in: a real zip shaped like the pack, with its own mirrors. The mirrors
+ * override is the behaviour under test as much as the unpack: the pack does not live on the
+ * weights mirrors, so routing it through them would 404 on every one before failing.
+ */
+const ORT_PROBE = ['node_modules', 'onnxruntime-node', 'dist', 'index.js'].join('/');
+const ortArchiveBytes = Buffer.from(zipSync({
+    [ORT_PROBE]: new Uint8Array([7, 7, 7]),
+}));
+const ort = {
+    name: 'ort-node',
+    file: 'ort.zip',
+    unpack: 'ort-node',
+    enables: 'beatGrid',
+    license: 'test',
+    bytes: ortArchiveBytes.length,
+    sha256: sha256(ortArchiveBytes),
+    mirrors: [] as string[],
+};
+
 let root: string;
 let downloadDir: string;
 let elsewhere: string;
@@ -74,12 +94,15 @@ beforeAll(async () => {
     model.bytes = goodBytes.length;
     model.sha256 = sha256(goodBytes);
     manifest.models.push(runtime);
+    manifest.models.push(ort);
 
     server = createServer((request, response) => {
         const mode = serve[request.url?.split('/')[1] ?? ''] ?? 'missing';
         if (mode === 'missing') { response.writeHead(404); response.end(); return; }
         const wanted = request.url?.split('/').pop();
-        const body = mode !== 'good' ? wrongBytes : (wanted === runtime.file ? archiveBytes : goodBytes);
+        const body = mode !== 'good'
+            ? wrongBytes
+            : (wanted === runtime.file ? archiveBytes : wanted === ort.file ? ortArchiveBytes : goodBytes);
         response.writeHead(200, { 'content-length': String(body.length) });
         response.end(body);
     });
@@ -87,6 +110,9 @@ beforeAll(async () => {
     const { port } = server.address() as { port: number };
     manifest.mirrors = [
         `http://127.0.0.1:${port}/down/{file}`,
+        `http://127.0.0.1:${port}/up/{file}`,
+    ];
+    ort.mirrors = [
         `http://127.0.0.1:${port}/up/{file}`,
     ];
 });
@@ -201,6 +227,41 @@ describe('downloading a model', () => {
         expect(existsSync(path.join(downloadDir, 'runtime', ...RUNTIME_EXE.split('/')))).toBe(true);
         expect(existsSync(carried)).toBe(true);
     });
+
+    /**
+     * The ort pack is a second unpack entry, and it exercises the two ways it differs from the
+     * runtime: its own mirrors (the weights mirrors would 404 it), and no interpreter to chmod
+     * (a chmod of a file that was never supposed to exist used to fail the install).
+     */
+    it('downloads the ort pack through its own mirrors and resolves it as installed', async () => {
+        serve = { down: 'good', up: 'good' };
+
+        const result = await makeStore().download('ort-node');
+
+        expect(result.ok).toBe(true);
+        expect(result.path).toBe(path.join(downloadDir, 'ort-node'));
+        expect(readFileSync(path.join(downloadDir, 'ort-node', ...ORT_PROBE.split('/'))))
+            .toEqual(Buffer.from([7, 7, 7]));
+        // The zip has done its job. What counts as installed is the entry inside the directory.
+        expect(readdirSync(downloadDir)).toEqual(['ort-node']);
+        const status = await makeStore().status();
+        expect(status.models.find((m: { name: string }) => m.name === 'ort-node')?.path)
+            .toBe(path.join(downloadDir, 'ort-node'));
+    });
+
+    // The override, not the fallback order: with every manifest mirror dead, the entry's own
+    // mirrors are still tried, and the download still lands.
+    it('prefers an entry mirrors over dead manifest mirrors', async () => {
+        serve = { down: 'missing', up: 'good' };
+        const saved = manifest.mirrors;
+        manifest.mirrors = ['http://127.0.0.1:1/down/{file}'];
+        try {
+            const result = await makeStore().download('ort-node');
+            expect(result.ok).toBe(true);
+        } finally {
+            manifest.mirrors = saved;
+        }
+    });
 });
 
 describe('finding a model already on the machine', () => {
@@ -253,11 +314,15 @@ describe('finding a model already on the machine', () => {
 
     // Nothing missing, so nothing is walked - not one stat. The runtime has to be installed too
     // for that to hold: the scan looks for whatever is absent, and it is absent one entry at a time.
+    // Same for the ort pack since it arrived: three entries, three things to have.
     it('does not go looking once everything is already installed', async () => {
         writeFileSync(installed(), goodBytes);
         const exe = path.join(downloadDir, 'runtime', ...RUNTIME_EXE.split('/'));
         mkdirSync(path.dirname(exe), { recursive: true });
         writeFileSync(exe, 'not really python');
+        const probe = path.join(downloadDir, 'ort-node', ...ORT_PROBE.split('/'));
+        mkdirSync(path.dirname(probe), { recursive: true });
+        writeFileSync(probe, 'not really onnxruntime');
         writeFileSync(path.join(elsewhere, 'spare.onnx'), goodBytes);
 
         expect(await makeStore().scan([elsewhere])).toEqual({ found: [], scanned: 0 });

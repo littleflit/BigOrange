@@ -4,7 +4,7 @@ import { existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { unzipSync } from 'fflate';
-import { downloadables, resolveRuntimeDir, RUNTIME_BIN } from '../electron/analysis/modelPaths.cjs';
+import { downloadables, resolveUnpackedDir, RUNTIME_BIN } from '../electron/analysis/modelPaths.cjs';
 
 // build/fetchModels.mjs
 // Puts the model weights where a dev checkout expects them, and refuses to hand over a file it
@@ -58,11 +58,13 @@ const verified = (buffer, model) => buffer.length === model.bytes && sha256(buff
 
 const alreadyThere = async (path, model) => (model.unpack
     // A directory, and its contents were verified as an archive before they were ever unpacked.
-    // Re-hashing 1400 loose files to answer "did I already do this" is not worth the disk.
-    ? resolveRuntimeDir([MODELS]) !== null
+    // Re-hashing the loose files to answer "did I already do this" is not worth the disk.
+    // Resolved by the entry's own payload file, never by the folder existing.
+    ? resolveUnpackedDir([MODELS], model.unpack) !== null
     : existsSync(path) && verified(await readFile(path), model));
 
-const urlsFor = (model) => manifest.mirrors.map(template => template.replace('{file}', model.file));
+const urlsFor = (model) => (model.mirrors ?? manifest.mirrors)
+    .map(template => template.replace('{file}', model.file));
 
 const reason = (error) => error?.cause?.message || error?.message || String(error);
 
@@ -122,7 +124,9 @@ for (const model of WANTED) {
                     await mkdir(dirname(out), { recursive: true });
                     await writeFile(out, body);
                 }
-                if (process.platform !== 'win32') await chmod(join(home, ...RUNTIME_BIN), 0o755);
+                if (process.platform !== 'win32' && model.unpack === 'runtime') {
+                    await chmod(join(home, ...RUNTIME_BIN), 0o755);
+                }
             } else {
                 await writeFile(path, buffer);
             }

@@ -37,14 +37,16 @@ const scopesOf = (enables: string) => (enables === 'stems'
     : [{ key: 'options.modelScopeAutomix', Icon: Disc3 }]);
 
 /**
- * Keyed by name for the runtime and by capability for the rest.
+ * Keyed by name for the runtimes and by capability for the rest.
  *
- * The runtime enables stems the same as the weights do, so `enables` cannot tell them apart - and
- * they are not the same thing to a listener. One is what separation knows; the other is what runs
- * it. A row calling both 人声分离 would look like the page listing the same download twice.
+ * A runtime enables the same thing as the weights it runs, so `enables` cannot tell them
+ * apart - and they are not the same thing to a listener. One is what the analysis knows; the
+ * other is what runs it. A row calling both by the feature would look like the page listing
+ * the same download twice.
  */
 const rowTitle = (model: ElectronAutomixModelEntry) => {
     if (model.name === 'runtime') return 'options.modelEnablesRuntime';
+    if (model.name === 'ort-node') return 'options.modelEnablesOrt';
     return model.enables === 'stems' ? 'options.modelEnablesStems' : 'options.modelEnablesBeatGrid';
 };
 

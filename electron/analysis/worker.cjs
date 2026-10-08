@@ -1,4 +1,4 @@
-const { resolveModelFile, resolveRuntime } = require('./modelPaths.cjs');
+const { resolveModelFile, resolveRuntime, resolveOrtPackage } = require('./modelPaths.cjs');
 const sidecar = require('./sidecar.cjs');
 const os = require('os');
 
@@ -237,6 +237,29 @@ const sweep = () => {
 };
 setInterval(sweep, 10_000).unref?.();
 
+/**
+ * The onnxruntime module beat_this runs in, or null.
+ *
+ * First the bundle (a dev checkout may still have the dependency installed), then the
+ * downloaded ort-node pack beside the models. It is NOT bundled in the installer: 45MB of
+ * native library for a feature most listeners never turn on.
+ */
+const loadOrt = () => {
+    try {
+        return require('onnxruntime-node');
+    } catch {
+        // Not bundled - the ordinary state in production.
+    }
+    const pack = resolveOrtPackage(MODEL_DIRS);
+    if (!pack) return null;
+    try {
+        return require(pack);
+    } catch (error) {
+        console.warn(`[ort] downloaded pack at ${pack} would not load: ${error?.message || error}`);
+        return null;
+    }
+};
+
 const load = async (name) => {
     const live = sessions.get(name);
     if (live) {
@@ -255,11 +278,12 @@ const load = async (name) => {
         return null;
     }
 
-    let ort;
-    try {
-        ort = require('onnxruntime-node');
-    } catch {
-        console.warn(`[${name}] onnxruntime-node not installed - beat detection disabled`);
+    const ort = loadOrt();
+    if (!ort) {
+        // NOT latched either, for the same reason: the runtime is a download now, and the host
+        // restarts this process when one lands.
+        console.warn(`[${name}] no onnxruntime in the bundle or ${MODEL_DIRS.join(', ') || '(no directories given)'}`
+            + ' - the renderer falls back to its estimators');
         return null;
     }
     const order = (FORCE_CPU || pinnedToCpu.has(name)) ? ['cpu'] : [...(PROVIDERS[name] ?? []), 'cpu'];
@@ -318,12 +342,8 @@ const runBeatThis = async (chunks) => {
     if (!session) return null;
     if (!Array.isArray(chunks) || !chunks.length) return decline('beat-this', 'no spectrogram chunks in the request');
 
-    let ort;
-    try {
-        ort = require('onnxruntime-node');
-    } catch {
-        return decline('beat-this', 'onnxruntime-node not installed');
-    }
+    const ort = loadOrt();
+    if (!ort) return decline('beat-this', 'no onnxruntime in the bundle or the models directories');
     const beat = [];
     const downbeat = [];
     for (const chunk of chunks) {

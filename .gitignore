@@ -91,3 +91,6 @@ __pycache__/
 
 # Built by build/buildPythonRuntime.mjs - binary artifacts that live on the mirrors, not in git.
 dist-runtime/
+
+# Built by build/buildOrtPack.mjs - binary artifacts that live on the ort-node-v1 release, not in git.
+dist-ort/

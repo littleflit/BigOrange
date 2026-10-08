@@ -4,7 +4,7 @@ const fsp = require('fs/promises');
 const path = require('path');
 const { unzipSync } = require('fflate');
 const {
-    MODEL_NAMES, RUNTIME_BIN, resolveModelFile, resolveRuntimeDir, downloadables,
+    MODEL_NAMES, RUNTIME_BIN, resolveModelFile, resolveUnpackedDir, downloadables,
 } = require('./modelPaths.cjs');
 
 // electron/analysis/modelStore.cjs
@@ -61,9 +61,10 @@ const sizeOf = async (target) => {
  * straight into `runtime/` means a run interrupted half way leaves a directory that LOOKS
  * installed. The rename is the only moment the real name exists, and it is atomic.
  *
- * The chmod is not optional off Windows. A zip stores unix permission bits by convention and
- * fflate does not restore them, so every extracted file arrives 0644 - including the interpreter,
- * which then cannot be executed at all. One file needs it: the build drops everything else in bin/.
+ * The chmod is not optional off Windows for packs that ship one. A zip stores unix
+ * permission bits by convention and fflate does not restore them, so every extracted file
+ * arrives 0644 - including an interpreter, which then cannot be executed at all. Packs without
+ * an executable (the ort-node one) skip it by the existence gate below.
  */
 const unpack = async (archive, home) => {
     const staging = `${home}.part`;
@@ -80,7 +81,13 @@ const unpack = async (archive, home) => {
         await fsp.mkdir(path.dirname(out), { recursive: true });
         await fsp.writeFile(out, body);
     }
-    if (process.platform !== 'win32') await fsp.chmod(path.join(staging, ...RUNTIME_BIN), 0o755);
+    // Only the Python runtime ships an executable bit the zip cannot carry. Gated on existence
+    // rather than on the entry: a pack without an interpreter (the ort-node one) must not fail
+    // here on a chmod of a file that was never supposed to exist.
+    const interpreter = path.join(staging, ...RUNTIME_BIN);
+    if (process.platform !== 'win32' && await fsp.stat(interpreter).catch(() => null)) {
+        await fsp.chmod(interpreter, 0o755);
+    }
 
     await fsp.rm(home, { recursive: true, force: true });
     await fsp.rename(staging, home);
@@ -103,9 +110,9 @@ const createModelStore = ({ getModelsDirs, getDownloadDir, onProgress, onChanged
     /** Only ever something this machine can install, so no caller has to check `supported`. */
     const modelBy = (name) => ENTRIES.find(entry => entry.name === name && entry.supported) ?? null;
 
-    /** Where this entry is installed, or null. A model is a file; the runtime is a directory. */
+    /** Where this entry is installed, or null. A model is a file; an unpack entry is a directory. */
     const installedPath = (entry) => (entry.unpack
-        ? resolveRuntimeDir(dirs())
+        ? resolveUnpackedDir(dirs(), entry.unpack)
         : resolveModelFile(dirs(), entry.name));
 
     /** name -> AbortController, so a download in flight can be called off. */
@@ -200,7 +207,10 @@ const createModelStore = ({ getModelsDirs, getDownloadDir, onProgress, onChanged
 
         const skipped = [];
         try {
-            for (const template of manifest.mirrors) {
+            // An entry may carry its own mirrors: the ort-node pack lives on a data release of
+            // ours, not alongside the weights, and routing it through the weights' mirrors would
+            // 404 on every one of them before failing.
+            for (const template of model.mirrors ?? manifest.mirrors) {
                 if (controller.signal.aborted) {
                     skipped.push('canceled');
                     break;
@@ -417,8 +427,8 @@ const createModelStore = ({ getModelsDirs, getDownloadDir, onProgress, onChanged
             bytes: model.bytes ?? 0,
             enables: model.enables,
             license: model.license,
-            // False only for the runtime, and only on a platform with no build - see the manifest.
-            // The page needs the row either way: a machine that cannot run separation should be
+            // False for entries with no build for this platform - see the manifest.
+            // The page needs the row either way: a machine that cannot run something should be
             // told so, not left looking for a download button that was never drawn.
             supported: model.supported,
             path: model.supported ? installedPath(model) : null,

@@ -23,7 +23,13 @@
     "with a `platforms` block because there is a different archive per OS. A platform missing from",
     "that block cannot run separation at all: `darwin-x64` is absent because every onnxruntime that",
     "loads this htdemucs export is arm64-only on macOS, and every version with an Intel Mac wheel",
-    "refuses to load it. That is reported as unsupported rather than offered as a download."
+    "refuses to load it. That is reported as unsupported rather than offered as a download.",
+    "",
+    "The fourth entry is not a model either - it is the onnxruntime-node beat_this runs in, likewise",
+    "one archive per OS, likewise absent on darwin-x64 (no Intel Mac binary ships). It carries its",
+    "own `mirrors`: unlike the weights it does not live on the weights mirrors, it lives on this",
+    "repo's ort-node-v1 data release. Same `enables` as the weights it runs, so a platform with no",
+    "build blocks both rows rather than offering weights that could never run."
   ],
   "_manualComment": [
     "Shown only when every mirror has failed. An empty list = the settings page does not offer the",
@@ -69,6 +75,34 @@
       "license": "MIT",
       "upstream": "https://github.com/mosynthkey/beat_this_cpp",
       "note": "Beat This! (CPJKU, ISMIR 2024), the community ONNX export of the authors' own final0 checkpoint."
+    },
+    {
+      "name": "ort-node",
+      "unpack": "ort-node",
+      "enables": "beatGrid",
+      "license": "MIT",
+      "upstream": "https://github.com/microsoft/onnxruntime",
+      "note": "onnxruntime-node 1.30.0 + onnxruntime-common 1.30.0, pruned to one platform by build/buildOrtPack.mjs and zipped. beat_this runs in it; without it the renderer falls back to its estimators. Unpacked into <models>/ort-node/ and required from there - never bundled, so the installer stays ~18MB smaller.",
+      "mirrors": [
+        "https://github.com/littleflit/BigOrange/releases/download/ort-node-v1/{file}"
+      ],
+      "platforms": {
+        "linux-x64": {
+          "file": "bigorange-ort-node-linux-x64.zip",
+          "bytes": 18086916,
+          "sha256": "df63bf1d73c125902e3e8726ccb0e885e49be9be41a2ef396441a65ae23225e8"
+        },
+        "win32-x64": {
+          "file": "bigorange-ort-node-win32-x64.zip",
+          "bytes": 28968140,
+          "sha256": "b8861f2d94d3abde42f056eebe496fc104be8a0af753f296395de231ce256bc7"
+        },
+        "darwin-arm64": {
+          "file": "bigorange-ort-node-darwin-arm64.zip",
+          "bytes": 25854333,
+          "sha256": "5dd1e0b799c61fc5a688b7a78a7e0c025bb81f5b2c5be45011bb5ced1a5b7082"
+        }
+      }
     },
     {
       "name": "htdemucs",

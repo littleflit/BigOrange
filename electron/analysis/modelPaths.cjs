@@ -43,19 +43,41 @@ const RUNTIME_NAME = 'runtime';
 /** Where the interpreter sits inside the runtime directory. Set by build/buildPythonRuntime.mjs. */
 const RUNTIME_BIN = process.platform === 'win32' ? ['python.exe'] : ['bin', 'python3'];
 
+// The onnxruntime-node beat_this runs in - an optional download that lands as an `ort-node/`
+// folder beside the model files, in the same directories, best first. It is NOT bundled: 45MB
+// of native library for a feature most listeners never turn on. See build/buildOrtPack.mjs.
+const ORT_NAME = 'ort-node';
+/** Where the loadable entry sits inside the ort-node directory. Set by build/buildOrtPack.mjs. */
+const ORT_PROBE = ['node_modules', 'onnxruntime-node', 'dist', 'index.js'];
+
+/** Directory name -> the file inside it whose presence means the extraction finished. */
+const UNPACK_PROBES = {
+    [RUNTIME_NAME]: RUNTIME_BIN,
+    [ORT_NAME]: ORT_PROBE,
+};
+
+/**
+ * The installed unpacked-download DIRECTORY, or null. Probed by a file inside it, never by the
+ * folder existing: a half-extracted archive leaves the folder there, and a directory with no
+ * payload in it would otherwise read as installed.
+ */
+const resolveUnpackedDir = (dirs, unpack) => {
+    const probe = UNPACK_PROBES[unpack];
+    if (!probe) return null;
+    for (const dir of dirs) {
+        if (!dir) continue;
+        const home = path.join(dir, unpack);
+        if (fs.statSync(path.join(home, ...probe), { throwIfNoEntry: false })?.isFile()) return home;
+    }
+    return null;
+};
+
 /**
  * The installed runtime DIRECTORY, or null. Probed by the interpreter inside it, never by the
  * folder existing: a half-extracted archive leaves the folder there, and a runtime directory with
  * no interpreter in it would otherwise read as installed.
  */
-const resolveRuntimeDir = (dirs) => {
-    for (const dir of dirs) {
-        if (!dir) continue;
-        const home = path.join(dir, RUNTIME_NAME);
-        if (fs.statSync(path.join(home, ...RUNTIME_BIN), { throwIfNoEntry: false })?.isFile()) return home;
-    }
-    return null;
-};
+const resolveRuntimeDir = (dirs) => resolveUnpackedDir(dirs, RUNTIME_NAME);
 
 /** The runtime interpreter's path if a usable runtime is installed in one of `dirs`, else null. */
 const resolveRuntime = (dirs) => {
@@ -65,6 +87,27 @@ const resolveRuntime = (dirs) => {
 
 const runtimePresent = (dirs) => resolveRuntime(dirs) !== null;
 
+/** The downloaded onnxruntime-node package DIRECTORY, or null - the thing worker.cjs requires. */
+const resolveOrtDir = (dirs) => resolveUnpackedDir(dirs, ORT_NAME);
+
+/** The onnxruntime-node package itself, for an absolute require, or null. */
+const resolveOrtPackage = (dirs) => {
+    const home = resolveOrtDir(dirs);
+    return home && path.join(home, 'node_modules', 'onnxruntime-node');
+};
+
+/**
+ * Whether beat_this can run here: weights plus something to run them in. The runtime is a
+ * download now, so a weights-only machine is an ordinary state rather than a corner case -
+ * and reporting it runnable is how the settings page came to promise the full engine while
+ * every analysis silently fell back to the estimators.
+ *
+ * Answered from the DIRECTORIES alone, never from ambient node_modules: the worker accepts a
+ * bundled onnxruntime-node too (dev convenience), and counting that here would make the page
+ * promise an engine whose weights vanish the moment the dev dependency is pruned.
+ */
+const ortPresent = (dirs) => resolveOrtPackage(dirs) !== null;
+
 /**
  * `{ beat_this: true, htdemucs: false }` for the settings page. A few stats, nothing loaded.
  *
@@ -73,10 +116,13 @@ const runtimePresent = (dirs) => resolveRuntime(dirs) !== null;
  * a separate download. Reporting the .onnx alone is how a machine with the model and no runtime
  * gets a settings page promising the full engine while every separation silently declines - the
  * exact failure this file's header is about, and it was live here until this line was written.
+ * beat_this is the same shape: weights plus the ort-node download.
  */
 const modelsPresent = (dirs) => Object.fromEntries(MODEL_NAMES.map(name => [
     name,
-    resolveModelFile(dirs, name) !== null && (name !== 'htdemucs' || runtimePresent(dirs)),
+    resolveModelFile(dirs, name) !== null
+        && (name !== 'htdemucs' || runtimePresent(dirs))
+        && (name !== 'beat_this' || ortPresent(dirs)),
 ]));
 
 /** What a per-platform manifest entry is keyed by. Matches Electron's own two strings. */
@@ -113,6 +159,7 @@ const downloadables = (manifest, platform = PLATFORM) => {
 };
 
 module.exports = {
-    MODEL_NAMES, RUNTIME_NAME, RUNTIME_BIN, PLATFORM,
-    resolveModelFile, modelsPresent, resolveRuntime, resolveRuntimeDir, runtimePresent, downloadables,
+    MODEL_NAMES, RUNTIME_NAME, RUNTIME_BIN, PLATFORM, ORT_NAME, ORT_PROBE,
+    resolveModelFile, modelsPresent, resolveRuntime, resolveRuntimeDir, runtimePresent,
+    resolveUnpackedDir, resolveOrtDir, resolveOrtPackage, ortPresent, downloadables,
 };
