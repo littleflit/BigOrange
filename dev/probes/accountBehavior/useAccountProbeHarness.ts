@@ -41,6 +41,7 @@ import {
     resetFakeAuth,
     scriptQrStates,
     setQrTtl,
+    setSelfCheck,
     shouldFailRefresh,
 } from './fakeAuthProviders';
 import { probeSwitchCleanup } from './probeSwitchCleanup';
@@ -265,6 +266,7 @@ export const useAccountProbeModel = (): AccountProbeModel => {
             setQrTtl,
             failRefresh,
             failCreate,
+            setSelfCheck,
             setAccount: seedAccount,
             setActive: providerId => useOnlineProviderAccountStore.setState({ activeProviderId: providerId }),
             setNeteaseBackend: ({ supported, status, error = null }) => {

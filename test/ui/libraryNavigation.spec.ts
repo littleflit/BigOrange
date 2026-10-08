@@ -51,21 +51,18 @@ const openLocalHome = async (page: Page, options: { collectionMorph?: boolean } 
 };
 
 /**
- * 在本地页签的搜索框里搜。导入之后曲库的实体目录要晚一拍才就绪，那之前的结果不带实体（歌手 / 专辑链接是灰的），
- * 所以搜到链接可点为止（重复提交是 replace，不会多压历史）。
+ * 在本地页签的搜索框里搜。导入之后曲库的实体目录要晚一拍才就绪，那之前的结果不带实体（歌手链接是灰的、没有专辑）；
+ * 搜索页按当前目录重算展示，目录到了同一行就会补上链接，所以提交一次、等链接可点即可。
+ * 以前这里反复回车直到链接可点，但轮询里的 isEnabled() 对不存在的专辑按钮会一直等下去（不会抛错落到 catch），
+ * 第一次回车搜在目录之前就把整个轮询卡满 15s。
  */
 const searchLocal = async (page: Page, query: string) => {
     const input = page.getByPlaceholder('Search local songs...');
     await input.fill(query);
-    await expect.poll(async () => {
-        if (await searchResult(page).count() === 0) {
-            await input.press('Enter');
-        } else {
-            await page.keyboard.press('Enter');
-        }
-        await page.waitForTimeout(300);
-        return page.getByRole('button', { name: 'Fixture Album' }).isEnabled().catch(() => false);
-    }, { timeout: 15_000 }).toBe(true);
+    await input.press('Enter');
+    await expect(searchResult(page)).toHaveCount(1);
+    await expect(page.getByRole('button', { name: 'Fixture Album' })).toBeEnabled();
+    await expect(page.getByRole('button', { name: 'Test Artist' })).toBeEnabled();
     expect(await historyState(page)).toMatchObject({ hash: `#search/${query}`, view: 'home', stack: [] });
 };
 
@@ -139,6 +136,34 @@ test.describe('search results', () => {
         await tui(page).locator('[data-tui-back]').click();
         await expectSearchResults(page, 'Midnight');
     });
+});
+
+// 搜索结果是提交那一刻的快照。导入后紧接着搜，实体目录还没加载完，快照里的行没有专辑、歌手不带实体；
+// 搜索页渲染时要按当前目录重算，否则这些行会一直缺链接到重新搜索为止。这里把 store 里的结果换回那种快照，
+// 确定性地复现「目录比搜索晚到」，不靠机器负载去撞时序。
+test('local search results pick up the entity catalog that arrives after the search', async ({ page }) => {
+    await openLocalHome(page);
+    await searchLocal(page, 'Midnight');
+
+    await page.evaluate(async () => {
+        const modulePath = '/src/stores/useSearchNavigationStore.ts';
+        const { useSearchNavigationStore } = await import(/* @vite-ignore */ modulePath);
+        const results = useSearchNavigationStore.getState().searchResults as Array<{
+            artists: Array<{ id: number; name: string }>;
+            album?: Record<string, unknown>;
+        }>;
+        useSearchNavigationStore.setState({
+            searchResults: results.map(track => ({
+                ...track,
+                artists: track.artists.map(artist => ({ id: 0, name: artist.name })),
+                album: { ...track.album, id: 0, name: '', entityId: undefined },
+            })),
+        });
+    });
+
+    await expect(searchResult(page)).toHaveCount(1);
+    await expect(page.getByRole('button', { name: 'Fixture Album' })).toBeEnabled();
+    await expect(page.getByRole('button', { name: 'Test Artist' })).toBeEnabled();
 });
 
 test('the player panel Cover tab opens the album, and Back returns to the player', async ({ page }) => {

@@ -89,6 +89,8 @@ export type AppOverlaysDeps = {
     handleSearchResultArtistOpen: SearchOverlayProps['onOpenArtist'];
     handleSearchResultCollectionOpen: SearchOverlayProps['onOpenCollection'];
     handleSearchResultAlbumOpen: SearchOverlayProps['onOpenAlbum'];
+    /** 搜索结果按当前本地曲库目录重算展示（见 SearchWorkspace 的同名 prop）。 */
+    resolveSearchResultDisplay: NonNullable<SearchOverlayProps['resolveTrackDisplay']>;
     devDebugSnapshot: any;
     effectiveLoopMode: 'off' | 'all' | 'one';
     canToggleCurrentPlayback: boolean;
@@ -138,6 +140,7 @@ export const buildAppOverlaysModel = ({
     handleSearchResultArtistOpen,
     handleSearchResultCollectionOpen,
     handleSearchResultAlbumOpen,
+    resolveSearchResultDisplay,
     isDevDebugOverlayVisible,
     isMemoryMonitorVisible,
     memoryMonitorShortcutLabel,
@@ -229,6 +232,7 @@ export const buildAppOverlaysModel = ({
             onOpenArtist: handleSearchResultArtistOpen,
             onOpenCollection: handleSearchResultCollectionOpen,
             onOpenAlbum: handleSearchResultAlbumOpen,
+            resolveTrackDisplay: resolveSearchResultDisplay,
         }
         : null,
     // Not gated on the view, and that was a real hole: the app cold-starts on the home page,

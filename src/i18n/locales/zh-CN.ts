@@ -294,6 +294,7 @@ export default {
     "transcodeFallbackReady": "音频转换完成，正在恢复播放",
     "transcodeFallbackFailed": "音频转换失败",
     "lyricsSourceSwitched": "歌词来源已切换",
+    "lyricFileIssueShifted": "「{{title}}」的歌词文件译文错位了一句，修复办法见播放面板的「本地」页",
     "clearedManualLyrics": "已清除手动匹配/上传的歌词",
     "clearFailed": "清除失败",
     "stageLikeUnavailable": "Stage 模式下不支持收藏操作",
@@ -1165,6 +1166,7 @@ export default {
     "qrExpired": "二维码已过期，请刷新。",
     "qrCanceledOnDevice": "已在手机上取消登录，可以重新获取二维码。",
     "qrCanceledOnDeviceCooldown": "已在手机上取消登录，{{seconds}} 秒后可以重新获取二维码。",
+    "qrConnectionReset": "连接被网易断开。可以先重试；仍然失败请切换网络或重启 Folia。",
     "qrRetryCooldown": "请求过于频繁，{{seconds}} 秒后可以重试。",
     "qrScanned": "扫描成功！请在手机上确认。",
     "loginSuccess": "登录成功！",
@@ -1173,14 +1175,42 @@ export default {
     "restartBackend": "重启后端服务",
     "restartingBackend": "正在重启…",
     "retryQr": "刷新二维码",
-    "qrDiagnosticsPrompt": "登录遇到问题？复制诊断信息反馈给我们，能帮助定位原因。",
-    "qrDiagnosticsPromptScanned": "已经在手机上确认，却没有登录成功？复制诊断信息反馈给我们，能帮助定位原因。",
-    "qrDiagnosticsPrivacy": "诊断信息不含 cookie、token、IP 或账号信息。",
+    "qrTipsTitle": "可以先试试",
+    "qrTipRestart": "重启 Folia，再重新扫码。",
+    "qrTipSwitchNetwork": "换一个网络（例如手机热点），再重启 Folia。",
+    "qrDiagnosticsToggle": "还是不行？把诊断信息发给我们",
+    "qrDiagnosticsPrompt": "复制诊断信息反馈给我们，能帮助定位原因。",
+    "qrDiagnosticsPromptScanned": "在手机上确认了却没有登录成功的话，复制诊断信息反馈给我们，能帮助定位原因。",
+    "qrDiagnosticsDisclosure": "诊断信息包含：应用与系统版本、网卡与 IP 地址、代理设置、登录请求的记录与错误原文、网络检查结果。不含账号密码、cookie 和 token。",
     "qrDiagnosticsCopy": "复制诊断信息",
     "qrDiagnosticsCopied": "已复制",
     "qrDiagnosticsCopyFailed": "复制失败",
     "qrDiagnosticsReport": "去 GitHub 反馈",
     "qrDiagnosticsPasteHint": "请把 BigOrange 复制的诊断信息粘贴在这里，并简单描述当时的情况（网络环境、是否开了代理等）。",
+    "qrSelfCheckTitle": "自动检查",
+    "qrSelfCheckRunning": "正在检查网络与本地服务…",
+    "qrSelfCheckFailed": "自动检查没能完成：{{message}}",
+    "qrSelfCheckBackendDown": "{{provider}}本地服务没有正常运行（{{detail}}）。重启 BigOrange 后再试。",
+    "qrSelfCheckRemoteUnreachable": "连不上 API 服务器（{{detail}}）。请检查部署地址与网络。",
+    "qrSelfCheckCredentialStore": "系统钥匙串不可用（{{detail}}），QQ 登录态无法加密保存。请安装并解锁 GNOME Keyring 或 KWallet，然后重启 BigOrange。",
+    "qrSelfCheckDnsFailed": "无法解析{{provider}}服务器的域名（{{detail}}）。请检查网络或 DNS 设置，或换个网络后重启 BigOrange。",
+    "qrSelfCheckTlsReset": "连接{{provider}}服务器时在加密握手阶段被断开（{{detail}}）。常见原因是代理、加速器、防火墙或网络环境的干扰：换个网络或关闭代理后，重启 BigOrange 再试。",
+    "qrSelfCheckUnreachable": "连不上{{provider}}服务器（{{detail}}）。请检查网络连接，或换个网络后重启 BigOrange。",
+    "qrSelfCheckIpv6Failed": "通过 IPv6 连接{{provider}}服务器失败，IPv4 正常（{{detail}}）。可以在系统里关闭 IPv6 或 Teredo 后重试。",
+    "qrSelfCheckHttpsFailed": "能连上{{provider}}服务器，但请求失败（{{detail}}）。换个网络后重启 BigOrange 再试。",
+    "qrSelfCheckClockSkew": "系统时间与服务器相差约 {{detail}} 分钟。请校准系统时间后重试。",
+    "qrSelfCheckNetworkOk": "网络检查没有发现问题。",
+    "qrSelfCheckProxyFakeIp": "检测到 TUN 模式代理（fake-ip）接管了连接。如果仍然失败，可以让{{provider}}的域名直连后再试。",
+    "qrSelfCheckProxyEnv": "检测到代理环境变量，登录请求可能经它转发。如果仍然失败，可以去掉代理后再试。",
+    "qrSelfCheckItemBackend": "本地服务",
+    "qrSelfCheckItemRemote": "API 服务器",
+    "qrSelfCheckItemCredentialStore": "凭据保存",
+    "qrSelfCheckItemDns": "域名解析",
+    "qrSelfCheckItemIpv4": "IPv4 连接",
+    "qrSelfCheckItemIpv6": "IPv6 连接",
+    "qrSelfCheckItemHttps": "HTTPS 请求",
+    "qrSelfCheckItemProxy": "代理",
+    "qrSelfCheckItemClock": "系统时间",
     "closeLogin": "关闭登录窗口",
     "logout": "退出登录",
     "backToPlayer": "返回播放器",
@@ -2806,6 +2836,33 @@ export default {
         "description": "登录后，自己创建的不公开歌单也能读取歌曲，并支持真正的分页加载。自建后端需要升级到 qq-music-api 3.1.2 或更新版本；旧后端会自动回退，读不到时会明确提示「不是公开歌单」，不再静默显示为空。"
       }
     },
+    "v0_7_15": {
+      "intro": "0.7.15 改善本地歌词与 MP3 标签的中文兼容、扫码登录的稳定性与失败指引、模拟输入下的快捷键，并修复歌手与专辑来回跳转时返回路径越来越长、Apple Silicon 上转码失败等问题。",
+      "localLyrics": {
+        "title": "本地歌词文件更兼容",
+        "description": "支持 KRC 加密歌词，自动识别 GBK 编码并统一换行，旧工具导出的歌词不再解析为空；空行不再把原文挤进译文。双语 LRC 的译文标错了时间时，播放时会提示，修复办法见播放面板的「本地」页。"
+      },
+      "mp3Tags": {
+        "title": "MP3 中文标签不再乱码",
+        "description": "旧工具按 GBK 写入的标题、艺人和专辑会还原成中文，Björk、Café 这类西文字符保持不变。已导入的曲库会在下次扫描时重新读取标签。"
+      },
+      "qrLogin": {
+        "title": "扫码登录更稳，失败时有办法",
+        "description": "网易云扫码中途连接被重置时会换身份重试，失败时显示真实原因。登录失败后，二维码旁先给出重启 Folia、换网络等办法，诊断信息收在下方；QQ 音乐恢复诊断入口，在手机上取消后会等后端冷却结束再允许重试。"
+      },
+      "injectedShortcuts": {
+        "title": "快捷键支持模拟输入",
+        "description": "按键映射、宏、远程控制等软件发出的按键，现在也能触发播放控制、命令面板和教程里的快捷键。"
+      },
+      "collectionNav": {
+        "title": "来回跳转不再越返越长",
+        "description": "在歌手页和专辑页之间来回点击时，点回刚离开的那一页会当作一次返回，返回路径和浏览器历史不再无限叠加。"
+      },
+      "appleSiliconTranscode": {
+        "title": "修复 Apple Silicon 转码",
+        "description": "修复 Apple Silicon Mac 上内置 ffmpeg 无法启动、ALAC 等需要转码的曲目播放报错的问题。"
+      }
+    },
     "v0_7_13": {
       "intro": "BigOrange 相对上游的精简与修复：只留网易云与中英双语，新增评论查看，修掉 GPU 与退出问题。",
       "neteaseOnly": {
@@ -2986,6 +3043,9 @@ export default {
     "statusOnline": "在线",
     "statusImported": "导入",
     "statusNone": "无",
+    "lyricFileIssueShiftedTitle": "歌词文件的译文错位了一句",
+    "lyricFileIssueShiftedBody": "这份 LRC 把每句译文标在了下一句的开始时间上，所以当前显示的是上一句的译文，原文被挤到了副行。问题出在歌词文件本身的排版。",
+    "lyricFileIssueShiftedFix": "修复办法：点「在线匹配」换一份歌词；或者用歌词编辑器把每句译文的时间改成它对应原文的时间，保存后重新扫描文件夹。",
     "importedLyricsFile": "导入文件",
     "selectTranslationLrc": "选择译文 LRC",
     "replayGainOff": "关闭",

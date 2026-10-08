@@ -8,7 +8,7 @@
     "email": "littleflit@users.noreply.github.com"
   },
   "private": true,
-  "version": "0.7.13-bigorange.9",
+  "version": "0.7.15-bigorange.1",
   "license": "AGPL-3.0",
   "type": "module",
   "main": "electron/main.cjs",
@@ -148,7 +148,7 @@
   },
   "dependencies": {
     "@google/genai": "^2.24.0",
-    "@neteasecloudmusicapienhanced/api": "^4.40.1",
+    "@neteasecloudmusicapienhanced/api": "^4.41.1",
     "@xhayper/discord-rpc": "^1.5.1",
     "axios": "^1.20.0",
     "busboy": "^1.6.0",
@@ -217,6 +217,9 @@
   },
   "overrides": {
     "@babel/plugin-transform-runtime": "7.29.7",
+    "concurrently": {
+      "shell-quote": "1.12.0"
+    },
     "@discordjs/rest": {
       "undici": "^6.27.0"
     },

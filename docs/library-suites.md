@@ -298,9 +298,11 @@ App 创建一个 controller（`app/useLibraryAccountController.ts`，App 卸载�
 
 要码串行：上一轮的要码请求还没回来时，新一轮先等它结算再发，等待期间又被取代就不发。后端同一时间只允许一个要码在建会话，连点刷新、快速换登录方式时并发的第二个会被拒（409 session-busy）。
 
-失败原因与冷却：provider 能确定用户在手机上取消时，轮询结果带 `reason: 'canceled-on-device'`，会话记为 `canceled-on-device`（不给诊断入口）；失败带着后端要求的冷却（轮询结果的 `retryAfterMs`，或要码错误 `OnlineProviderError.retryAfterMs`）时，登录快照的 `retryCooldownSeconds` 给出秒数，冷却结束自动回到 null。冷却期间 `canRetryLogin` 为 false、`retryLogin` 返回 `rejected`（`cooling-down`），状态行说明原因与秒数；suite 照常按视图的 `canRetry` 显示重试（grid 显示为禁用按钮，TUI 不给重试）。
+失败原因与冷却：provider 能确定用户在手机上取消时，轮询结果带 `reason: 'canceled-on-device'`，会话记为 `canceled-on-device`（不给诊断入口）；请求被上游断开（连接被重置）时，轮询结果带 `reason: 'connection-reset'`，或要码错误带 `qrLoginReason: 'connection-reset'`，会话记为 `connection-reset`（照常给诊断入口，状态行提示重试、换网络或重启）。只认这两种原因（`accountRules` 的 `knownQrLoginErrorReason` / `qrLoginErrorReasonOf`），其它值按普通失败；失败带着后端要求的冷却（轮询结果的 `retryAfterMs`，或要码错误 `OnlineProviderError.retryAfterMs`）时，登录快照的 `retryCooldownSeconds` 给出秒数，冷却结束自动回到 null。冷却期间 `canRetryLogin` 为 false、`retryLogin` 返回 `rejected`（`cooling-down`），状态行说明原因与秒数；suite 照常按视图的 `canRetry` 显示重试（grid 显示为禁用按钮，TUI 不给重试）。
 
-日志：会话与 controller 里带 providerId 的错误（要码、轮询、取消、方式解析、确认后与切换后的刷新、登出）经 `accountRules` 的 `describeAccountError` 描述，轮询报 error 时附带的后端文字经 `describeLoginStateMessage`。QQ 自己在 `[QQProvider] qr-login:failed` 里写白名单过滤后的摘要，这两处对它只记 `reason: 'provider-error'`，不记原始文字。
+日志：会话与 controller 里的错误（要码、轮询、取消、方式解析、确认后与切换后的刷新、登出）经 `accountRules` 的 `describeLoginError` 描述，不分 provider：错误名与原文，加上 `OnlineProviderError` 的类别、HTTP 状态、冷却、Node 错误码、扫码原因与后端原始响应；轮询报 error 时后端原文与原始字段（`detail`）照记。轮询遇到网络层瞬时失败（`transient`）时，会话连续容忍 `PROVIDER_LOGIN_TRANSIENT_POLL_LIMIT`（2）次再算失败，每次记一条 `poll:retry`。
+
+自检：会话进入失败（在手机上取消除外）后，provider 有自检能力（`canRunQrLoginSelfCheck`）就自动跑一次 `runQrLoginSelfCheck`，快照的 `selfCheck` 先是 running，结果回来后带上结构化结果与结论（`core/model/loginSelfCheckRules` 的 `resolveLoginSelfCheckVerdict`）；新一轮开始时晚到的结果作废。生成诊断报告时会先等还在跑的自检（有上限）。
 
 寿命：controller 属于 App，换 suite 不重建，登录会话与待确认切换都在 controller 里，所以登录进行中切换 suite，新 suite 接着显示同一个会话、同一个待确认请求。账户界面宿主 `app/LibraryAccountHost.tsx` 挂在首页外壳 `components/app/Home.tsx` 里，首页整个卸载时关闭登录、把待确认切换按取消结算——待确认切换的寿命随首页宿主。启动恢复会话时直接写当前平台，不经确认。
 
@@ -315,7 +317,7 @@ App 创建一个 controller（`app/useLibraryAccountController.ts`，App 卸载�
 | `account-switch-confirm` | 确认 / 取消待确认切换 | 基础 | `useLibraryAccountPendingSwitch`；`confirmSwitch` / `cancelSwitch` |
 | `account-select` | 首页上的平台列表，选平台 | 推荐 | `useLibraryAccountProviders`；`selectProvider` |
 | `account-logout` | 首页上的登出入口 | 推荐 | `canLogoutProvider`；`logout` |
-| `account-login-diagnostics` | 失败后的诊断报告（QQ 不给：它的安全失败摘要在普通日志面板里，`canShowLoginDiagnostics` 对它恒为 false） | 可选 | 视图的 `diagnosticsPrompt`；`buildLoginDiagnosticReport` |
+| `account-login-diagnostics` | 失败后在二维码旁边的帮助：先是简单办法（重启；换网络再重启），再是自检结论，诊断报告与反馈收在最后（后端没拉起来时也给） | 可选 | 视图的 `failureTips`、`selfCheck` 与 `diagnosticsPrompt`；`buildLoginDiagnosticReport` |
 | `account-backend-restart` | 网易本地后端故障时重启 | 可选 | 视图的 `backendFailure`；`restartLoginBackend` |
 
 `account-select` / `account-logout` 画在 home surface 上，但和其余账户动作一起声明在 entry 的 `surfaces.account` 里。
@@ -331,7 +333,8 @@ account surface 只在 `login` 可见或 `pendingSwitch` 非空时渲染内容�
 - 不要调 Omni 的扫码 / 登出接口，也不要读 `useOnlineProviderAccountStore`、`useNeteaseApiStatusStore`，数据和动作都来自 controller。
 - 确认框按下确认后立即收起：`confirmSwitch` 同步清掉 `pendingSwitch`，不要 `await confirmSwitch` 再关框（它要等清理与刷新走完）。
 - 登出入口的可用性用 `core/model/accountRules` 的 `canLogoutProvider`，且 `logout.status` 不是 `pending`；与 controller 的判定、网格切换器、AccountTab 一致。
-- 诊断入口（区块、按键、提示行）只看视图的 `diagnosticsPrompt` / `canShowDiagnostics`，不要自己按 provider 判断；哪些 provider 不给入口由 core 的 `canShowLoginDiagnostics` 决定（目前是 QQ）。
+- 诊断入口（区块、按键、提示行）只看视图的 `diagnosticsPrompt` / `canShowDiagnostics`，不要自己按 provider 判断；什么时候给入口由 core 的 `canShowLoginDiagnostics` 决定。
+- 失败帮助放在二维码旁边，按 `failureTips`（简单办法）→ `selfCheck`（自检结论）→ 诊断与反馈的顺序排；诊断与反馈不要一上来就摆在最显眼的位置（网格收在「还是不行？」下面）。
 - 键盘只在 `isInteractive` 为真且界面显示着时接。`isInteractive` 是首页外壳层的值，集合层打开时可能仍为真；登录与确认在最上层时，挂 `data-bigorange-keyboard-window` 让底下的页面按键与全局热键让路。
 
 ## 写一套新 suite 的步骤
