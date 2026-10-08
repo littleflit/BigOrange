@@ -8,7 +8,7 @@
     "email": "littleflit@users.noreply.github.com"
   },
   "private": true,
-  "version": "0.7.13-bigorange.8",
+  "version": "0.7.13-bigorange.9",
   "license": "AGPL-3.0",
   "type": "module",
   "main": "electron/main.cjs",
