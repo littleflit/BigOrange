@@ -2841,7 +2841,7 @@ export default {
       "intro": "0.7.15 improves Chinese text handling in local lyrics and MP3 tags, makes QR login steadier with clearer help when it fails, supports shortcuts from simulated input, and fixes ever-growing back history between artist and album pages and transcoding on Apple Silicon.",
       "localLyrics": {
         "title": "Better Local Lyric Files",
-        "description": "KRC lyrics are now decrypted, GBK encoding is detected, and line endings are normalized, so lyrics from older tools no longer parse as empty. Blank lines no longer push original lines into the translation track. When a bilingual LRC puts translations on the wrong timestamps, Folia tells you during playback and explains the fix on the Local tab of the playback panel."
+        "description": "KRC lyrics are now decrypted, GBK encoding is detected, and line endings are normalized, so lyrics from older tools no longer parse as empty. Blank lines no longer push original lines into the translation track. When a bilingual LRC puts translations on the wrong timestamps, BigOrange tells you during playback and explains the fix on the Local tab of the playback panel."
       },
       "mp3Tags": {
         "title": "No More Garbled Chinese MP3 Tags",
@@ -2849,7 +2849,7 @@ export default {
       },
       "qrLogin": {
         "title": "Steadier QR Login with Better Help",
-        "description": "NetEase QR login retries with a fresh identity when the connection is reset mid-login and shows the real reason when it fails. After a failure, simple fixes such as restarting Folia or switching networks appear next to the QR code, with diagnostics tucked below. QQ Music diagnostics are back, and after you cancel on your phone, retry waits until the backend cooldown ends."
+        "description": "NetEase QR login retries with a fresh identity when the connection is reset mid-login and shows the real reason when it fails. After a failure, simple fixes such as restarting BigOrange or switching networks appear next to the QR code, with diagnostics tucked below. After you cancel on your phone, retry waits until the backend cooldown ends."
       },
       "injectedShortcuts": {
         "title": "Shortcuts Work with Simulated Input",
@@ -2862,6 +2862,10 @@ export default {
       "appleSiliconTranscode": {
         "title": "Apple Silicon Transcoding Fixed",
         "description": "Fixes the bundled ffmpeg failing to start on Apple Silicon Macs, which caused playback errors for tracks that need transcoding, such as ALAC."
+      },
+      "sidePanelDismiss": {
+        "title": "Click Outside to Close the Track Panel",
+        "description": "The track panel sliding out on the right of a playlist or list now closes when you click the empty area outside it — no need to hunt for the X button."
       }
     },
     "v0_7_13": {

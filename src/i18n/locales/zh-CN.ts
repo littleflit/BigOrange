@@ -2848,7 +2848,7 @@ export default {
       },
       "qrLogin": {
         "title": "扫码登录更稳，失败时有办法",
-        "description": "网易云扫码中途连接被重置时会换身份重试，失败时显示真实原因。登录失败后，二维码旁先给出重启 Folia、换网络等办法，诊断信息收在下方；QQ 音乐恢复诊断入口，在手机上取消后会等后端冷却结束再允许重试。"
+        "description": "网易云扫码中途连接被重置时会换身份重试，失败时显示真实原因。登录失败后，二维码旁先给出重启 BigOrange、换网络等办法，诊断信息收在下方；在手机上取消后会等后端冷却结束再允许重试。"
       },
       "injectedShortcuts": {
         "title": "快捷键支持模拟输入",
@@ -2861,6 +2861,10 @@ export default {
       "appleSiliconTranscode": {
         "title": "修复 Apple Silicon 转码",
         "description": "修复 Apple Silicon Mac 上内置 ffmpeg 无法启动、ALAC 等需要转码的曲目播放报错的问题。"
+      },
+      "sidePanelDismiss": {
+        "title": "点击空白处关闭曲目侧栏",
+        "description": "歌单或列表右侧滑出的曲目面板，现在点击面板外部的空白处即可关闭，不用再去找右上角的叉号。"
       }
     },
     "v0_7_13": {
