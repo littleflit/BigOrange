@@ -7,6 +7,16 @@
 - 完工即提交推送：一个完整改动对应一次 `commit + push`，不在本地堆积未推送提交。
 - 推送前检查 `git status` 干净，确认改的是预期文件。
 - `upstream` 只用于同步上游，不直接推送。
+- 提交信息用前缀：`fix` 修 bug、`feat` 新功能、`chore` 版本杂务、`docs` 文档、`merge` 合并上游。
+
+## 合并上游
+
+- 先 `git fetch upstream`，用 `git merge upstream/main --no-commit` 试合，看清全部冲突再动手。
+- 上游新架构优先取：登录重构这类成套改动整体收下，不在中间劈开。
+- BigOrange 删掉的东西保持删除：QQ 音源及后端、印尼语、已删文档，冲突时选删除 side；上游新增但依赖已删模块的文件（如 `qqBackend.cjs`）一并摘掉。
+- 旧 API 的测试跟随删除：上游重构删掉的函数，对应旧断言一起删，不保留失效测试。
+- 文档按合并后代码重写：locale、README、设计文档里的行为描述以合完的代码为准，Folia 改名，上游专属功能描述去掉。
+- 合并后必跑 `npm run typecheck`；动了主进程、登录、播放核心时必跑全量单测（`npm run test:unit`），全绿才提交。
 
 ## GitHub Actions 保持关闭
 
