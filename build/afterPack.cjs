@@ -113,16 +113,6 @@ async function removeSoftwareRenderingLibraries(context) {
   }
 }
 
-// Remove the crashpad handler for crash reporting.
-// It's not needed if we don't collect crash reports.
-async function removeCrashpadHandler(context) {
-  const crashpadFile = path.join(context.appOutDir, 'chrome_crashpad_handler');
-  if (await pathExists(crashpadFile)) {
-    await fs.rm(crashpadFile, { force: true });
-    console.log('[afterPack] removed chrome_crashpad_handler');
-  }
-}
-
 // Trim icudtl.dat to only include locales the app actually uses (en-US, zh-CN).
 // The full ICU data is ~11MB; trimming it saves ~5-8MB.
 async function trimIcuDataFile(context) {
@@ -179,7 +169,6 @@ async function trimIcuDataFile(context) {
 exports.default = async (context) => {
   await removeChromiumLicenseHtml(context);
   await removeSoftwareRenderingLibraries(context);
-  await removeCrashpadHandler(context);
   await trimIcuDataFile(context);
   await pruneOnnxRuntimeBinaries(context);
   if (context.electronPlatformName === 'darwin') {
