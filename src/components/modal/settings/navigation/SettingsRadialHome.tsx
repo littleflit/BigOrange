@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Search } from 'lucide-react';
 import { useReducedMotionFor } from '../../../../hooks/useReducedMotionFor';
+import { useThemeSettingsStore } from '../../../../stores/useThemeSettingsStore';
 import { liquidGlassCard, liquidGlassPill, liquidGlassTile } from '../../../shared/liquidGlass';
 import type { SettingsAnchorId } from './settingsAnchorModel';
 import type { SettingsNavGroup, SettingsNavItem, SettingsSectionId } from './settingsNavModel';
@@ -31,6 +32,14 @@ type RadialHit = {
     label: string;
     sublabel: string | null;
 };
+
+/**
+ * Ring-icon refraction. One static filter shared by all 11 tiles: blur the backdrop,
+ * bend it with low-frequency noise, then over-saturate. Static feTurbulence costs
+ * nothing while idle (verified full-FPS in dev/probes/liquidGlassRefraction); only
+ * repaints re-run it, which is why this stays on hero tiles and never on full panels.
+ */
+const RING_REFRACT_FILTER_ID = 'bigorange-lg-ring-refract';
 
 /**
  * Ring slot as percentages of the square container. Index 0 starts at the top
@@ -73,6 +82,10 @@ export const SettingsRadialHome: React.FC<SettingsRadialHomeProps> = ({
     const [cursor, setCursor] = useState<{ x: number; y: number } | null>(null);
     const [focusIndex, setFocusIndex] = useState<number | null>(null);
     const reduceMotion = useReducedMotionFor('uiMicroMotion');
+    const lgOpacity = useThemeSettingsStore(state => state.liquidGlassOpacity);
+    // Refraction only reads the backdrop, so once the slider reaches opaque there is
+    // nothing to bend: fall back to the plain CSS glass (which is opaque there too).
+    const refractFilter = lgOpacity < 0.98 ? `url(#${RING_REFRACT_FILTER_ID})` : undefined;
 
     const search = useMemo(() => searchSettingsNav(groups, query, locale), [groups, query, locale]);
     const hasQuery = query.trim().length > 0;
@@ -167,7 +180,11 @@ export const SettingsRadialHome: React.FC<SettingsRadialHomeProps> = ({
                         >
                             <span
                                 className={`flex h-12 w-12 items-center justify-center rounded-full transition-colors ${liquidGlassTile(isDaylight)}`}
-                                style={{ color: 'var(--text-primary)' }}
+                                style={{
+                                    color: 'var(--text-primary)',
+                                    backdropFilter: refractFilter,
+                                    WebkitBackdropFilter: refractFilter,
+                                }}
                             >
                                 <Icon size={20} />
                             </span>
@@ -237,6 +254,16 @@ export const SettingsRadialHome: React.FC<SettingsRadialHomeProps> = ({
                     )}
                 </div>
             </div>
+            <svg width={0} height={0} style={{ position: 'absolute' }} aria-hidden="true">
+                <defs>
+                    <filter id={RING_REFRACT_FILTER_ID} x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blurred" />
+                        <feTurbulence type="fractalNoise" baseFrequency="0.015 0.015" numOctaves={2} seed={7} result="noise" />
+                        <feDisplacementMap in="blurred" in2="noise" scale={16} xChannelSelector="R" yChannelSelector="G" result="bent" />
+                        <feColorMatrix in="bent" type="saturate" values="1.5" />
+                    </filter>
+                </defs>
+            </svg>
         </div>
     );
 };
