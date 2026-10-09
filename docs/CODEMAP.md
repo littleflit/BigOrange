@@ -40,6 +40,7 @@
 | 64+ | `src/utils/appPlaybackGuards.ts` |
 | 32+ | `dev/probes/definition.ts` |
 | 32+ | `src/components/ponder/surfaces/ponderSurfaceGeometry.ts` |
+| 32+ | `src/components/shared/liquidGlass.ts` |
 | 32+ | `src/components/visualizer/colorMix.ts` |
 | 32+ | `src/components/visualizer/definition.ts` |
 | 32+ | `src/i18n/config.ts` |
@@ -86,6 +87,7 @@
 - `dev/probes/latticeTitle.probe.tsx`
 - `dev/probes/latticeTitleExpansion.probe.tsx`
 - `dev/probes/libraryBehavior.probe.tsx`
+- `dev/probes/liquidGlassRefraction.probe.tsx`
 - `dev/probes/localFolderIgnore.probe.tsx`
 - `dev/probes/lyricFilterModal.probe.tsx`
 - `dev/probes/lyricSegmentationSurface.probe.tsx`
