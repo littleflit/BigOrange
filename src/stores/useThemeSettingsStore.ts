@@ -51,11 +51,13 @@ export type ThemeSettingsState = {
     useCoverColorBg: boolean;
     staticMode: boolean;
     disableHomeDynamicBackground: boolean;
+    liquidGlassEnabled: boolean;
     isDaylight: boolean;
     followSystemTheme: boolean;
     handleToggleCoverColorBg: (enable: boolean) => void;
     handleToggleStaticMode: (enable: boolean) => void;
     handleToggleDisableHomeDynamicBackground: (disable: boolean) => void;
+    handleToggleLiquidGlass: (enable: boolean) => void;
     setDaylightPreference: (isDaylight: boolean) => void;
     setDaylightPreferenceFromSystem: (isDaylight: boolean) => void;
     setFollowSystemTheme: (enabled: boolean) => void;
@@ -65,6 +67,7 @@ export const useThemeSettingsStore = create<ThemeSettingsState>((set, get) => ({
     useCoverColorBg: getStoredBoolean('use_cover_color_bg', false),
     staticMode: getStoredBoolean('static_mode', false),
     disableHomeDynamicBackground: readStoredDisableHomeDynamicBackground(),
+    liquidGlassEnabled: getStoredBoolean('liquid_glass_enabled', true),
     followSystemTheme: initialFollowSystemTheme,
     isDaylight: initialDaylight,
     handleToggleCoverColorBg: (enable) => {
@@ -89,6 +92,14 @@ export const useThemeSettingsStore = create<ThemeSettingsState>((set, get) => ({
         setStatusMessage({
             type: 'info',
             text: i18n.t('notifications.' + (disable ? 'homeBgDisabled' : 'homeBgEnabled')),
+        });
+    },
+    handleToggleLiquidGlass: (enable) => {
+        setStoredBoolean('liquid_glass_enabled', enable);
+        set({ liquidGlassEnabled: enable });
+        setStatusMessage({
+            type: 'info',
+            text: i18n.t('notifications.' + (enable ? 'liquidGlassOn' : 'liquidGlassOff')),
         });
     },
     // System updates are kept separate from the manual setter so a user click can disable auto-follow.
@@ -141,6 +152,7 @@ export const selectThemeSettingsSnapshot = (state: ThemeSettingsState) => ({
     useCoverColorBg: state.useCoverColorBg,
     staticMode: state.staticMode,
     disableHomeDynamicBackground: state.disableHomeDynamicBackground,
+    liquidGlassEnabled: state.liquidGlassEnabled,
     setDaylightPreference: state.setDaylightPreference,
     setDaylightPreferenceFromSystem: state.setDaylightPreferenceFromSystem,
     setFollowSystemTheme: state.setFollowSystemTheme,
@@ -148,6 +160,25 @@ export const selectThemeSettingsSnapshot = (state: ThemeSettingsState) => ({
     handleToggleStaticMode: state.handleToggleStaticMode,
     handleToggleDisableHomeDynamicBackground: state.handleToggleDisableHomeDynamicBackground,
 });
+
+// The liquid-glass kill switch lives on <html> so every `.lg-*` surface in the app
+// (settings today, player and palette tomorrow) falls back to opaque fills from CSS
+// alone - no prop threading, no per-surface branches.
+const syncLiquidGlassAttribute = (enabled: boolean) => {
+    if (typeof document === 'undefined') {
+        return;
+    }
+    document.documentElement.dataset.liquidGlass = enabled ? 'on' : 'off';
+};
+
+if (typeof window !== 'undefined') {
+    syncLiquidGlassAttribute(useThemeSettingsStore.getState().liquidGlassEnabled);
+    useThemeSettingsStore.subscribe((state, previous) => {
+        if (state.liquidGlassEnabled !== previous.liquidGlassEnabled) {
+            syncLiquidGlassAttribute(state.liquidGlassEnabled);
+        }
+    });
+}
 
 // Seed Electron's native theme from the stored preference at startup. Lives here rather than in
 // useSettingsUiStore because it reads nothing but this domain.

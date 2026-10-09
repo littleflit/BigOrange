@@ -3,6 +3,7 @@ import { motion, useMotionValue, useTransform, animate, AnimatePresence } from '
 import { Loader2, Disc, Map as MapIcon, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { getSizedCoverUrl } from '../utils/coverUrl';
+import { liquidGlassPanel } from './shared/liquidGlass';
 
 // Convert HTTP to HTTPS only for Netease CDN URLs
 const toSafeUrl = (url?: string): string | undefined => {
@@ -400,7 +401,7 @@ const Carousel3D: React.FC<Carousel3DProps> = ({
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className={`absolute inset-0 z-50 backdrop-blur-md flex flex-col p-8 ${isDaylight ? 'bg-white/80' : 'bg-black/80'}`}
+                        className={`absolute inset-0 z-50 flex flex-col p-8 ${liquidGlassPanel(isDaylight)}`}
                     >
                         <div className="flex justify-between items-center mb-6">
                             <h3 className={`text-xl font-bold ${isDaylight ? 'text-black/90' : 'text-white/90'}`}>{t('home.allAlbums') || 'All Albums'}</h3>

@@ -86,6 +86,8 @@ export default {
     "staticModeOff": "静态模式已关闭",
     "homeBgDisabled": "主页动态背景已关闭",
     "homeBgEnabled": "主页动态背景已开启",
+    "liquidGlassOn": "液态玻璃已开启",
+    "liquidGlassOff": "液态玻璃已关闭",
     "autoBestLyricOn": "自动使用最佳歌词已开启",
     "autoBestLyricOff": "自动使用最佳歌词已关闭",
     "lyricSourceChanged": "优先匹配歌词源已切换为{{source}}",
@@ -1656,6 +1658,9 @@ export default {
     "enableStaticMode": "静态模式",
     "enableStaticModeDesc": "禁用几何背景以节省资源。",
     "enableStaticModeDescSub": "不会影响歌词文本效果或渲染。",
+    "liquidGlass": "液态玻璃",
+    "liquidGlassDesc": "弹窗、圆环、播放器等表面用半透明玻璃质感。",
+    "liquidGlassDescSub": "低配机器关掉可省 GPU。",
     "graphicsSettings": "图形",
     "graphicsSettingsDesc": "静态模式、动态背景、原生模糊、帧率限制、Linux 发光修复和降低动态效果。",
     "modSettings": "模组",
@@ -2840,12 +2845,16 @@ export default {
       }
     },
     "v0_7_16": {
-      "intro": "0.7.16 合并上游改进：AMLL 歌词切官方接口、手动匹配直搜 AMLL、首页 Tab 切页签、本地搜索链接补全；BigOrange 重排了设置分组，移除了频谱小组件，歌词不再能被圈选。",
+      "intro": "0.7.16 合并上游改进：AMLL 歌词切官方接口、手动匹配直搜 AMLL、首页 Tab 切页签、本地搜索链接补全；BigOrange 重排了设置分组，弹窗与播放器换上液态玻璃，移除了频谱小组件，歌词不再能被圈选。",
       "bigorange": {
         "title": "BigOrange 更新"
       },
       "upstream": {
         "title": "上游更新"
+      },
+      "liquidGlass": {
+        "title": "液态玻璃",
+        "description": "设置、命令面板、播放器等表面换成半透明玻璃质感；外观设置里可一键开关。"
       },
       "spectrumRemoved": {
         "title": "移除频谱小组件",

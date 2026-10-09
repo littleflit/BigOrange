@@ -358,3 +358,25 @@ html[data-click-through='active'] body .click-through-interactive * {
         inset 0 1px 0 rgba(255, 255, 255, 0.8),
         0 8px 28px rgba(24, 24, 27, 0.12);
 }
+
+/* 液态玻璃总开关（外观设置）。关掉后所有 `.lg-*` 退化为不透明底，
+   属性挂在 <html> 上，由主题 store 同步，调用方不用分支。 */
+:root[data-liquid-glass='off'] .lg-panel,
+:root[data-liquid-glass='off'] .lg-card,
+:root[data-liquid-glass='off'] .lg-pill,
+:root[data-liquid-glass='off'] .lg-tile {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: #1b1b1f;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+}
+
+:root[data-liquid-glass='off'] .lg-panel-daylight,
+:root[data-liquid-glass='off'] .lg-card-daylight,
+:root[data-liquid-glass='off'] .lg-pill-daylight,
+:root[data-liquid-glass='off'] .lg-tile-daylight {
+    background: #ffffff;
+    border-color: rgba(24, 24, 27, 0.1);
+    box-shadow: 0 24px 64px rgba(24, 24, 27, 0.18);
+}

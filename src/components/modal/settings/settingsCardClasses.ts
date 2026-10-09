@@ -5,9 +5,12 @@
 // outside it — the command palette hosts GridViewSettingsSection on a surface — and a section that
 // carries the panel's look must not depend on a second hand-kept copy of these strings.
 // LabSettingsModal keeps its own pair on purpose: it sits on a different panel background.
+//
+// Cards are liquid glass now; the kill switch is pure CSS (`[data-liquid-glass='off']`
+// in index.css), so this helper keeps branching on daylight only.
 
 export const settingsCardClassFor = (isDaylight: boolean) => (
-    isDaylight ? 'bg-black/[0.025] border-black/10' : 'bg-white/5 border-white/5'
+    isDaylight ? 'lg-card lg-card-daylight' : 'lg-card'
 );
 
 export const settingsToggleOffClassFor = (isDaylight: boolean) => (

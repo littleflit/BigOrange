@@ -15,6 +15,7 @@ import { isTextEntryTarget } from './useCommandPalette';
 import PinnedCommandRow from './PinnedCommandRow';
 import CommandPaletteAllCommandsList from './CommandPaletteAllCommandsList';
 import { setIsCommandFilterOpen } from '../../stores/useAppViewStore';
+import { liquidGlassPanel } from '../shared/liquidGlass';
 import { isGridFilterSyntaxAvailable, resolveGridFilterAction } from './gridFilterQuery';
 import { FILTER_VIEW_COMMAND_ID } from './commands/filterViewCommand';
 
@@ -227,7 +228,7 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({
     const hasClearBackdrop = surface?.backdrop === 'clear';
     const panelBg = hasClearBackdrop
         ? (isDaylight ? 'bg-white/95 text-zinc-950' : 'bg-zinc-950/95 text-white')
-        : (isDaylight ? 'bg-white/70 text-zinc-950' : 'bg-zinc-950/70 text-white');
+        : `${liquidGlassPanel(isDaylight)} ${isDaylight ? 'text-zinc-950' : 'text-white'}`;
     const itemActiveBg = isDaylight ? 'bg-black/10' : 'bg-white/10';
     const itemIdleBg = isDaylight ? 'hover:bg-black/5' : 'hover:bg-white/5';
 
@@ -412,12 +413,16 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({
                         onMouseDown={(event) => event.stopPropagation()}
                     >
                         <div
-                            className={`overflow-hidden rounded-3xl border shadow-2xl ${panelBg}`}
+                            className={`overflow-hidden rounded-3xl ${hasClearBackdrop ? `border shadow-2xl ${panelBg}` : panelBg}`}
                             data-testid="command-palette-panel"
-                            style={{
-                                borderColor: isDaylight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)',
-                                color: 'var(--text-primary)',
-                            }}
+                            style={hasClearBackdrop
+                                ? {
+                                    borderColor: isDaylight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)',
+                                    color: 'var(--text-primary)',
+                                }
+                                : {
+                                    color: 'var(--text-primary)',
+                                }}
                         >
                         <div className="flex items-center gap-3 border-b px-4 py-3" style={{ borderColor: isDaylight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)' }}>
                             {isExecuting ? (

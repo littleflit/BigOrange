@@ -86,6 +86,8 @@ export default {
     "staticModeOff": "Static mode disabled",
     "homeBgDisabled": "Home dynamic background disabled",
     "homeBgEnabled": "Home dynamic background enabled",
+    "liquidGlassOn": "Liquid glass enabled",
+    "liquidGlassOff": "Liquid glass disabled",
     "autoBestLyricOn": "Auto-use best lyrics enabled",
     "autoBestLyricOff": "Auto-use best lyrics disabled",
     "lyricSourceChanged": "Preferred lyric source switched to {{source}}",
@@ -1657,6 +1659,9 @@ export default {
     "enableStaticMode": "Static Mode",
     "enableStaticModeDesc": "Only disable geometric backgrounds.",
     "enableStaticModeDescSub": "Does not affect lyric text effects or rendering.",
+    "liquidGlass": "Liquid Glass",
+    "liquidGlassDesc": "Panels, the ring, the player and other surfaces use a translucent glass look.",
+    "liquidGlassDescSub": "Turning it off saves GPU on weaker machines.",
     "graphicsSettings": "Graphics",
     "graphicsSettingsDesc": "Static mode, dynamic backgrounds, native blur, the frame rate cap, the Linux glow fix and reduced motion.",
     "modSettings": "Mods",
@@ -2841,12 +2846,16 @@ export default {
       }
     },
     "v0_7_16": {
-      "intro": "0.7.16 merges upstream improvements — AMLL lyrics via the official API, direct AMLL search in manual matching, Tab switching between home tabs, and completed local search links — plus BigOrange's regrouped settings, the removed spectrum widget, and non-selectable lyrics.",
+      "intro": "0.7.16 merges upstream improvements — AMLL lyrics via the official API, direct AMLL search in manual matching, Tab switching between home tabs, and completed local search links — plus BigOrange's regrouped settings, liquid glass across dialogs and the player, the removed spectrum widget, and non-selectable lyrics.",
       "bigorange": {
         "title": "BigOrange Updates"
       },
       "upstream": {
         "title": "Upstream Updates"
+      },
+      "liquidGlass": {
+        "title": "Liquid Glass",
+        "description": "Settings, the command palette, the player and other surfaces use a translucent glass look, with a single switch under Appearance."
       },
       "spectrumRemoved": {
         "title": "Spectrum Widget Removed",

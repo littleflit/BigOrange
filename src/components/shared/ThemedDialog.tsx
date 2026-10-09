@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
+import { liquidGlassPanel } from './liquidGlass';
 
 interface ThemedDialogProps {
     isOpen: boolean;
@@ -35,7 +36,6 @@ const ThemedDialog: React.FC<ThemedDialogProps> = ({
     closeDisabled = false,
     closeDisabledTitle,
 }) => {
-    const bgClass = isDaylight ? 'bg-white/90 border-white/30' : 'bg-zinc-900/95 border-white/10';
     const textPrimary = isDaylight ? 'text-zinc-900' : 'text-white';
     const textSecondary = isDaylight ? 'text-zinc-500' : 'text-zinc-400';
     const closeBtnHover = isDaylight ? 'hover:bg-zinc-200/60' : 'hover:bg-white/10';
@@ -70,7 +70,7 @@ const ThemedDialog: React.FC<ThemedDialogProps> = ({
                         exit={{ scale: 0.94, opacity: 0 }}
                         transition={{ type: 'spring', stiffness: 280, damping: 24 }}
                         onClick={(event) => event.stopPropagation()}
-                        className={`relative w-full ${maxWidthClass} rounded-3xl border ${bgClass} p-6 shadow-2xl backdrop-blur-sm`}
+                        className={`relative w-full ${maxWidthClass} rounded-3xl ${liquidGlassPanel(isDaylight)} p-6`}
                     >
                         <button
                             type="button"

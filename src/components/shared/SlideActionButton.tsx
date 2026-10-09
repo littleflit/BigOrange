@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import type { LucideIcon } from 'lucide-react';
+import { liquidGlassTile } from './liquidGlass';
 
 // src/components/shared/SlideActionButton.tsx
 // The player-style round action button with a second action on a leftward slide: tap the button for
@@ -209,7 +210,7 @@ export const SlideActionButton: React.FC<SlideActionButtonProps> = ({
                     onActivate();
                 }}
                 style={{ touchAction: 'none' }}
-                className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg backdrop-blur-md transform border-none absolute right-0 top-0 z-10 disabled:opacity-40 disabled:cursor-default ${isDaylight ? 'bg-white/70 text-zinc-900' : 'bg-black/40 text-white'}`}
+                className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 transform absolute right-0 top-0 z-10 disabled:opacity-40 disabled:cursor-default ${liquidGlassTile(isDaylight)} ${isDaylight ? 'text-zinc-900' : 'text-white'}`}
                 title={title}
                 aria-label={title}
             >
