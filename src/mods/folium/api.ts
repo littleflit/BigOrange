@@ -202,16 +202,20 @@ export const createFoliumClientApi = (mod: ModRuntimeInfo, options: FoliumClient
     const internals = gatedNamespace(
         'internals',
         options.internals ?? {},
-        () => Boolean(mod.bigorange) && options.internals !== null,
-        () => (mod.bigorange
+        // Either spelling opens it: validateManifest normalizes both, but a ModRuntimeInfo
+        // built any other way may carry only one.
+        () => Boolean(mod.bigorange ?? mod.folia) && options.internals !== null,
+        () => ((mod.bigorange ?? mod.folia)
             ? `internals-unavailable-in-${context}-context`
-            : 'internals-require-bigorange-range (pin host versions with "bigorange" in mod.json)'),
+            : 'internals-require-host-range (pin host versions with "bigorange" or "folia" in mod.json)'),
     );
 
     return Object.freeze({
         modId,
         host: Object.freeze({
             folium: Object.freeze({ major: FOLIUM_VERSION.major, minor: FOLIUM_VERSION.minor }),
+            // Both spellings, same value: official mods read `folia`, ours read `bigorange`.
+            folia: typeof __APP_VERSION__ === 'undefined' ? null : __APP_VERSION__,
             bigorange: typeof __APP_VERSION__ === 'undefined' ? null : __APP_VERSION__,
         }),
         env: Object.freeze({ context }),

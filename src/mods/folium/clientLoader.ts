@@ -71,7 +71,7 @@ const activate = async (mod: ModRuntimeInfo, url: string, context: FoliumContext
     const record: ActiveClient = { url, dispose: null };
     activeClients.set(mod.id, record);
     try {
-        const internals = context === 'main' && mod.bigorange ? await loadInternals() : null;
+        const internals = context === 'main' && (mod.bigorange ?? mod.folia) ? await loadInternals() : null;
         const experimental = context === 'main' && (mod.experimental ?? []).length > 0
             ? (await loadExperimental()).createFoliumExperimental(mod)
             : undefined;

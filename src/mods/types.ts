@@ -72,6 +72,8 @@ export interface ModRuntimeInfo {
     embedOrigins: string[];
     /** Host version range; present only on mods that use `folium.internals`. */
     bigorange: string | null;
+    /** Same value as `bigorange`: the `folia` spelling official mods declare. */
+    folia: string | null;
     hasMain: boolean;
     /** bigorange-mod:// URL of the client entry, versioned by content digest; null unless loaded. */
     clientUrl: string | null;

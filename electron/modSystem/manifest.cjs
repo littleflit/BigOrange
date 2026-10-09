@@ -111,9 +111,10 @@ const satisfiesRange = (version, range) => {
 };
 
 /*
- * Host version ranges (`"bigorange"`): space-separated comparators that must all
- * hold, e.g. ">=0.7.0 <0.8.0". Supported operators: >=, >, <=, <, =, ^ and a
- * bare version (exact). "*" matches everything. Anything else is invalid.
+ * Host version ranges (`"bigorange"`, or `"folia"` on official Folia mods):
+ * space-separated comparators that must all hold, e.g. ">=0.7.0 <0.8.0".
+ * Supported operators: >=, >, <=, <, =, ^ and a bare version (exact).
+ * "*" matches everything. Anything else is invalid.
  */
 const HOST_COMPARATOR_PATTERN = /^(>=|>|<=|<|=|\^)?([0-9]+\.[0-9]+\.[0-9]+)$/;
 
@@ -204,7 +205,11 @@ const validateManifest = (raw) => {
         permissions: Array.isArray(raw.permissions) ? raw.permissions : [],
         experimental: Array.isArray(raw.experimental) ? raw.experimental : [],
         embedOrigins: Array.isArray(raw.embedOrigins) ? raw.embedOrigins : [],
-        bigorange: raw.bigorange ?? null,
+        // Both spellings, one value: ours declare `bigorange`, official Folia mods
+        // declare `folia`. Native wins when both pin a range. Normalized here so every
+        // downstream check (api.ts gating, clientLoader internals) works unchanged.
+        bigorange: raw.bigorange ?? raw.folia ?? null,
+        folia: raw.bigorange ?? raw.folia ?? null,
         preview: raw.preview ?? null,
     };
 
@@ -278,7 +283,7 @@ const validateManifest = (raw) => {
     }
 
     if (manifest.bigorange !== null && !parseHostRange(manifest.bigorange)) {
-        errors.push(`mod.bigorange ${JSON.stringify(manifest.bigorange)} is not a supported version range (e.g. ">=0.7.0 <0.8.0")`);
+        errors.push(`mod.bigorange (or mod.folia) ${JSON.stringify(manifest.bigorange)} is not a supported version range (e.g. ">=0.7.0 <0.8.0")`);
     }
 
     return errors.length > 0 ? fail(errors) : ok(manifest);

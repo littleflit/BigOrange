@@ -46,7 +46,7 @@ const mod = (overrides: Partial<ModRuntimeInfo> = {}): ModRuntimeInfo => ({
     trustStale: false, signature: { status: 'unsigned', reason: null, keyId: null, keyLabel: null, signedAt: null }, devSource: false,
     experimental: [],
     embedOrigins: [],
-    bigorange: null,
+    bigorange: null, folia: null,
     hasMain: false,
     clientUrl: 'bigorange-mod://mod-a/client.mjs?v=1',
     ...overrides,
@@ -115,11 +115,13 @@ describe('client api bindings', () => {
         expect(handle.params.get()).toEqual({ url: 'https://example.com' });
     });
 
-    it('gates internals behind the bigorange range and experimental behind opt-ins', () => {
+    it('gates internals behind the host range and experimental behind opt-ins', () => {
         const plain = createFoliumClientApi(mod(), { context: 'main', internals: { secret: 1 } });
-        expect(() => plain.internals.secret).toThrow('internals-require-bigorange-range');
+        expect(() => plain.internals.secret).toThrow('internals-require-host-range');
         const pinned = createFoliumClientApi(mod({ bigorange: '>=0.7.0 <0.8.0' }), { context: 'main', internals: { secret: 1 } });
         expect(pinned.internals.secret).toBe(1);
+        const foliaPinned = createFoliumClientApi(mod({ folia: '>=0.7.0 <0.8.0' }), { context: 'main', internals: { secret: 1 } });
+        expect(foliaPinned.internals.secret).toBe(1);
         expect(() => plain.experimental.anything).toThrow('experimental-not-declared:anything');
     });
 

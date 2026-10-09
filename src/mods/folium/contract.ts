@@ -1177,7 +1177,9 @@ export type FoliumContextKind = 'main' | 'export';
 export interface FoliumHostInfo {
     /** The Folium version (`major`, `minor`). */
     folium: { major: number; minor: number };
-    /** BigOrange app version, or null when the host cannot tell. */
+    /** Folia app version, or null when the host cannot tell. */
+    folia: string | null;
+    /** BigOrange app version, or null when the host cannot tell. Same value as `folia`. */
     bigorange: string | null;
 }
 

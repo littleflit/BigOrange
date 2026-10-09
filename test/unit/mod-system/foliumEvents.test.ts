@@ -104,7 +104,7 @@ describe('folium event bus', () => {
 const mod = (overrides: Partial<ModRuntimeInfo> = {}): ModRuntimeInfo => ({
     id: 'mod-a', name: 'A', version: '1.0.0', author: null, description: null, permissions: [],
     status: 'loaded', error: null, enabled: true, trustStale: false, signature: { status: 'unsigned', reason: null, keyId: null, keyLabel: null, signedAt: null }, devSource: false, experimental: [], embedOrigins: [],
-    bigorange: null, hasMain: false, clientUrl: null, ...overrides,
+    bigorange: null, folia: null, hasMain: false, clientUrl: null, ...overrides,
 });
 
 const fakeActions = () => ({

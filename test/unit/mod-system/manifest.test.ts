@@ -176,6 +176,25 @@ describe('validateManifest Folium entries and opt-ins', () => {
         expect(validateManifest({ ...validManifest, bigorange: '>=0.7.0 <0.8.0' }).ok).toBe(true);
         expect(validateManifest({ ...validManifest, bigorange: '~0.7' }).ok).toBe(false);
     });
+
+    it('accepts the official `folia` host range spelling and normalizes both fields', () => {
+        const result = validateManifest({ ...validManifest, folia: '>=0.7.0 <0.8.0' });
+        expect(result.ok).toBe(true);
+        if (result.ok) {
+            expect(result.value.bigorange).toBe('>=0.7.0 <0.8.0');
+            expect(result.value.folia).toBe('>=0.7.0 <0.8.0');
+        }
+        expect(validateManifest({ ...validManifest, folia: '~0.7' }).ok).toBe(false);
+    });
+
+    it('prefers the native `bigorange` range when both spellings pin one', () => {
+        const result = validateManifest({ ...validManifest, bigorange: '>=0.7.0', folia: '>=0.8.0' });
+        expect(result.ok).toBe(true);
+        if (result.ok) {
+            expect(result.value.bigorange).toBe('>=0.7.0');
+            expect(result.value.folia).toBe('>=0.7.0');
+        }
+    });
 });
 
 describe('satisfiesHostRange', () => {
