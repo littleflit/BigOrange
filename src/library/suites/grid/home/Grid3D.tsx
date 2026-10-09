@@ -29,6 +29,7 @@ import { useLibraryHomeListRegistration, useLibraryHomeTabsRegistration } from '
 import { useLibraryAccountProviders } from '../../../core/bindings/useLibraryAccount';
 import { resolveProviderSelectLabel } from '../../../core/model/accountRules';
 import { cycleIndex, translateHomeMessage } from '../../../core/model/homeSources';
+import { liquidGlassPill } from '../../../../components/shared/liquidGlass';
 
 // src/library/suites/grid/home/Grid3D.tsx
 // Glassmorphic interactive desktop home view replacing the legacy 3D carousel.
@@ -289,8 +290,6 @@ export const Grid3D: React.FC<Grid3DProps> = (props) => {
 
     // Background style mappings
     const mainBg = isDaylight ? 'bg-white/40' : 'bg-black/20';
-    const inputBg = isDaylight ? 'bg-black/5 focus:bg-black/10' : 'bg-white/5 focus:bg-white/10';
-    const navPillBg = isDaylight ? 'bg-black/5' : 'bg-white/10';
     const navPillInactiveText = isDaylight ? 'text-black/60 hover:text-black' : 'text-white/60 hover:text-white';
     const activeTabBg = isDaylight ? 'text-black font-bold' : 'text-black';
 
@@ -406,7 +405,7 @@ export const Grid3D: React.FC<Grid3DProps> = (props) => {
 
                     {/* Center Tab Switcher */}
                     <div className="flex justify-center order-3 md:order-none col-span-2 md:col-span-1">
-                        <div className={`relative ${navPillBg} backdrop-blur-md p-1 rounded-full scale-90 md:scale-100 origin-center`}>
+                        <div className={`relative ${liquidGlassPill(isDaylight)} p-1 rounded-full scale-90 md:scale-100 origin-center`}>
                             <div className="inline-flex items-center gap-0">
                                 {homeTabs.map((tab) => {
                                     const isActive = homeViewTab === tab.key;
@@ -428,7 +427,7 @@ export const Grid3D: React.FC<Grid3DProps> = (props) => {
                                                 {isActive && (
                                                     <motion.span
                                                         layoutId="home-active-tab-pill-desktop"
-                                                        className="absolute inset-0 rounded-full bg-white shadow-sm"
+                                                        className={`absolute inset-0 rounded-full ${liquidGlassPill(true)}`}
                                                         transition={{ type: 'spring', stiffness: 460, damping: 36, mass: 0.9 }}
                                                     />
                                                 )}
@@ -488,7 +487,7 @@ export const Grid3D: React.FC<Grid3DProps> = (props) => {
                                 placeholder={homeViewTab === 'local' ? t('home.searchLocal') : homeViewTab === 'navidrome' ? t('home.searchNavidrome') : t('home.searchDatabase')}
                                 value={searchQuery}
                                 onChange={e => setSearchQuery(e.target.value)}
-                                className={`w-full ${inputBg} border border-white/10 rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-white/20 transition-all placeholder:text-current placeholder:opacity-40 select-text`}
+                                className={`w-full ${liquidGlassPill(isDaylight)} rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none transition-all placeholder:text-current placeholder:opacity-40 select-text`}
                                 style={{ color: 'var(--text-primary)' }}
                             />
                         </form>
