@@ -1,5 +1,6 @@
 import { LibraryBig, Search } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { liquidGlassTile } from '../../../../components/shared/liquidGlass';
 
 // src/library/suites/grid/account/OnlineProviderAccountlessPanel.tsx
 
@@ -16,7 +17,7 @@ const OnlineProviderAccountlessPanel = ({ providerLabel, isDaylight, onSearch }:
     const { t } = useTranslation();
     return (
         <div className="flex flex-1 w-full flex-col items-center justify-center space-y-6 px-4" data-testid="online-provider-accountless">
-            <div className={`w-20 h-20 rounded-3xl ${isDaylight ? 'bg-white/40 shadow-sm border border-black/5' : 'bg-white/5 border border-white/5'} flex items-center justify-center backdrop-blur-md`}>
+            <div className={`w-20 h-20 rounded-3xl ${liquidGlassTile(isDaylight)} flex items-center justify-center`}>
                 <LibraryBig size={36} className="opacity-25" />
             </div>
             <div className="text-center max-w-md space-y-2">

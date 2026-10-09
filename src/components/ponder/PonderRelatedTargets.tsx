@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { usePonderStore } from '../../stores/usePonderStore';
 import type { PonderTargetDefinition } from '../../types/ponder';
 import { findPonderTarget } from './ponderRegistry';
+import { liquidGlassCard } from '../shared/liquidGlass';
 
 // src/components/ponder/PonderRelatedTargets.tsx
 
@@ -26,9 +27,7 @@ const PonderRelatedTargets: React.FC<PonderRelatedTargetsProps> = ({ target, acc
     return (
         <aside
             data-testid="ponder-related-targets"
-            className={`absolute right-5 top-16 z-20 w-56 rounded-2xl border p-3 backdrop-blur-md ${
-                isDaylight ? 'border-black/10 bg-white/75' : 'border-white/10 bg-zinc-900/75'
-            }`}
+            className={`absolute right-5 top-16 z-20 w-56 rounded-2xl p-3 ${liquidGlassCard(isDaylight)}`}
         >
             <div className="mb-2 flex items-center gap-2 text-xs font-medium opacity-60">
                 <Component size={14} aria-hidden="true" />

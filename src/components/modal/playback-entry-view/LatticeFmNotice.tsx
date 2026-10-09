@@ -5,6 +5,7 @@ import { Radio, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { usePlaybackEntryViewStore } from '../../../stores/usePlaybackEntryViewStore';
 import { useThemeSettingsStore } from '../../../stores/useThemeSettingsStore';
+import { liquidGlassCard } from '../../shared/liquidGlass';
 
 // src/components/modal/playback-entry-view/LatticeFmNotice.tsx
 // Explains why Personal FM opened the standard player instead of Lattice.
@@ -39,9 +40,9 @@ export const LatticeFmNotice: React.FC = () => {
                     animate={{ opacity: 1, y: 96, x: '-50%' }}
                     exit={{ opacity: 0, y: 60, x: '-50%' }}
                     transition={{ type: 'spring', bounce: 0, duration: 0.45 }}
-                    className={`fixed top-0 left-1/2 z-[205] flex max-w-[min(92vw,26rem)] items-start gap-3 rounded-2xl px-5 py-3.5 shadow-xl backdrop-blur-md ${isDaylight
-                        ? 'border border-black/5 bg-white/80 text-zinc-800'
-                        : 'border border-white/10 bg-white/10 text-white'}`}
+                    className={`fixed top-0 left-1/2 z-[205] flex max-w-[min(92vw,26rem)] items-start gap-3 rounded-2xl px-5 py-3.5 ${liquidGlassCard(isDaylight)} ${isDaylight
+                        ? 'text-zinc-800'
+                        : 'text-white'}`}
                 >
                     <Radio size={18} className={`mt-0.5 shrink-0 ${isDaylight ? 'text-amber-600' : 'text-amber-300'}`} />
                     <span className="text-sm leading-relaxed">{t('status.latticeFmOpenedInPlayer')}</span>

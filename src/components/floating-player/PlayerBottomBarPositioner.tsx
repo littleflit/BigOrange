@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Check, RotateCcw, X } from 'lucide-react';
 import { PLAYER_BOTTOM_BAR_BASE_OFFSET_PX } from '../../utils/playerBottomBarLayout';
+import { liquidGlassPill } from '../shared/liquidGlass';
 
 // src/components/floating-player/PlayerBottomBarPositioner.tsx
 // 定位模式的取景框：标出底部基线能移动到哪里，并提供复位 / 确认 / 取消。
@@ -27,9 +28,7 @@ const PlayerBottomBarPositioner: React.FC<PlayerBottomBarPositionerProps> = ({
     onCancel,
 }) => {
     const { t } = useTranslation();
-    const chipClass = isDaylight
-        ? 'bg-white/80 border-black/10 text-black'
-        : 'bg-black/60 border-white/15 text-white';
+    const chipClass = `${liquidGlassPill(isDaylight)} ${isDaylight ? 'text-black' : 'text-white'}`;
 
     return (
         <>
@@ -58,7 +57,7 @@ const PlayerBottomBarPositioner: React.FC<PlayerBottomBarPositionerProps> = ({
                 transition={{ duration: 0.22, ease: 'easeOut' }}
                 className="pointer-events-auto fixed left-1/2 top-8 z-[70] -translate-x-1/2"
             >
-                <div className={`flex items-center gap-3 rounded-full border px-4 py-2 text-sm shadow-xl backdrop-blur-xl ${chipClass}`}>
+                <div className={`flex items-center gap-3 rounded-full px-4 py-2 text-sm ${chipClass}`}>
                     <span className="select-none">{t('options.playerBottomBarPositioningHint')}</span>
                     <span className="h-4 w-px opacity-20" style={{ backgroundColor: 'currentColor' }} />
                     <button

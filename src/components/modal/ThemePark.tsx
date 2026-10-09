@@ -35,6 +35,7 @@ import {
     type ThemeEditTarget,
     type ThemeParkTab,
 } from './theme-park/themeParkDraft';
+import { liquidGlassPanel } from '../shared/liquidGlass';
 
 // src/components/modal/ThemePark.tsx
 // Full theme editor: live visualizer preview on the left, and a tabbed editor on the right that
@@ -142,7 +143,6 @@ const ThemePark: React.FC<ThemeParkProps> = ({
 
     const { currentTime, audioPower, audioBands, currentLineIndex } = useThemeParkPreviewClock(visualizerMode, isPaused);
 
-    const glassBg = isDaylight ? 'bg-white/70' : 'bg-zinc-950/88';
     const borderColor = isDaylight ? 'border-black/5' : 'border-white/10';
     const controlCardBg = isDaylight ? 'rgba(255,255,255,0.56)' : 'rgba(255,255,255,0.04)';
     const overlayBackground = isDaylight ? 'rgba(255,255,255,0.72)' : 'rgba(0,0,0,0.65)';
@@ -223,7 +223,7 @@ const ThemePark: React.FC<ThemeParkProps> = ({
                 transition={{ duration: 0.2, ease: 'easeOut' }}
                 onClick={(event) => event.stopPropagation()}
                 data-ponder="theme-park"
-                className={`mx-auto flex h-full max-w-7xl flex-col overflow-hidden rounded-[32px] border ${borderColor} ${glassBg} shadow-[0_24px_80px_rgba(0,0,0,0.28)]`}
+                className={`mx-auto flex h-full max-w-7xl flex-col overflow-hidden rounded-[32px] ${liquidGlassPanel(isDaylight)}`}
             >
                 <ThemeParkHeader
                     target={target}

@@ -12,6 +12,7 @@ import { THEME_GENERATION_PROMPT_PREFIX, buildThemeSourcePrompt, parseAiThemeJso
 import { useThemeQuickEditorStore, type ThemeQuickEditorKind } from '../../stores/useThemeQuickEditorStore';
 import { buildRecommendedColors } from '../../utils/themeEditorPalette';
 import FastColorPicker from '../shared/FastColorPicker';
+import { liquidGlassPanel } from '../shared/liquidGlass';
 
 // src/components/panelTab/ThemeQuickEditor.tsx
 // Lightweight theme color editor launched from the player controls tab.
@@ -304,7 +305,7 @@ const ThemeQuickEditor: React.FC<ThemeQuickEditorProps> = ({
                 exit={{ opacity: 0, y: 12, scale: 0.985 }}
                 transition={{ duration: 0.2, ease: 'easeOut' }}
                 // 添加 transform-gpu 隔离阴影重绘
-                className={`relative w-full max-w-[36rem] overflow-hidden rounded-[1.5rem] border shadow-[0_24px_80px_rgba(0,0,0,0.4)] transform-gpu ${themeTransitionClass}`}
+                className={`relative w-full max-w-[36rem] overflow-hidden rounded-[1.5rem] transform-gpu ${themeTransitionClass} ${liquidGlassPanel(isDaylight)}`}
                 style={{ backgroundColor: panelBg, borderColor, color: textColor, willChange: 'transform' }}
                 onClick={(event) => event.stopPropagation()}
             >

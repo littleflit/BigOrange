@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import { List, type RowComponentProps } from 'react-window';
+import { liquidGlassCard } from './liquidGlass';
 
 // CustomSelectMenu.tsx
 // Renders the viewport-anchored option menu used by CustomSelect.
@@ -181,7 +182,7 @@ export const CustomSelectMenu: React.FC<CustomSelectMenuProps> = ({
                 scale: 0.96,
             }}
             transition={{ duration: 0.15, ease: 'easeOut' }}
-            className={`fixed z-[200] rounded-xl border shadow-xl overscroll-contain backdrop-blur-md custom-scrollbar${isVirtualized ? '' : ' overflow-y-auto'}`}
+            className={`fixed z-[200] rounded-xl overscroll-contain custom-scrollbar${isVirtualized ? '' : ' overflow-y-auto'} ${liquidGlassCard(isDaylight)}`}
             data-wheel-scroll-region
             role="listbox"
             aria-label={ariaLabel}
@@ -191,8 +192,6 @@ export const CustomSelectMenu: React.FC<CustomSelectMenuProps> = ({
                 bottom: position.bottom,
                 width: position.width,
                 maxHeight: position.maxHeight,
-                backgroundColor: isDaylight ? 'rgba(255, 255, 255, 0.96)' : 'rgba(24, 24, 27, 0.96)',
-                borderColor,
                 color: textColor,
             }}
         >

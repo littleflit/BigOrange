@@ -11,6 +11,7 @@ import { useTypographySettingsStore } from '../../../stores/useTypographySetting
 import { usePlayerChromeSettingsStore } from '../../../stores/usePlayerChromeSettingsStore';
 import { useThemeSettingsStore } from '../../../stores/useThemeSettingsStore';
 import { useDesktopSettingsStore } from '../../../stores/useDesktopSettingsStore';
+import { liquidGlassPanel } from '../../shared/liquidGlass';
 
 // src/components/modal/settings/LabSettingsModal.tsx
 // Experimental settings subview kept outside SettingsModal to avoid another giant inline panel.
@@ -95,7 +96,6 @@ const LabSettingsModal: React.FC<LabSettingsModalProps> = ({
     const onToggleAutoPlayOnLaunch = useAudioSettingsStore(state => state.handleToggleAutoPlayOnLaunch);
     const borderColor = isDaylight ? 'border-zinc-300/70' : 'border-white/10';
     const overlayBackground = isDaylight ? 'rgba(0,0,0,0.32)' : 'rgba(0,0,0,0.5)';
-    const subviewPanelBg = isDaylight ? 'bg-zinc-200' : 'bg-zinc-900';
     const toggleOffBackgroundClass = isDaylight ? 'bg-zinc-300/90' : 'bg-white/10';
     const settingsCardClass = isDaylight
         ? 'border-zinc-300/70 bg-white/55'
@@ -327,7 +327,7 @@ const LabSettingsModal: React.FC<LabSettingsModalProps> = ({
                     <motion.div
                         {...panelMotion}
                         transition={shellTransition}
-                        className={`mx-auto flex h-full max-w-3xl flex-col overflow-hidden rounded-[32px] border ${borderColor} ${subviewPanelBg} shadow-[0_24px_80px_rgba(0,0,0,0.28)] relative`}
+                        className={`mx-auto flex h-full max-w-3xl flex-col overflow-hidden rounded-[32px] ${liquidGlassPanel(isDaylight)} relative`}
                         onClick={(event) => event.stopPropagation()}
                     >
                         <div className="absolute inset-0 pointer-events-none z-0">

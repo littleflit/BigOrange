@@ -6,6 +6,7 @@ import type { Theme } from '../../types';
 import type { SyntaxSuggestion } from './syntax/suggest';
 import type { GridFilterAction } from './gridFilterQuery';
 import CommandPaletteSyntaxHints from './CommandPaletteSyntaxHints';
+import { liquidGlassCard, liquidGlassPill } from '../shared/liquidGlass';
 import { gridSearchPanelMotion } from '../shared/gridSearchPanelMotion';
 
 // src/components/command-palette/CommandPaletteInlineFrame.tsx
@@ -61,7 +62,7 @@ const CommandPaletteInlineFrame: React.FC<CommandPaletteInlineFrameProps> = ({
                 data-testid="command-palette-filter"
                 className="absolute top-24 left-1/2 z-[85] w-[min(28rem,calc(100%-2rem))] -translate-x-1/2 pointer-events-auto"
             >
-                <div className="relative rounded-full border shadow-2xl backdrop-blur-2xl theme-glass-panel">
+                <div className={`relative rounded-full ${liquidGlassPill(isDaylight)}`}>
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 opacity-40 w-4 h-4" />
                     {renderInput('w-full rounded-full bg-transparent py-3 pl-11 pr-11 text-sm font-medium outline-none placeholder:text-current placeholder:opacity-40')}
                     <button
@@ -84,7 +85,7 @@ const CommandPaletteInlineFrame: React.FC<CommandPaletteInlineFrameProps> = ({
                 </div>
 
                 {(suggestions.length > 0 || pendingAction !== null) && (
-                    <div className="mt-2 rounded-2xl border p-2 shadow-2xl backdrop-blur-2xl theme-glass-panel">
+                    <div className={`mt-2 rounded-2xl p-2 ${liquidGlassCard(isDaylight)}`}>
                         <CommandPaletteSyntaxHints
                             suggestions={suggestions}
                             activeIndex={syntaxIndex}

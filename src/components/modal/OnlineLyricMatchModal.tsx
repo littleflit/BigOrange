@@ -17,6 +17,7 @@ import { LyricPreviewPanel } from './LyricPreviewPanel';
 import { getProviderSongMetadata } from '../../services/onlineMusic/songMetadata';
 import { getSizedCoverUrl } from '../../utils/coverUrl';
 import { hasRenderableLyrics } from '../../utils/lyrics/validity';
+import { liquidGlassPanel } from '../shared/liquidGlass';
 
 // src/components/modal/OnlineLyricMatchModal.tsx
 
@@ -30,7 +31,7 @@ interface OnlineLyricMatchModalProps {
 const OnlineLyricMatchModal: React.FC<OnlineLyricMatchModalProps> = ({ song, onClose, onMatch, isDaylight }) => {
     const { t } = useTranslation();
     const isMouseDownOnOverlayRef = useRef(false);
-    const bgClass = isDaylight ? 'bg-white/90 border-white/20' : 'bg-zinc-900/95 border-white/10';
+    const bgClass = liquidGlassPanel(isDaylight);
     const textPrimary = isDaylight ? 'text-zinc-900' : 'text-white';
     const textSecondary = isDaylight ? 'text-zinc-500' : 'text-zinc-400';
     const borderColor = isDaylight ? 'border-black/5' : 'border-white/10';
@@ -170,7 +171,7 @@ const OnlineLyricMatchModal: React.FC<OnlineLyricMatchModalProps> = ({ song, onC
     return (
         <div className="fixed inset-0 z-[200] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" onMouseDown={handleOverlayMouseDown} onClick={handleBackdropClick}>
             <div
-                className={`w-full max-w-5xl max-h-[85vh] overflow-hidden rounded-3xl border ${bgClass} shadow-2xl flex flex-col`}
+                className={`w-full max-w-5xl max-h-[85vh] overflow-hidden rounded-3xl ${bgClass} flex flex-col`}
                 onClick={event => event.stopPropagation()}
             >
                 <div className={`flex items-center justify-between px-6 py-5 border-b ${borderColor}`}>

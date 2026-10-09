@@ -3,6 +3,7 @@ import { motion, AnimatePresence, MotionValue, useMotionValueEvent } from 'frame
 import { X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { LyricData, Theme } from '../../types';
+import { liquidGlassPanel } from '../shared/liquidGlass';
 
 interface LyricsTimelineModalProps {
     isOpen: boolean;
@@ -35,8 +36,7 @@ const LyricsTimelineModal: React.FC<LyricsTimelineModalProps> = ({
 }) => {
     const { t } = useTranslation();
     // const isDaylight = theme?.name === 'Daylight Default'; // Deprecated, passed as prop
-    const glassBg = isDaylight ? 'bg-white/70' : 'bg-black/40';
-    const borderColor = isDaylight ? 'border-black/5' : 'border-white/10';
+    const closeBtnHover = isDaylight ? 'hover:bg-black/5' : 'hover:bg-white/10';
 
     // Timeline Item Styles
     const itemBg = isDaylight ? 'bg-white/60' : 'bg-black/60';
@@ -46,7 +46,6 @@ const LyricsTimelineModal: React.FC<LyricsTimelineModalProps> = ({
     const itemTextSecondary = isDaylight ? 'text-zinc-500' : 'text-white/60';
     const headerText = isDaylight ? 'text-zinc-800/90' : 'text-white/90';
     const closeIconColor = isDaylight ? 'text-zinc-800/70' : 'text-white/70';
-    const closeBtnHover = isDaylight ? 'hover:bg-black/5' : 'hover:bg-white/10';
     const disabledCursorClass = disabled ? 'cursor-not-allowed' : 'cursor-pointer';
     const disabledItemClass = disabled ? 'opacity-65' : '';
     const [activeLineIndex, setActiveLineIndex] = useState(-1);
@@ -228,7 +227,7 @@ const LyricsTimelineModal: React.FC<LyricsTimelineModalProps> = ({
                         initial={{ scale: 0.9, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.9, opacity: 0 }}
-                        className={`w-[90vw] max-w-4xl h-[80vh] ${glassBg} border ${borderColor} rounded-2xl p-8 relative flex flex-col`}
+                        className={`w-[90vw] max-w-4xl h-[80vh] ${liquidGlassPanel(isDaylight)} rounded-2xl p-8 relative flex flex-col`}
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Header */}

@@ -10,6 +10,7 @@ import type { GridMapBatchConfig, GridMapBatchContext, GridMapItem } from './Gri
 import type { LibraryDirectoryBatchActionId, LibraryDirectoryNode } from '../../../core/contracts/directory';
 import { compactDirectoryTrees, filterDirectoryTreesByItems, flattenExpandedDirectoryNodes, resolveDirectoryNodeSelection, resolveNextDirectoryNodeSelectionTarget } from '../../../core/model/directoryBatch';
 import { useLibraryDirectoryActions } from '../../../core/bindings/useLibraryDirectoryActions';
+import { liquidGlassCard } from '../../../../components/shared/liquidGlass';
 
 // src/library/suites/grid/directory/GridMapBatchPanel.tsx
 // GridMap 的批量面板：全选、目录树 / 条目清单的勾选、批量按钮与确认框。选择按 id 存在目录会话里，
@@ -244,10 +245,10 @@ export const GridMapBatchPanel = ({
 
             <div
                 data-ponder={usesDirectoryTree ? 'local-grid-map-directory-tree' : undefined}
-                className={`relative z-10 mt-4 min-h-0 flex-1 overflow-hidden rounded-2xl border backdrop-blur-2xl transition-[width,background-color,box-shadow] duration-200 ${
+                className={`relative z-10 mt-4 min-h-0 flex-1 overflow-hidden rounded-2xl transition-[width,background-color,box-shadow] duration-200 ${
                     usesDirectoryTree && isTreeExpanded
-                        ? 'w-[min(44rem,calc(100vw-4.5rem))] shrink-0 border-black/10 bg-white/90 shadow-2xl dark:border-white/15 dark:bg-zinc-900/95'
-                        : 'w-full border-black/5 bg-black/[0.025] dark:border-white/10 dark:bg-black/10'
+                        ? `w-[min(44rem,calc(100vw-4.5rem))] shrink-0 ${liquidGlassCard(isDaylight)}`
+                        : 'w-full border border-black/5 bg-black/[0.025] dark:border-white/10 dark:bg-black/10'
                 }`}
             >
                 <div className="flex h-9 items-center justify-between border-b border-black/5 px-3 dark:border-white/10">

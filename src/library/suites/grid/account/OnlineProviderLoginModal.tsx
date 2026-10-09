@@ -1,6 +1,7 @@
 import { AlertTriangle, Check, Loader2, RotateCcw, ServerCog, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import QrLoginFailureHelp, { type QrLoginFailureHelpProps } from './QrLoginFailureHelp';
+import { liquidGlassPanel } from '../../../../components/shared/liquidGlass';
 
 // src/library/suites/grid/account/OnlineProviderLoginModal.tsx
 // 扫码登录弹窗。平时是窄的单栏：二维码、状态行、重试 / 重启；登录失败后变成两栏，失败帮助（简单办法、自检、
@@ -85,7 +86,7 @@ const OnlineProviderLoginModal = ({
                 exit={{ scale: 0.92, opacity: 0, y: 12 }}
                 transition={{ type: 'spring', bounce: 0, duration: 0.5 }}
                 // 失败后加宽成两栏；矮窗口里放不下时在卡片内滚动，而不是被上下裁掉。
-                className={`bg-zinc-900/90 border border-white/10 p-8 rounded-3xl w-full max-h-full overflow-y-auto text-center relative shadow-2xl ${twoColumns ? 'max-w-3xl' : 'max-w-sm'}`}
+                className={`${liquidGlassPanel(false)} p-8 rounded-3xl w-full max-h-full overflow-y-auto text-center relative ${twoColumns ? 'max-w-3xl' : 'max-w-sm'}`}
             >
                 <button
                     type="button"

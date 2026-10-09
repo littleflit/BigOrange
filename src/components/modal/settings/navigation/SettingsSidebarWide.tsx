@@ -5,6 +5,7 @@ import type { Theme } from '../../../../types';
 import type { SettingsAnchorId } from './settingsAnchorModel';
 import type { SettingsContentId, SettingsNavAnchor, SettingsNavGroup, SettingsSectionId } from './settingsNavModel';
 import { searchSettingsNav } from './settingsNavSearch';
+import { liquidGlassCard } from '../../../shared/liquidGlass';
 // src/components/modal/settings/navigation/SettingsSidebarWide.tsx
 // Wide-layout settings navigation: grouped sections with every subsection table of contents open,
 // under a search box that narrows the list. The narrow chip strip has no search on purpose.
@@ -86,11 +87,7 @@ export const SettingsSidebarWide: React.FC<SettingsSidebarWideProps> = ({
         <div className="w-1/3 max-w-[264px] shrink-0 overflow-y-auto custom-scrollbar pr-3 flex flex-col gap-5 border-r border-white/10 pb-4 items-stretch">
             <div className="sticky top-0 z-10 -mb-2 pb-2">
                 <label
-                    className={`flex items-center gap-2 rounded-xl border px-3 py-2 backdrop-blur-md transition-colors ${
-                        isDaylight
-                            ? 'border-black/10 bg-white/70 focus-within:border-black/25'
-                            : 'border-white/10 bg-zinc-900/70 focus-within:border-white/25'
-                    }`}
+                    className={`flex items-center gap-2 rounded-xl px-3 py-2 transition-colors ${liquidGlassCard(isDaylight)}`}
                 >
                     <Search size={14} className="shrink-0 opacity-50" style={{ color: 'var(--text-secondary)' }} />
                     <input

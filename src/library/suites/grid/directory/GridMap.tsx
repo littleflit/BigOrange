@@ -31,6 +31,7 @@ import { getSizedCoverUrl } from '../../../../utils/coverUrl';
 import { isHideableDirectoryItem } from '../../../core/model/directoryVisibility';
 import { useSidePanelBottomPx } from '../../../../hooks/usePlayerBottomBarBottomPx';
 import { hasBlockingWindow, isTextEntryTarget } from '../../../../utils/keyboardTargets';
+import { liquidGlassPanel } from '../../../../components/shared/liquidGlass';
 
 // src/library/suites/grid/directory/GridMap.tsx
 // Hexagonal honeycomb layout showing all collections (playlists, albums, radios).
@@ -1041,7 +1042,7 @@ export const GridMap: React.FC<GridMapProps> = ({
                         target.closest('input') ||
                         target.closest('a') ||
                         target.closest('textarea') ||
-                        target.closest('.theme-glass-panel')
+                        target.closest('.theme-glass-panel, .lg-panel, .lg-card')
                     ) {
                         return;
                     }
@@ -1097,7 +1098,7 @@ export const GridMap: React.FC<GridMapProps> = ({
                         animate={{ opacity: 1, x: 0, scale: 1 }}
                         exit={{ opacity: 0, x: -60, scale: 0.95 }}
                         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                        className="absolute left-6 top-24 w-80 rounded-3xl z-[80] flex flex-col p-6 shadow-2xl border backdrop-blur-2xl pointer-events-auto theme-glass-panel"
+                        className={`absolute left-6 top-24 w-80 rounded-3xl z-[80] flex flex-col p-6 pointer-events-auto ${liquidGlassPanel(isDaylight)}`}
                         style={{ bottom: bottomBarPanelBottomPx }}
                     >
                         {batchConfig ? (

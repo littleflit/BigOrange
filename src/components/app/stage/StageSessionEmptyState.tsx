@@ -5,6 +5,7 @@ import type { PlayerCapConnectionStatus } from '../../../types/playerCap';
 import { useAppViewStore } from '../../../stores/useAppViewStore';
 import { useThemeSettingsStore } from '../../../stores/useThemeSettingsStore';
 import { usePlaybackStore } from '../../../stores/usePlaybackStore';
+import { liquidGlassCard } from '../../shared/liquidGlass';
 
 // src/components/app/stage/StageSessionEmptyState.tsx
 // What the player page shows when it is following an external stage that has nothing playing yet.
@@ -58,7 +59,7 @@ const StageSessionEmptyState: React.FC<StageSessionEmptyStateProps> = ({
 
     return (
         <div className="absolute inset-0 z-10 pointer-events-none flex items-center justify-center px-6">
-            <div className={`max-w-lg rounded-3xl border px-6 py-5 text-center backdrop-blur-md ${isDaylight ? 'border-black/10 bg-white/50 text-zinc-800' : 'border-white/10 bg-black/30 text-white'}`}>
+            <div className={`max-w-lg rounded-3xl px-6 py-5 text-center ${liquidGlassCard(isDaylight)} ${isDaylight ? 'text-zinc-800' : 'text-white'}`}>
                 <div className="text-xs uppercase tracking-[0.22em] opacity-50">
                     {(stageSource && SOURCE_LABELS[stageSource]) ?? 'Stage · Stage API'}
                 </div>

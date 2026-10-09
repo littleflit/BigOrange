@@ -1004,8 +1004,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
         || 'Unknown server';
 
     // const isDaylight = theme?.name === 'Daylight Default'; // Deprecated, passed as prop
-    const glassBg = isDaylight ? 'bg-white' : 'bg-[#18181b]';
-    const subviewPanelBg = isDaylight ? 'bg-zinc-50' : 'bg-[#18181b]';
     const borderColor = isDaylight ? 'border-black/5' : 'border-white/10';
     const textColor = isDaylight ? 'text-zinc-800' : 'text-zinc-100';
     const successTextColor = isDaylight ? 'text-green-600' : 'text-green-400';
@@ -1192,7 +1190,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                     <motion.div
                         {...panelMotion}
                         transition={shellTransition}
-                        className={`mx-auto flex h-full max-w-3xl flex-col overflow-hidden rounded-[32px] border ${borderColor} ${subviewPanelBg} shadow-[0_24px_80px_rgba(0,0,0,0.28)] relative`}
+                        className={`mx-auto flex h-full max-w-3xl flex-col overflow-hidden rounded-[32px] ${liquidGlassPanel(isDaylight)} relative`}
                         onClick={(event) => event.stopPropagation()}
                     >
                         {/* Decorative background blobs */}

@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AlertTriangle, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { liquidGlassPanel } from '../shared/liquidGlass';
 
 interface DeleteFolderConfirmModalProps {
     isOpen: boolean;
@@ -22,7 +23,7 @@ const DeleteFolderConfirmModal: React.FC<DeleteFolderConfirmModalProps> = ({
 }) => {
     const { t } = useTranslation();
 
-    const bgClass = isDaylight ? 'bg-white/90 border-white/20' : 'bg-zinc-900/95 border-white/10';
+    const bgClass = liquidGlassPanel(isDaylight);
     const textPrimary = isDaylight ? 'text-zinc-900' : 'text-white';
     const textSecondary = isDaylight ? 'text-zinc-500' : 'text-zinc-400';
     const closeBtnHover = isDaylight ? 'hover:bg-zinc-200/50' : 'hover:bg-white/10';
@@ -46,7 +47,7 @@ const DeleteFolderConfirmModal: React.FC<DeleteFolderConfirmModalProps> = ({
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.9, opacity: 0 }}
                         onClick={(e) => e.stopPropagation()}
-                        className={`${bgClass} border rounded-3xl max-w-md w-full p-8 shadow-2xl backdrop-blur-md`}
+                        className={`${bgClass} rounded-3xl max-w-md w-full p-8`}
                     >
                         <button
                             onClick={onCancel}

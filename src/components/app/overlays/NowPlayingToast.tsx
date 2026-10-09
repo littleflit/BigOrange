@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import type { Theme } from '../../../types';
 import { useTransitionBorderCue } from './now-playing-toast/useTransitionBorderCue';
 import { usePlayerBottomBarBottomPx } from '../../../hooks/usePlayerBottomBarBottomPx';
+import { liquidGlassCard } from '../../shared/liquidGlass';
 
 // src/components/app/overlays/NowPlayingToast.tsx
 // 播放器与 Lattice 左下角的 now playing 卡片（playing-toast 样式：圆角 2xl、44px 封面、底部滑入）。
@@ -183,10 +184,10 @@ const NowPlayingToast: React.FC<NowPlayingToastProps> = ({
                         animate={{ opacity: 1, x: 0 }}
                         whileTap={onActivate ? { opacity: 0.85 } : undefined}
                         transition={{ duration: 0.35, ease: 'easeOut' }}
-                        className={`relative flex min-w-[240px] items-center gap-3 overflow-hidden rounded-2xl border p-2 pr-4 text-left backdrop-blur-xl shadow-lg transition-colors ${
-                            isDaylight ? 'border-black/10 bg-white/35 text-zinc-900' : 'border-white/10 bg-black/35 text-white'
+                        className={`relative flex min-w-[240px] items-center gap-3 overflow-hidden rounded-2xl p-2 pr-4 text-left transition-colors ${liquidGlassCard(isDaylight)} ${
+                            isDaylight ? 'text-zinc-900' : 'text-white'
                         } ${onActivate
-                            ? `pointer-events-auto cursor-pointer ${isDaylight ? 'hover:bg-white/55' : 'hover:bg-black/55'}`
+                            ? `pointer-events-auto cursor-pointer hover:brightness-110`
                             : ''}`}
                     >
                         {/* 顶部光线（进场的横向扫光）。混音期间收掉：描边现在正压在卡片边框上，

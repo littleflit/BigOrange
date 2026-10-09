@@ -3,6 +3,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowDownAZ, ArrowUpAZ, CalendarClock, Check, ListOrdered, Type } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import type { LocalSongFolderSortDirection, LocalSongFolderSortField } from '../../utils/localSongSorting';
+import { useThemeSettingsStore } from '../../stores/useThemeSettingsStore';
+import { liquidGlassCard } from './liquidGlass';
 
 // src/components/shared/LocalTrackSortMenu.tsx
 // Compact sort controls used by the local folder track list.
@@ -20,6 +22,7 @@ type LocalTrackSortMenuProps = {
 
 export const LocalTrackSortMenu: React.FC<LocalTrackSortMenuProps> = ({ field, onFieldChange }) => {
     const { t } = useTranslation();
+    const isDaylight = useThemeSettingsStore(state => state.isDaylight);
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     const StrategyIcon = FIELD_ICONS[field] ?? Type;
@@ -59,7 +62,7 @@ export const LocalTrackSortMenu: React.FC<LocalTrackSortMenuProps> = ({ field, o
                         exit={{ opacity: 0, y: -6, scale: 0.96 }}
                         transition={{ duration: 0.16, ease: 'easeOut' }}
                         role="menu"
-                        className="absolute right-0 top-10 z-10 w-44 rounded-2xl border p-1.5 shadow-xl backdrop-blur-2xl theme-glass-panel"
+                        className={`absolute right-0 top-10 z-10 w-44 rounded-2xl p-1.5 ${liquidGlassCard(isDaylight)}`}
                     >
                         <SortFieldButton
                             active={field === 'fileName'}

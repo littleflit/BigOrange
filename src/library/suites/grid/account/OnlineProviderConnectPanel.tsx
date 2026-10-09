@@ -1,6 +1,7 @@
 import { User } from 'lucide-react';
 import ProviderConnectButton from './ProviderConnectButton';
 import type { ProviderAccountSummary } from '../../../../types/onlineMusic';
+import { liquidGlassTile } from '../../../../components/shared/liquidGlass';
 
 // src/library/suites/grid/account/OnlineProviderConnectPanel.tsx
 
@@ -22,7 +23,7 @@ const OnlineProviderConnectPanel = ({
     onSelect,
 }: OnlineProviderConnectPanelProps) => (
     <div className="flex flex-1 w-full flex-col items-center justify-center space-y-6 px-4">
-        <div className={`w-20 h-20 rounded-3xl ${isDaylight ? 'bg-white/40 shadow-sm border border-black/5' : 'bg-white/5 border border-white/5'} flex items-center justify-center backdrop-blur-md`}>
+        <div className={`w-20 h-20 rounded-3xl ${liquidGlassTile(isDaylight)} flex items-center justify-center`}>
             <User size={36} className="opacity-25" />
         </div>
         <div className="text-center max-w-md space-y-2">

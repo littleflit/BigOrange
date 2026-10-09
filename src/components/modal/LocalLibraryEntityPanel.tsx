@@ -12,6 +12,7 @@ import {
   splitEntity,
 } from '../../services/localLibraryCatalogService';
 import { EntityEditorWorkspace } from '../local-library-entity/EntityEditorWorkspace';
+import { liquidGlassPanel } from '../shared/liquidGlass';
 
 // src/components/modal/LocalLibraryEntityPanel.tsx
 // Orchestrates entity mutations in BigOrange's context-aware editor.
@@ -42,9 +43,7 @@ export const LocalLibraryEntityPanel = ({
   const entityKindLabel = entity.kind === 'artist'
     ? t('localMusic.artistLabel')
     : t('localMusic.albumLabel');
-  const panelTheme = isDaylight
-    ? 'bg-white/80 border-white/40 text-zinc-900 shadow-2xl shadow-black/5 backdrop-saturate-150'
-    : 'bg-zinc-950/80 border-white/10 text-white shadow-2xl shadow-black/50 backdrop-saturate-150';
+  const panelTheme = `${liquidGlassPanel(isDaylight)} ${isDaylight ? 'text-zinc-900' : 'text-white'}`;
   const borderTheme = isDaylight ? 'border-zinc-200/60' : 'border-white/10';
   const closeButtonTheme = isDaylight ? 'hover:bg-zinc-200/50 text-zinc-500 hover:text-zinc-900' : 'hover:bg-white/10 text-zinc-400 hover:text-white';
   const [pending, setPending] = useState(false);
@@ -86,7 +85,7 @@ export const LocalLibraryEntityPanel = ({
         role="dialog"
         aria-modal="true"
         aria-labelledby="local-library-entity-title"
-        className={`${panelTheme} flex max-h-[80vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border shadow-2xl backdrop-blur-md`}
+        className={`${panelTheme} flex max-h-[80vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl`}
       >
         <header className={`flex shrink-0 items-center justify-between gap-5 border-b px-8 py-6 ${borderTheme}`}>
           <div className="min-w-0">

@@ -21,6 +21,7 @@ import { LyricPreviewPanel } from './LyricPreviewPanel';
 import { getSizedCoverUrl } from '../../utils/coverUrl';
 import { getProviderSongMetadata } from '../../services/onlineMusic/songMetadata';
 import { hasRenderableLyrics } from '../../utils/lyrics/validity';
+import { liquidGlassPanel } from '../shared/liquidGlass';
 
 export interface NavidromeMatchData {
     matchedSongId?: MediaId;
@@ -51,7 +52,7 @@ const NaviLyricMatchModal: React.FC<NaviLyricMatchModalProps> = ({ song, onClose
     const { t } = useTranslation();
 
     // Dynamic theme classes
-    const bgClass = isDaylight ? 'bg-white/90 border-white/20' : 'bg-zinc-900/95 border-white/10';
+    const bgClass = liquidGlassPanel(isDaylight);
     const textPrimary = isDaylight ? 'text-zinc-900' : 'text-white';
     const textSecondary = isDaylight ? 'text-zinc-500' : 'text-zinc-400';
     const borderColor = isDaylight ? 'border-black/5' : 'border-white/10';
@@ -246,7 +247,7 @@ const NaviLyricMatchModal: React.FC<NaviLyricMatchModalProps> = ({ song, onClose
 
     return (
         <div data-bigorange-keyboard-window="true" className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xl flex items-center justify-center p-6">
-            <div className={`${bgClass} border rounded-2xl max-w-5xl w-full max-h-[80vh] flex flex-col shadow-2xl backdrop-blur-md`}>
+            <div className={`${bgClass} rounded-2xl max-w-5xl w-full max-h-[80vh] flex flex-col`}>
                 {/* Header */}
                 <div className={`px-6 py-4 border-b ${borderColor} flex items-center justify-between`}>
                     <h2 className={`text-lg font-bold ${textPrimary}`}>{t('localMusic.matchLyrics')} (Navidrome)</h2>

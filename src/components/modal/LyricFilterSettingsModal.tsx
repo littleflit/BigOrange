@@ -10,6 +10,7 @@ import { buildLyricFilterPreviewModel } from './lyric-filter/buildLyricFilterPre
 import LyricFilterPreviewList from './lyric-filter/LyricFilterPreviewList';
 import LyricFilterRuleSection from './lyric-filter/LyricFilterRuleSection';
 import LyricStaffSection from './lyric-filter/LyricStaffSection';
+import { liquidGlassPanel } from '../shared/liquidGlass';
 
 // src/components/modal/LyricFilterSettingsModal.tsx
 
@@ -128,7 +129,6 @@ const LyricFilterSettingsModal: React.FC<LyricFilterSettingsModalProps> = ({
         [draftStaffAbsorbMode, draftStaffMinDwell, draftStaffPattern, draftStaffPolicy, effectivePattern, previewLyrics]
     );
 
-    const glassBg = isDaylight ? 'bg-white/70' : 'bg-black/40';
     const borderColor = isDaylight ? 'border-black/5' : 'border-white/10';
     const overlayBackground = isDaylight ? 'rgba(244, 244, 245, 0.9)' : 'rgba(10, 10, 12, 0.82)';
     const mutedText = isDaylight ? 'text-zinc-500' : 'text-white/50';
@@ -169,7 +169,7 @@ const LyricFilterSettingsModal: React.FC<LyricFilterSettingsModalProps> = ({
                     <motion.div
                         {...panelMotion}
                         transition={shellTransition}
-                        className={`mx-auto flex h-full max-w-6xl flex-col overflow-hidden rounded-[32px] border ${borderColor} ${glassBg} shadow-[0_24px_80px_rgba(0,0,0,0.28)]`}
+                        className={`mx-auto flex h-full max-w-6xl flex-col overflow-hidden rounded-[32px] ${liquidGlassPanel(isDaylight)}`}
                         onClick={(event) => event.stopPropagation()}
                     >
                         <div className="flex items-center justify-between border-b border-white/10 px-4 py-4 sm:px-6">

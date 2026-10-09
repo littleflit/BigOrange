@@ -14,6 +14,7 @@ import {
 } from '../../services/onlineMetadataSearchService';
 import { DurationMatchBadge } from './DurationMatchBadge';
 import { getSizedCoverUrl } from '../../utils/coverUrl';
+import { liquidGlassPanel } from '../shared/liquidGlass';
 
 // src/components/modal/LocalSongMetadataMatchDialog.tsx
 // Lets the user search one provider and independently choose its metadata bundle and cover.
@@ -108,11 +109,11 @@ export const LocalSongMetadataMatchDialog = ({ song, assignment, isDaylight, onC
             setRestoringLocalInfo(false);
         }
     };
-    const panelTheme = isDaylight ? 'border-black/10 bg-white text-zinc-900' : 'border-white/10 bg-zinc-950 text-white';
+    const panelTheme = `${liquidGlassPanel(isDaylight)} ${isDaylight ? 'text-zinc-900' : 'text-white'}`;
 
     return (
         <div data-bigorange-keyboard-window="true" className="fixed inset-0 z-[140] flex items-center justify-center bg-black/65 p-4 backdrop-blur-xl">
-            <div role="dialog" aria-modal="true" className={`${panelTheme} flex max-h-[82vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border shadow-2xl`}>
+            <div role="dialog" aria-modal="true" className={`${panelTheme} flex max-h-[82vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl`}>
                 <header className="flex items-center justify-between border-b border-current/10 px-5 py-4">
                     <div className="min-w-0">
                         <h3 className="truncate text-lg font-bold">{t('localMusic.manualMetadataMatch')}</h3>
