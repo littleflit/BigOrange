@@ -4,14 +4,27 @@ import { useShallow } from 'zustand/react/shallow';
 import {
     AlertCircle,
     AppWindow,
+    Bot,
     Check,
     Cpu,
     Download,
+    EyeOff,
     ExternalLink,
+    GitBranch,
     Loader2,
+    Maximize,
+    Minimize2,
     Monitor,
+    MonitorSmartphone,
+    MousePointerClick,
+    PanelBottom,
+    PanelTop,
+    Play,
     RefreshCw,
     ShieldAlert,
+    Wallpaper,
+    X,
+    type LucideIcon,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import type { Theme } from '../../../types';
@@ -191,8 +204,8 @@ const DesktopSettingsSubview: React.FC<DesktopSettingsSubviewProps> = ({
         />
     );
 
-    const renderRow = (title: React.ReactNode, description: React.ReactNode, control: React.ReactNode, isLast = false) => (
-        <SettingsRow title={title} description={description} control={control} dividerClass={rowDividerClass} isLast={isLast} />
+    const renderRow = (icon: LucideIcon, title: React.ReactNode, description: React.ReactNode, control: React.ReactNode, isLast = false) => (
+        <SettingsRow icon={icon} title={title} description={description} control={control} dividerClass={rowDividerClass} isLast={isLast} />
     );
 
     const renderField = (label: React.ReactNode, input: React.ReactNode, hint?: React.ReactNode) => (
@@ -235,41 +248,49 @@ const DesktopSettingsSubview: React.FC<DesktopSettingsSubviewProps> = ({
                 <SettingsSectionHeading icon={Monitor} label={t('options.desktopTrayBehavior')} />
                 <div className={`rounded-xl border ${settingsCardClass} overflow-hidden`}>
                     {renderRow(
+                        Minimize2,
                         t('options.minimizeToTray'),
                         '点击最小化时，应用将隐藏至系统托盘。',
                         renderToggle(minimizeToTray, () => onToggleMinimizeToTray(!minimizeToTray)),
                     )}
                     {renderRow(
+                        X,
                         t('options.closeToTray'),
                         t('options.closeToTrayDesc'),
                         renderToggle(closeToTray, () => onToggleCloseToTray(!closeToTray)),
                     )}
                     {renderRow(
+                        Play,
                         t('options.openPlayerOnLaunch'),
                         t('options.openPlayerOnLaunchDesc'),
                         renderToggle(openPlayerOnLaunch, () => onToggleOpenPlayerOnLaunch(!openPlayerOnLaunch)),
                     )}
                     {renderRow(
+                        EyeOff,
                         t('options.hideTaskbarIcon'),
                         '即使主窗口处于打开状态，也不在系统任务栏显示应用，最大程度减少干扰。',
                         renderToggle(hideTaskbarIcon, () => onToggleHideTaskbarIcon(!hideTaskbarIcon)),
                     )}
                     {renderRow(
+                        MonitorSmartphone,
                         t('options.hideRemoteControlTaskbarIcon'),
                         t('options.hideRemoteControlTaskbarIconDesc'),
                         renderToggle(hideRemoteControlTaskbarIcon, () => onToggleHideRemoteControlTaskbarIcon(!hideRemoteControlTaskbarIcon)),
                     )}
                     {renderRow(
+                        PanelTop,
                         t('options.hideRemoteControlTitlebar'),
                         t('options.hideRemoteControlTitlebarDesc'),
                         renderToggle(hideRemoteControlTitlebar, () => onToggleHideRemoteControlTitlebar(!hideRemoteControlTitlebar)),
                     )}
                     {renderRow(
+                        MousePointerClick,
                         t('options.remoteControlClickThrough'),
                         t('options.remoteControlClickThroughDesc'),
                         renderToggle(remoteControlClickThrough, () => onToggleRemoteControlClickThrough(!remoteControlClickThrough)),
                     )}
                     {renderRow(
+                        Maximize,
                         t('options.hideFullscreenButton'),
                         t('options.hideFullscreenButtonDesc'),
                         <SettingsToggle
@@ -311,12 +332,14 @@ const DesktopSettingsSubview: React.FC<DesktopSettingsSubviewProps> = ({
                     <SettingsSectionHeading icon={AppWindow} label={t('options.wallpaperMode') || 'Wallpaper Mode'} />
                     <div className={`rounded-xl border ${settingsCardClass} overflow-hidden`}>
                         {renderRow(
+                            Wallpaper,
                             t('options.wallpaperMode'),
                             t('options.wallpaperModeDesc') || 'Sink the app window to the bottom of the desktop and keep it always visible as a lyrics wallpaper.',
                             renderToggle(wallpaperMode, () => onToggleWallpaperMode(!wallpaperMode)),
                             !isMac,
                         )}
                         {isMac && renderRow(
+                            PanelBottom,
                             t('options.wallpaperMacAutohideDock'),
                             t('options.wallpaperMacAutohideDockDesc'),
                             renderToggle(wallpaperMacAutohideDock, () => onToggleWallpaperMacAutohideDock(!wallpaperMacAutohideDock)),
@@ -351,11 +374,13 @@ const DesktopSettingsSubview: React.FC<DesktopSettingsSubviewProps> = ({
 
                 <div className={`rounded-xl border ${settingsCardClass} overflow-hidden`}>
                     {renderRow(
+                        RefreshCw,
                         t('options.enableUpdateCheck') || 'Enable Update Check',
                         t('options.enableUpdateCheckDesc') || 'Check GitHub releases through the system proxy when the desktop app starts.',
                         renderToggle(electronSettings.ENABLE_UPDATE_CHECK, onToggleUpdateCheck, !updateStatus?.updateCheckSupported),
                     )}
                     {renderRow(
+                        GitBranch,
                         t('options.updateChannel') || 'Update Channel',
                         t('options.updateChannelDesc') || 'Choose which release lane this desktop app follows.',
                         <div className="w-44 shrink-0">
@@ -377,6 +402,7 @@ const DesktopSettingsSubview: React.FC<DesktopSettingsSubviewProps> = ({
                         </div>,
                     )}
                     {renderRow(
+                        Download,
                         updateStatus?.autoUpdateSupported
                             ? t('options.enableAutoUpdate') || 'Enable Auto Update'
                             : t('options.autoUpdateUnavailable'),
@@ -681,6 +707,7 @@ const DesktopSettingsSubview: React.FC<DesktopSettingsSubviewProps> = ({
                     </div>
 
                     {renderRow(
+                        Bot,
                         t('options.useSystemProxyAI') || 'Use System Proxy for AI',
                         t('options.useSystemProxyAIDesc') || 'Route strictly AI requests through system proxy.',
                         renderToggle(electronSettings.USE_SYSTEM_PROXY_FOR_AI, () => setElectronSettings({ ...electronSettings, USE_SYSTEM_PROXY_FOR_AI: !electronSettings.USE_SYSTEM_PROXY_FOR_AI })),

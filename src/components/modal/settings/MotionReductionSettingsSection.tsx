@@ -1,5 +1,7 @@
 import React from 'react';
+import { Blend, Image, Layers, LayoutGrid, ScrollText, Settings2, Zap, type LucideIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import SettingsRow, { SettingsToggle } from './SettingsRow';
 import type { Theme } from '../../../types';
 import {
     MOTION_SURFACE_IDS,
@@ -21,13 +23,22 @@ type MotionReductionSettingsSectionProps = {
 };
 
 /** 每个面对应的文案 key，顺序即面板里的展示顺序。 */
-const SURFACE_LABEL_KEYS: Record<MotionSurfaceId, { label: string; desc: string }> = {
-    lattice: { label: 'options.reduceMotionLattice', desc: 'options.reduceMotionLatticeDesc' },
+const SURFACE_LABEL_KEYS: Record<MotionSurfaceId, { label: string; desc: string }> = {    lattice: { label: 'options.reduceMotionLattice', desc: 'options.reduceMotionLatticeDesc' },
     transitionOverlay: { label: 'options.reduceMotionTransitionOverlay', desc: 'options.reduceMotionTransitionOverlayDesc' },
     collectionMorph: { label: 'options.reduceMotionCollectionMorph', desc: 'options.reduceMotionCollectionMorphDesc' },
     monetBackground: { label: 'options.reduceMotionMonetBackground', desc: 'options.reduceMotionMonetBackgroundDesc' },
     uiMicroMotion: { label: 'options.reduceMotionUiMicroMotion', desc: 'options.reduceMotionUiMicroMotionDesc' },
     settingsScroll: { label: 'options.reduceMotionSettingsScroll', desc: 'options.reduceMotionSettingsScrollDesc' },
+};
+
+/** 每个面的行图标，与上面同序。 */
+const SURFACE_ICONS: Record<MotionSurfaceId, LucideIcon> = {
+    lattice: LayoutGrid,
+    transitionOverlay: Blend,
+    collectionMorph: Layers,
+    monetBackground: Image,
+    uiMicroMotion: Zap,
+    settingsScroll: ScrollText,
 };
 
 const MotionReductionSettingsSection: React.FC<MotionReductionSettingsSectionProps> = ({
@@ -44,35 +55,30 @@ const MotionReductionSettingsSection: React.FC<MotionReductionSettingsSectionPro
     const toggleFollowSystem = useMotionSettingsStore(state => state.handleToggleFollowSystemReducedMotion);
 
     const renderToggleRow = (
+        icon: LucideIcon,
         label: string,
         description: string,
         active: boolean,
         onChange: (next: boolean) => void,
         forcedBySystem = false,
     ) => (
-        <div className="flex items-center justify-between gap-4">
-            <div className="space-y-1 min-w-0">
-                <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>{label}</div>
-                <div className="text-xs opacity-50 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
-                    {description}
-                </div>
-                {forcedBySystem && (
-                    <div className="text-[11px] opacity-40 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
-                        {t('options.reduceMotionForcedBySystem')}
-                    </div>
-                )}
-            </div>
-            <button
-                type="button"
-                onClick={() => onChange(!active)}
-                className={`w-12 h-6 rounded-full p-1 transition-colors shrink-0 ${!active ? toggleOffBackgroundClass : ''}`}
-                style={{ backgroundColor: active ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
-                aria-pressed={active}
-                aria-label={label}
-            >
-                <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${active ? 'translate-x-6' : 'translate-x-0'}`} />
-            </button>
-        </div>
+        <SettingsRow
+            title={label}
+            description={description}
+            note={forcedBySystem ? t('options.reduceMotionForcedBySystem') : undefined}
+            icon={icon}
+            control={(
+                <SettingsToggle
+                    checked={active}
+                    onChange={() => onChange(!active)}
+                    offClass={toggleOffBackgroundClass}
+                    onColor={theme?.secondaryColor}
+                    ariaLabel={label}
+                />
+            )}
+            dividerClass={settingsDividerClass}
+            isLast
+        />
     );
 
     // 跟随系统打开且系统确实要求降级时，每一面都已经被压住了，此时再显示自己的开关为「关」
@@ -89,6 +95,7 @@ const MotionReductionSettingsSection: React.FC<MotionReductionSettingsSectionPro
 
             <div className={`border-t pt-4 ${settingsDividerClass}`}>
                 {renderToggleRow(
+                    Settings2,
                     t('options.reduceMotionFollowSystem'),
                     t('options.reduceMotionFollowSystemDesc'),
                     followSystem,
@@ -100,6 +107,7 @@ const MotionReductionSettingsSection: React.FC<MotionReductionSettingsSectionPro
                 {MOTION_SURFACE_IDS.map(surface => (
                     <React.Fragment key={surface}>
                         {renderToggleRow(
+                            SURFACE_ICONS[surface],
                             t(SURFACE_LABEL_KEYS[surface].label),
                             t(SURFACE_LABEL_KEYS[surface].desc),
                             surfaces[surface],

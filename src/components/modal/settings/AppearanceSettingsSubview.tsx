@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Monitor, Palette, Settings2, LayoutGrid, PanelsTopLeft, Images, Download, Copy, Check, ChevronRight, AlertTriangle, KeyRound, Music2, Film } from 'lucide-react';
+import { Monitor, Palette, Settings2, LayoutGrid, PanelsTopLeft, Images, Download, Copy, Check, ChevronRight, AlertTriangle, KeyRound, Music2, Film, Ghost, Shuffle, Volume2, Heart, EyeOff, MousePointer } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useShallow } from 'zustand/react/shallow';
 import {
@@ -28,6 +28,7 @@ import NowPlayingCardSettingsSection from './NowPlayingCardSettingsSection';
 import { isThemeGenerationSource, type ThemeGenerationSource } from '../../../services/themePreferences';
 import { SettingsAnchor } from './navigation/SettingsAnchorContext';
 import SettingsSectionHeading from './navigation/SettingsSectionHeading';
+import SettingsRow, { SettingsToggle } from './SettingsRow';
 import { settingsDividerClassFor } from './settingsCardClasses';
 import { setStatusMessage } from '../../../stores/useStatusMessageStore';
 import { useVisualizerSettingsStore } from '../../../stores/useVisualizerSettingsStore';
@@ -663,109 +664,105 @@ const AppearanceSettingsSubview: React.FC<AppearanceSettingsSubviewProps> = ({
                         <ChevronRight size={18} className="shrink-0 opacity-45 transition-transform group-hover:translate-x-0.5 group-hover:opacity-80" />
                     </button>
                     <div className={`p-4 rounded-xl border space-y-4 ${settingsCardClass}`}>
-                        <div className="flex items-center justify-between gap-4">
-                            <div className="space-y-1">
-                                <div className="text-sm font-medium flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-                                    {t('options.transparentPlayerBackground')}
-                                </div>
-                                <div className="text-xs opacity-50 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
-                                    {t('options.transparentPlayerBackgroundDesc')}
-                                </div>
-                            </div>
-                            <button
-                                onClick={() => onToggleTransparentPlayerBackground(!transparentPlayerBackground)}
-                                className={`w-12 h-6 rounded-full p-1 transition-colors shrink-0 ${!transparentPlayerBackground ? toggleOffBackgroundClass : ''}`}
-                                style={{ backgroundColor: transparentPlayerBackground ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
-                            >
-                                <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${transparentPlayerBackground ? 'translate-x-6' : 'translate-x-0'}`} />
-                            </button>
-                        </div>
-                        <div className="pt-2 border-t border-white/5 flex items-center justify-between gap-4">
-                            <div className="space-y-1">
-                                <div className="text-sm font-medium flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-                                    {t('options.progressShuffleButton')}
-                                </div>
-                                <div className="text-xs opacity-50 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
-                                    {t('options.progressShuffleButtonDesc')}
-                                </div>
-                            </div>
-                            <button
-                                onClick={() => onToggleProgressShuffleButton(!showProgressShuffleButton)}
-                                className={`w-12 h-6 rounded-full p-1 transition-colors shrink-0 ${!showProgressShuffleButton ? toggleOffBackgroundClass : ''}`}
-                                style={{ backgroundColor: showProgressShuffleButton ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
-                            >
-                                <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${showProgressShuffleButton ? 'translate-x-6' : 'translate-x-0'}`} />
-                            </button>
-                        </div>
-                        <div className="pt-2 border-t border-white/5 flex items-center justify-between gap-4">
-                            <div className="space-y-1">
-                                <div className="text-sm font-medium flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-                                    {t('options.progressVolumeButton')}
-                                </div>
-                                <div className="text-xs opacity-50 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
-                                    {t('options.progressVolumeButtonDesc')}
-                                </div>
-                            </div>
-                            <button
-                                onClick={() => onToggleProgressVolumeButton(!showProgressVolumeButton)}
-                                className={`w-12 h-6 rounded-full p-1 transition-colors shrink-0 ${!showProgressVolumeButton ? toggleOffBackgroundClass : ''}`}
-                                style={{ backgroundColor: showProgressVolumeButton ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
-                            >
-                                <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${showProgressVolumeButton ? 'translate-x-6' : 'translate-x-0'}`} />
-                            </button>
-                        </div>
-                        <div className="pt-2 border-t border-white/5 flex items-center justify-between gap-4">
-                            <div className="space-y-1">
-                                <div className="text-sm font-medium flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-                                    {t('options.progressLikeButton')}
-                                </div>
-                                <div className="text-xs opacity-50 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
-                                    {t('options.progressLikeButtonDesc')}
-                                </div>
-                            </div>
-                            <button
-                                onClick={() => onToggleProgressLikeButton(!showProgressLikeButton)}
-                                className={`w-12 h-6 rounded-full p-1 transition-colors shrink-0 ${!showProgressLikeButton ? toggleOffBackgroundClass : ''}`}
-                                style={{ backgroundColor: showProgressLikeButton ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
-                            >
-                                <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${showProgressLikeButton ? 'translate-x-6' : 'translate-x-0'}`} />
-                            </button>
-                        </div>
-                        <div className="pt-2 border-t border-white/5 flex items-center justify-between gap-4">
-                            <div className="space-y-1">
-                                <div className="text-sm font-medium flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-                                    {t('options.autoHidePlayerChrome')}
-                                </div>
-                                <div className="text-xs opacity-50 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
-                                    {t('options.autoHidePlayerChromeDesc')}
-                                </div>
-                            </div>
-                            <button
-                                onClick={() => onToggleAutoHidePlayerChrome(!autoHidePlayerChrome)}
-                                className={`w-12 h-6 rounded-full p-1 transition-colors shrink-0 ${!autoHidePlayerChrome ? toggleOffBackgroundClass : ''}`}
-                                style={{ backgroundColor: autoHidePlayerChrome ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
-                            >
-                                <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${autoHidePlayerChrome ? 'translate-x-6' : 'translate-x-0'}`} />
-                            </button>
-                        </div>
+                        <SettingsRow
+                            title={t('options.transparentPlayerBackground')}
+                            description={t('options.transparentPlayerBackgroundDesc')}
+                            icon={Ghost}
+                            control={(
+                                <SettingsToggle
+                                    checked={transparentPlayerBackground}
+                                    onChange={() => onToggleTransparentPlayerBackground(!transparentPlayerBackground)}
+                                    offClass={toggleOffBackgroundClass}
+                                    onColor={theme?.secondaryColor}
+                                    ariaLabel={t('options.transparentPlayerBackground')}
+                                />
+                            )}
+                            dividerClass={settingsDividerClassFor(isDaylight)}
+                            isLast={false}
+                        />
+                        <SettingsRow
+                            title={t('options.progressShuffleButton')}
+                            description={t('options.progressShuffleButtonDesc')}
+                            icon={Shuffle}
+                            control={(
+                                <SettingsToggle
+                                    checked={showProgressShuffleButton}
+                                    onChange={() => onToggleProgressShuffleButton(!showProgressShuffleButton)}
+                                    offClass={toggleOffBackgroundClass}
+                                    onColor={theme?.secondaryColor}
+                                    ariaLabel={t('options.progressShuffleButton')}
+                                />
+                            )}
+                            dividerClass={settingsDividerClassFor(isDaylight)}
+                            isLast={false}
+                        />
+                        <SettingsRow
+                            title={t('options.progressVolumeButton')}
+                            description={t('options.progressVolumeButtonDesc')}
+                            icon={Volume2}
+                            control={(
+                                <SettingsToggle
+                                    checked={showProgressVolumeButton}
+                                    onChange={() => onToggleProgressVolumeButton(!showProgressVolumeButton)}
+                                    offClass={toggleOffBackgroundClass}
+                                    onColor={theme?.secondaryColor}
+                                    ariaLabel={t('options.progressVolumeButton')}
+                                />
+                            )}
+                            dividerClass={settingsDividerClassFor(isDaylight)}
+                            isLast={false}
+                        />
+                        <SettingsRow
+                            title={t('options.progressLikeButton')}
+                            description={t('options.progressLikeButtonDesc')}
+                            icon={Heart}
+                            control={(
+                                <SettingsToggle
+                                    checked={showProgressLikeButton}
+                                    onChange={() => onToggleProgressLikeButton(!showProgressLikeButton)}
+                                    offClass={toggleOffBackgroundClass}
+                                    onColor={theme?.secondaryColor}
+                                    ariaLabel={t('options.progressLikeButton')}
+                                />
+                            )}
+                            dividerClass={settingsDividerClassFor(isDaylight)}
+                            isLast={false}
+                        />
+                        <SettingsRow
+                            title={t('options.autoHidePlayerChrome')}
+                            description={t('options.autoHidePlayerChromeDesc')}
+                            icon={EyeOff}
+                            control={(
+                                <SettingsToggle
+                                    checked={autoHidePlayerChrome}
+                                    onChange={() => onToggleAutoHidePlayerChrome(!autoHidePlayerChrome)}
+                                    offClass={toggleOffBackgroundClass}
+                                    onColor={theme?.secondaryColor}
+                                    ariaLabel={t('options.autoHidePlayerChrome')}
+                                />
+                            )}
+                            dividerClass={settingsDividerClassFor(isDaylight)}
+                            isLast={false}
+                        />
                         {/* 指针隐藏是控制栏自动隐藏的附加项：上面那个开关关着时它无事可做，
                             所以整行淡出，但仍可点击——先设好偏好再开自动隐藏也是合理的顺序。 */}
-                        <div className={`pl-4 border-l-2 border-white/10 flex items-center justify-between gap-4 transition-opacity ${autoHidePlayerChrome ? '' : 'opacity-40'}`}>
-                            <div className="space-y-1">
-                                <div className="text-sm font-medium flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-                                    {t('options.autoHideCursorWithPlayerChrome')}
-                                </div>
-                                <div className="text-xs opacity-50 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
-                                    {t('options.autoHideCursorWithPlayerChromeDesc')}
-                                </div>
-                            </div>
-                            <button
-                                onClick={() => onToggleAutoHideCursorWithPlayerChrome(!autoHideCursorWithPlayerChrome)}
-                                className={`w-12 h-6 rounded-full p-1 transition-colors shrink-0 ${!autoHideCursorWithPlayerChrome ? toggleOffBackgroundClass : ''}`}
-                                style={{ backgroundColor: autoHideCursorWithPlayerChrome ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
-                            >
-                                <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${autoHideCursorWithPlayerChrome ? 'translate-x-6' : 'translate-x-0'}`} />
-                            </button>
+                        <div className={`pl-4 border-l-2 border-white/10 transition-opacity ${autoHidePlayerChrome ? '' : 'opacity-40'}`}>
+                            <SettingsRow
+                                title={t('options.autoHideCursorWithPlayerChrome')}
+                                description={t('options.autoHideCursorWithPlayerChromeDesc')}
+                                icon={MousePointer}
+                                control={(
+                                    <SettingsToggle
+                                        checked={autoHideCursorWithPlayerChrome}
+                                        onChange={() => onToggleAutoHideCursorWithPlayerChrome(!autoHideCursorWithPlayerChrome)}
+                                        offClass={toggleOffBackgroundClass}
+                                        onColor={theme?.secondaryColor}
+                                        ariaLabel={t('options.autoHideCursorWithPlayerChrome')}
+                                    />
+                                )}
+                                dividerClass={settingsDividerClassFor(isDaylight)}
+                                isLast
+                            />
                         </div>
                     </div>
                 </div>

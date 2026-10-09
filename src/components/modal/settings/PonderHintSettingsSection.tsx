@@ -1,5 +1,7 @@
 import React from 'react';
 import { GraduationCap, Lightbulb } from 'lucide-react';
+import SettingsRow, { SettingsToggle } from './SettingsRow';
+import { settingsDividerClassFor } from './settingsCardClasses';
 import { useTranslation } from 'react-i18next';
 import { useShallow } from 'zustand/react/shallow';
 import { selectPonderSettingsSnapshot, usePonderStore } from '../../../stores/usePonderStore';
@@ -83,32 +85,23 @@ const PonderHintSettingsSection: React.FC<PonderHintSettingsSectionProps> = ({
                 </div>
             </div>
 
-            <div className={`p-4 rounded-xl border ${settingsCardClass}`}>
-                <div className="flex items-center justify-between gap-4">
-                    <div className="space-y-1">
-                        <div className="text-sm font-medium flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-                            <Lightbulb size={14} />
-                            {t('options.ponderTouchButton')}
-                        </div>
-                        <div className="text-xs opacity-50 max-w-[420px]" style={{ color: 'var(--text-secondary)' }}>
-                            {t('options.ponderTouchButtonDesc')}
-                        </div>
-                    </div>
-                    <button
-                        type="button"
-                        onClick={() => setShowPonderTouchButton(!showPonderTouchButton)}
-                        aria-pressed={showPonderTouchButton}
-                        aria-label={t('options.ponderTouchButton')}
-                        className={`w-12 h-6 rounded-full p-1 transition-colors shrink-0 ${
-                            showPonderTouchButton ? '' : (isDaylight ? 'bg-black/10' : 'bg-white/10')
-                        }`}
-                        style={showPonderTouchButton
-                            ? { backgroundColor: accentColor || (isDaylight ? '#27272a' : '#fafafa') }
-                            : undefined}
-                    >
-                        <span className={`block w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${showPonderTouchButton ? 'translate-x-6' : 'translate-x-0'}`} />
-                    </button>
-                </div>
+            <div className={`rounded-2xl border ${settingsCardClass} overflow-hidden`}>
+                <SettingsRow
+                    title={t('options.ponderTouchButton')}
+                    description={t('options.ponderTouchButtonDesc')}
+                    icon={Lightbulb}
+                    control={(
+                        <SettingsToggle
+                            checked={showPonderTouchButton}
+                            onChange={() => setShowPonderTouchButton(!showPonderTouchButton)}
+                            offClass={isDaylight ? 'bg-black/10' : 'bg-white/10'}
+                            onColor={accentColor || (isDaylight ? '#27272a' : '#fafafa')}
+                            ariaLabel={t('options.ponderTouchButton')}
+                        />
+                    )}
+                    dividerClass={settingsDividerClassFor(isDaylight)}
+                    isLast
+                />
             </div>
         </SettingsAnchor>
     );
