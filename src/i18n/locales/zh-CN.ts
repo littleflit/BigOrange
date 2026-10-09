@@ -1774,8 +1774,6 @@ export default {
     "nativeBlurBackgroundNotice": "当前已开启原生毛玻璃背景，背景设置无效",
     "autoHidePlayerChrome": "自动隐藏控制栏",
     "autoHidePlayerChromeDesc": "开启后，自动隐藏播放页的进度条和右侧按钮。",
-    "spectrumWidget": "频谱小组件",
-    "spectrumWidgetDesc": "在播放页左下角显示 48 段实时频谱。",
     "progressShuffleButton": "进度条：打乱队列",
     "progressShuffleButtonDesc": "在进度条左侧显示打乱队列按钮。",
     "progressVolumeButton": "进度条：音量",

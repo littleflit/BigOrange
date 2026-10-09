@@ -1775,8 +1775,6 @@ export default {
     "nativeBlurBackgroundNotice": "Native glassmorphism blur is enabled; lyrics animation background settings are currently overridden.",
     "autoHidePlayerChrome": "Auto-hide player controls",
     "autoHidePlayerChromeDesc": "When enabled, the player progress bar and right side buttons will automatically hide when the mouse leaves the window for more than 3 seconds.",
-    "spectrumWidget": "Spectrum widget",
-    "spectrumWidgetDesc": "Show a live 48-band spectrum in the bottom-left corner of the player page.",
     "progressShuffleButton": "Progress bar: shuffle",
     "progressShuffleButtonDesc": "Show a shuffle-queue button to the left of the progress track.",
     "progressVolumeButton": "Progress bar: volume",

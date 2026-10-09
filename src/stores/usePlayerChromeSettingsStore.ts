@@ -62,7 +62,6 @@ export type PlayerChromeSettingsState = {
     autoHidePlayerChrome: boolean;
     autoHideCursorWithPlayerChrome: boolean;
     showOpenPanelCloseButton: boolean;
-    showSpectrumWidget: boolean;
     showProgressShuffleButton: boolean;
     showProgressVolumeButton: boolean;
     showProgressLikeButton: boolean;
@@ -82,7 +81,6 @@ export type PlayerChromeSettingsState = {
     handleToggleAutoHidePlayerChrome: (enable: boolean) => void;
     handleToggleAutoHideCursorWithPlayerChrome: (enable: boolean) => void;
     handleToggleOpenPanelCloseButton: (enable: boolean) => void;
-    handleToggleSpectrumWidget: (enable: boolean) => void;
     handleToggleProgressShuffleButton: (enable: boolean) => void;
     handleToggleProgressVolumeButton: (enable: boolean) => void;
     handleToggleProgressLikeButton: (enable: boolean) => void;
@@ -112,7 +110,6 @@ export const usePlayerChromeSettingsStore = create<PlayerChromeSettingsState>((s
     // controls it would have clicked. Opt-out, so auto-hide can keep the pointer if wanted.
     autoHideCursorWithPlayerChrome: getStoredBoolean('auto_hide_cursor_with_player_chrome', true),
     showOpenPanelCloseButton: getStoredBoolean('show_open_panel_close_button', true),
-    showSpectrumWidget: getStoredBoolean('show_spectrum_widget', true),
     showProgressShuffleButton: getStoredBoolean('show_progress_shuffle_button', true),
     showProgressVolumeButton: getStoredBoolean('show_progress_volume_button', true),
     showProgressLikeButton: getStoredBoolean('show_progress_like_button', true),
@@ -234,10 +231,6 @@ export const usePlayerChromeSettingsStore = create<PlayerChromeSettingsState>((s
             text: i18n.t('notifications.' + (enable ? 'panelCloseBtnShown' : 'panelCloseBtnHidden')),
         });
     },
-    handleToggleSpectrumWidget: (enable) => {
-        setStoredBoolean('show_spectrum_widget', enable);
-        set({ showSpectrumWidget: enable });
-    },
     handleToggleProgressShuffleButton: (enable) => {
         setStoredBoolean('show_progress_shuffle_button', enable);
         set({ showProgressShuffleButton: enable });
@@ -272,7 +265,6 @@ export const selectPlayerChromeSettingsSnapshot = (state: PlayerChromeSettingsSt
     autoHidePlayerChrome: state.autoHidePlayerChrome,
     autoHideCursorWithPlayerChrome: state.autoHideCursorWithPlayerChrome,
     showOpenPanelCloseButton: state.showOpenPanelCloseButton,
-    showSpectrumWidget: state.showSpectrumWidget,
     showProgressShuffleButton: state.showProgressShuffleButton,
     showProgressVolumeButton: state.showProgressVolumeButton,
     showProgressLikeButton: state.showProgressLikeButton,
@@ -291,7 +283,6 @@ export const selectPlayerChromeSettingsSnapshot = (state: PlayerChromeSettingsSt
     handleToggleAutoHidePlayerChrome: state.handleToggleAutoHidePlayerChrome,
     handleToggleAutoHideCursorWithPlayerChrome: state.handleToggleAutoHideCursorWithPlayerChrome,
     handleToggleOpenPanelCloseButton: state.handleToggleOpenPanelCloseButton,
-    handleToggleSpectrumWidget: state.handleToggleSpectrumWidget,
     handleToggleProgressShuffleButton: state.handleToggleProgressShuffleButton,
     handleToggleProgressVolumeButton: state.handleToggleProgressVolumeButton,
     handleToggleProgressLikeButton: state.handleToggleProgressLikeButton,

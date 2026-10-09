@@ -135,7 +135,6 @@ import { resolveSongLiked } from './utils/resolveSongLiked';
 import StageSessionEmptyState from './components/app/stage/StageSessionEmptyState';
 import { useVisualizerRendererModel } from './components/visualizer/useVisualizerRendererModel';
 import { useVisualizerTunings } from './components/visualizer/useVisualizerTunings';
-import SpectrumWidget from './components/player/SpectrumWidget';
 import { usePlaybackRuntimeRefs } from './hooks/usePlaybackRuntimeRefs';
 import { useElectronWindowChrome } from './hooks/useElectronWindowChrome';
 import { useTransportCommandRefs } from './hooks/useTransportCommandRefs';
@@ -407,7 +406,6 @@ export default function App() {
         hideFullscreenButton,
         handleToggleTransparentPlayerBackground,
     } = usePlayerChromeSettingsStore(useShallow(selectPlayerChromeSettingsSnapshot));
-    const showSpectrumWidget = usePlayerChromeSettingsStore(state => state.showSpectrumWidget);
     const {
         hidePlayerTranslationSubtitle,
         lyricsFontStyle,
@@ -2706,13 +2704,6 @@ export default function App() {
                 <PlayerBottomBarLayoutContext.Provider value={currentView === 'player'}>
                     {currentView !== 'lattice' && hasLatticeExited && <VisualizerRenderer {...visualizerRendererModel} />}
                 </PlayerBottomBarLayoutContext.Provider>
-                {currentView === 'player' && (
-                    <SpectrumWidget
-                        analyserRef={analyserRef}
-                        visible={showSpectrumWidget && Boolean(displaySong)}
-                        isDaylight={isDaylight}
-                    />
-                )}
             </div>
 
             <StageSessionEmptyState
