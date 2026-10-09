@@ -27,6 +27,22 @@ export const MEDIA_CACHE_LIMIT_GB_KEY = 'bigorange_media_cache_limit_gb';
 /** Lab switch: start the restored last session playing instead of waiting for a press. */
 export const AUTO_PLAY_ON_LAUNCH_KEY = 'bigorange_auto_play_on_launch';
 
+/** Relaunch restore scope: the track alone, or the track plus its position. */
+export const RESUME_MODE_KEY = 'bigorange_resume_mode';
+
+export type ResumeMode = 'track' | 'position';
+
+const readStoredResumeMode = (): ResumeMode => {
+    if (typeof window === 'undefined') {
+        return 'track';
+    }
+    try {
+        return window.localStorage.getItem(RESUME_MODE_KEY) === 'position' ? 'position' : 'track';
+    } catch {
+        return 'track';
+    }
+};
+
 export const ENABLE_TRANSCODE_FALLBACK_KEY = 'bigorange_enable_transcode_fallback';
 
 /** Whether finished plays of online NetEase tracks are reported to the signed-in account. */
@@ -138,6 +154,8 @@ export type AudioSettingsState = {
     queueAddBehavior: QueueAddBehavior;
     /** Whether entering the app starts the restored session by itself. Off unless asked for. */
     autoPlayOnLaunch: boolean;
+    /** What a relaunch restores: just the track, or the track plus its position. */
+    resumeMode: ResumeMode;
     /** Electron-only recovery for local and Navidrome formats Chromium cannot decode. */
     enableTranscodeFallback: boolean;
     /** Report finished plays of online NetEase tracks to the signed-in account. Off by default. */
@@ -155,6 +173,7 @@ export type AudioSettingsState = {
     handleSetMediaCacheLimitGb: (gigabytes: number) => void;
     handleSetQueueAddBehavior: (behavior: QueueAddBehavior) => void;
     handleToggleAutoPlayOnLaunch: (enable: boolean) => void;
+    handleSetResumeMode: (mode: ResumeMode) => void;
     handleToggleTranscodeFallback: (enable: boolean) => void;
     handleToggleNeteaseScrobble: (enable: boolean) => void;
     handleTogglePlaybackFade: (enable: boolean) => void;
@@ -174,6 +193,7 @@ export const useAudioSettingsStore = create<AudioSettingsState>((set, get) => ({
     mediaCacheLimitGb: readStoredMediaCacheLimitGb(),
     queueAddBehavior: readStoredQueueAddBehavior(),
     autoPlayOnLaunch: getStoredBoolean(AUTO_PLAY_ON_LAUNCH_KEY, false),
+    resumeMode: readStoredResumeMode(),
     enableTranscodeFallback: getStoredBoolean(
         ENABLE_TRANSCODE_FALLBACK_KEY,
         typeof window !== 'undefined' && Boolean(window.electron?.requestTranscodeFallback),
@@ -220,6 +240,20 @@ export const useAudioSettingsStore = create<AudioSettingsState>((set, get) => ({
         setStatusMessage({
             type: 'info',
             text: i18n.t('notifications.' + (enable ? 'autoPlayOnLaunchOn' : 'autoPlayOnLaunchOff')),
+        });
+    },
+    handleSetResumeMode: (mode) => {
+        try {
+            if (typeof window !== 'undefined') {
+                window.localStorage.setItem(RESUME_MODE_KEY, mode);
+            }
+        } catch {
+            // Best-effort preference; a blocked storage must never break the panel.
+        }
+        set({ resumeMode: mode });
+        setStatusMessage({
+            type: 'info',
+            text: i18n.t('notifications.' + (mode === 'position' ? 'resumeModePosition' : 'resumeModeTrack')),
         });
     },
     handleToggleTranscodeFallback: (enable) => {
@@ -314,6 +348,7 @@ export const selectAudioSettingsSnapshot = (state: AudioSettingsState) => ({
     mediaCacheLimitGb: state.mediaCacheLimitGb,
     queueAddBehavior: state.queueAddBehavior,
     autoPlayOnLaunch: state.autoPlayOnLaunch,
+    resumeMode: state.resumeMode,
     enableTranscodeFallback: state.enableTranscodeFallback,
     neteaseScrobbleEnabled: state.neteaseScrobbleEnabled,
     playbackFadeEnabled: state.playbackFadeEnabled,

@@ -12,7 +12,7 @@ import LocalLyricFormatOrderSetting from './LocalLyricFormatOrderSetting';
 import { SettingsAnchor } from './navigation/SettingsAnchorContext';
 import SettingsSectionHeading from './navigation/SettingsSectionHeading';
 import { useLyricSettingsStore } from '../../../stores/useLyricSettingsStore';
-import { useAudioSettingsStore } from '../../../stores/useAudioSettingsStore';
+import { useAudioSettingsStore, type ResumeMode } from '../../../stores/useAudioSettingsStore';
 import { useOnlineProviderAccountStore } from '../../../stores/useOnlineProviderAccountStore';
 import { isNeteaseScrobbleReady } from '../../../services/onlineMusic/playbackReportGate';
 
@@ -53,20 +53,24 @@ const PlaybackSettingsSubview: React.FC<PlaybackSettingsSubviewProps> = ({
         neteaseScrobbleEnabled,
         playbackFadeEnabled,
         queueAddBehavior,
+        resumeMode,
         onToggleTranscodeFallback,
         onToggleNeteaseScrobble,
         onTogglePlaybackFade,
         onQueueAddBehaviorChange,
+        onResumeModeChange,
     } = useAudioSettingsStore(useShallow(state => ({
         audioOutputDeviceId: state.audioOutputDeviceId,
         enableTranscodeFallback: state.enableTranscodeFallback,
         neteaseScrobbleEnabled: state.neteaseScrobbleEnabled,
         playbackFadeEnabled: state.playbackFadeEnabled,
         queueAddBehavior: state.queueAddBehavior,
+        resumeMode: state.resumeMode,
         onToggleTranscodeFallback: state.handleToggleTranscodeFallback,
         onToggleNeteaseScrobble: state.handleToggleNeteaseScrobble,
         onTogglePlaybackFade: state.handleTogglePlaybackFade,
         onQueueAddBehaviorChange: state.handleSetQueueAddBehavior,
+        onResumeModeChange: state.handleSetResumeMode,
     })));
     // Subscribed to rather than read once: the panel has to grey out the moment the NetEase account
     // signs out. `isNeteaseScrobbleReady` is the same predicate the command palette gates on, so the
@@ -206,6 +210,38 @@ const PlaybackSettingsSubview: React.FC<PlaybackSettingsSubviewProps> = ({
                                     key={option.value}
                                     type="button"
                                     onClick={() => onQueueAddBehaviorChange(option.value)}
+                                    className="rounded-xl border px-3 py-3 text-left transition-colors"
+                                    style={getAccentOptionStyle(selected)}
+                                >
+                                    <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+                                        {option.label}
+                                    </div>
+                                    <div className="mt-1 text-[11px] opacity-50" style={{ color: 'var(--text-secondary)' }}>
+                                        {option.desc}
+                                    </div>
+                                </button>
+                            );
+                        })}
+                    </div>
+                    <div className="space-y-1 border-t border-white/5 pt-4">
+                        <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+                            {t('options.resumeMode')}
+                        </div>
+                        <div className="text-[11px] opacity-50 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
+                            {t('options.resumeModeDesc')}
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                        {([
+                            { value: 'track', label: t('options.resumeModeTrack'), desc: t('options.resumeModeTrackDesc') },
+                            { value: 'position', label: t('options.resumeModePosition'), desc: t('options.resumeModePositionDesc') },
+                        ] as Array<{ value: ResumeMode; label: string; desc: string }>).map((option) => {
+                            const selected = resumeMode === option.value;
+                            return (
+                                <button
+                                    key={option.value}
+                                    type="button"
+                                    onClick={() => onResumeModeChange(option.value)}
                                     className="rounded-xl border px-3 py-3 text-left transition-colors"
                                     style={getAccentOptionStyle(selected)}
                                 >

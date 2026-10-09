@@ -136,6 +136,7 @@ import StageSessionEmptyState from './components/app/stage/StageSessionEmptyStat
 import { useVisualizerRendererModel } from './components/visualizer/useVisualizerRendererModel';
 import { useVisualizerTunings } from './components/visualizer/useVisualizerTunings';
 import { usePlaybackRuntimeRefs } from './hooks/usePlaybackRuntimeRefs';
+import { usePlaybackPositionPersistence } from './hooks/usePlaybackPositionPersistence';
 import { useElectronWindowChrome } from './hooks/useElectronWindowChrome';
 import { useTransportCommandRefs } from './hooks/useTransportCommandRefs';
 import { useHomeProviderRefresh } from './hooks/useHomeProviderRefresh';
@@ -502,6 +503,7 @@ export default function App() {
     const getTargetPlaybackVolume = useCallback(() => (isMuted ? 0 : volume), [isMuted, volume]);
 
     const persistLastPlaybackCache = useCallback(persistPlaybackCache, []);
+    usePlaybackPositionPersistence(audioRef);
 
     const syncOutputGain = useCallback((targetVolume: number, smoothing = 0.015) => {
         const clampedVolume = clampMediaVolume(targetVolume);
@@ -927,6 +929,7 @@ export default function App() {
         loadLocalPlaylists,
         canRestoreSession: windowPlaybackHandoffRestoreStatus === 'none',
         shouldAutoPlayRef: shouldAutoPlay,
+        pendingResumeTimeRef,
     });
 
     const localLibraryCatalog = useLocalLibraryCatalog(localSongs);

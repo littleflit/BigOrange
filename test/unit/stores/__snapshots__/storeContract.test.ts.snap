@@ -20,6 +20,7 @@ exports[`store contract > keeps every localStorage key the stores read or write 
   "bigorange_netease_scrobble",
   "bigorange_playback_fade_enabled",
   "bigorange_ponder_seen",
+  "bigorange_resume_mode",
   "bigorange_settings_home_mode",
   "bigorange_transition_animation",
   "bigorange_transition_animation_card",

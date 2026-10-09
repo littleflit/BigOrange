@@ -13,6 +13,7 @@ import type { AudioQualityPreference, MediaId } from '../types/onlineMusic';
 import { setStatusMessage as setStatusMsg } from '../stores/useStatusMessageStore';
 import { setCurrentSong, setPlayQueue } from '../stores/usePlaybackStore';
 import { useAudioSettingsStore } from '../stores/useAudioSettingsStore';
+import { resolveResumeTime } from '../utils/playbackResume';
 import { omni } from '../services/onlineMusic/omni';
 
 // src/hooks/useSessionRestoreController.ts
@@ -38,6 +39,11 @@ type UseSessionRestoreControllerParams = {
      * alone so the session comes back paused; the lab switch below is the only thing that arms it.
      */
     shouldAutoPlayRef: MutableRefObject<boolean>;
+    /**
+     * Where the restored source seeks on its first metadata load (App's deck handler spends it).
+     * Set only in position mode with a matching saved entry; the near-end clamp lives there.
+     */
+    pendingResumeTimeRef: MutableRefObject<number | null>;
 };
 
 // Restores the main playback session without pushing more boot logic into App.tsx.
@@ -53,6 +59,7 @@ export function useSessionRestoreController({
     loadLocalPlaylists,
     canRestoreSession = true,
     shouldAutoPlayRef,
+    pendingResumeTimeRef,
 }: UseSessionRestoreControllerParams) {
     const audioQuality = useAudioSettingsStore(state => state.audioQuality);
 
@@ -138,6 +145,21 @@ export function useSessionRestoreController({
                 }
                 setCurrentSong(lastSong);
                 setPlayQueue(lastQueue && lastQueue.length > 0 ? lastQueue : [lastSong]);
+
+                // Position resume rides the deck's own pending-time mechanism: the
+                // loadedmetadata handler seeks and spends it, with the near-end clamp.
+                const resumeMode = useAudioSettingsStore.getState().resumeMode;
+                if (resumeMode === 'position') {
+                    const saved = await getFromCache<{ key: string; time: number }>('last_position');
+                    const resumeAt = resolveResumeTime({
+                        mode: resumeMode,
+                        saved,
+                        songKey: getPlaybackSongKey(lastSong),
+                    });
+                    if (resumeAt !== null) {
+                        pendingResumeTimeRef.current = resumeAt;
+                    }
+                }
 
                 // Read at restore time rather than subscribed: this effect runs once, and the
                 // switch only ever has to answer for this one launch.
