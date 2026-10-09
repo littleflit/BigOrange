@@ -7,6 +7,7 @@ import { NewFeaturesIntro } from './NewFeaturesIntro';
 import { resolveReducedMotion, useMotionSettingsStore } from '../../stores/useMotionSettingsStore';
 import { OVERLAY_TRANSITION, OVERLAY_CALM_TRANSITION, overlayBackdropMotion, overlayPanelMotionFor } from '../shared/overlayEntranceMotion';
 import type { Theme } from '../../types';
+import { liquidGlassPanel } from '../shared/liquidGlass';
 
 // src/components/modal/ReleaseNotesDialog.tsx
 // 进出场走 overlayEntranceMotion 那一份，和其它全屏覆盖层同一个手感。
@@ -47,9 +48,7 @@ const ReleaseNotesDialog: React.FC<ReleaseNotesDialogProps> = ({ isOpen, isDayli
         >
             <motion.div
                 {...overlayPanelMotionFor(calm)}
-                className={`relative max-h-[86vh] w-full max-w-2xl overflow-y-auto rounded-[2rem] border p-7 shadow-2xl ${
-                    isDaylight ? 'border-zinc-200 bg-white' : 'border-zinc-800 bg-[#18181b]'
-                }`}
+                className={`relative max-h-[86vh] w-full max-w-2xl overflow-y-auto rounded-[2rem] p-7 ${liquidGlassPanel(isDaylight)}`}
                 onClick={event => event.stopPropagation()}
             >
                 <button

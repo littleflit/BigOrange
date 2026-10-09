@@ -5,6 +5,7 @@ import { useSupportsFinePointer } from '../../hooks/useSupportsFinePointer';
 import { useAppViewStore } from '../../stores/useAppViewStore';
 import { usePonderStore } from '../../stores/usePonderStore';
 import { useSettingsModalStore } from '../../stores/useSettingsModalStore';
+import { liquidGlassTile } from '../shared/liquidGlass';
 import { openCurrentPagePonder } from '../../services/ponder/pagePonderTarget';
 
 // src/components/ponder/PagePonderTouchButton.tsx
@@ -127,9 +128,9 @@ const PagePonderTouchButton: React.FC<PagePonderTouchButtonProps> = ({ accent, i
             aria-label={t('ponder.openPage')}
             title={t('ponder.openPage')}
             // 收起来之后不可点：留着可点的话，右上角会变成一块看不见却能按的地方。
-            className={`fixed right-5 top-5 z-[190] flex h-12 w-12 items-center justify-center rounded-full border shadow-lg backdrop-blur-md transition-all duration-200 active:scale-95 ${
+            className={`fixed right-5 top-5 z-[190] flex h-12 w-12 items-center justify-center rounded-full transition-all duration-200 active:scale-95 ${liquidGlassTile(isDaylight)} ${
                 isRevealed ? 'opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'
-            } ${isDaylight ? 'border-black/10 bg-white/80' : 'border-white/15 bg-zinc-900/80'}`}
+            }`}
             style={{ color: accent }}
         >
             <Lightbulb size={20} aria-hidden="true" />

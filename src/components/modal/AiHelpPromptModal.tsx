@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { BookOpen, Check, Copy, ExternalLink } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import type { Theme } from '../../types';
+import { liquidGlassPanel } from '../shared/liquidGlass';
 
 // src/components/modal/AiHelpPromptModal.tsx
 
@@ -41,7 +42,7 @@ export const AiHelpPromptModal: React.FC<AiHelpPromptModalProps> = ({
         ].join('\n')
     }), [t]);
 
-    const bgClass = isDaylight ? 'bg-white border-zinc-200' : 'bg-[#18181b] border-zinc-800';
+    const bgClass = liquidGlassPanel(isDaylight);
     const textPrimary = isDaylight ? 'text-zinc-900' : 'text-zinc-50';
     const textSecondary = isDaylight ? 'text-zinc-500' : 'text-zinc-400';
     const panelBg = isDaylight ? 'bg-zinc-50 border-zinc-200' : 'bg-white/[0.04] border-white/10';
@@ -80,7 +81,7 @@ export const AiHelpPromptModal: React.FC<AiHelpPromptModalProps> = ({
                         exit={{ scale: 0.96, opacity: 0, y: 8 }}
                         transition={{ type: 'spring', bounce: 0, duration: 0.35 }}
                         onClick={(event) => event.stopPropagation()}
-                        className={`${bgClass} ${textPrimary} relative w-full max-w-lg overflow-hidden rounded-[1.5rem] border p-6 shadow-2xl`}
+                        className={`${bgClass} ${textPrimary} relative w-full max-w-lg overflow-hidden rounded-[1.5rem] p-6`}
                     >
                         <div
                             className="pointer-events-none absolute -right-20 -top-24 h-56 w-56 rounded-full blur-[72px]"

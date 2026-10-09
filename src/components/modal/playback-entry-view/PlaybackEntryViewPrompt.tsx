@@ -5,6 +5,7 @@ import { PlaybackEntryViewOptions } from './PlaybackEntryViewOptions';
 import { usePlaybackEntryViewStore } from '../../../stores/usePlaybackEntryViewStore';
 import { useThemeSettingsStore } from '../../../stores/useThemeSettingsStore';
 import type { Theme } from '../../../types';
+import { liquidGlassPanel } from '../../shared/liquidGlass';
 
 // src/components/modal/playback-entry-view/PlaybackEntryViewPrompt.tsx
 // Asks once, after the release notes are dismissed, which view pressing play should open.
@@ -21,7 +22,7 @@ export const PlaybackEntryViewPrompt: React.FC<{ theme?: Theme | null }> = ({ th
     const isDaylight = useThemeSettingsStore(state => state.isDaylight);
 
     const accentColor = theme?.accentColor || (isDaylight ? '#3b82f6' : '#60a5fa');
-    const bgClass = isDaylight ? 'bg-white border-zinc-200' : 'bg-[#18181b] border-zinc-800';
+    const bgClass = liquidGlassPanel(isDaylight);
     const textPrimary = isDaylight ? 'text-zinc-900' : 'text-zinc-50';
     const textSecondary = isDaylight ? 'text-zinc-500' : 'text-zinc-400';
     const btnClass = isDaylight
@@ -45,7 +46,7 @@ export const PlaybackEntryViewPrompt: React.FC<{ theme?: Theme | null }> = ({ th
                         exit={{ scale: 0.95, opacity: 0, y: 10 }}
                         transition={{ type: 'spring', bounce: 0, duration: 0.5 }}
                         onClick={(event) => event.stopPropagation()}
-                        className={`${bgClass} border rounded-[2rem] max-w-lg w-full max-h-[85vh] p-8 shadow-2xl relative overflow-y-auto hide-scrollbar`}
+                        className={`${bgClass} rounded-[2rem] max-w-lg w-full max-h-[85vh] p-8 relative overflow-y-auto hide-scrollbar`}
                     >
                         <div className={`text-lg font-semibold ${textPrimary}`}>
                             {t('playbackEntryView.title')}

@@ -6,6 +6,7 @@ import { useSettingsModalStore } from '../../stores/useSettingsModalStore';
 import { useThemeSettingsStore } from '../../stores/useThemeSettingsStore';
 import { openCurrentPagePonder } from '../../services/ponder/pagePonderTarget';
 import type { Theme } from '../../types';
+import { liquidGlassPanel } from '../shared/liquidGlass';
 
 // src/components/modal/UserGuideModal.tsx
 // 版本后的旧帮助轮播已由 Ponder 取代。这个门只教入口；真正的页面说明在 Ponder 里完成。
@@ -35,8 +36,8 @@ export const UserGuideModal: React.FC<{ theme?: Theme | null }> = ({ theme }) =>
                         initial={{ scale: 0.96, opacity: 0, y: 16 }}
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         exit={{ scale: 0.96, opacity: 0 }}
-                        className={`w-full max-w-md rounded-[2rem] border p-8 text-center shadow-2xl ${
-                            isDaylight ? 'border-zinc-200 bg-white text-zinc-900' : 'border-zinc-800 bg-[#18181b] text-zinc-50'
+                        className={`w-full max-w-md rounded-[2rem] p-8 text-center ${liquidGlassPanel(isDaylight)} ${
+                            isDaylight ? 'text-zinc-900' : 'text-zinc-50'
                         }`}
                     >
                         <span className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-current/5" style={{ color: accent }}>

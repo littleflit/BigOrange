@@ -8,6 +8,7 @@ import LyricFileButton from './LyricFileButton';
 import ReplayGainControl from './ReplayGainControl';
 import { getLyricProviderLabel, getSongNativeLyricProviderSource } from '../../utils/lyrics/lyricSourceLabels';
 import { readLyricFile } from '../../utils/lyrics/lyricFileDecoding';
+import { liquidGlassCard, liquidGlassPill } from '../shared/liquidGlass';
 
 // src/components/panelTab/OnlineLyricsTab.tsx
 
@@ -41,8 +42,7 @@ const OnlineLyricsTab: React.FC<OnlineLyricsTabProps> = ({
     const { t } = useTranslation();
 
     const activeTabBg = isDaylight ? 'bg-blue-500/15 text-blue-600' : 'bg-blue-500/20 text-blue-300';
-    const tabContainerBg = isDaylight ? 'bg-black/5' : 'bg-white/5';
-    const activePillBg = isDaylight ? 'bg-white shadow-[0_2px_8px_rgba(0,0,0,0.06)]' : 'bg-zinc-800/80 shadow-[0_2px_8px_rgba(0,0,0,0.2)]';
+    const activePillBg = liquidGlassPill(isDaylight);
     const activeTextColor = isDaylight ? 'text-blue-600 font-semibold' : 'text-blue-300 font-semibold';
     const inactiveTextColor = isDaylight ? 'text-zinc-500 hover:text-zinc-800' : 'text-zinc-400 hover:text-zinc-200';
 
@@ -138,7 +138,7 @@ const OnlineLyricsTab: React.FC<OnlineLyricsTabProps> = ({
                         </span>
                     </div>
                 ) : (
-                    <div className={`relative flex p-0.5 ${tabContainerBg} rounded-lg`}>
+                    <div className={`relative flex p-0.5 ${liquidGlassCard(isDaylight)} rounded-lg`}>
                         {availableSources.map(source => {
                             const isActive = activeSource === source.key;
                             return (

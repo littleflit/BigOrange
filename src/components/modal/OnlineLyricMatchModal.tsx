@@ -17,7 +17,7 @@ import { LyricPreviewPanel } from './LyricPreviewPanel';
 import { getProviderSongMetadata } from '../../services/onlineMusic/songMetadata';
 import { getSizedCoverUrl } from '../../utils/coverUrl';
 import { hasRenderableLyrics } from '../../utils/lyrics/validity';
-import { liquidGlassPanel } from '../shared/liquidGlass';
+import { liquidGlassCard, liquidGlassPanel } from '../shared/liquidGlass';
 
 // src/components/modal/OnlineLyricMatchModal.tsx
 
@@ -35,7 +35,6 @@ const OnlineLyricMatchModal: React.FC<OnlineLyricMatchModalProps> = ({ song, onC
     const textPrimary = isDaylight ? 'text-zinc-900' : 'text-white';
     const textSecondary = isDaylight ? 'text-zinc-500' : 'text-zinc-400';
     const borderColor = isDaylight ? 'border-black/5' : 'border-white/10';
-    const inputBg = isDaylight ? 'bg-black/5 focus:bg-black/10 border-black/10 focus:border-black/20' : 'bg-white/5 focus:bg-white/10 border-white/10 focus:border-white/20';
     const searchBtnBg = isDaylight ? 'bg-blue-500/10 hover:bg-blue-500/20 text-blue-600' : 'bg-blue-500/20 hover:bg-blue-500/30 text-blue-300';
     const resultItemBg = isDaylight ? 'bg-black/5 hover:bg-black/10 border-black/5' : 'bg-white/5 hover:bg-white/10 border-white/5';
     const resultItemSelected = isDaylight ? 'bg-blue-500/10 border-blue-500/30' : 'bg-blue-500/20 border-blue-500/50';
@@ -214,7 +213,7 @@ const OnlineLyricMatchModal: React.FC<OnlineLyricMatchModalProps> = ({ song, onC
                         </div>
 
                         <div className="flex gap-3">
-                            <div className={`flex-1 flex items-center gap-3 rounded-2xl border px-4 py-3 ${inputBg}`}>
+                            <div className={`flex-1 flex items-center gap-3 rounded-2xl px-4 py-3 ${liquidGlassCard(isDaylight)}`}>
                                 <Search size={18} className={textSecondary} />
                                 <input
                                     value={searchQuery}

@@ -6,6 +6,7 @@ import { ChevronLeft, RotateCcw } from 'lucide-react';
 import type { LyricData } from '../../../types';
 import GlobalLyricOffsetPreview from './GlobalLyricOffsetPreview';
 import GlobalLyricOffsetRuler from './GlobalLyricOffsetRuler';
+import { liquidGlassCard } from '../../shared/liquidGlass';
 import { useLyricSettingsStore } from '../../../stores/useLyricSettingsStore';
 import { clampGlobalLyricTimelineOffsetMs, GLOBAL_LYRIC_TIMELINE_OFFSET_LIMIT_MS } from '../../../stores/useLyricSettingsStore';
 
@@ -126,7 +127,7 @@ const GlobalLyricOffsetModal: React.FC<GlobalLyricOffsetModalProps> = ({
                                 isDaylight={isDaylight}
                             />
 
-                            <div className={`rounded-2xl border p-5 ${borderColor} ${isDaylight ? 'bg-black/[0.02]' : 'bg-white/[0.03]'}`}>
+                            <div className={`rounded-2xl p-5 ${liquidGlassCard(isDaylight)} ${borderColor}`}>
                                 <div className="flex items-baseline justify-center gap-1">
                                     <span className="font-mono text-4xl font-semibold tabular-nums" style={{ color: 'var(--text-primary)' }}>
                                         {draftOffsetMs > 0 ? `+${draftOffsetMs}` : draftOffsetMs}

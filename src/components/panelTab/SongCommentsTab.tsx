@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import type { SongResult } from '../../types';
 import type { ProviderSongComment } from '../../types/onlineMusic';
 import { omni } from '../../services/onlineMusic/omni';
+import { liquidGlassPill } from '../shared/liquidGlass';
 
 // src/components/panelTab/SongCommentsTab.tsx
 // 当前在线歌曲的网易云评论：热门和最新切换，最新分页加载。
@@ -96,8 +97,7 @@ const SongCommentsTab: React.FC<SongCommentsTabProps> = ({ song, isDaylight }) =
     };
 
     const secondaryText = isDaylight ? 'text-zinc-500' : 'text-zinc-400';
-    const tabContainerBg = isDaylight ? 'bg-black/5' : 'bg-white/5';
-    const activePillBg = isDaylight ? 'bg-white shadow-[0_2px_8px_rgba(0,0,0,0.06)]' : 'bg-zinc-800/80 shadow-[0_2px_8px_rgba(0,0,0,0.2)]';
+    const activePillBg = liquidGlassPill(isDaylight);
     const activeTextColor = isDaylight ? 'text-zinc-900 font-semibold' : 'text-white font-semibold';
     const inactiveTextColor = isDaylight ? 'text-zinc-500 hover:text-zinc-800' : 'text-zinc-400 hover:text-zinc-200';
 
@@ -146,7 +146,7 @@ const SongCommentsTab: React.FC<SongCommentsTabProps> = ({ song, isDaylight }) =
     return (
         <div className="flex h-full flex-col">
             <div className="flex items-center justify-between px-4 py-2">
-                <div className={`flex rounded-full p-0.5 text-xs ${tabContainerBg}`}>
+                <div className={`flex rounded-full p-0.5 text-xs ${liquidGlassPill(isDaylight)}`}>
                     {(['hot', 'latest'] as const).map(tab => (
                         <button
                             key={tab}
