@@ -1,7 +1,7 @@
 # BigOrange 工作规范
 
 人类协作者与 AI agent 的共同行为准则。`CLAUDE.md` 只做入口跳转，规则以本文件为准。
-BigOrange 是 `chthollyphile/folia-major` 的 fork，凡与上游惯例冲突，以本文件为准。
+BigOrange 是独立仓库，早期从 `chthollyphile/folia-major` 分叉出来，仍从它同步上游改进。凡与上游惯例冲突，以本文件为准。
 
 ## 0. 快速上手
 
