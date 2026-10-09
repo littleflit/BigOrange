@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Search } from 'lucide-react';
 import { useReducedMotionFor } from '../../../../hooks/useReducedMotionFor';
+import { liquidGlassCard, liquidGlassPill, liquidGlassTile } from '../../../shared/liquidGlass';
 import type { SettingsAnchorId } from './settingsAnchorModel';
 import type { SettingsNavGroup, SettingsNavItem, SettingsSectionId } from './settingsNavModel';
 import { searchSettingsNav } from './settingsNavSearch';
@@ -165,7 +166,7 @@ export const SettingsRadialHome: React.FC<SettingsRadialHomeProps> = ({
                             }}
                         >
                             <span
-                                className={`flex h-12 w-12 items-center justify-center rounded-full border transition-colors ${isDaylight ? 'border-black/10 bg-white/70 hover:bg-white hover:border-black/25' : 'border-white/10 bg-white/[0.05] hover:bg-white/[0.12] hover:border-white/25'}`}
+                                className={`flex h-12 w-12 items-center justify-center rounded-full transition-colors ${liquidGlassTile(isDaylight)}`}
                                 style={{ color: 'var(--text-primary)' }}
                             >
                                 <Icon size={20} />
@@ -178,7 +179,7 @@ export const SettingsRadialHome: React.FC<SettingsRadialHomeProps> = ({
                 })}
                 <div className="absolute flex flex-col items-center gap-2 px-6" style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)', width: 'min(72%, 300px)' }}>
                     <div
-                        className={`flex w-full items-center gap-2 rounded-full border px-3.5 py-2.5 ${isDaylight ? 'border-black/10 bg-white/80' : 'border-white/10 bg-white/[0.06]'}`}
+                        className={`flex w-full items-center gap-2 rounded-full px-3.5 py-2.5 ${liquidGlassPill(isDaylight)}`}
                         style={{ color: 'var(--text-primary)' }}
                     >
                         <Search size={15} className="shrink-0 opacity-50" />
@@ -197,7 +198,7 @@ export const SettingsRadialHome: React.FC<SettingsRadialHomeProps> = ({
                     </div>
                     {hasQuery && (
                         <div
-                            className={`w-full overflow-hidden rounded-xl border ${isDaylight ? 'border-black/10 bg-white/90' : 'border-white/10 bg-[#1c1c1f]/95'}`}
+                            className={`w-full overflow-hidden rounded-xl ${liquidGlassCard(isDaylight)}`}
                             role="listbox"
                             aria-label={searchPlaceholder}
                         >

@@ -309,3 +309,52 @@ html[data-click-through='active'] body .click-through-interactive * {
 :root[data-reduce-motion~='uiMicroMotion'] .ponder-skeleton-label-in {
     animation: none;
 }
+
+/* 液态玻璃试点（设置弹窗）。CSS 层只做四件事：半透明底、背景模糊+饱和、
+   顶部镜面高光、柔和投影。真正的透镜折射不在这里做 —— SVG 位移滤镜的成本
+   与 Linux 显卡兼容风险不成比例，真要做也是单个 hero 元素的事。
+   可读性底线：底色不透明度不低于 0.6，模糊不低于 16px（苹果早期 beta
+   就是栽在对比度上，正式版往回收的也是这两处）。 */
+.lg-panel,
+.lg-card,
+.lg-pill,
+.lg-tile {
+    -webkit-backdrop-filter: blur(24px) saturate(1.5);
+    backdrop-filter: blur(24px) saturate(1.5);
+    background: linear-gradient(135deg, rgba(40, 40, 48, 0.72), rgba(20, 20, 25, 0.66));
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.28),
+        inset 0 -12px 24px -16px rgba(255, 255, 255, 0.12),
+        0 24px 64px rgba(0, 0, 0, 0.45);
+}
+
+.lg-card,
+.lg-pill,
+.lg-tile {
+    -webkit-backdrop-filter: blur(16px) saturate(1.5);
+    backdrop-filter: blur(16px) saturate(1.5);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+.lg-panel-daylight,
+.lg-card-daylight,
+.lg-pill-daylight,
+.lg-tile-daylight {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.6));
+    border-color: rgba(24, 24, 27, 0.1);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.7),
+        inset 0 -12px 24px -16px rgba(255, 255, 255, 0.4),
+        0 24px 64px rgba(24, 24, 27, 0.18);
+}
+
+.lg-card-daylight,
+.lg-pill-daylight,
+.lg-tile-daylight {
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        0 8px 28px rgba(24, 24, 27, 0.12);
+}
