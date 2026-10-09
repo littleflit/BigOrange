@@ -55,19 +55,12 @@ contextBridge.exposeInMainWorld('electron', {
     // these two only change it.
     chooseModelsDirectory: () => ipcRenderer.invoke('choose-models-directory'),
     resetModelsDirectory: () => ipcRenderer.invoke('reset-models-directory'),
-    // Getting the weights onto this machine: over the network, off a file already here, or by
-    // pointing at one. All three end at the same verified file - see analysis/modelStore.cjs.
+    // Getting the weights onto this machine: off a file already here, or by pointing
+    // at one. No download route - the mirrors died. See analysis/modelStore.cjs.
     getAutomixModelStatus: () => ipcRenderer.invoke('automix-model-status'),
-    downloadAutomixModel: (name) => ipcRenderer.invoke('automix-model-download', name),
-    cancelAutomixModelDownload: (name) => ipcRenderer.invoke('automix-model-cancel', name),
     scanForAutomixModels: () => ipcRenderer.invoke('automix-model-scan'),
     installAutomixModel: (name, source) => ipcRenderer.invoke('automix-model-install', name, source),
     removeAllAutomixModels: () => ipcRenderer.invoke('automix-model-remove-all'),
-    onAutomixModelProgress: (callback) => {
-        const listener = (_event, progress) => callback(progress);
-        ipcRenderer.on('automix-model-progress', listener);
-        return () => ipcRenderer.removeListener('automix-model-progress', listener);
-    },
     platform: process.platform,
     isLinuxX11: process.platform === 'linux' && !process.env.WAYLAND_DISPLAY,
     getSettings: () => ipcRenderer.invoke('get-settings'),

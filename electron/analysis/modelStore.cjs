@@ -8,7 +8,8 @@ const {
 } = require('./modelPaths.cjs');
 
 // electron/analysis/modelStore.cjs
-// Getting the weights onto the listener's disk: over the network, or off a file they already have.
+// Getting the weights onto the listener's disk: off a file they already have
+// (netdisk shares - there is no automatic download; every mirror ever listed died).
 //
 // Both routes end at the same place and pass the same test. A file that arrives by netdisk is verified
 // exactly like one we downloaded, because the risk is identical and it is not the kind of risk a human
@@ -21,11 +22,6 @@ const {
 // That recognises a correct file under any name, and refuses a wrong one under the right name.
 
 const manifest = require('../../shared/modelManifest.json');
-
-/** Progress is reported at most this often. A 166MB download is thousands of chunks. */
-const PROGRESS_INTERVAL_MS = 200;
-/** How long a mirror gets to START answering, as opposed to to finish. See build/fetchModels.mjs. */
-const RESPOND_TIMEOUT_MS = 45_000;
 
 const hashFile = (file) => new Promise((resolve, reject) => {
     const hash = createHash('sha256');
@@ -93,7 +89,7 @@ const unpack = async (archive, home) => {
     await fsp.rename(staging, home);
 };
 
-const createModelStore = ({ getModelsDirs, getDownloadDir, onProgress, onChanged }) => {
+const createModelStore = ({ getModelsDirs, getDownloadDir, onChanged }) => {
     const dirs = () => (getModelsDirs?.() ?? []).filter(Boolean);
 
     /**
@@ -114,144 +110,6 @@ const createModelStore = ({ getModelsDirs, getDownloadDir, onProgress, onChanged
     const installedPath = (entry) => (entry.unpack
         ? resolveUnpackedDir(dirs(), entry.unpack)
         : resolveModelFile(dirs(), entry.name));
-
-    /** name -> AbortController, so a download in flight can be called off. */
-    const running = new Map();
-
-    const report = (event) => {
-        try { onProgress?.(event); } catch { /* a closed window is not news */ }
-    };
-
-    /**
-     * Streams one model in, hashing as it goes, and only then puts it where the worker looks.
-     *
-     * Written to a `.part` file and renamed, because the alternative is a half-file sitting under
-     * the real name: resolveModelFile would find it, the settings page would call the model
-     * installed, and onnxruntime would be handed a truncated graph.
-     */
-    const downloadTo = async (model, url, target, signal) => {
-        const host = new URL(url).host;
-        const controller = new AbortController();
-        const abort = () => controller.abort(new Error('canceled'));
-        signal?.addEventListener('abort', abort, { once: true });
-        // Covers the headers only. A mirror doing a cold pull of 166MB from its origin is slow, not
-        // dead, and a budget spanning the transfer judged exactly that case wrong once already.
-        let deadline = setTimeout(() => controller.abort(new Error('no response')), RESPOND_TIMEOUT_MS);
-
-        const part = `${target}.part`;
-        try {
-            const response = await fetch(url, { redirect: 'follow', signal: controller.signal });
-            clearTimeout(deadline);
-            deadline = null;
-            if (!response.ok) return `${host}: ${response.status} ${response.statusText}`;
-
-            const total = Number(response.headers.get('content-length')) || model.bytes;
-            const hash = createHash('sha256');
-            const handle = await fsp.open(part, 'w');
-            let received = 0;
-            let announced = 0;
-            try {
-                for await (const chunk of response.body) {
-                    hash.update(chunk);
-                    await handle.write(chunk);
-                    received += chunk.length;
-                    const now = Date.now();
-                    if (now - announced >= PROGRESS_INTERVAL_MS) {
-                        announced = now;
-                        report({ name: model.name, status: 'downloading', received, total, host });
-                    }
-                }
-            } finally {
-                await handle.close();
-            }
-
-            const digest = hash.digest('hex');
-            if (received !== model.bytes || digest !== model.sha256) {
-                // Same treatment as a mirror that is down. A host serving the wrong bytes is not a
-                // host to keep asking, so we move to the next one.
-                await fsp.rm(part, { force: true });
-                return `${host}: ${received} bytes, sha256 ${digest.slice(0, 12)}`
-                    + ` (wanted ${model.bytes}, ${model.sha256.slice(0, 12)})`;
-            }
-
-            await fsp.rename(part, target);
-            return null;
-        } catch (error) {
-            await fsp.rm(part, { force: true }).catch(() => { });
-            return `${host}: ${error?.cause?.message || error?.message || String(error)}`;
-        } finally {
-            if (deadline) clearTimeout(deadline);
-            signal?.removeEventListener('abort', abort);
-        }
-    };
-
-    /**
-     * Fetches one model, trying every mirror in turn.
-     *
-     * Resolves with the reasons rather than throwing when they all fail: the caller is a settings
-     * page that has to SHOW them, and every one of them is ordinary - a blocked host, a cold
-     * mirror, no network - rather than exceptional.
-     */
-    const download = async (name) => {
-        const model = modelBy(name);
-        if (!model) return { ok: false, skipped: [`unknown model ${name}`] };
-        if (running.has(name)) return { ok: false, skipped: ['already downloading'] };
-
-        const dir = getDownloadDir();
-        await fsp.mkdir(dir, { recursive: true });
-        const target = path.join(dir, model.file);
-
-        const controller = new AbortController();
-        running.set(name, controller);
-        report({ name, status: 'downloading', received: 0, total: model.bytes, host: null });
-
-        const skipped = [];
-        try {
-            // An entry may carry its own mirrors: the ort-node pack lives on a data release of
-            // ours, not alongside the weights, and routing it through the weights' mirrors would
-            // 404 on every one of them before failing.
-            for (const template of model.mirrors ?? manifest.mirrors) {
-                if (controller.signal.aborted) {
-                    skipped.push('canceled');
-                    break;
-                }
-                const url = template.replace('{file}', model.file);
-                const failure = await downloadTo(model, url, target, controller.signal);
-                if (failure === null) {
-                    // Unpacked only AFTER the hash matched, never straight out of the response:
-                    // this writes 1400 files into the models directory, and doing that from bytes
-                    // nobody has checked is how a bad mirror would get to choose them.
-                    const home = model.unpack && path.join(dir, model.unpack);
-                    if (home) {
-                        await unpack(target, home);
-                        // Ours, downloaded seconds ago, a third the size of what it unpacked to,
-                        // and never read again - what counts as installed is the interpreter in
-                        // the directory. Deleted here rather than inside `unpack`, because the
-                        // other caller's archive belongs to the listener. See installLocal.
-                        await fsp.rm(target, { force: true });
-                    }
-                    report({ name, status: 'ready', received: model.bytes, total: model.bytes, host: null });
-                    onChanged?.();
-                    return { ok: true, skipped, path: home || target };
-                }
-                skipped.push(failure);
-            }
-        } finally {
-            running.delete(name);
-        }
-
-        // Logged whether or not a later mirror worked - see build/fetchModels.mjs for why a silent
-        // fallback is the failure mode worth designing against here.
-        for (const failure of skipped) console.warn(`[models] ${name}: skipped ${failure}`);
-        report({ name, status: 'failed', received: 0, total: model.bytes, host: null });
-        return { ok: false, skipped };
-    };
-
-    const cancel = (name) => {
-        const controller = running.get(name);
-        controller?.abort(new Error('canceled'));
-        return controller !== undefined;
-    };
 
     /**
      * The places a file the listener already has might be sitting, searched one level deep.
@@ -432,11 +290,10 @@ const createModelStore = ({ getModelsDirs, getDownloadDir, onProgress, onChanged
             // told so, not left looking for a download button that was never drawn.
             supported: model.supported,
             path: model.supported ? installedPath(model) : null,
-            downloading: running.has(model.name),
         })),
     });
 
-    return { download, cancel, scan, installLocal, removeAll, status, MODEL_NAMES };
+    return { scan, installLocal, removeAll, status, MODEL_NAMES };
 };
 
 module.exports = { createModelStore, fileIsModel, hashFile };

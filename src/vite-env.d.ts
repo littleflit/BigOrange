@@ -666,12 +666,11 @@ declare global {
      */
     supported: boolean;
     path: string | null;
-    downloading: boolean;
   }
 
   interface ElectronAutomixModelStatus {
     /**
-     * The netdisk routes, offered only once every mirror has failed. An empty list = not offered.
+     * The netdisk routes - the only way models arrive. An empty list = not offered.
      * The extraction code belongs to the link rather than to the block: the two disks have
      * different ones, and a code shown beside the wrong link is worse than no code.
      */
@@ -686,15 +685,6 @@ declare global {
     file: string;
     path: string;
     bytes: number;
-  }
-
-  interface ElectronAutomixModelProgress {
-    name: string;
-    status: 'downloading' | 'ready' | 'failed';
-    received: number;
-    total: number;
-    /** Which mirror is answering, or null before one has been reached. */
-    host: string | null;
   }
 
   /** One process's share of a memory sample. Sizes are whole megabytes; see electron/debug/memoryMonitor.cjs. */
@@ -796,8 +786,6 @@ declare global {
       chooseModelsDirectory?: () => Promise<{ canceled: boolean }>;
       resetModelsDirectory?: () => Promise<void>;
       getAutomixModelStatus?: () => Promise<ElectronAutomixModelStatus>;
-      downloadAutomixModel?: (name: string) => Promise<{ ok: boolean; skipped?: string[]; path?: string }>;
-      cancelAutomixModelDownload?: (name: string) => Promise<boolean>;
       scanForAutomixModels?: () => Promise<{ found: ElectronAutomixModelFound[]; scanned: number }>;
       installAutomixModel?: (name: string, source: string) => Promise<{ ok: boolean; reason?: string }>;
       /**
@@ -811,9 +799,6 @@ declare global {
         freed: number;
         failed: Array<{ name: string; reason: string }>;
       }>;
-      onAutomixModelProgress?: (
-        callback: (progress: ElectronAutomixModelProgress) => void,
-      ) => () => void;
       /** Developer debug module. Absent in the browser build, where every caller no-ops. */
       debugGetState?: () => Promise<DebugModuleState>;
       debugSetState?: (patch: Partial<Pick<DebugModuleState, 'runtimeLogEnabled' | 'runtimeLogMode' | 'memoryMonitorEnabled' | 'memoryLogEnabled' | 'memoryLogMode' | 'memoryIntervalMs'>>) => Promise<DebugModuleState>;

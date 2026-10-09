@@ -5699,25 +5699,19 @@ ipcMain.handle('reset-models-directory', () => {
 });
 
 // Getting the weights onto this machine. Everything about HOW is in analysis/modelStore.cjs; what
-// is here is the window it reports progress to and the file picker it cannot open for itself.
+// is here is the file picker it cannot open for itself. There is no download route: the mirrors
+// died, so models arrive as netdisk files the listener points us at.
 const modelStore = createModelStore({
   getModelsDirs: getModelsDirectories,
   // Never the bundled directory: that one lives inside the install folder and is not ours to write
   // into, and on a packaged app it may not even be writable.
   getDownloadDir: modelsDownloadDir,
-  onProgress: (event) => {
-    if (mainWindow && !mainWindow.isDestroyed()) {
-      mainWindow.webContents.send('automix-model-progress', event);
-    }
-  },
   // A model appearing or moving has to reach the worker, which took its directories as argv when it
   // was forked. Restarting is how; it is what the idle timer does anyway.
   onChanged: () => { analysisHost.reload(); },
 });
 
 ipcMain.handle('automix-model-status', () => modelStore.status());
-ipcMain.handle('automix-model-download', (_event, name) => modelStore.download(name));
-ipcMain.handle('automix-model-cancel', (_event, name) => modelStore.cancel(name));
 ipcMain.handle('automix-model-scan', () => modelStore.scan(scanHintDirectories()));
 ipcMain.handle('automix-model-install', (_event, name, source) => modelStore.installLocal(name, source));
 

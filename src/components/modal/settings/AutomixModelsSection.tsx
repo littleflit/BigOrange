@@ -1,23 +1,21 @@
 import React from 'react';
-import { Check, Copy, Disc3, Download, ExternalLink, FolderOpen, Loader2, Search, Sparkles, Trash2, X } from 'lucide-react';
+import { Check, Copy, Disc3, ExternalLink, FolderOpen, Loader2, Search, Sparkles, Trash2 } from 'lucide-react';
 import ConfirmDialog from '../../shared/ConfirmDialog';
 import ThemedDialog from '../../shared/ThemedDialog';
 import { useTranslation } from 'react-i18next';
 import { refreshModelAvailability } from '../../../services/automix/modelAvailability';
 
 // src/components/modal/settings/AutomixModelsSection.tsx
-// The two analysis models: whether they are here, and the three ways to get them.
+// The two analysis models: whether they are here, and how to get them.
 //
 // They are 83MB and 166MB, the difference between the full engine and the estimators, and most listeners
-// never turn this feature on - so they are a download rather than a quarter of every installer. That
+// never turn this feature on - so they are a netdisk fetch rather than a quarter of every installer. That
 // makes "not installed" the state most desktop installs START in, which is why this block exists and why
 // it sits directly under the badge that reports the engine.
 //
-// The three routes are automatic (mirrors, in order), a netdisk the listener downloads from themselves,
-// and found-on-this-machine (a scan matching by hash, which is what turns the second into an install).
-// All three end in the same verified file; the UI difference is only which one is worth offering first.
-// The netdisk stays hidden until the automatic route has actually failed - offering a manual download to
-// someone whose automatic one would have worked is noise.
+// There is no automatic download: every mirror ever listed died, so the upstream netdisk shares below
+// are the only route, shown always rather than after a failure. A found-on-this-machine scan (same
+// verified file, matched by hash) covers copies the listener already carries.
 
 /** A byte count as something a person reads. Sizes here are always tens or hundreds of MB. */
 const megabytes = (bytes: number) => `${Math.round(bytes / 1e6)} MB`;
@@ -50,13 +48,9 @@ const rowTitle = (model: ElectronAutomixModelEntry) => {
     return model.enables === 'stems' ? 'options.modelEnablesStems' : 'options.modelEnablesBeatGrid';
 };
 
-type Progress = ElectronAutomixModelProgress;
-
 const AutomixModelsSection: React.FC<{ isDaylight: boolean }> = ({ isDaylight }) => {
     const { t } = useTranslation();
     const [status, setStatus] = React.useState<ElectronAutomixModelStatus | null>(null);
-    const [progress, setProgress] = React.useState<Record<string, Progress>>({});
-    const [failures, setFailures] = React.useState<Record<string, string[]>>({});
     const [scanning, setScanning] = React.useState(false);
     const [scanResult, setScanResult] = React.useState<string | null>(null);
     const [copiedCode, setCopiedCode] = React.useState<string | null>(null);
@@ -64,7 +58,6 @@ const AutomixModelsSection: React.FC<{ isDaylight: boolean }> = ({ isDaylight })
     const [removeOpen, setRemoveOpen] = React.useState(false);
 
     const borderColor = isDaylight ? 'rgba(24, 24, 27, 0.12)' : 'rgba(255, 255, 255, 0.1)';
-    const trackColor = isDaylight ? 'rgba(24, 24, 27, 0.10)' : 'rgba(255, 255, 255, 0.12)';
     const scopeChipColor = isDaylight ? 'rgba(24, 24, 27, 0.06)' : 'rgba(255, 255, 255, 0.07)';
 
     // Re-read after anything that could have changed a file on disk, and tell the rest of the app too:
@@ -78,22 +71,7 @@ const AutomixModelsSection: React.FC<{ isDaylight: boolean }> = ({ isDaylight })
 
     React.useEffect(() => {
         void refresh();
-        return window.electron?.onAutomixModelProgress?.((event) => {
-            setProgress(current => ({ ...current, [event.name]: event }));
-            if (event.status !== 'downloading') void refresh();
-        });
     }, [refresh]);
-
-    const download = async (name: string) => {
-        setFailures(current => ({ ...current, [name]: [] }));
-        setScanResult(null);
-        const result = await window.electron?.downloadAutomixModel?.(name);
-        // Per-mirror reasons are kept and shown, not collapsed into "failed": which mirror was
-        // tried and what it said is what tells a listener whether to wait, switch network, or go
-        // to the netdisk.
-        if (result && !result.ok) setFailures(current => ({ ...current, [name]: result.skipped ?? [] }));
-        await refresh();
-    };
 
     const scan = async () => {
         setScanning(true);
@@ -121,7 +99,6 @@ const AutomixModelsSection: React.FC<{ isDaylight: boolean }> = ({ isDaylight })
 
     const removeAll = async () => {
         setRemoveOpen(false);
-        setFailures({});
         const result = await window.electron?.removeAllAutomixModels?.();
         // A copy in the installer's own read-only directory can't be deleted; the page then
         // correctly goes on saying 已安装 off it, so that failure is reported rather than read
@@ -151,7 +128,6 @@ const AutomixModelsSection: React.FC<{ isDaylight: boolean }> = ({ isDaylight })
 
     if (!status) return null;
 
-    const anyFailed = Object.values(failures).some(list => list.length > 0);
     const manualLinks = (status.manual?.links ?? []).filter(link => link.url.trim());
 
     return (
@@ -173,11 +149,6 @@ const AutomixModelsSection: React.FC<{ isDaylight: boolean }> = ({ isDaylight })
             </div>
 
             {status.models.map((model) => {
-                const live = progress[model.name];
-                const busy = model.downloading || live?.status === 'downloading';
-                const percent = busy && live?.total ? Math.min(100, (live.received / live.total) * 100) : 0;
-                const reasons = failures[model.name] ?? [];
-
                 return (
                     <div key={model.name} className="rounded-lg border px-3 py-2.5 space-y-2" style={{ borderColor }}>
                         <div className="flex items-center justify-between gap-3">
@@ -214,9 +185,8 @@ const AutomixModelsSection: React.FC<{ isDaylight: boolean }> = ({ isDaylight })
                                     </span>
                                 </div>
                             </div>
-                            {/* Three states, not two. A machine with no build for it gets told so
-                                where the button would be - the one place someone looking for the
-                                download is already looking. */}
+                            {/* No automatic download: the mirrors died, so a missing model
+                                goes straight to the upstream netdisk shares below. */}
                             {!model.supported ? (
                                 <span className="text-[11px] opacity-60 shrink-0" style={{ color: 'var(--text-secondary)' }}>
                                     {t('options.modelUnsupported')}
@@ -228,38 +198,15 @@ const AutomixModelsSection: React.FC<{ isDaylight: boolean }> = ({ isDaylight })
                             ) : (
                                 <button
                                     type="button"
-                                    onClick={() => (busy
-                                        ? window.electron?.cancelAutomixModelDownload?.(model.name)
-                                        : download(model.name))}
+                                    onClick={() => setManualOpen(true)}
                                     className="shrink-0 rounded-lg border px-2.5 py-1.5 text-[11px] flex items-center gap-1.5 transition-colors"
                                     style={{ borderColor, color: 'var(--text-primary)' }}
                                 >
-                                    {busy ? <X size={12} /> : <Download size={12} />}
-                                    {t(busy ? 'options.modelCancel' : 'options.modelDownload')}
+                                    <ExternalLink size={12} />
+                                    {t('options.modelManualLink')}
                                 </button>
                             )}
                         </div>
-
-                        {busy && (
-                            <div className="space-y-1">
-                                <div className="h-1 rounded-full overflow-hidden" style={{ backgroundColor: trackColor }}>
-                                    <div
-                                        className="h-full rounded-full transition-[width] duration-200"
-                                        style={{ width: `${percent}%`, backgroundColor: 'var(--text-primary)', opacity: 0.55 }}
-                                    />
-                                </div>
-                                <div className="flex justify-between text-[10px] font-mono tabular-nums opacity-50" style={{ color: 'var(--text-secondary)' }}>
-                                    <span>{live?.host ?? ''}</span>
-                                    <span>{percent.toFixed(0)}%</span>
-                                </div>
-                            </div>
-                        )}
-
-                        {reasons.length > 0 && (
-                            <div className="text-[10px] font-mono leading-relaxed opacity-60 space-y-0.5" style={{ color: 'var(--text-secondary)' }}>
-                                {reasons.map((reason, index) => <div key={index} className="truncate">{reason}</div>)}
-                            </div>
-                        )}
                     </div>
                 );
             })}
@@ -314,13 +261,14 @@ const AutomixModelsSection: React.FC<{ isDaylight: boolean }> = ({ isDaylight })
                 </button>
             </div>
 
-            {/* Only once the automatic route has actually failed. A netdisk link shown to someone
-                whose download would have worked is noise, and an EMPTY list is worse than none -
-                which is why the routes live in the manifest and an empty one hides this entirely. */}
-            {anyFailed && manualLinks.length > 0 && (
+            {/* Always shown: the netdisk shares are the only route, not a fallback. */}
+            {manualLinks.length > 0 && (
                 <div className="rounded-lg border px-3 py-2.5 space-y-2" style={{ borderColor }}>
                     <div className="text-[11px] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                         {t('options.modelManualHint')}
+                    </div>
+                    <div className="text-[11px] opacity-70" style={{ color: 'var(--text-secondary)' }}>
+                        {t('options.modelManualSource')}
                     </div>
                     <button
                         type="button"

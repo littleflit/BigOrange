@@ -8,10 +8,9 @@ import type { ProbeDefinition } from './definition';
  * 设置页的模型区块。这块只在 window.electron 存在时渲染，浏览器预览本来看不到，
  * 所以这里把它需要的那几个 IPC 假装出来。
  *
- * 主要要看的是「所有线路都失败」之后才出现的网盘那一排：两个网盘各自带自己的提取码，
- * 而提取码是四个区分大小写的字符（qWGi），照着屏幕手打是个真会出错的事，所以它是个
- * 按钮而不是一段文字。失败态是默认展开的——正常态下这一排根本不出现，而它不出现的
- * 时候是看不出它长得对不对的。
+ * 主要要看的是网盘那一排：两个网盘各自带自己的提取码，而提取码是四个区分大小写
+ * 的字符（qWGi），照着屏幕手打是个真会出错的事，所以它是个按钮而不是一段文字。
+ * 网盘是唯一的模型来源，一直可见。
  */
 const MANUAL = manifest.manual as { links: Array<{ label: string; url: string; code?: string }>; note: string };
 
@@ -41,7 +40,6 @@ const buildStatus = (installed: boolean, runtimeSupported: boolean) => {
             license: entry.license,
             supported,
             path: supported && installed ? `E:\\models\\${entry.file}` : null,
-            downloading: false,
         };
     };
     // The one this machine would get. Any of the three would do - what is being drawn is the row.
@@ -58,7 +56,6 @@ const buildStatus = (installed: boolean, runtimeSupported: boolean) => {
             supported: runtimeSupported,
             // Unpacks to a directory, so an installed runtime shows a folder and not a file.
             path: runtimeSupported && installed ? String.raw`E:\models\runtime` : null,
-            downloading: false,
         } satisfies Row],
     };
 };
@@ -67,7 +64,6 @@ const AutomixModelsProbe: React.FC = () => {
     const [installed, setInstalled] = useState(false);
     const installedRef = React.useRef(installed);
     installedRef.current = installed;
-    const [failed, setFailed] = useState(true);
     const [runtimeSupported, setRuntimeSupported] = useState(true);
     const [nonce, setNonce] = useState(0);
     const supportedRef = React.useRef(runtimeSupported);
@@ -83,13 +79,6 @@ const AutomixModelsProbe: React.FC = () => {
             // runtime build reports no stems however many .onnx files it has.
             htdemucs: installedRef.current && supportedRef.current,
         }),
-        downloadAutomixModel: async () => ({
-            ok: false,
-            skipped: failed
-                ? ['hf-mirror.com: 无响应（45 秒）', 'huggingface.co: 连接被重置', 'github.com: 404']
-                : [],
-        }),
-        onAutomixModelProgress: () => () => {},
         scanForAutomixModels: async () => ({ found: [] }),
         // The real bridge hands the url to the OS browser (preload -> 'open-external-url').
         // A stub that only logged made the netdisk buttons look broken in here.
@@ -127,14 +116,6 @@ const AutomixModelsProbe: React.FC = () => {
                     onClick={() => { setInstalled(value => !value); setNonce(n => n + 1); }}
                 >
                     {installed ? '已安装 → 未安装' : '未安装 → 已安装'}
-                </button>
-                <button
-                    type="button"
-                    data-probe-action="toggle-failed"
-                    className="rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-semibold text-zinc-200 hover:bg-white/10"
-                    onClick={() => { setFailed(value => !value); setNonce(n => n + 1); }}
-                >
-                    {failed ? '下载失败态（网盘可见）' : '正常态（网盘隐藏）'}
                 </button>
                 <button
                     type="button"
