@@ -1421,13 +1421,12 @@ export default {
     "ponderTouchButtonDesc": "The lightbulb in the top-right corner on touch devices: it shows itself for a few seconds when you land on a page, and a tap in that corner calls it back. With it off, touch users can only reach Ponder from the command window.",
     "refresh": "Refresh",
     "cacheDetails": "Cache Details",
-    "settingsGroupAppearance": "Appearance",
-    "settingsGroupControls": "Controls",
-    "settingsGroupConnections": "Connections & Data",
-    "settingsGroupSystem": "System",
-    "settingsHomeTitle": "Settings",
-    "settingsHomeDesc": "Pick a section to begin.",
-    "settingsBackToSections": "All settings",
+    "settingsGroupGeneral": "General",
+    "settingsGroupLook": "Appearance & Graphics",
+    "settingsGroupPlayback": "Playback & Interaction",
+    "settingsGroupData": "Connections & Storage",
+    "settingsGroupDevice": "Desktop & Extensions",
+    "settingsGroupAdvanced": "Advanced",
     "generalSettings": "General settings",
     "generalSettingsDesc": "Interface language and other app-wide preferences.",
     "visualSettingsCardDesc": "Themes, lyric rendering modes, style entry points, and background opacity.",
@@ -2840,16 +2839,12 @@ export default {
       }
     },
     "v0_7_16": {
-      "intro": "0.7.16 merges upstream improvements — AMLL lyrics via the official API, direct AMLL search in manual matching, Tab switching between home tabs, and completed local search links — plus BigOrange's own settings home grid, the removed spectrum widget, and non-selectable lyrics.",
+      "intro": "0.7.16 merges upstream improvements — AMLL lyrics via the official API, direct AMLL search in manual matching, Tab switching between home tabs, and completed local search links — plus BigOrange's regrouped settings, the removed spectrum widget, and non-selectable lyrics.",
       "bigorange": {
         "title": "BigOrange Updates"
       },
       "upstream": {
         "title": "Upstream Updates"
-      },
-      "settingsHome": {
-        "title": "Settings Home Grid",
-        "description": "The options page now opens on a grouped card grid instead of a wall of lists. Pick a card to enter a section, and go back from the top-left of any detail page."
       },
       "spectrumRemoved": {
         "title": "Spectrum Widget Removed",

@@ -1,4 +1,4 @@
-import { AudioWaveform, Keyboard, LayoutGrid, Link, MousePointerClick, Music2, Search } from 'lucide-react';
+import { AudioWaveform, Keyboard, Link, MousePointerClick, Music2, Search } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 // src/components/modal/newFeaturesRelease.ts
@@ -30,7 +30,6 @@ export const NEW_FEATURES_RELEASE: NewFeaturesRelease = {
             id: 'bigorange',
             titleKey: 'releaseNotes.v0_7_16.bigorange.title',
             features: [
-                { id: 'settingsHome', icon: LayoutGrid, daylightIconClassName: 'text-violet-600', darkIconClassName: 'text-violet-400' },
                 { id: 'spectrumRemoved', icon: AudioWaveform, daylightIconClassName: 'text-sky-600', darkIconClassName: 'text-sky-400' },
                 { id: 'lyricSelection', icon: MousePointerClick, daylightIconClassName: 'text-emerald-600', darkIconClassName: 'text-emerald-400' },
             ],

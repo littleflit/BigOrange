@@ -36,10 +36,9 @@ import { type SettingsModalState, type SettingsSubviewId, type VisualizerSetting
 import { SettingsAnchorProvider, useSettingsAnchorList, useSettingsAnchorStore } from './settings/navigation/SettingsAnchorContext';
 import SettingsSidebarChips from './settings/navigation/SettingsSidebarChips';
 import SettingsSidebarWide from './settings/navigation/SettingsSidebarWide';
-import SettingsHomeGrid from './settings/navigation/SettingsHomeGrid';
 import { settingsAnchorSubview } from './settings/navigation/settingsAnchorModel';
 import SettingsSectionHeader from './settings/SettingsSectionHeader';
-import { buildSettingsNavGroups, findSettingsNavItem, type SettingsContentId, type SettingsSectionId } from './settings/navigation/settingsNavModel';
+import { buildSettingsNavGroups, findSettingsNavItem, type SettingsSectionId } from './settings/navigation/settingsNavModel';
 import { isSettingsSectionSubview, resolveInitialSettingsSection, sectionForSettingsSubview, writeLastSettingsSection } from './settings/navigation/settingsLastSection';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { useSettingsScrollSpy } from '../../hooks/useSettingsScrollSpy';
@@ -417,8 +416,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
         setTabDirection(tab === 'options' ? 'right' : 'left');
         setActiveTab(tab);
     };
-    // A bare open (no subview, no anchor) lands on the home grid; any named target wins.
-    const [activeSettingsSection, setActiveSettingsSection] = useState<SettingsContentId>(() => resolveInitialSettingsSection({
+    // A bare open (no subview, no anchor) restores the last section the user entered; any named target wins.
+    const [activeSettingsSection, setActiveSettingsSection] = useState<SettingsSectionId>(() => resolveInitialSettingsSection({
         initialSubview,
         hasInitialAnchor: initialAnchor !== null,
         isElectron: hasElectronBridge(),
@@ -1276,7 +1275,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
     const { activeAnchorId, scrollToAnchor } = useSettingsScrollSpy({
         containerRef: contentScrollRef,
         anchors: settingsAnchors,
-        enabled: isWideSettingsLayout && activeTab === 'options' && activeSettingsSection !== 'home',
+        enabled: isWideSettingsLayout && activeTab === 'options',
         reducedMotion: prefersReducedMotion,
     });
 
@@ -1639,7 +1638,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                                         isDaylight={isDaylight}
                                         theme={theme}
                                     />
-                                ) : activeSettingsSection === 'home' ? null : (
+                                ) : (
                                     <SettingsSidebarChips
                                         groups={settingsNavGroups}
                                         activeSectionId={activeSettingsSection}
@@ -1648,16 +1647,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                                     />
                                 )}
                                 <div ref={contentScrollRef} className="flex-1 overflow-y-auto custom-scrollbar pl-1 md:pl-2 pr-2 md:pr-4 relative pb-4">
-                                    {activeSettingsSection === 'home' ? (
-                                        <SettingsHomeGrid
-                                            groups={settingsNavGroups}
-                                            onSelectSection={handleSelectSettingsSection}
-                                            isDaylight={isDaylight}
-                                            title={t('options.settingsHomeTitle')}
-                                            description={t('options.settingsHomeDesc')}
-                                        />
-                                    ) : (
-                                    <>
                                     <SettingsSectionHeader
                                         title={activeSettingsNavItem?.label ?? ''}
                                         description={activeSettingsNavItem?.description ?? ''}
@@ -1666,8 +1655,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                                         onSetDaylightPreference={onSetDaylightPreference}
                                         daylightLabel={t('options.daylightMode')}
                                         utilityGhostButtonClass={utilityGhostButtonClass}
-                                        onBack={() => setActiveSettingsSection('home')}
-                                        backLabel={t('options.settingsBackToSections')}
                                     />
                                     <div className="space-y-8">
                                         {activeSettingsSection === 'appearance' && (
@@ -1918,8 +1905,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                                             />
                                         )}
                                     </div>
-                                    </>
-                                    )}
                                 </div>
                                 </SettingsAnchorProvider>
                             </motion.div>

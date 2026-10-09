@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useShallow } from 'zustand/react/shallow';
-import { Clapperboard, FolderOpen, KeyRound, X } from 'lucide-react';
+import { FolderOpen, KeyRound, X } from 'lucide-react';
 import type { Theme } from '../../../types';
 import {
     ensureVideoLayerFileRestored,
@@ -10,7 +10,6 @@ import {
     type VideoLayerFit,
 } from '../../../stores/useVideoLayerSettingsStore';
 import { setStatusMessage } from '../../../stores/useStatusMessageStore';
-import SettingsRow, { SettingsToggle } from './SettingsRow';
 
 // src/components/modal/settings/VideoLayerSettingsSection.tsx
 // Settings for the built-in video layer behind the lyrics. Reads the store directly, the way
@@ -79,23 +78,26 @@ const VideoLayerSettingsSection: React.FC<VideoLayerSettingsSectionProps> = ({
     const hasLocalFile = settings.localFileStatus !== 'none';
 
     return (
-        <div className={`rounded-2xl border ${settingsCardClass} overflow-hidden`}>
-            <SettingsRow
-                title={t('options.videoLayerEnabled')}
-                description={t('options.videoLayerDesc')}
-                icon={Clapperboard}
-                control={(
-                    <SettingsToggle
-                        checked={settings.enabled}
-                        onChange={() => actions.setEnabled(!settings.enabled)}
-                        offClass={toggleOffBackgroundClass}
-                        onColor={theme?.secondaryColor}
-                        ariaLabel={t('options.videoLayerEnabled')}
-                    />
-                )}
-                dividerClass={settingsDividerClass}
-                isLast
-            />
+        <div className={`p-4 rounded-xl border space-y-4 ${settingsCardClass}`}>
+            <div className="flex items-center justify-between gap-4">
+                <div className="space-y-1 min-w-0">
+                    <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+                        {t('options.videoLayerEnabled')}
+                    </div>
+                    <div className="text-xs opacity-50 max-w-[400px]" style={{ color: 'var(--text-secondary)' }}>
+                        {t('options.videoLayerDesc')}
+                    </div>
+                </div>
+                <button
+                    onClick={() => actions.setEnabled(!settings.enabled)}
+                    className={`w-12 h-6 rounded-full p-1 transition-colors shrink-0 ${!settings.enabled ? toggleOffBackgroundClass : ''}`}
+                    style={{ backgroundColor: settings.enabled ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
+                    aria-pressed={settings.enabled}
+                    aria-label={t('options.videoLayerEnabled')}
+                >
+                    <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${settings.enabled ? 'translate-x-6' : 'translate-x-0'}`} />
+                </button>
+            </div>
 
             <div className={`border-t pt-4 space-y-2 ${settingsDividerClass}`}>
                 <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>

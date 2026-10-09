@@ -1,9 +1,7 @@
 import React from 'react';
-import { Frame } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useShallow } from 'zustand/react/shallow';
 import type { Theme } from '../../../types';
-import SettingsRow, { SettingsToggle } from './SettingsRow';
 import { useLatticeSettingsStore } from '../../../stores/useLatticeSettingsStore';
 import LatticePosterTintControls from '../../shared/LatticePosterTintControls';
 import { settingsDividerClassFor } from './settingsCardClasses';
@@ -41,23 +39,26 @@ const LatticeSettingsSection: React.FC<LatticeSettingsSectionProps> = ({
     })));
 
     return (
-        <div className={`rounded-2xl border ${settingsCardClass} overflow-hidden`}>
-            <SettingsRow
-                title={t('options.latticeVignette')}
-                description={t('options.latticeVignetteDesc')}
-                icon={Frame}
-                control={(
-                    <SettingsToggle
-                        checked={latticeVignette}
-                        onChange={() => handleToggleLatticeVignette(!latticeVignette)}
-                        offClass={toggleOffBackgroundClass}
-                        onColor={theme?.secondaryColor}
-                        ariaLabel={t('options.latticeVignette')}
-                    />
-                )}
-                dividerClass={settingsDividerClassFor(isDaylight)}
-                isLast
-            />
+        <div className={`p-4 rounded-xl border space-y-4 ${settingsCardClass}`}>
+            <div className="flex items-center justify-between gap-4">
+                <div className="space-y-1">
+                    <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+                        {t('options.latticeVignette')}
+                    </div>
+                    <div className="text-xs opacity-50 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
+                        {t('options.latticeVignetteDesc')}
+                    </div>
+                </div>
+                <button
+                    onClick={() => handleToggleLatticeVignette(!latticeVignette)}
+                    className={`w-12 h-6 rounded-full p-1 transition-colors shrink-0 ${!latticeVignette ? toggleOffBackgroundClass : ''}`}
+                    style={{ backgroundColor: latticeVignette ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
+                    aria-pressed={latticeVignette}
+                    aria-label={t('options.latticeVignette')}
+                >
+                    <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${latticeVignette ? 'translate-x-6' : 'translate-x-0'}`} />
+                </button>
+            </div>
             <div className={`border-t pt-4 ${settingsDividerClassFor(isDaylight)}`}>
                 <LatticePosterTintControls
                     {...posterTint}

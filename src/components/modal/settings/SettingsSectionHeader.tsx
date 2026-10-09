@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, Moon, Sun } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 // src/components/modal/settings/SettingsSectionHeader.tsx
 // Title block above the active settings section, plus the appearance-only daylight toggle.
 
@@ -12,9 +12,6 @@ type SettingsSectionHeaderProps = {
     onSetDaylightPreference: (enabled: boolean) => void;
     daylightLabel: string;
     utilityGhostButtonClass: string;
-    /** Back to the home grid. Absent on the home grid itself. */
-    onBack?: () => void;
-    backLabel?: string;
 };
 
 export const SettingsSectionHeader: React.FC<SettingsSectionHeaderProps> = ({
@@ -25,24 +22,10 @@ export const SettingsSectionHeader: React.FC<SettingsSectionHeaderProps> = ({
     onSetDaylightPreference,
     daylightLabel,
     utilityGhostButtonClass,
-    onBack,
-    backLabel,
 }) => (
     <div className="mb-4 md:mb-6 border-b border-white/10 pb-3 md:pb-4">
         <div className="flex items-start justify-between gap-4">
-            <div className="min-w-0">
-                {onBack && (
-                    <button
-                        type="button"
-                        onClick={onBack}
-                        aria-label={backLabel}
-                        className="mb-1.5 -ml-1 flex items-center gap-0.5 text-[11px] opacity-50 transition-opacity hover:opacity-100"
-                        style={{ color: 'var(--text-secondary)' }}
-                    >
-                        <ChevronLeft size={13} />
-                        {backLabel}
-                    </button>
-                )}
+            <div>
                 <h2 className="text-lg md:text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>
                     {title}
                 </h2>

@@ -1,5 +1,5 @@
 import React from 'react';
-import type { SettingsContentId, SettingsNavGroup, SettingsSectionId } from './settingsNavModel';
+import type { SettingsNavGroup, SettingsSectionId } from './settingsNavModel';
 import { flattenSettingsNavItems } from './settingsNavModel';
 import { useDragToScroll } from '../../../../hooks/useDragToScroll';
 // src/components/modal/settings/navigation/SettingsSidebarChips.tsx
@@ -8,7 +8,7 @@ import { useDragToScroll } from '../../../../hooks/useDragToScroll';
 
 type SettingsSidebarChipsProps = {
     groups: SettingsNavGroup[];
-    activeSectionId: SettingsContentId;
+    activeSectionId: SettingsSectionId;
     onSelectSection: (sectionId: SettingsSectionId) => void;
     isDaylight: boolean;
 };

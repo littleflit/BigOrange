@@ -1,5 +1,4 @@
 import React from 'react';
-import { Blocks } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useShallow } from 'zustand/react/shallow';
 import type { Theme } from '@/types';
@@ -36,7 +35,6 @@ export const ModSystemSwitch: React.FC<ModSystemSwitchProps> = ({ classes, theme
                 )}
                 description={t('options.enableModSystemDesc')}
                 note={t('options.enableModSystemDescSub')}
-                icon={Blocks}
                 control={(
                     <SettingsToggle
                         checked={modSystemEnabled}

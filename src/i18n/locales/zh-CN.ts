@@ -1420,13 +1420,12 @@ export default {
     "ponderTouchButtonDesc": "触屏设备上右上角那颗灯泡：进入页面时露几秒，之后点右上角唤回。关掉它之后，触屏上就只能从命令窗口进入思索。",
     "refresh": "刷新",
     "cacheDetails": "缓存详情",
-    "settingsGroupAppearance": "外观",
-    "settingsGroupControls": "控制",
-    "settingsGroupConnections": "连接与数据",
-    "settingsGroupSystem": "系统",
-    "settingsHomeTitle": "设置",
-    "settingsHomeDesc": "选择一个分区开始。",
-    "settingsBackToSections": "全部设置",
+    "settingsGroupGeneral": "通用",
+    "settingsGroupLook": "外观与图形",
+    "settingsGroupPlayback": "播放与交互",
+    "settingsGroupData": "连接与存储",
+    "settingsGroupDevice": "桌面与扩展",
+    "settingsGroupAdvanced": "高级",
     "generalSettings": "界面设置",
     "generalSettingsDesc": "界面语言等全局应用偏好。",
     "visualSettingsCardDesc": "主题、歌词渲染模式、样式入口和背景透明度。",
@@ -2839,16 +2838,12 @@ export default {
       }
     },
     "v0_7_16": {
-      "intro": "0.7.16 合并上游改进：AMLL 歌词切官方接口、手动匹配直搜 AMLL、首页 Tab 切页签、本地搜索链接补全；BigOrange 自己换了设置宫格主页，移除了频谱小组件，歌词不再能被圈选。",
+      "intro": "0.7.16 合并上游改进：AMLL 歌词切官方接口、手动匹配直搜 AMLL、首页 Tab 切页签、本地搜索链接补全；BigOrange 重排了设置分组，移除了频谱小组件，歌词不再能被圈选。",
       "bigorange": {
         "title": "BigOrange 更新"
       },
       "upstream": {
         "title": "上游更新"
-      },
-      "settingsHome": {
-        "title": "设置改成宫格主页",
-        "description": "选项页不再是一面墙的列表，先看到分组宫格，点卡片再进详情；详情页左上角可返回全部设置。"
       },
       "spectrumRemoved": {
         "title": "移除频谱小组件",

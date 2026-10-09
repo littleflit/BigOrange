@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Droplets, Gauge, House, Image, MonitorCog, Sparkles } from 'lucide-react';
+import { Gauge, MonitorCog } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useShallow } from 'zustand/react/shallow';
 import type { Theme, VisualizerFrameRate } from '../../../types';
@@ -106,7 +106,6 @@ const GraphicsSettingsSubview: React.FC<GraphicsSettingsSubviewProps> = ({
                         title={t('options.enableStaticMode')}
                         description={t('options.enableStaticModeDesc')}
                         note={t('options.enableStaticModeDescSub')}
-                        icon={Image}
                         control={renderToggle(staticMode, () => onToggleStaticMode(!staticMode))}
                         dividerClass={dividerClass}
                     />
@@ -114,7 +113,6 @@ const GraphicsSettingsSubview: React.FC<GraphicsSettingsSubviewProps> = ({
                         title={t('options.disableHomeDynamicBackground')}
                         description={t('options.disableHomeDynamicBackgroundDesc')}
                         note={t('options.disableHomeDynamicBackgroundWarning')}
-                        icon={House}
                         control={renderToggle(disableHomeDynamicBackground, () => onToggleDisableHomeDynamicBackground(!disableHomeDynamicBackground))}
                         dividerClass={dividerClass}
                     />
@@ -122,7 +120,6 @@ const GraphicsSettingsSubview: React.FC<GraphicsSettingsSubviewProps> = ({
                         <SettingsRow
                             title={t('options.enablePlayerPageNativeBlur')}
                             description={t('options.enablePlayerPageNativeBlurDesc')}
-                            icon={Droplets}
                             control={renderToggle(enablePlayerPageNativeBlur, handleNativeBlurToggle)}
                             dividerClass={dividerClass}
                         />
@@ -130,7 +127,6 @@ const GraphicsSettingsSubview: React.FC<GraphicsSettingsSubviewProps> = ({
                     <SettingsRow
                         title={t('options.visualizerFrameRate')}
                         description={t('options.visualizerFrameRateDesc')}
-                        icon={Gauge}
                         control={renderToggle(
                             isVisualizerFrameRateLimiterEnabled,
                             () => onVisualizerFrameRateChange(isVisualizerFrameRateLimiterEnabled ? 'off' : selectedVisualizerFrameRate),
@@ -164,7 +160,6 @@ const GraphicsSettingsSubview: React.FC<GraphicsSettingsSubviewProps> = ({
                     </SettingsRow>
                     <SettingsRow
                         title={t('options.glowBlurQuantize')}
-                        icon={Sparkles}
                         description={(
                             <>
                                 {t('options.glowBlurQuantizeDesc')}{' '}

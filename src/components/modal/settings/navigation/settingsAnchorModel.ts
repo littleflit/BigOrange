@@ -8,16 +8,6 @@ import type { SettingsSubviewId } from '../../../../stores/useSettingsModalStore
 // navigation destination.
 
 export const SETTINGS_ANCHOR_DEFINITIONS = {
-    // AppearanceSettingsSubview
-    lyricsRenderer: { section: 'appearance', labelKey: 'options.lyricsRenderer' },
-    themePresets: { section: 'appearance', labelKey: 'options.themePresets' },
-    stageTrackPill: { section: 'appearance', labelKey: 'options.stageTrackPill' },
-    grid3dCardStyle: { section: 'appearance', labelKey: 'options.grid3dCardStyle' },
-    latticeSettings: { section: 'appearance', labelKey: 'options.latticeSettings' },
-    gridViewCardSettings: { section: 'appearance', labelKey: 'options.gridViewCardSettings' },
-    videoLayerSettings: { section: 'appearance', labelKey: 'options.videoLayerSettings' },
-    importExportTitle: { section: 'appearance', labelKey: 'options.importExportTitle' },
-
     // GeneralSettingsSubview (PinnedCommandSettings and PonderHintSettingsSection render inside it)
     languageSettings: { section: 'general', labelKey: 'options.languageSettings' },
     homeTabsVisibility: { section: 'general', labelKey: 'options.homeTabsVisibility' },
@@ -28,6 +18,20 @@ export const SETTINGS_ANCHOR_DEFINITIONS = {
     bottomUiSettings: { section: 'general', labelKey: 'options.bottomUiSettings' },
     pinnedCommands: { section: 'general', labelKey: 'options.pinnedCommands' },
     ponderHints: { section: 'general', labelKey: 'options.ponderHints' },
+
+    // AppearanceSettingsSubview
+    lyricsRenderer: { section: 'appearance', labelKey: 'options.lyricsRenderer' },
+    themePresets: { section: 'appearance', labelKey: 'options.themePresets' },
+    stageTrackPill: { section: 'appearance', labelKey: 'options.stageTrackPill' },
+    grid3dCardStyle: { section: 'appearance', labelKey: 'options.grid3dCardStyle' },
+    latticeSettings: { section: 'appearance', labelKey: 'options.latticeSettings' },
+    gridViewCardSettings: { section: 'appearance', labelKey: 'options.gridViewCardSettings' },
+    videoLayerSettings: { section: 'appearance', labelKey: 'options.videoLayerSettings' },
+    importExportTitle: { section: 'appearance', labelKey: 'options.importExportTitle' },
+
+    // GraphicsSettingsSubview
+    graphicsPerformance: { section: 'graphics', labelKey: 'options.labPerformanceSection' },
+    graphicsMotion: { section: 'graphics', labelKey: 'options.reduceMotionSection' },
 
     // PlaybackSettingsSubview (TransitionSettingsSection renders inside it)
     queueSettings: { section: 'playback', labelKey: 'options.queueSettings' },
@@ -61,10 +65,6 @@ export const SETTINGS_ANCHOR_DEFINITIONS = {
     wallpaperMode: { section: 'desktop', labelKey: 'options.wallpaperMode', electronOnly: true },
     updateCheck: { section: 'desktop', labelKey: 'options.updateCheck', electronOnly: true },
     electronSettings: { section: 'desktop', labelKey: 'options.electronSettings', electronOnly: true },
-
-    // GraphicsSettingsSubview
-    graphicsPerformance: { section: 'graphics', labelKey: 'options.labPerformanceSection' },
-    graphicsMotion: { section: 'graphics', labelKey: 'options.reduceMotionSection' },
 
     // ModsSettingsSubview
     modSystem: { section: 'mods', labelKey: 'options.enableModSystem', electronOnly: true },

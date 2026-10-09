@@ -5,13 +5,13 @@ import en from '../../../src/i18n/locales/en';
 import zhCN from '../../../src/i18n/locales/zh-CN';
 
 // test/unit/settings/settingsNavModel.test.ts
-// The nav model replaced four parallel id-keyed lists in SettingsModal; these lock in that every
+// The nav model replaced the old flat section list with six groups; these lock in that every
 // section still appears exactly once and that every key it points at actually exists in all locales.
 
 const echo = (key: string) => key;
 
 const ALL_SECTIONS: SettingsSectionId[] = [
-    'appearance', 'general', 'playback', 'interaction', 'integration', 'storage', 'desktop', 'graphics', 'mods', 'lab', 'developer',
+    'general', 'appearance', 'graphics', 'playback', 'interaction', 'integration', 'storage', 'desktop', 'mods', 'lab', 'developer',
 ];
 
 const lookup = (bundle: Record<string, unknown>, key: string): unknown => (

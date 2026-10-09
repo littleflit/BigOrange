@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Activity, AlertCircle, AudioLines, Cast, Check, Loader2, Server, Trash2 } from 'lucide-react';
+import { Activity, AlertCircle, Check, Loader2, Server, Trash2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useShallow } from 'zustand/react/shallow';
 import type { NowPlayingConnectionStatus, StageSource, StageStatus, Theme } from '../../../types';
@@ -15,8 +15,6 @@ import { resolveObsCopyHintKey } from '../../../services/obs/visualSettingsConfi
 import type { LyricApiStatus } from '../../../types/lyricApi';
 import { SettingsAnchor } from './navigation/SettingsAnchorContext';
 import SettingsSectionHeading from './navigation/SettingsSectionHeading';
-import SettingsRow, { SettingsToggle } from './SettingsRow';
-import { settingsDividerClassFor } from './settingsCardClasses';
 import { setStatusMessage } from '../../../stores/useStatusMessageStore';
 import { useThemeSettingsStore } from '../../../stores/useThemeSettingsStore';
 import { useStageSettingsStore } from '../../../stores/useStageSettingsStore';
@@ -366,23 +364,28 @@ const IntegrationSettingsSubview: React.FC<IntegrationSettingsSubviewProps> = ({
             {isElectron && (
                 <SettingsAnchor anchorId="discordRichPresence" label={t('options.discordRichPresence') || 'Discord Rich Presence'}>
                     <SettingsSectionHeading icon={Activity} label={t('options.discordRichPresence') || 'Discord Rich Presence'} />
-                    <div className={`rounded-2xl border ${settingsCardClass} overflow-hidden`}>
-                        <SettingsRow
-                            title={t('options.enableDiscordRichPresence') || 'Enable Discord playback status'}
-                            description={t('options.discordRichPresenceDesc') || 'Show the current BigOrange track in Discord desktop. BigOrange connects with its built-in application identity.'}
-                            icon={Activity}
-                            control={(
-                                <SettingsToggle
-                                    checked={discordPresenceEnabled}
-                                    onChange={() => void onToggleDiscordPresence(!discordPresenceEnabled)}
-                                    offClass={toggleOffBackgroundClass}
-                                    onColor={theme?.secondaryColor}
-                                    ariaLabel={t('options.enableDiscordRichPresence') || 'Enable Discord playback status'}
-                                />
-                            )}
-                            dividerClass={settingsDividerClassFor(isDaylight)}
-                        >
-                            <div className="flex flex-wrap items-center gap-2 pb-1">
+                    <div className={`p-4 rounded-xl border space-y-4 ${settingsCardClass}`}>
+                        <div className="flex items-center justify-between gap-4">
+                            <div className="space-y-1">
+                                <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+                                    {t('options.enableDiscordRichPresence') || 'Enable Discord playback status'}
+                                </div>
+                                <div className="text-[10px] opacity-40 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
+                                    {t('options.discordRichPresenceDesc') || 'Show the current BigOrange track in Discord desktop. BigOrange connects with its built-in application identity.'}
+                                </div>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={() => void onToggleDiscordPresence(!discordPresenceEnabled)}
+                                className={`w-12 h-6 rounded-full p-1 transition-colors ${!discordPresenceEnabled ? toggleOffBackgroundClass : ''}`}
+                                style={{ backgroundColor: discordPresenceEnabled ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
+                                aria-label={t('options.enableDiscordRichPresence') || 'Enable Discord playback status'}
+                            >
+                                <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${discordPresenceEnabled ? 'translate-x-6' : 'translate-x-0'}`} />
+                            </button>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-2">
                             <span className={`px-2 py-1 rounded-full text-[10px] ${discordPresenceStatus?.connected ? successBgColor : errorBgColor} ${discordPresenceStatus?.connected ? successTextColor : errorTextColor}`}>
                                 {discordPresenceStatusLabel}
                             </span>
@@ -392,7 +395,6 @@ const IntegrationSettingsSubview: React.FC<IntegrationSettingsSubviewProps> = ({
                                 </span>
                             )}
                         </div>
-                    </SettingsRow>
                     </div>
                 </SettingsAnchor>
             )}
@@ -400,25 +402,28 @@ const IntegrationSettingsSubview: React.FC<IntegrationSettingsSubviewProps> = ({
             {isElectron && obsBrowserSourceStatus && (
                 <SettingsAnchor anchorId="obsBrowserSource" label={t('options.obsBrowserSource') || 'OBS Browser Source'}>
                     <SettingsSectionHeading icon={Server} label={t('options.obsBrowserSource') || 'OBS Browser Source'} />
-                    <div className={`rounded-2xl border ${settingsCardClass} overflow-hidden`}>
-                        <SettingsRow
-                            title={t('options.enableObsBrowserSource') || 'Enable OBS browser source'}
-                            description={t('options.obsBrowserSourceDesc') || 'Renders the full lyrics animation in OBS without audio. By default, the main window stops rendering the heavy visualizer while OBS is connected.'}
-                            icon={Server}
-                            control={(
-                                <SettingsToggle
-                                    checked={obsBrowserSourceStatus.enabled}
-                                    onChange={() => void onToggleObsBrowserSource?.(!obsBrowserSourceStatus.enabled)}
-                                    offClass={toggleOffBackgroundClass}
-                                    onColor={theme?.secondaryColor}
-                                    ariaLabel={t('options.enableObsBrowserSource') || 'Enable OBS browser source'}
-                                />
-                            )}
-                            dividerClass={settingsDividerClassFor(isDaylight)}
-                            isLast={!obsBrowserSourceStatus.enabled}
-                        >
-                            {obsBrowserSourceStatus.enabled && (
-                                <div className="space-y-3 pb-1">
+                    <div className={`p-4 rounded-xl border space-y-4 ${settingsCardClass}`}>
+                        <div className="flex items-center justify-between gap-4">
+                            <div className="space-y-1">
+                                <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+                                    {t('options.enableObsBrowserSource') || 'Enable OBS browser source'}
+                                </div>
+                                <div className="text-[10px] opacity-40 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
+                                    {t('options.obsBrowserSourceDesc') || 'Renders the full lyrics animation in OBS without audio. By default, the main window stops rendering the heavy visualizer while OBS is connected.'}
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => void onToggleObsBrowserSource?.(!obsBrowserSourceStatus.enabled)}
+                                className={`w-12 h-6 rounded-full p-1 transition-colors ${!obsBrowserSourceStatus.enabled ? toggleOffBackgroundClass : ''}`}
+                                style={{ backgroundColor: obsBrowserSourceStatus.enabled ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
+                                aria-label={t('options.enableObsBrowserSource') || 'Enable OBS browser source'}
+                            >
+                                <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${obsBrowserSourceStatus.enabled ? 'translate-x-6' : 'translate-x-0'}`} />
+                            </button>
+                        </div>
+
+                        {obsBrowserSourceStatus.enabled && (
+                            <div className="space-y-3">
                                 <div className={`rounded-xl border p-3 space-y-3 ${settingsCardClass}`}>
                                     <div className="flex items-center justify-between gap-3">
                                         <div>
@@ -466,13 +471,15 @@ const IntegrationSettingsSubview: React.FC<IntegrationSettingsSubviewProps> = ({
                                             {t('options.obsKeepMainWindowAnimationDesc') || 'When on, the main window keeps rendering the lyrics animation while OBS is connected. The main window and OBS both render the heavy animation, which uses more GPU / CPU.'}
                                         </div>
                                     </div>
-                                    <SettingsToggle
-                                        checked={obsKeepMainWindowAnimation}
-                                        onChange={() => handleToggleObsKeepMainWindowAnimation(!obsKeepMainWindowAnimation)}
-                                        offClass={toggleOffBackgroundClass}
-                                        onColor={theme?.secondaryColor}
-                                        ariaLabel={t('options.obsKeepMainWindowAnimation') || 'Keep main window animation while OBS is connected'}
-                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => handleToggleObsKeepMainWindowAnimation(!obsKeepMainWindowAnimation)}
+                                        className={`w-12 h-6 rounded-full p-1 transition-colors shrink-0 ${!obsKeepMainWindowAnimation ? toggleOffBackgroundClass : ''}`}
+                                        style={{ backgroundColor: obsKeepMainWindowAnimation ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
+                                        aria-label={t('options.obsKeepMainWindowAnimation') || 'Keep main window animation while OBS is connected'}
+                                    >
+                                        <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${obsKeepMainWindowAnimation ? 'translate-x-6' : 'translate-x-0'}`} />
+                                    </button>
                                 </div>
 
                                 <details className={`rounded-xl border p-3 ${settingsCardClass}`}>
@@ -487,7 +494,6 @@ const IntegrationSettingsSubview: React.FC<IntegrationSettingsSubviewProps> = ({
                                 </details>
                             </div>
                         )}
-                    </SettingsRow>
                     </div>
                 </SettingsAnchor>
             )}
@@ -495,25 +501,29 @@ const IntegrationSettingsSubview: React.FC<IntegrationSettingsSubviewProps> = ({
             {isElectron && lyricApi.status && (
                 <SettingsAnchor anchorId="lyricApi" label={t('options.lyricApi')}>
                     <SettingsSectionHeading icon={Server} label={t('options.lyricApi')} />
-                    <div className={`rounded-2xl border ${settingsCardClass} overflow-hidden`}>
-                        <SettingsRow
-                            title={t('options.enableLyricApi')}
-                            description={t('options.lyricApiDesc')}
-                            icon={AudioLines}
-                            control={(
-                                <SettingsToggle
-                                    checked={lyricApi.status.enabled}
-                                    onChange={() => void lyricApi.onToggle?.(!lyricApi.status?.enabled)}
-                                    offClass={toggleOffBackgroundClass}
-                                    onColor={theme?.secondaryColor}
-                                    ariaLabel={t('options.enableLyricApi')}
-                                />
-                            )}
-                            dividerClass={settingsDividerClassFor(isDaylight)}
-                            isLast={!lyricApi.status.enabled}
-                        >
-                            {lyricApi.status.enabled && (
-                                <div className="space-y-3 pb-1">
+                    <div className={`p-4 rounded-xl border space-y-4 ${settingsCardClass}`}>
+                        <div className="flex items-center justify-between gap-4">
+                            <div className="space-y-1">
+                                <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+                                    {t('options.enableLyricApi')}
+                                </div>
+                                <div className="text-[10px] opacity-40 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
+                                    {t('options.lyricApiDesc')}
+                                </div>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={() => void lyricApi.onToggle?.(!lyricApi.status?.enabled)}
+                                className={`w-12 h-6 rounded-full p-1 transition-colors ${!lyricApi.status.enabled ? toggleOffBackgroundClass : ''}`}
+                                style={{ backgroundColor: lyricApi.status.enabled ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
+                                aria-label={t('options.enableLyricApi')}
+                            >
+                                <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${lyricApi.status.enabled ? 'translate-x-6' : 'translate-x-0'}`} />
+                            </button>
+                        </div>
+
+                        {lyricApi.status.enabled && (
+                            <div className={`rounded-xl border p-3 space-y-3 ${settingsCardClass}`}>
                                 <div className="flex items-center justify-between gap-3">
                                     <div>
                                         <div className="text-[10px] uppercase tracking-[0.16em] opacity-40 mb-2" style={{ color: 'var(--text-secondary)' }}>
@@ -542,7 +552,6 @@ const IntegrationSettingsSubview: React.FC<IntegrationSettingsSubviewProps> = ({
                                 )}
                             </div>
                         )}
-                    </SettingsRow>
                     </div>
                 </SettingsAnchor>
             )}
@@ -550,25 +559,27 @@ const IntegrationSettingsSubview: React.FC<IntegrationSettingsSubviewProps> = ({
             {isElectron && stageStatus && (
                 <SettingsAnchor anchorId="stageMode" label={t('options.stageMode')}>
                     <SettingsSectionHeading icon={Server} label={t('options.stageMode')} />
-                    <div className={`rounded-2xl border ${settingsCardClass} overflow-hidden`}>
-                        <SettingsRow
-                            title={t('options.enableStageMode')}
-                            description={t('options.enableStageModeDescElectron')}
-                            icon={Cast}
-                            control={(
-                                <SettingsToggle
-                                    checked={stageStatus.modeEnabled ?? false}
-                                    onChange={() => void onToggleStageMode?.(!(stageStatus.modeEnabled ?? false))}
-                                    offClass={toggleOffBackgroundClass}
-                                    onColor={theme?.secondaryColor}
-                                    ariaLabel={t('options.enableStageMode')}
-                                />
-                            )}
-                            dividerClass={settingsDividerClassFor(isDaylight)}
-                            isLast={!stageStatus.modeEnabled}
-                        >
-                            {stageStatus.modeEnabled && (
-                                <div className="space-y-3 pb-1">
+                    <div className={`p-4 rounded-xl border space-y-4 ${settingsCardClass}`}>
+                        <div className="flex items-center justify-between gap-4">
+                            <div className="space-y-1">
+                                <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+                                    {t('options.enableStageMode')}
+                                </div>
+                                <div className="text-[10px] opacity-40 max-w-[320px]" style={{ color: 'var(--text-secondary)' }}>
+                                    {t('options.enableStageModeDescElectron')}
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => void onToggleStageMode?.(!(stageStatus.modeEnabled ?? false))}
+                                className={`w-12 h-6 rounded-full p-1 transition-colors ${!(stageStatus.modeEnabled ?? false) ? toggleOffBackgroundClass : ''}`}
+                                style={{ backgroundColor: stageStatus.modeEnabled ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
+                            >
+                                <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${stageStatus.modeEnabled ? 'translate-x-6' : 'translate-x-0'}`} />
+                            </button>
+                        </div>
+
+                        {stageStatus.modeEnabled && (
+                            <div className="space-y-3">
                                 <div className={`rounded-xl border p-3 space-y-2 ${settingsCardClass}`}>
                                     <div className="text-[10px] uppercase tracking-[0.16em] opacity-40" style={{ color: 'var(--text-secondary)' }}>
                                         Source
@@ -668,7 +679,6 @@ const IntegrationSettingsSubview: React.FC<IntegrationSettingsSubviewProps> = ({
                                 )}
                             </div>
                         )}
-                    </SettingsRow>
                     </div>
                 </SettingsAnchor>
             )}
@@ -692,25 +702,28 @@ const IntegrationSettingsSubview: React.FC<IntegrationSettingsSubviewProps> = ({
                             containerClassName="col-start-2 flex w-full"
                         />
                     </div>
-                    <div className={`rounded-2xl border ${settingsCardClass} overflow-hidden`}>
-                        <SettingsRow
-                            title={t('options.enableStageMode')}
-                            description={t('options.enableStageModeDescWeb')}
-                            icon={Cast}
-                            control={(
-                                <SettingsToggle
-                                    checked={webStageEnabled}
-                                    onChange={() => setWebStageSource(webStageEnabled ? null : 'now-playing')}
-                                    offClass={toggleOffBackgroundClass}
-                                    onColor={theme?.secondaryColor}
-                                    ariaLabel={t('options.enableStageMode')}
-                                />
-                            )}
-                            dividerClass={settingsDividerClassFor(isDaylight)}
-                            isLast={!webStageEnabled}
-                        >
-                            {webStageEnabled && (
-                                <div className="space-y-3 pb-1">
+                    <div className={`p-4 rounded-xl border space-y-4 ${settingsCardClass}`}>
+                        <div className="flex items-center justify-between gap-4">
+                            <div className="space-y-1">
+                                <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+                                    {t('options.enableStageMode')}
+                                </div>
+                                <div className="text-[10px] opacity-40 max-w-[320px]" style={{ color: 'var(--text-secondary)' }}>
+                                    {t('options.enableStageModeDescWeb')}
+                                </div>
+                            </div>
+                            <button
+                                onClick={() => setWebStageSource(webStageEnabled ? null : 'now-playing')}
+                                className={`w-12 h-6 rounded-full p-1 transition-colors ${!webStageEnabled ? toggleOffBackgroundClass : ''}`}
+                                style={{ backgroundColor: webStageEnabled ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
+                                aria-label={t('options.enableStageMode')}
+                            >
+                                <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${webStageEnabled ? 'translate-x-6' : 'translate-x-0'}`} />
+                            </button>
+                        </div>
+
+                        {webStageEnabled && (
+                            <div className="space-y-3">
                                 <div className={`rounded-xl border p-3 space-y-2 ${settingsCardClass}`}>
                                     <div className="text-[10px] uppercase tracking-[0.16em] opacity-40" style={{ color: 'var(--text-secondary)' }}>
                                         Source
@@ -739,7 +752,6 @@ const IntegrationSettingsSubview: React.FC<IntegrationSettingsSubviewProps> = ({
                                 {stageSource === 'playercap' ? renderPlayerCapPanel() : renderNowPlayingPanel()}
                             </div>
                         )}
-                    </SettingsRow>
                     </div>
                 </SettingsAnchor>
             )}
@@ -753,24 +765,22 @@ const IntegrationSettingsSubview: React.FC<IntegrationSettingsSubviewProps> = ({
                         </span>
                     )}
                 </h3>
-                <div className="bg-white/5 rounded-2xl border border-white/5 overflow-hidden">
-                    <SettingsRow
-                        title={t('navidrome.enable') || 'Enable Navidrome'}
-                        icon={Server}
-                        control={(
-                            <SettingsToggle
-                                checked={navidromeEnabled}
-                                onChange={() => onToggleNavidrome(!navidromeEnabled)}
-                                offClass={toggleOffBackgroundClass}
-                                onColor={theme?.secondaryColor}
-                                ariaLabel={t('navidrome.enable') || 'Enable Navidrome'}
-                            />
-                        )}
-                        dividerClass={settingsDividerClassFor(isDaylight)}
-                        isLast={!navidromeEnabled}
-                    >
-                        {navidromeEnabled && (
-                            <div className="space-y-4 pb-1">
+                <div className="bg-white/5 p-4 rounded-xl border border-white/5 space-y-4">
+                    <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
+                            {t('navidrome.enable') || 'Enable Navidrome'}
+                        </span>
+                        <button
+                            onClick={() => onToggleNavidrome(!navidromeEnabled)}
+                            className={`w-12 h-6 rounded-full p-1 transition-colors ${!navidromeEnabled ? toggleOffBackgroundClass : ''}`}
+                            style={{ backgroundColor: navidromeEnabled ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
+                        >
+                            <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform duration-300 ${navidromeEnabled ? 'translate-x-6' : 'translate-x-0'}`} />
+                        </button>
+                    </div>
+
+                    {navidromeEnabled && (
+                        <>
                             <div className="space-y-2">
                                 <label className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
                                     {t('navidrome.serverUrl') || 'Server URL'}
@@ -831,13 +841,13 @@ const IntegrationSettingsSubview: React.FC<IntegrationSettingsSubviewProps> = ({
                                     </div>
                                 </div>
                             )}
-                        </div>
+                        </>
                     )}
 
-                        {navidromeEnabled && (
-                            <div className="flex gap-2 pt-2">
-                                <button
-                                    onClick={testNavidromeConnection}
+                    {navidromeEnabled && (
+                        <div className="flex gap-2 pt-2">
+                            <button
+                                onClick={testNavidromeConnection}
                                 disabled={navidromeTestStatus === 'testing' || !navidromeUrl || !navidromeUsername || !navidromePassword}
                                 className="flex-1 py-2.5 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 disabled:opacity-40 disabled:cursor-not-allowed"
                                 style={{ color: 'var(--text-primary)' }}
@@ -875,7 +885,6 @@ const IntegrationSettingsSubview: React.FC<IntegrationSettingsSubviewProps> = ({
                             )}
                         </div>
                     )}
-                    </SettingsRow>
                 </div>
             </SettingsAnchor>
         </>
