@@ -792,6 +792,7 @@ const AppearanceSettingsSubview: React.FC<AppearanceSettingsSubviewProps> = ({
                             <Palette size={16} />
                         </button>
                     </div>
+                    <SettingsAnchor anchorId="liquidGlass" label={t('options.liquidGlass')}>
                     <div className="border-t border-white/5 pt-4 space-y-3">
                         <div className="flex items-center justify-between gap-4">
                             <div className="text-sm font-medium flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
@@ -819,6 +820,7 @@ const AppearanceSettingsSubview: React.FC<AppearanceSettingsSubviewProps> = ({
                             aria-label={t('options.liquidGlass')}
                         />
                     </div>
+                    </SettingsAnchor>
                     <div className="grid grid-cols-2 gap-3">
                         <button
                             onClick={onApplyDefaultTheme}
