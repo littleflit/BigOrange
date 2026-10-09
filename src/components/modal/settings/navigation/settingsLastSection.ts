@@ -1,5 +1,5 @@
 import type { SettingsSubviewId } from '../../../../stores/useSettingsModalStore';
-import { SETTINGS_NAV_GROUP_SPECS, type SettingsSectionId } from './settingsNavModel';
+import { SETTINGS_NAV_GROUP_SPECS, type SettingsContentId, type SettingsSectionId } from './settingsNavModel';
 
 // src/components/modal/settings/navigation/settingsLastSection.ts
 // Remembers which options-tab section the settings dialog was last on, and decides which section it
@@ -81,11 +81,11 @@ export const readLastSettingsSection = (
 
 /** Persists the section; ids the sidebar does not show here are ignored so they cannot be stored. */
 export const writeLastSettingsSection = (
-    section: SettingsSectionId,
+    section: SettingsContentId,
     availability: SettingsSectionAvailability,
     storage: SettingsSectionStorage | null = getDefaultStorage(),
 ): void => {
-    if (!storage || !getAvailableSettingsSectionIds(availability).includes(section)) {
+    if (!storage || !getAvailableSettingsSectionIds(availability).includes(section as SettingsSectionId)) {
         return;
     }
     try {
@@ -102,17 +102,19 @@ export interface InitialSettingsSectionRequest extends SettingsSectionAvailabili
 }
 
 /**
- * Picks the section the dialog opens on. A caller that named a target (subview or anchor) always
- * gets its own page and the memory is not consulted; only a bare open restores the last section.
- * Overlay targets (`visualizer`, `themePark`) keep the default section behind them, as before.
+ * Picks the content the dialog opens on. A caller that named a target (subview or anchor) always
+ * gets its own page and the memory is not consulted; only a bare open lands on the home grid -
+ * the last-section memory is still written on every section visit, but nothing reads it back
+ * while the grid is the landing. Overlay targets (`visualizer`, `themePark`) keep the default
+ * section behind them, as before.
  */
 export const resolveInitialSettingsSection = (
     request: InitialSettingsSectionRequest,
     storage?: SettingsSectionStorage | null,
-): SettingsSectionId => {
+): SettingsContentId => {
     const { initialSubview, hasInitialAnchor } = request;
     if (initialSubview || hasInitialAnchor) {
         return sectionForSettingsSubview(initialSubview) ?? DEFAULT_SETTINGS_SECTION;
     }
-    return readLastSettingsSection(request, storage === undefined ? getDefaultStorage() : storage) ?? DEFAULT_SETTINGS_SECTION;
+    return 'home';
 };

@@ -13,9 +13,11 @@ import {
 import { buildSettingsNavGroups, flattenSettingsNavItems } from '../../../src/components/modal/settings/navigation/settingsNavModel';
 
 // test/unit/settings/settingsLastSection.test.ts
-// The settings dialog remembers the last options section it was on. These pin the rules that are easy
-// to break silently: an unusable stored id must fall back, a named target must beat the memory, and a
-// storage that throws must never take the dialog down with it.
+// The settings dialog still records the last options section it was on, but a bare open lands on
+// the home grid - the memory is write-only now, kept so a future landing can consult it again.
+// These pin the rules that are easy to break silently: an unusable stored id must fall back, a
+// named target must beat the memory, 'home' must never be stored, and a storage that throws must
+// never take the dialog down with it.
 
 const DESKTOP = { isElectron: true };
 const WEB = { isElectron: false };
@@ -136,19 +138,19 @@ describe('settingsLastSection', () => {
     });
 
     describe('resolveInitialSettingsSection', () => {
-        it('restores the remembered section on a bare open', () => {
+        it('lands on the home grid on a bare open, ignoring the memory', () => {
             const storage = createStorage({ [SETTINGS_LAST_SECTION_STORAGE_KEY]: 'storage' });
-            expect(resolveInitialSettingsSection({ initialSubview: null, hasInitialAnchor: false, ...WEB }, storage)).toBe('storage');
-            expect(resolveInitialSettingsSection({ initialSubview: undefined, hasInitialAnchor: false, ...WEB }, storage)).toBe('storage');
+            expect(resolveInitialSettingsSection({ initialSubview: null, hasInitialAnchor: false, ...WEB }, storage)).toBe('home');
+            expect(resolveInitialSettingsSection({ initialSubview: undefined, hasInitialAnchor: false, ...WEB }, storage)).toBe('home');
         });
 
-        it('falls back to the default when the memory is empty or unusable', () => {
+        it('lands on the home grid when the memory is empty or unusable', () => {
             const request = { initialSubview: null, hasInitialAnchor: false, ...WEB };
-            expect(resolveInitialSettingsSection(request, createStorage())).toBe(DEFAULT_SETTINGS_SECTION);
-            expect(resolveInitialSettingsSection(request, createStorage({ [SETTINGS_LAST_SECTION_STORAGE_KEY]: 'gone' }))).toBe(DEFAULT_SETTINGS_SECTION);
-            expect(resolveInitialSettingsSection(request, createStorage({ [SETTINGS_LAST_SECTION_STORAGE_KEY]: 'desktop' }))).toBe(DEFAULT_SETTINGS_SECTION);
-            expect(resolveInitialSettingsSection(request, throwingStorage)).toBe(DEFAULT_SETTINGS_SECTION);
-            expect(resolveInitialSettingsSection(request, null)).toBe(DEFAULT_SETTINGS_SECTION);
+            expect(resolveInitialSettingsSection(request, createStorage())).toBe('home');
+            expect(resolveInitialSettingsSection(request, createStorage({ [SETTINGS_LAST_SECTION_STORAGE_KEY]: 'gone' }))).toBe('home');
+            expect(resolveInitialSettingsSection(request, createStorage({ [SETTINGS_LAST_SECTION_STORAGE_KEY]: 'desktop' }))).toBe('home');
+            expect(resolveInitialSettingsSection(request, throwingStorage)).toBe('home');
+            expect(resolveInitialSettingsSection(request, null)).toBe('home');
         });
 
         it('lets an explicit subview beat the memory', () => {
@@ -171,7 +173,13 @@ describe('settingsLastSection', () => {
         it('round-trips through write then resolve', () => {
             const storage = createStorage();
             writeLastSettingsSection('graphics', DESKTOP, storage);
-            expect(resolveInitialSettingsSection({ initialSubview: null, hasInitialAnchor: false, ...DESKTOP }, storage)).toBe('graphics');
+            expect(resolveInitialSettingsSection({ initialSubview: null, hasInitialAnchor: false, ...DESKTOP }, storage)).toBe('home');
+        });
+
+        it('never stores the home grid as the last section', () => {
+            const storage = createStorage();
+            writeLastSettingsSection('home', DESKTOP, storage);
+            expect(storage.getItem(SETTINGS_LAST_SECTION_STORAGE_KEY)).toBeNull();
         });
     });
 });

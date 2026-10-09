@@ -3,7 +3,7 @@ import { Search, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import type { Theme } from '../../../../types';
 import type { SettingsAnchorId } from './settingsAnchorModel';
-import type { SettingsNavAnchor, SettingsNavGroup, SettingsSectionId } from './settingsNavModel';
+import type { SettingsContentId, SettingsNavAnchor, SettingsNavGroup, SettingsSectionId } from './settingsNavModel';
 import { searchSettingsNav } from './settingsNavSearch';
 // src/components/modal/settings/navigation/SettingsSidebarWide.tsx
 // Wide-layout settings navigation: grouped sections with every subsection table of contents open,
@@ -11,7 +11,7 @@ import { searchSettingsNav } from './settingsNavSearch';
 
 type SettingsSidebarWideProps = {
     groups: SettingsNavGroup[];
-    activeSectionId: SettingsSectionId;
+    activeSectionId: SettingsContentId;
     onSelectSection: (sectionId: SettingsSectionId) => void;
     activeAnchorId: string | null;
     onSelectAnchor: (sectionId: SettingsSectionId, anchorId: SettingsAnchorId) => void;

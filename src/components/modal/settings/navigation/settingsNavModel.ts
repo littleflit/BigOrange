@@ -16,6 +16,13 @@ export type SettingsSectionId =
     | 'lab'
     | 'developer';
 
+/**
+ * What the options-tab content column can show: a section, or the home grid. Home is
+ * navigation state rather than a section - it has no anchors, is never remembered, and never
+ * appears in the sidebar - so it stays out of SettingsSectionId and every table keyed by it.
+ */
+export type SettingsContentId = SettingsSectionId | 'home';
+
 export interface SettingsNavItem {
     id: SettingsSectionId;
     icon: LucideIcon;
@@ -133,6 +140,6 @@ export const flattenSettingsNavItems = (groups: SettingsNavGroup[]): SettingsNav
     groups.flatMap(group => group.items)
 );
 
-export const findSettingsNavItem = (groups: SettingsNavGroup[], id: SettingsSectionId): SettingsNavItem | undefined => (
+export const findSettingsNavItem = (groups: SettingsNavGroup[], id: SettingsContentId): SettingsNavItem | undefined => (
     flattenSettingsNavItems(groups).find(item => item.id === id)
 );
