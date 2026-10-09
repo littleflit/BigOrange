@@ -36,9 +36,10 @@ import { type SettingsModalState, type SettingsSubviewId, type VisualizerSetting
 import { SettingsAnchorProvider, useSettingsAnchorList, useSettingsAnchorStore } from './settings/navigation/SettingsAnchorContext';
 import SettingsSidebarChips from './settings/navigation/SettingsSidebarChips';
 import SettingsSidebarWide from './settings/navigation/SettingsSidebarWide';
-import { settingsAnchorSubview } from './settings/navigation/settingsAnchorModel';
+import { SettingsRadialHome } from './settings/navigation/SettingsRadialHome';
+import { settingsAnchorSubview, type SettingsAnchorId } from './settings/navigation/settingsAnchorModel';
 import SettingsSectionHeader from './settings/SettingsSectionHeader';
-import { buildSettingsNavGroups, findSettingsNavItem, type SettingsSectionId } from './settings/navigation/settingsNavModel';
+import { buildSettingsNavGroups, findSettingsNavItem, flattenSettingsNavItems, type SettingsContentId, type SettingsSectionId } from './settings/navigation/settingsNavModel';
 import { isSettingsSectionSubview, resolveInitialSettingsSection, sectionForSettingsSubview, writeLastSettingsSection } from './settings/navigation/settingsLastSection';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { useSettingsScrollSpy } from '../../hooks/useSettingsScrollSpy';
@@ -189,7 +190,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
     aiTheme,
     customTheme,
 }) => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     // Track the press origin per overlay so nested subview backdrops do not overwrite each other.
     const overlayMouseDownTargetsRef = useRef(new WeakSet<HTMLDivElement>());
     const {
@@ -416,8 +417,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
         setTabDirection(tab === 'options' ? 'right' : 'left');
         setActiveTab(tab);
     };
-    // A bare open (no subview, no anchor) restores the last section the user entered; any named target wins.
-    const [activeSettingsSection, setActiveSettingsSection] = useState<SettingsSectionId>(() => resolveInitialSettingsSection({
+    // A bare open (no subview, no anchor) lands on the radial home; any named target wins.
+    const [activeSettingsSection, setActiveSettingsSection] = useState<SettingsContentId>(() => resolveInitialSettingsSection({
         initialSubview,
         hasInitialAnchor: initialAnchor !== null,
         isElectron: hasElectronBridge(),
@@ -425,6 +426,15 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
     const handleSelectSettingsSection = (section: SettingsSectionId) => {
         setActiveSettingsSection(section);
         writeLastSettingsSection(section, { isElectron: hasElectronBridge() });
+    };
+    const handleRadialNavigate = (section: SettingsSectionId, anchorId: SettingsAnchorId | null) => {
+        // The radial only shows on home, so the target section is never active: anchors always
+        // go through openSettings, which lands on the section then scrolls (same as the sidebar).
+        if (anchorId) {
+            useSettingsModalStore.getState().openSettings('options', settingsAnchorSubview(anchorId), null, anchorId);
+            return;
+        }
+        handleSelectSettingsSection(section);
     };
     const contentScrollRef = useRef<HTMLDivElement>(null);
     // Matches the md:flex-row split below; the two sidebars are different enough to render separately.
@@ -1647,6 +1657,20 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                                     />
                                 )}
                                 <div ref={contentScrollRef} className="flex-1 overflow-y-auto custom-scrollbar pl-1 md:pl-2 pr-2 md:pr-4 relative pb-4">
+                                    {activeSettingsSection === 'home' ? (
+                                        <SettingsRadialHome
+                                            items={flattenSettingsNavItems(settingsNavGroups)}
+                                            groups={settingsNavGroups}
+                                            locale={i18n.language}
+                                            isDaylight={isDaylight}
+                                            title={t('options.settingsRadialTitle')}
+                                            description={t('options.settingsRadialDesc')}
+                                            searchPlaceholder={t('options.settingsSearchPlaceholder')}
+                                            onSelectSection={handleSelectSettingsSection}
+                                            onNavigate={handleRadialNavigate}
+                                        />
+                                    ) : (
+                                    <>
                                     <SettingsSectionHeader
                                         title={activeSettingsNavItem?.label ?? ''}
                                         description={activeSettingsNavItem?.description ?? ''}
@@ -1905,6 +1929,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                                             />
                                         )}
                                     </div>
+                                    </>
+                                    )}
                                 </div>
                                 </SettingsAnchorProvider>
                             </motion.div>

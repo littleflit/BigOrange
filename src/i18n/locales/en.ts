@@ -1427,6 +1427,8 @@ export default {
     "settingsGroupData": "Connections & Storage",
     "settingsGroupDevice": "Desktop & Extensions",
     "settingsGroupAdvanced": "Advanced",
+    "settingsRadialTitle": "Settings",
+    "settingsRadialDesc": "Pick a section on the ring, or search for a specific setting at the center.",
     "generalSettings": "General settings",
     "generalSettingsDesc": "Interface language and other app-wide preferences.",
     "visualSettingsCardDesc": "Themes, lyric rendering modes, style entry points, and background opacity.",

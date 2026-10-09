@@ -136,19 +136,19 @@ describe('settingsLastSection', () => {
     });
 
     describe('resolveInitialSettingsSection', () => {
-        it('restores the remembered section on a bare open', () => {
+        it('lands on the radial home on a bare open without consulting the memory', () => {
             const storage = createStorage({ [SETTINGS_LAST_SECTION_STORAGE_KEY]: 'storage' });
-            expect(resolveInitialSettingsSection({ initialSubview: null, hasInitialAnchor: false, ...WEB }, storage)).toBe('storage');
-            expect(resolveInitialSettingsSection({ initialSubview: undefined, hasInitialAnchor: false, ...WEB }, storage)).toBe('storage');
+            expect(resolveInitialSettingsSection({ initialSubview: null, hasInitialAnchor: false, ...WEB }, storage)).toBe('home');
+            expect(resolveInitialSettingsSection({ initialSubview: undefined, hasInitialAnchor: false, ...WEB }, storage)).toBe('home');
         });
 
-        it('falls back to the default when the memory is empty or unusable', () => {
+        it('lands on the radial home when the memory is empty or unusable', () => {
             const request = { initialSubview: null, hasInitialAnchor: false, ...WEB };
-            expect(resolveInitialSettingsSection(request, createStorage())).toBe(DEFAULT_SETTINGS_SECTION);
-            expect(resolveInitialSettingsSection(request, createStorage({ [SETTINGS_LAST_SECTION_STORAGE_KEY]: 'gone' }))).toBe(DEFAULT_SETTINGS_SECTION);
-            expect(resolveInitialSettingsSection(request, createStorage({ [SETTINGS_LAST_SECTION_STORAGE_KEY]: 'desktop' }))).toBe(DEFAULT_SETTINGS_SECTION);
-            expect(resolveInitialSettingsSection(request, throwingStorage)).toBe(DEFAULT_SETTINGS_SECTION);
-            expect(resolveInitialSettingsSection(request, null)).toBe(DEFAULT_SETTINGS_SECTION);
+            expect(resolveInitialSettingsSection(request, createStorage())).toBe('home');
+            expect(resolveInitialSettingsSection(request, createStorage({ [SETTINGS_LAST_SECTION_STORAGE_KEY]: 'gone' }))).toBe('home');
+            expect(resolveInitialSettingsSection(request, createStorage({ [SETTINGS_LAST_SECTION_STORAGE_KEY]: 'desktop' }))).toBe('home');
+            expect(resolveInitialSettingsSection(request, throwingStorage)).toBe('home');
+            expect(resolveInitialSettingsSection(request, null)).toBe('home');
         });
 
         it('lets an explicit subview beat the memory', () => {
@@ -168,10 +168,11 @@ describe('settingsLastSection', () => {
             expect(resolveInitialSettingsSection({ initialSubview: null, hasInitialAnchor: true, ...WEB }, storage)).toBe(DEFAULT_SETTINGS_SECTION);
         });
 
-        it('round-trips through write then resolve', () => {
+        it('still writes visits to the memory even though the landing no longer reads it', () => {
             const storage = createStorage();
             writeLastSettingsSection('graphics', DESKTOP, storage);
-            expect(resolveInitialSettingsSection({ initialSubview: null, hasInitialAnchor: false, ...DESKTOP }, storage)).toBe('graphics');
+            expect(readLastSettingsSection(DESKTOP, storage)).toBe('graphics');
+            expect(resolveInitialSettingsSection({ initialSubview: null, hasInitialAnchor: false, ...DESKTOP }, storage)).toBe('home');
         });
     });
 });

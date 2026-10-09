@@ -1426,6 +1426,8 @@ export default {
     "settingsGroupData": "连接与存储",
     "settingsGroupDevice": "桌面与扩展",
     "settingsGroupAdvanced": "高级",
+    "settingsRadialTitle": "设置",
+    "settingsRadialDesc": "点圆环直达分区，中间可搜索具体设置项。",
     "generalSettings": "界面设置",
     "generalSettingsDesc": "界面语言等全局应用偏好。",
     "visualSettingsCardDesc": "主题、歌词渲染模式、样式入口和背景透明度。",
