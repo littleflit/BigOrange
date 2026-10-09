@@ -3,6 +3,7 @@ import { ChevronRight, LogIn, LogOut, UserRound } from 'lucide-react';
 import { AnimatePresence, motion, useMotionValueEvent } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import type { OnlineProviderId, ProviderAccountSummary } from '../../../../types/onlineMusic';
+import { liquidGlassPanel, liquidGlassPill } from '../../../../components/shared/liquidGlass';
 import { canSwitchToProviderDirectly } from '../../../core/model/onlineProviderAccountView';
 import { canLogoutProvider } from '../../../core/model/accountRules';
 import { playerBottomBarLiveOffset } from '../../../../stores/motionSignals';
@@ -69,7 +70,7 @@ const OnlineProviderSwitcher: React.FC<OnlineProviderSwitcherProps> = ({
     const previousProviderIdRef = useRef(activeProviderId);
     const visibleProviders = providers.filter(provider => provider.availability.reason !== 'runtime-unavailable');
     const activeProvider = visibleProviders.find(provider => provider.providerId === activeProviderId) || visibleProviders[0];
-    const surfaceClass = isDaylight ? 'bg-white text-zinc-900' : 'bg-zinc-950 text-white';
+    const surfaceTextClass = isDaylight ? 'text-zinc-900' : 'text-white';
 
     /**
      * 默认高度保留原 CSS（`bottom-4 md:bottom-6`），只有真的产生抬升量时才写内联 bottom。
@@ -149,7 +150,7 @@ const OnlineProviderSwitcher: React.FC<OnlineProviderSwitcherProps> = ({
             data-testid="online-provider-switcher"
             className="pointer-events-auto absolute bottom-4 right-4 z-[100] md:bottom-6 md:right-6"
         >
-            <div className={`flex items-center rounded-full p-0.5 shadow-lg md:p-1.5 ${surfaceClass}`}>
+            <div className={`flex items-center rounded-full p-0.5 md:p-1.5 ${liquidGlassPill(isDaylight)} ${surfaceTextClass}`}>
                 <button
                     type="button"
                     onClick={() => setOpen(value => !value)}
@@ -194,7 +195,7 @@ const OnlineProviderSwitcher: React.FC<OnlineProviderSwitcherProps> = ({
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 6, scale: 0.97 }}
                         transition={{ duration: 0.16 }}
-                        className={`absolute bottom-[calc(100%+0.75rem)] right-0 w-72 max-w-[calc(100vw-2rem)] origin-bottom-right rounded-3xl p-3 shadow-2xl md:w-80 ${surfaceClass}`}
+                        className={`absolute bottom-[calc(100%+0.75rem)] right-0 w-72 max-w-[calc(100vw-2rem)] origin-bottom-right rounded-3xl p-3 md:w-80 ${liquidGlassPanel(isDaylight)} ${surfaceTextClass}`}
                     >
                         <div className="px-3 pb-3 pt-1 text-xs font-medium opacity-50">{t('home.onlineProvider')}</div>
                         <button
