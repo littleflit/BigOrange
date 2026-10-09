@@ -136,14 +136,14 @@ describe('settingsLastSection', () => {
     });
 
     describe('resolveInitialSettingsSection', () => {
-        it('lands on the radial home on a bare open without consulting the memory', () => {
+        it('lands on the radial home on a bare open in ring mode without consulting the memory', () => {
             const storage = createStorage({ [SETTINGS_LAST_SECTION_STORAGE_KEY]: 'storage' });
-            expect(resolveInitialSettingsSection({ initialSubview: null, hasInitialAnchor: false, ...WEB }, storage)).toBe('home');
-            expect(resolveInitialSettingsSection({ initialSubview: undefined, hasInitialAnchor: false, ...WEB }, storage)).toBe('home');
+            expect(resolveInitialSettingsSection({ initialSubview: null, hasInitialAnchor: false, homeMode: 'ring', ...WEB }, storage)).toBe('home');
+            expect(resolveInitialSettingsSection({ initialSubview: undefined, hasInitialAnchor: false, homeMode: 'ring', ...WEB }, storage)).toBe('home');
         });
 
-        it('lands on the radial home when the memory is empty or unusable', () => {
-            const request = { initialSubview: null, hasInitialAnchor: false, ...WEB };
+        it('lands on the radial home in ring mode when the memory is empty or unusable', () => {
+            const request = { initialSubview: null, hasInitialAnchor: false, homeMode: 'ring' as const, ...WEB };
             expect(resolveInitialSettingsSection(request, createStorage())).toBe('home');
             expect(resolveInitialSettingsSection(request, createStorage({ [SETTINGS_LAST_SECTION_STORAGE_KEY]: 'gone' }))).toBe('home');
             expect(resolveInitialSettingsSection(request, createStorage({ [SETTINGS_LAST_SECTION_STORAGE_KEY]: 'desktop' }))).toBe('home');
@@ -151,28 +151,45 @@ describe('settingsLastSection', () => {
             expect(resolveInitialSettingsSection(request, null)).toBe('home');
         });
 
-        it('lets an explicit subview beat the memory', () => {
+        it('restores the remembered section on a bare open in navbar mode', () => {
             const storage = createStorage({ [SETTINGS_LAST_SECTION_STORAGE_KEY]: 'storage' });
-            expect(resolveInitialSettingsSection({ initialSubview: 'lab', hasInitialAnchor: false, ...WEB }, storage)).toBe('lab');
-            expect(resolveInitialSettingsSection({ initialSubview: 'lyricFilter', hasInitialAnchor: false, ...WEB }, storage)).toBe('playback');
+            expect(resolveInitialSettingsSection({ initialSubview: null, hasInitialAnchor: false, homeMode: 'navbar', ...WEB }, storage)).toBe('storage');
+        });
+
+        it('falls back to the default section in navbar mode when the memory is empty or unusable', () => {
+            const request = { initialSubview: null, hasInitialAnchor: false, homeMode: 'navbar' as const, ...WEB };
+            expect(resolveInitialSettingsSection(request, createStorage())).toBe(DEFAULT_SETTINGS_SECTION);
+            expect(resolveInitialSettingsSection(request, createStorage({ [SETTINGS_LAST_SECTION_STORAGE_KEY]: 'gone' }))).toBe(DEFAULT_SETTINGS_SECTION);
+            expect(resolveInitialSettingsSection(request, createStorage({ [SETTINGS_LAST_SECTION_STORAGE_KEY]: 'desktop' }))).toBe(DEFAULT_SETTINGS_SECTION);
+            expect(resolveInitialSettingsSection(request, throwingStorage)).toBe(DEFAULT_SETTINGS_SECTION);
+            expect(resolveInitialSettingsSection(request, null)).toBe(DEFAULT_SETTINGS_SECTION);
+        });
+
+        it('lets an explicit subview beat the memory in either mode', () => {
+            const storage = createStorage({ [SETTINGS_LAST_SECTION_STORAGE_KEY]: 'storage' });
+            for (const homeMode of ['ring', 'navbar'] as const) {
+                expect(resolveInitialSettingsSection({ initialSubview: 'lab', hasInitialAnchor: false, homeMode, ...WEB }, storage)).toBe('lab');
+                expect(resolveInitialSettingsSection({ initialSubview: 'lyricFilter', hasInitialAnchor: false, homeMode, ...WEB }, storage)).toBe('playback');
+            }
         });
 
         it('does not let the memory leak behind an overlay target', () => {
             const storage = createStorage({ [SETTINGS_LAST_SECTION_STORAGE_KEY]: 'storage' });
-            expect(resolveInitialSettingsSection({ initialSubview: 'visualizer', hasInitialAnchor: false, ...WEB }, storage)).toBe(DEFAULT_SETTINGS_SECTION);
-            expect(resolveInitialSettingsSection({ initialSubview: 'themePark', hasInitialAnchor: false, ...WEB }, storage)).toBe(DEFAULT_SETTINGS_SECTION);
+            expect(resolveInitialSettingsSection({ initialSubview: 'visualizer', hasInitialAnchor: false, homeMode: 'ring', ...WEB }, storage)).toBe(DEFAULT_SETTINGS_SECTION);
+            expect(resolveInitialSettingsSection({ initialSubview: 'themePark', hasInitialAnchor: false, homeMode: 'ring', ...WEB }, storage)).toBe(DEFAULT_SETTINGS_SECTION);
         });
 
         it('treats an anchor as an explicit target too', () => {
             const storage = createStorage({ [SETTINGS_LAST_SECTION_STORAGE_KEY]: 'storage' });
-            expect(resolveInitialSettingsSection({ initialSubview: null, hasInitialAnchor: true, ...WEB }, storage)).toBe(DEFAULT_SETTINGS_SECTION);
+            expect(resolveInitialSettingsSection({ initialSubview: null, hasInitialAnchor: true, homeMode: 'ring', ...WEB }, storage)).toBe(DEFAULT_SETTINGS_SECTION);
         });
 
-        it('still writes visits to the memory even though the landing no longer reads it', () => {
+        it('still writes visits to the memory even though ring mode never reads it', () => {
             const storage = createStorage();
             writeLastSettingsSection('graphics', DESKTOP, storage);
             expect(readLastSettingsSection(DESKTOP, storage)).toBe('graphics');
-            expect(resolveInitialSettingsSection({ initialSubview: null, hasInitialAnchor: false, ...DESKTOP }, storage)).toBe('home');
+            expect(resolveInitialSettingsSection({ initialSubview: null, hasInitialAnchor: false, homeMode: 'ring', ...DESKTOP }, storage)).toBe('home');
+            expect(resolveInitialSettingsSection({ initialSubview: null, hasInitialAnchor: false, homeMode: 'navbar', ...DESKTOP }, storage)).toBe('graphics');
         });
     });
 });

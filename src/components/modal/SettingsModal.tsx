@@ -33,7 +33,7 @@ import ReleaseNotesDialog from './ReleaseNotesDialog';
 import meowImageUrl from '../../../build/miao.png';
 import { liquidGlassPanel } from '../shared/liquidGlass';
 import type { LyricData } from '../../types';
-import { type SettingsModalState, type SettingsSubviewId, type VisualizerSettingsSection } from '../../stores/useSettingsModalStore';
+import { type SettingsModalState, type SettingsSubviewId, type SettingsHomeMode, type VisualizerSettingsSection } from '../../stores/useSettingsModalStore';
 import { SettingsAnchorProvider, useSettingsAnchorList, useSettingsAnchorStore } from './settings/navigation/SettingsAnchorContext';
 import SettingsSidebarChips from './settings/navigation/SettingsSidebarChips';
 import SettingsSidebarWide from './settings/navigation/SettingsSidebarWide';
@@ -41,7 +41,7 @@ import { SettingsRadialHome } from './settings/navigation/SettingsRadialHome';
 import { settingsAnchorSubview, type SettingsAnchorId } from './settings/navigation/settingsAnchorModel';
 import SettingsSectionHeader from './settings/SettingsSectionHeader';
 import { buildSettingsNavGroups, findSettingsNavItem, flattenSettingsNavItems, type SettingsContentId, type SettingsSectionId } from './settings/navigation/settingsNavModel';
-import { isSettingsSectionSubview, resolveInitialSettingsSection, sectionForSettingsSubview, writeLastSettingsSection } from './settings/navigation/settingsLastSection';
+import { isSettingsSectionSubview, readLastSettingsSection, resolveInitialSettingsSection, sectionForSettingsSubview, writeLastSettingsSection } from './settings/navigation/settingsLastSection';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { useSettingsScrollSpy } from '../../hooks/useSettingsScrollSpy';
 import { useReducedMotionFor } from '../../hooks/useReducedMotionFor';
@@ -412,21 +412,34 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
     } = useVisualizerAssetStore(useShallow(selectVisualizerAssetSnapshot));
     const resolvedToggleTransparentPlayerBackground = onToggleTransparentPlayerBackground ?? onToggleTransparentPlayerBackgroundFromStore;
     const setIsSubSettingsViewOpen = useSettingsModalStore(state => state.setIsSubSettingsViewOpen);
+    const settingsHomeMode = useSettingsModalStore(state => state.settingsHomeMode);
+    const setSettingsHomeMode = useSettingsModalStore(state => state.setSettingsHomeMode);
     const [activeTab, setActiveTab] = useState<'help' | 'options'>(initialTab);
     const [tabDirection, setTabDirection] = useState<'left' | 'right'>('left');
     const handleTabChange = (tab: 'help' | 'options') => {
         setTabDirection(tab === 'options' ? 'right' : 'left');
         setActiveTab(tab);
     };
-    // A bare open (no subview, no anchor) lands on the radial home; any named target wins.
+    // A bare open (no subview, no anchor) lands on the radial home in ring mode and
+    // restores the last section in navbar mode; any named target wins either way.
     const [activeSettingsSection, setActiveSettingsSection] = useState<SettingsContentId>(() => resolveInitialSettingsSection({
         initialSubview,
         hasInitialAnchor: initialAnchor !== null,
         isElectron: hasElectronBridge(),
+        homeMode: useSettingsModalStore.getState().settingsHomeMode,
     }));
     const handleSelectSettingsSection = (section: SettingsSectionId) => {
         setActiveSettingsSection(section);
         writeLastSettingsSection(section, { isElectron: hasElectronBridge() });
+    };
+    const handleSelectHomeMode = (mode: SettingsHomeMode) => {
+        setSettingsHomeMode(mode);
+        if (mode === 'navbar' && activeSettingsSection === 'home') {
+            setActiveSettingsSection(readLastSettingsSection({ isElectron: hasElectronBridge() }) ?? 'appearance');
+        }
+        if (mode === 'ring') {
+            setActiveSettingsSection('home');
+        }
     };
     const handleRadialNavigate = (section: SettingsSectionId, anchorId: SettingsAnchorId | null) => {
         // The radial only shows on home, so the target section is never active: anchors always
@@ -1379,6 +1392,33 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                                 />
                             )}
                         </button>
+                        {activeTab === 'options' && (
+                            <div
+                                className={`ml-auto flex items-center gap-0.5 rounded-full border p-0.5 ${isDaylight ? 'border-black/10 bg-black/[0.04]' : 'border-white/10 bg-white/[0.06]'}`}
+                                role="group"
+                                aria-label={t('options.settingsHomeMode')}
+                            >
+                                {(['ring', 'navbar'] as SettingsHomeMode[]).map((mode) => {
+                                    const selected = settingsHomeMode === mode;
+                                    return (
+                                        <button
+                                            key={mode}
+                                            type="button"
+                                            onClick={() => handleSelectHomeMode(mode)}
+                                            aria-pressed={selected}
+                                            className={`rounded-full px-2.5 py-1 text-[11px] transition-colors ${selected
+                                                ? 'font-semibold'
+                                                : 'opacity-50 hover:opacity-90'}`}
+                                            style={selected
+                                                ? { backgroundColor: theme?.accentColor || (isDaylight ? '#18181b' : '#f4f4f5'), color: isDaylight ? '#fff' : '#09090b' }
+                                                : { color: 'var(--text-secondary)' }}
+                                        >
+                                            {t(mode === 'ring' ? 'options.settingsHomeModeRing' : 'options.settingsHomeModeNavbar')}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        )}
                     </div>
                 </div>
 
@@ -1633,7 +1673,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                                 className="flex flex-col md:flex-row gap-4 md:gap-6 h-full"
                             >
                                 <SettingsAnchorProvider store={settingsAnchorStore}>
-                                {isWideSettingsLayout ? (
+                                {settingsHomeMode === 'navbar' && (isWideSettingsLayout ? (
                                     <SettingsSidebarWide
                                         groups={settingsNavGroups}
                                         activeSectionId={activeSettingsSection}
@@ -1656,7 +1696,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                                         onSelectSection={handleSelectSettingsSection}
                                         isDaylight={isDaylight}
                                     />
-                                )}
+                                ))}
                                 <div ref={contentScrollRef} className="flex-1 overflow-y-auto custom-scrollbar pl-1 md:pl-2 pr-2 md:pr-4 relative pb-4">
                                     {activeSettingsSection === 'home' ? (
                                         <SettingsRadialHome
@@ -1680,6 +1720,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                                         onSetDaylightPreference={onSetDaylightPreference}
                                         daylightLabel={t('options.daylightMode')}
                                         utilityGhostButtonClass={utilityGhostButtonClass}
+                                        onBack={settingsHomeMode === 'ring' ? () => setActiveSettingsSection('home') : undefined}
+                                        backLabel={t('options.settingsBackToRing')}
                                     />
                                     <div className="space-y-8">
                                         {activeSettingsSection === 'appearance' && (

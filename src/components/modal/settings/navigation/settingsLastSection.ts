@@ -1,4 +1,4 @@
-import type { SettingsSubviewId } from '../../../../stores/useSettingsModalStore';
+import type { SettingsSubviewId, SettingsHomeMode } from '../../../../stores/useSettingsModalStore';
 import { SETTINGS_NAV_GROUP_SPECS, type SettingsContentId, type SettingsSectionId } from './settingsNavModel';
 
 // src/components/modal/settings/navigation/settingsLastSection.ts
@@ -99,22 +99,26 @@ export interface InitialSettingsSectionRequest extends SettingsSectionAvailabili
     initialSubview: SettingsSubviewId | null | undefined;
     /** An anchor is also a named destination, so it counts as an explicit target. */
     hasInitialAnchor: boolean;
+    /** Ring mode always lands on the radial home; navbar mode restores the memory. */
+    homeMode: SettingsHomeMode;
 }
 
 /**
  * Picks the content the dialog opens on. A caller that named a target (subview or anchor) always
- * gets its own page and the memory is not consulted; only a bare open lands on the radial home -
- * the last-section memory is still written on every section visit, but nothing reads it back
- * while the radial is the landing. Overlay targets (`visualizer`, `themePark`) keep the default
- * section behind them, as before.
+ * gets its own page and the memory is not consulted. A bare open lands on the radial home in ring
+ * mode, or restores the last section in navbar mode. Overlay targets (`visualizer`, `themePark`)
+ * keep the default section behind them, as before.
  */
 export const resolveInitialSettingsSection = (
     request: InitialSettingsSectionRequest,
     storage?: SettingsSectionStorage | null,
 ): SettingsContentId => {
-    const { initialSubview, hasInitialAnchor } = request;
+    const { initialSubview, hasInitialAnchor, homeMode } = request;
     if (initialSubview || hasInitialAnchor) {
         return sectionForSettingsSubview(initialSubview) ?? DEFAULT_SETTINGS_SECTION;
+    }
+    if (homeMode === 'navbar') {
+        return readLastSettingsSection(request, storage === undefined ? getDefaultStorage() : storage) ?? DEFAULT_SETTINGS_SECTION;
     }
     return 'home';
 };

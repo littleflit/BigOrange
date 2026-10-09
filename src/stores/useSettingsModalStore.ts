@@ -37,16 +37,37 @@ export type SettingsModalState = {
 // Separate from the retired guide key so people who saw the old carousel still receive the Ponder lesson.
 const LAST_SEEN_GUIDE_VERSION_STORAGE_KEY = 'bigorange_last_seen_ponder_onboarding_version';
 
+/** Options-tab chrome: the radial ring home, or the plain sidebar navigation. */
+export type SettingsHomeMode = 'ring' | 'navbar';
+
+const SETTINGS_HOME_MODE_STORAGE_KEY = 'bigorange_settings_home_mode';
+
+export const readStoredSettingsHomeMode = (): SettingsHomeMode => {
+    try {
+        if (typeof window !== 'undefined') {
+            const stored = window.localStorage.getItem(SETTINGS_HOME_MODE_STORAGE_KEY);
+            if (stored === 'ring' || stored === 'navbar') {
+                return stored;
+            }
+        }
+    } catch {
+        // Best-effort navigation chrome; a blocked storage must never break the dialog.
+    }
+    return 'ring';
+};
+
 export type SettingsModalUiState = {
     appLanguagePreference: AppLanguagePreference;
     pinnedCommandIds: PinnedCommandIds;
     isSubSettingsViewOpen: boolean;
+    settingsHomeMode: SettingsHomeMode;
     settingsModalState: SettingsModalState;
     lastSeenGuideVersion: string | null;
     isUserGuideModalOpen: boolean;
     setLastSeenGuideVersion: (version: string) => void;
     setIsUserGuideModalOpen: (isOpen: boolean) => void;
     setIsSubSettingsViewOpen: (open: boolean) => void;
+    setSettingsHomeMode: (mode: SettingsHomeMode) => void;
     openSettings: (
         initialTab?: SettingsModalInitialTab,
         initialSubview?: SettingsSubviewId | null,
@@ -79,6 +100,17 @@ export const useSettingsModalStore = create<SettingsModalUiState>((set, get) => 
     },
     setIsUserGuideModalOpen: (isOpen) => set({ isUserGuideModalOpen: isOpen }),
     setIsSubSettingsViewOpen: (open) => set({ isSubSettingsViewOpen: open }),
+    settingsHomeMode: readStoredSettingsHomeMode(),
+    setSettingsHomeMode: (mode) => {
+        try {
+            if (typeof window !== 'undefined') {
+                window.localStorage.setItem(SETTINGS_HOME_MODE_STORAGE_KEY, mode);
+            }
+        } catch {
+            // Best-effort navigation chrome; a full or blocked storage must never break the dialog.
+        }
+        set({ settingsHomeMode: mode });
+    },
     openSettings: (initialTab = 'options', initialSubview = null, initialVisualizerSection = null, initialAnchorId = null) => set({
         settingsModalState: {
             isOpen: true,
