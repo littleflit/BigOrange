@@ -126,7 +126,8 @@ export const SettingsRadialHome: React.FC<SettingsRadialHomeProps> = ({
     };
 
     return (
-        <div className="pb-4">
+        <div className="flex min-h-full flex-col pb-4">
+            <div className="my-auto">
             <div className="mb-2 border-b border-white/10 pb-3 md:pb-4">
                 <h2 className="text-lg md:text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>
                     {title}
@@ -264,6 +265,7 @@ export const SettingsRadialHome: React.FC<SettingsRadialHomeProps> = ({
                     </filter>
                 </defs>
             </svg>
+            </div>
         </div>
     );
 };
