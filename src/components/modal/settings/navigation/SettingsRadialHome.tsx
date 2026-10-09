@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Search } from 'lucide-react';
+import { useReducedMotionFor } from '../../../../hooks/useReducedMotionFor';
 import type { SettingsAnchorId } from './settingsAnchorModel';
 import type { SettingsNavGroup, SettingsNavItem, SettingsSectionId } from './settingsNavModel';
 import { searchSettingsNav } from './settingsNavSearch';
@@ -43,6 +44,19 @@ export const radialSlot = (index: number, total: number): { x: number; y: number
     return { x: 50 + radius * Math.cos(angle), y: 50 + radius * Math.sin(angle) };
 };
 
+/**
+ * macOS-dock-style proximity scale: 1 beyond `range`, rising quadratically to
+ * 1 + `magnitude` at the cursor. The container is square so percentage units
+ * measure the same distance on both axes.
+ */
+export const dockScale = (distance: number, range = 20, magnitude = 0.6): number => {
+    if (distance >= range) {
+        return 1;
+    }
+    const falloff = 1 - distance / range;
+    return 1 + magnitude * falloff * falloff;
+};
+
 export const SettingsRadialHome: React.FC<SettingsRadialHomeProps> = ({
     items,
     groups,
@@ -55,6 +69,9 @@ export const SettingsRadialHome: React.FC<SettingsRadialHomeProps> = ({
     onNavigate,
 }) => {
     const [query, setQuery] = useState('');
+    const [cursor, setCursor] = useState<{ x: number; y: number } | null>(null);
+    const [focusIndex, setFocusIndex] = useState<number | null>(null);
+    const reduceMotion = useReducedMotionFor('uiMicroMotion');
 
     const search = useMemo(() => searchSettingsNav(groups, query, locale), [groups, query, locale]);
     const hasQuery = query.trim().length > 0;
@@ -104,20 +121,48 @@ export const SettingsRadialHome: React.FC<SettingsRadialHomeProps> = ({
                     {description}
                 </p>
             </div>
-            <div className="relative mx-auto w-full max-w-[560px] aspect-square select-none">
+            <div
+                className="relative mx-auto w-full max-w-[560px] aspect-square select-none"
+                onMouseMove={(event) => {
+                    const rect = event.currentTarget.getBoundingClientRect();
+                    if (rect.width <= 0) {
+                        return;
+                    }
+                    setCursor({
+                        x: ((event.clientX - rect.left) / rect.width) * 100,
+                        y: ((event.clientY - rect.top) / rect.height) * 100,
+                    });
+                }}
+                onMouseLeave={() => setCursor(null)}
+            >
                 {items.map((item, index) => {
                     const slot = radialSlot(index, items.length);
                     const dimmed = matchedSectionIds !== null && !matchedSectionIds.has(item.id);
+                    const distance = cursor
+                        ? Math.hypot(slot.x - cursor.x, slot.y - cursor.y)
+                        : Number.POSITIVE_INFINITY;
+                    const scale = reduceMotion
+                        ? 1
+                        : Math.max(dockScale(distance), focusIndex === index ? 1.6 : 1);
                     const Icon = item.icon;
                     return (
                         <button
                             key={item.id}
                             type="button"
                             onClick={() => onSelectSection(item.id)}
+                            onFocus={() => setFocusIndex(index)}
+                            onBlur={() => setFocusIndex((current) => (current === index ? null : current))}
                             title={item.description}
                             aria-label={item.label}
                             className="absolute flex w-16 flex-col items-center gap-1 transition-opacity"
-                            style={{ left: `${slot.x}%`, top: `${slot.y}%`, transform: 'translate(-50%, -50%)', opacity: dimmed ? 0.25 : 1 }}
+                            style={{
+                                left: `${slot.x}%`,
+                                top: `${slot.y}%`,
+                                transform: `translate(-50%, -50%) scale(${scale})`,
+                                transition: reduceMotion ? undefined : 'transform 120ms ease-out, opacity 120ms ease-out',
+                                opacity: dimmed ? 0.25 : 1,
+                                zIndex: scale > 1 ? 10 : undefined,
+                            }}
                         >
                             <span
                                 className={`flex h-12 w-12 items-center justify-center rounded-full border transition-colors ${isDaylight ? 'border-black/10 bg-white/70 hover:bg-white hover:border-black/25' : 'border-white/10 bg-white/[0.05] hover:bg-white/[0.12] hover:border-white/25'}`}

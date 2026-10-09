@@ -1,11 +1,25 @@
 import { describe, expect, it } from 'vitest';
-import { radialSlot } from '../../../src/components/modal/settings/navigation/SettingsRadialHome';
+import { dockScale, radialSlot } from '../../../src/components/modal/settings/navigation/SettingsRadialHome';
 
 // test/unit/settings/settingsRadialHome.test.ts
 // The ring geometry is the one thing about the radial landing that can drift silently:
 // slots must stay inside the square, spread around the full circle, and keep sidebar order
 // clockwise from the top.
 
+describe('dockScale', () => {
+    it('stays at 1 outside the range', () => {
+        expect(dockScale(20)).toBe(1);
+        expect(dockScale(50)).toBe(1);
+    });
+
+    it('peaks at the cursor and falls off smoothly', () => {
+        expect(dockScale(0)).toBeCloseTo(1.6, 5);
+        const near = dockScale(5);
+        const far = dockScale(15);
+        expect(near).toBeGreaterThan(far);
+        expect(far).toBeGreaterThan(1);
+    });
+});
 describe('radialSlot', () => {
     it('returns the center for an empty ring', () => {
         expect(radialSlot(0, 0)).toEqual({ x: 50, y: 50 });
