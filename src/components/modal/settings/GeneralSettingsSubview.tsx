@@ -1,5 +1,5 @@
 import React from 'react';
-import { Languages, LayoutList, Move } from 'lucide-react';
+import { Disc3, FolderOpen, Languages, LayoutList, ListMusic, Move, Radio } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useShallow } from 'zustand/react/shallow';
 import type { Theme } from '../../../types';
@@ -13,6 +13,7 @@ import PlayerBottomBarSection from './PlayerBottomBarSection';
 import HomeCardPositionSection from './HomeCardPositionSection';
 import { SettingsAnchor } from './navigation/SettingsAnchorContext';
 import SettingsSectionHeading from './navigation/SettingsSectionHeading';
+import SettingsRow, { SettingsToggle } from './SettingsRow';
 import { settingsDividerClassFor } from './settingsCardClasses';
 import { useHomeLayoutSettingsStore } from '../../../stores/useHomeLayoutSettingsStore';
 import { useSettingsModalStore } from '../../../stores/useSettingsModalStore';
@@ -79,6 +80,7 @@ const GeneralSettingsSubview: React.FC<GeneralSettingsSubviewProps> = ({
     const languageHint = appLanguagePreference === 'system'
         ? (t('options.appLanguageSystemHint')).replace('{{language}}', currentResolvedLanguage)
         : null;
+    const [languageExpanded, setLanguageExpanded] = React.useState(false);
 
     const toggleOffBackgroundClass = isDaylight ? 'bg-zinc-200' : 'bg-[#2A2D35]';
     const rangeInputClass = [
@@ -90,94 +92,99 @@ const GeneralSettingsSubview: React.FC<GeneralSettingsSubviewProps> = ({
         <div className="space-y-5">
             <SettingsAnchor anchorId="languageSettings" label={t('options.languageSettings')}>
                 <SettingsSectionHeading icon={Languages} label={t('options.languageSettings')} />
-                <div className={`p-4 rounded-xl border space-y-4 ${settingsCardClass}`}>
-                    <div className="space-y-1">
-                        <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
-                            {t('options.appLanguage')}
-                        </div>
-                        <div className="text-[11px] opacity-50 max-w-[420px]" style={{ color: 'var(--text-secondary)' }}>
-                            {t('options.appLanguageDesc')}
-                        </div>
-                    </div>
-                    <CustomSelect
-                        value={appLanguagePreference}
-                        onChange={(value) => {
-                            void onAppLanguagePreferenceChange(value as AppLanguagePreference);
-                        }}
-                        options={languageOptions}
-                        isDaylight={isDaylight}
-                        theme={theme}
-                    />
-                    {languageHint && (
-                        <div className="text-[11px] opacity-50" style={{ color: 'var(--text-secondary)' }}>
-                            {languageHint}
-                        </div>
-                    )}
+                <div className={`rounded-2xl border ${settingsCardClass} overflow-hidden`}>
+                    <SettingsRow
+                        title={t('options.appLanguage')}
+                        description={t('options.appLanguageDesc')}
+                        icon={Languages}
+                        value={currentResolvedLanguage}
+                        chevron
+                        onClick={() => setLanguageExpanded(current => !current)}
+                        dividerClass={settingsDividerClassFor(isDaylight)}
+                        isLast
+                    >
+                        {languageExpanded && (
+                            <div className="space-y-2 pb-1">
+                                <CustomSelect
+                                    value={appLanguagePreference}
+                                    onChange={(value) => {
+                                        void onAppLanguagePreferenceChange(value as AppLanguagePreference);
+                                    }}
+                                    options={languageOptions}
+                                    isDaylight={isDaylight}
+                                    theme={theme}
+                                />
+                                {languageHint && (
+                                    <div className="text-[11px] opacity-50" style={{ color: 'var(--text-secondary)' }}>
+                                        {languageHint}
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </SettingsRow>
                 </div>
             </SettingsAnchor>
 
             <SettingsAnchor anchorId="homeTabsVisibility" label={t('options.homeTabsVisibility')}>
                 <SettingsSectionHeading icon={LayoutList} label={t('options.homeTabsVisibility')} />
-                <div className={`rounded-xl border ${settingsCardClass} overflow-hidden`}>
-                    <div className={`flex items-center justify-between p-4 border-b ${settingsDividerClassFor(isDaylight)}`}>
-                        <div className="space-y-1">
-                            <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
-                                {t('options.showHomeTabPlaylist')}
-                            </div>
-                        </div>
-                        <button
-                            onClick={() => handleToggleHomeTabPlaylist(!showHomeTabPlaylist)}
-                            className={`w-12 h-6 rounded-full p-1 transition-colors shrink-0 ${!showHomeTabPlaylist ? toggleOffBackgroundClass : ''}`}
-                            style={{ backgroundColor: showHomeTabPlaylist ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
-                        >
-                            <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${showHomeTabPlaylist ? 'translate-x-6' : 'translate-x-0'}`} />
-                        </button>
-                    </div>
-
-                    <div className={`flex items-center justify-between p-4 border-b ${settingsDividerClassFor(isDaylight)}`}>
-                        <div className="space-y-1">
-                            <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
-                                {t('options.showHomeTabRadio')}
-                            </div>
-                        </div>
-                        <button
-                            onClick={() => handleToggleHomeTabRadio(!showHomeTabRadio)}
-                            className={`w-12 h-6 rounded-full p-1 transition-colors shrink-0 ${!showHomeTabRadio ? toggleOffBackgroundClass : ''}`}
-                            style={{ backgroundColor: showHomeTabRadio ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
-                        >
-                            <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${showHomeTabRadio ? 'translate-x-6' : 'translate-x-0'}`} />
-                        </button>
-                    </div>
-
-                    <div className={`flex items-center justify-between p-4 border-b ${settingsDividerClassFor(isDaylight)}`}>
-                        <div className="space-y-1">
-                            <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
-                                {t('options.showHomeTabAlbums')}
-                            </div>
-                        </div>
-                        <button
-                            onClick={() => handleToggleHomeTabAlbums(!showHomeTabAlbums)}
-                            className={`w-12 h-6 rounded-full p-1 transition-colors shrink-0 ${!showHomeTabAlbums ? toggleOffBackgroundClass : ''}`}
-                            style={{ backgroundColor: showHomeTabAlbums ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
-                        >
-                            <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${showHomeTabAlbums ? 'translate-x-6' : 'translate-x-0'}`} />
-                        </button>
-                    </div>
-
-                    <div className="flex items-center justify-between p-4">
-                        <div className="space-y-1">
-                            <div className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
-                                {t('options.showHomeTabLocal')}
-                            </div>
-                        </div>
-                        <button
-                            onClick={() => handleToggleHomeTabLocal(!showHomeTabLocal)}
-                            className={`w-12 h-6 rounded-full p-1 transition-colors shrink-0 ${!showHomeTabLocal ? toggleOffBackgroundClass : ''}`}
-                            style={{ backgroundColor: showHomeTabLocal ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
-                        >
-                            <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${showHomeTabLocal ? 'translate-x-6' : 'translate-x-0'}`} />
-                        </button>
-                    </div>
+                <div className={`rounded-2xl border ${settingsCardClass} overflow-hidden`}>
+                    <SettingsRow
+                        title={t('options.showHomeTabPlaylist')}
+                        icon={ListMusic}
+                        control={(
+                            <SettingsToggle
+                                checked={showHomeTabPlaylist}
+                                onChange={() => handleToggleHomeTabPlaylist(!showHomeTabPlaylist)}
+                                offClass={toggleOffBackgroundClass}
+                                onColor={theme?.secondaryColor}
+                                ariaLabel={t('options.showHomeTabPlaylist')}
+                            />
+                        )}
+                        dividerClass={settingsDividerClassFor(isDaylight)}
+                    />
+                    <SettingsRow
+                        title={t('options.showHomeTabRadio')}
+                        icon={Radio}
+                        control={(
+                            <SettingsToggle
+                                checked={showHomeTabRadio}
+                                onChange={() => handleToggleHomeTabRadio(!showHomeTabRadio)}
+                                offClass={toggleOffBackgroundClass}
+                                onColor={theme?.secondaryColor}
+                                ariaLabel={t('options.showHomeTabRadio')}
+                            />
+                        )}
+                        dividerClass={settingsDividerClassFor(isDaylight)}
+                    />
+                    <SettingsRow
+                        title={t('options.showHomeTabAlbums')}
+                        icon={Disc3}
+                        control={(
+                            <SettingsToggle
+                                checked={showHomeTabAlbums}
+                                onChange={() => handleToggleHomeTabAlbums(!showHomeTabAlbums)}
+                                offClass={toggleOffBackgroundClass}
+                                onColor={theme?.secondaryColor}
+                                ariaLabel={t('options.showHomeTabAlbums')}
+                            />
+                        )}
+                        dividerClass={settingsDividerClassFor(isDaylight)}
+                    />
+                    <SettingsRow
+                        title={t('options.showHomeTabLocal')}
+                        icon={FolderOpen}
+                        control={(
+                            <SettingsToggle
+                                checked={showHomeTabLocal}
+                                onChange={() => handleToggleHomeTabLocal(!showHomeTabLocal)}
+                                offClass={toggleOffBackgroundClass}
+                                onColor={theme?.secondaryColor}
+                                ariaLabel={t('options.showHomeTabLocal')}
+                            />
+                        )}
+                        dividerClass={settingsDividerClassFor(isDaylight)}
+                        isLast
+                    />
                 </div>
             </SettingsAnchor>
 
