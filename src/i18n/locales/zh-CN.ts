@@ -86,8 +86,6 @@ export default {
     "staticModeOff": "静态模式已关闭",
     "homeBgDisabled": "主页动态背景已关闭",
     "homeBgEnabled": "主页动态背景已开启",
-    "liquidGlassOn": "液态玻璃已开启",
-    "liquidGlassOff": "液态玻璃已关闭",
     "autoBestLyricOn": "自动使用最佳歌词已开启",
     "autoBestLyricOff": "自动使用最佳歌词已关闭",
     "lyricSourceChanged": "优先匹配歌词源已切换为{{source}}",
@@ -1663,8 +1661,8 @@ export default {
     "enableStaticModeDesc": "禁用几何背景以节省资源。",
     "enableStaticModeDescSub": "不会影响歌词文本效果或渲染。",
     "liquidGlass": "液态玻璃",
-    "liquidGlassDesc": "弹窗、圆环、播放器等表面用半透明玻璃质感。",
-    "liquidGlassDescSub": "低配机器关掉可省 GPU。",
+    "liquidGlassDesc": "弹窗、圆环、播放器等表面的玻璃不透明度。",
+    "liquidGlassDescSub": "0% 全透，拉到 100% 彻底关闭恢复不透明。",
     "graphicsSettings": "图形",
     "graphicsSettingsDesc": "静态模式、动态背景、原生模糊、帧率限制、Linux 发光修复和降低动态效果。",
     "modSettings": "模组",
@@ -2858,7 +2856,7 @@ export default {
       },
       "liquidGlass": {
         "title": "液态玻璃",
-        "description": "设置、命令面板、播放器等表面换成半透明玻璃质感；外观设置里可一键开关。"
+        "description": "设置、命令面板、播放器等表面换成玻璃质感，不透明度外观设置里无级可调。"
       },
       "spectrumRemoved": {
         "title": "移除频谱小组件",

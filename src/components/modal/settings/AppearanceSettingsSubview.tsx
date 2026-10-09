@@ -182,8 +182,8 @@ const AppearanceSettingsSubview: React.FC<AppearanceSettingsSubviewProps> = ({
         handleToggleFollowSystemTheme: state.setFollowSystemTheme,
         handleToggleCoverColorBg: state.handleToggleCoverColorBg,
         handleToggleStaticMode: state.handleToggleStaticMode,
-        liquidGlassEnabled: state.liquidGlassEnabled,
-        handleToggleLiquidGlass: state.handleToggleLiquidGlass,
+        liquidGlassOpacity: state.liquidGlassOpacity,
+        setLiquidGlassOpacity: state.setLiquidGlassOpacity,
     })));
     const storePlayerChromeSettings = usePlayerChromeSettingsStore(useShallow(state => ({
         enablePlayerPageNativeBlur: state.enablePlayerPageNativeBlur,
@@ -792,26 +792,32 @@ const AppearanceSettingsSubview: React.FC<AppearanceSettingsSubviewProps> = ({
                             <Palette size={16} />
                         </button>
                     </div>
-                    <div className="flex items-center justify-between gap-4 border-t border-white/5 pt-4">
-                        <div className="space-y-1">
+                    <div className="border-t border-white/5 pt-4 space-y-3">
+                        <div className="flex items-center justify-between gap-4">
                             <div className="text-sm font-medium flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
                                 {t('options.liquidGlass')}
                             </div>
-                            <div className="text-xs opacity-50 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
-                                {t('options.liquidGlassDesc')}
-                            </div>
-                            <div className="text-[11px] opacity-40 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
-                                {t('options.liquidGlassDescSub')}
-                            </div>
+                            <span className="font-mono text-xs shrink-0" style={{ color: 'var(--text-primary)' }}>
+                                {Math.round(storeThemeSettings.liquidGlassOpacity * 100)}%
+                            </span>
                         </div>
-                        <button
-                            onClick={() => storeThemeSettings.handleToggleLiquidGlass(!storeThemeSettings.liquidGlassEnabled)}
-                            className={`w-12 h-6 rounded-full p-1 transition-colors shrink-0 ${!storeThemeSettings.liquidGlassEnabled ? toggleOffBackgroundClass : ''}`}
-                            style={{ backgroundColor: storeThemeSettings.liquidGlassEnabled ? theme?.secondaryColor || 'rgba(114, 119, 134, 1)' : undefined }}
-                            aria-pressed={storeThemeSettings.liquidGlassEnabled}
-                        >
-                            <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${storeThemeSettings.liquidGlassEnabled ? 'translate-x-6' : 'translate-x-0'}`} />
-                        </button>
+                        <div className="text-xs opacity-50 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
+                            {t('options.liquidGlassDesc')}
+                        </div>
+                        <div className="text-[11px] opacity-40 max-w-[360px]" style={{ color: 'var(--text-secondary)' }}>
+                            {t('options.liquidGlassDescSub')}
+                        </div>
+                        <input
+                            type="range"
+                            min={0}
+                            max={100}
+                            step={1}
+                            value={Math.round(storeThemeSettings.liquidGlassOpacity * 100)}
+                            onChange={(event) => storeThemeSettings.setLiquidGlassOpacity(Number(event.currentTarget.value) / 100)}
+                            className="w-full accent-current"
+                            style={{ accentColor: theme?.accentColor }}
+                            aria-label={t('options.liquidGlass')}
+                        />
                     </div>
                     <div className="grid grid-cols-2 gap-3">
                         <button

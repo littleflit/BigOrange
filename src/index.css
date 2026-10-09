@@ -310,21 +310,30 @@ html[data-click-through='active'] body .click-through-interactive * {
     animation: none;
 }
 
-/* 液态玻璃试点（设置弹窗）。CSS 层只做四件事：半透明底、背景模糊+饱和、
-   顶部镜面高光、柔和投影。真正的透镜折射不在这里做 —— SVG 位移滤镜的成本
-   与 Linux 显卡兼容风险不成比例，真要做也是单个 hero 元素的事。
-   可读性底线：底色不透明度不低于 0.6，模糊不低于 16px（苹果早期 beta
-   就是栽在对比度上，正式版往回收的也是这两处）。 */
+/* 液态玻璃（设置、命令面板、播放器等）。不透明度由主题 store 写在
+   <html> 上的 `--lg-op` 统一驱动：0 全透玻璃，1 彻底关闭恢复不透明。
+   背景透明度、模糊半径、描边与高光都从这个变量推导，关掉时模糊归零
+   （省 GPU），底色回到实色。不做透镜折射：SVG 位移滤镜的成本与
+   Linux 显卡兼容风险不成比例。
+   可读性底线：玻璃态底色不透明度不低于 0.6（苹果早期 beta
+   就是栽在对比度上）。 */
+:root {
+    --lg-op: 0;
+}
+
 .lg-panel,
 .lg-card,
 .lg-pill,
 .lg-tile {
-    -webkit-backdrop-filter: blur(24px) saturate(1.5);
-    backdrop-filter: blur(24px) saturate(1.5);
-    background: linear-gradient(135deg, rgba(40, 40, 48, 0.72), rgba(20, 20, 25, 0.66));
-    border: 1px solid rgba(255, 255, 255, 0.16);
+    --lg-glass: calc((1 - var(--lg-op)) * 100%);
+    -webkit-backdrop-filter: blur(calc((1 - var(--lg-op)) * 24px)) saturate(1.5);
+    backdrop-filter: blur(calc((1 - var(--lg-op)) * 24px)) saturate(1.5);
+    background: linear-gradient(135deg,
+        color-mix(in srgb, rgba(40, 40, 48, 0.72) var(--lg-glass), #1b1b1f),
+        color-mix(in srgb, rgba(20, 20, 25, 0.66) var(--lg-glass), #1b1b1f));
+    border: 1px solid color-mix(in srgb, rgba(255, 255, 255, 0.16) var(--lg-glass), rgba(255, 255, 255, 0.1));
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.28),
+        inset 0 1px 0 color-mix(in srgb, rgba(255, 255, 255, 0.28) var(--lg-glass), transparent),
         inset 0 -12px 24px -16px rgba(255, 255, 255, 0.12),
         0 24px 64px rgba(0, 0, 0, 0.45);
 }
@@ -332,10 +341,10 @@ html[data-click-through='active'] body .click-through-interactive * {
 .lg-card,
 .lg-pill,
 .lg-tile {
-    -webkit-backdrop-filter: blur(16px) saturate(1.5);
-    backdrop-filter: blur(16px) saturate(1.5);
+    -webkit-backdrop-filter: blur(calc((1 - var(--lg-op)) * 16px)) saturate(1.5);
+    backdrop-filter: blur(calc((1 - var(--lg-op)) * 16px)) saturate(1.5);
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 1px 0 color-mix(in srgb, rgba(255, 255, 255, 0.25) var(--lg-glass), transparent),
         0 8px 28px rgba(0, 0, 0, 0.35);
 }
 
@@ -343,10 +352,12 @@ html[data-click-through='active'] body .click-through-interactive * {
 .lg-card-daylight,
 .lg-pill-daylight,
 .lg-tile-daylight {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.6));
+    background: linear-gradient(135deg,
+        color-mix(in srgb, rgba(255, 255, 255, 0.72) var(--lg-glass), #ffffff),
+        color-mix(in srgb, rgba(255, 255, 255, 0.6) var(--lg-glass), #ffffff));
     border-color: rgba(24, 24, 27, 0.1);
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.7),
+        inset 0 1px 0 color-mix(in srgb, rgba(255, 255, 255, 0.7) var(--lg-glass), transparent),
         inset 0 -12px 24px -16px rgba(255, 255, 255, 0.4),
         0 24px 64px rgba(24, 24, 27, 0.18);
 }
@@ -355,28 +366,6 @@ html[data-click-through='active'] body .click-through-interactive * {
 .lg-pill-daylight,
 .lg-tile-daylight {
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        inset 0 1px 0 color-mix(in srgb, rgba(255, 255, 255, 0.8) var(--lg-glass), transparent),
         0 8px 28px rgba(24, 24, 27, 0.12);
-}
-
-/* 液态玻璃总开关（外观设置）。关掉后所有 `.lg-*` 退化为不透明底，
-   属性挂在 <html> 上，由主题 store 同步，调用方不用分支。 */
-:root[data-liquid-glass='off'] .lg-panel,
-:root[data-liquid-glass='off'] .lg-card,
-:root[data-liquid-glass='off'] .lg-pill,
-:root[data-liquid-glass='off'] .lg-tile {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    background: #1b1b1f;
-    border-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
-}
-
-:root[data-liquid-glass='off'] .lg-panel-daylight,
-:root[data-liquid-glass='off'] .lg-card-daylight,
-:root[data-liquid-glass='off'] .lg-pill-daylight,
-:root[data-liquid-glass='off'] .lg-tile-daylight {
-    background: #ffffff;
-    border-color: rgba(24, 24, 27, 0.1);
-    box-shadow: 0 24px 64px rgba(24, 24, 27, 0.18);
 }
