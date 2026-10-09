@@ -5,6 +5,7 @@ import { formatGridMapFolderTitle } from '../../../../utils/gridMapFolderPath';
 import { getSizedCoverUrl } from '../../../../utils/coverUrl';
 import { useHomeLayoutSettingsStore } from '../../../../stores/useHomeLayoutSettingsStore';
 import { useReducedMotionFor } from '../../../../hooks/useReducedMotionFor';
+import { liquidGlassCard } from '../../../../components/shared/liquidGlass';
 
 // src/library/suites/grid/home/Grid3DSlider.tsx
 // Controlled desktop Grid3D slider shared by Netease, local music, and Navidrome overview surfaces.
@@ -844,7 +845,7 @@ export const Grid3DSlider: React.FC<Grid3DSliderProps> = ({
                                         </div>
                                     ) : (
                                         <div
-                                            className="rounded-xl border p-4 flex flex-col items-center backdrop-blur-md shadow-lg hover:shadow-2xl theme-polaroid-card"
+                                            className={`rounded-xl p-4 flex flex-col items-center ${liquidGlassCard(isDaylight)}`}
                                             style={{ width: coverSize }}
                                         >
                                             <div className="w-full aspect-square rounded-lg overflow-hidden bg-zinc-800/20 relative shadow-inner mb-4 flex items-center justify-center">
