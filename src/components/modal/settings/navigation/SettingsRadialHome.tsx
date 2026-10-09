@@ -258,8 +258,8 @@ export const SettingsRadialHome: React.FC<SettingsRadialHomeProps> = ({
                 <defs>
                     <filter id={RING_REFRACT_FILTER_ID} x="-20%" y="-20%" width="140%" height="140%">
                         <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blurred" />
-                        <feTurbulence type="fractalNoise" baseFrequency="0.015 0.015" numOctaves={2} seed={7} result="noise" />
-                        <feDisplacementMap in="blurred" in2="noise" scale={16} xChannelSelector="R" yChannelSelector="G" result="bent" />
+                        <feTurbulence type="fractalNoise" baseFrequency="0.012 0.012" numOctaves={2} seed={7} result="noise" />
+                        <feDisplacementMap in="blurred" in2="noise" scale={30} xChannelSelector="R" yChannelSelector="G" result="bent" />
                         <feColorMatrix in="bent" type="saturate" values="1.5" />
                     </filter>
                 </defs>

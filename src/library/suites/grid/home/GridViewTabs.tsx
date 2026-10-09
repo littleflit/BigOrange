@@ -88,7 +88,7 @@ export const GridViewTabs: React.FC<GridViewTabsProps> = ({ tabs, isDaylight, on
                                     <motion.span
                                         layoutId={highlightId}
                                         transition={transition}
-                                        className={`absolute inset-0 rounded-full ${chrome.activePill}`}
+                                        className={`absolute inset-0 rounded-full ${liquidGlassPill(isDaylight)}`}
                                     />
                                 )}
                                 {tab.icon && <span className="relative flex shrink-0 items-center">{tab.icon}</span>}
