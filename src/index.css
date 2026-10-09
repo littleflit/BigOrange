@@ -5,6 +5,24 @@
    !important, independent of when a mod's <style> is injected. */
 @layer folium-mods;
 
+/* Electron 套壳：关掉全应用文本圈选。歌词页拖一下就选中是 Chromium 默认行为，
+   不是功能。输入框与可编辑区除外。写在 base 层里，select-text 工具类仍可在
+   个别元素上按需打开。 */
+@layer base {
+    *,
+    *::before,
+    *::after {
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    input,
+    textarea,
+    [contenteditable='true'] {
+        -webkit-user-select: text;
+        user-select: text;
+    }
+}
+
 @font-face {
   font-family: 'BigOrange Noto Serif SC';
   font-style: normal;
