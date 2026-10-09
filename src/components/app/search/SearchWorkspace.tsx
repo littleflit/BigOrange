@@ -15,6 +15,7 @@ import UserSearchPanel from './UserSearchPanel';
 import { useCollectionNavigationStore } from '../../../stores/useCollectionNavigationStore';
 import { useOnlineProviderAccountStore } from '../../../stores/useOnlineProviderAccountStore';
 import { omni } from '../../../services/onlineMusic/omni';
+import { liquidGlassCard, liquidGlassTile } from '../../shared/liquidGlass';
 
 // src/components/app/search/SearchWorkspace.tsx
 
@@ -141,16 +142,16 @@ const SearchWorkspace: React.FC<SearchWorkspaceProps> = ({
                     }`}
                     style={{
                         color: theme.primaryColor,
-                        backgroundColor: isDaylight ? 'rgba(250,250,250,0.96)' : 'rgba(8,8,10,0.94)',
+                        backgroundColor: isDaylight
+                            ? 'color-mix(in srgb, rgba(250,250,250,0.5) calc((1 - var(--lg-op, 0)) * 100%), rgba(250,250,250,0.96))'
+                            : 'color-mix(in srgb, rgba(8,8,10,0.55) calc((1 - var(--lg-op, 0)) * 100%), rgba(8,8,10,0.94))',
                         backdropFilter: 'blur(24px)',
                     }}
                 >
                     <header className="mx-auto flex w-full max-w-5xl shrink-0 flex-col gap-3">
                         <div className="flex items-center gap-3">
                             <form
-                                className={`relative flex-1 rounded-2xl border ${
-                                    isDaylight ? 'border-black/10 bg-black/[0.04]' : 'border-white/10 bg-white/[0.05]'
-                                }`}
+                                className={`relative flex-1 rounded-2xl ${liquidGlassCard(isDaylight)}`}
                                 onSubmit={(event) => {
                                     event.preventDefault();
                                     if (showUsers) {
@@ -178,9 +179,7 @@ const SearchWorkspace: React.FC<SearchWorkspaceProps> = ({
                             <button
                                 type="button"
                                 onClick={onClose}
-                                className={`rounded-full p-3 ${
-                                    isDaylight ? 'bg-black/5 hover:bg-black/10' : 'bg-white/10 hover:bg-white/15'
-                                }`}
+                                className={`rounded-full p-3 ${liquidGlassTile(isDaylight)}`}
                                 aria-label={t('ui.backToHome')}
                             >
                                 <X size={20} />
@@ -201,9 +200,7 @@ const SearchWorkspace: React.FC<SearchWorkspaceProps> = ({
                                 <ChevronDown size={13} className={`transition-transform ${sourceMenuOpen ? 'rotate-180' : ''}`} />
                             </button>
                             {sourceMenuOpen && (
-                                <div className={`absolute left-0 top-full z-20 mt-1 min-w-32 overflow-hidden rounded-2xl border py-1 ${
-                                    isDaylight ? 'border-black/10 bg-white shadow-lg' : 'border-white/10 bg-zinc-900 shadow-xl'
-                                }`}>
+                                <div className={`absolute left-0 top-full z-20 mt-1 min-w-32 overflow-hidden rounded-2xl py-1 ${liquidGlassCard(isDaylight)}`}>
                                     {sources.map(source => (
                                         <button
                                             type="button"
