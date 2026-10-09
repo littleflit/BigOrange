@@ -3,7 +3,7 @@ import { getOnlineMusicProvider } from '../../services/onlineMusic/providerRegis
 import type { OnlineProviderId, ProviderLyricsResult } from '../../types/onlineMusic';
 import { applyNeteaseChorusByTime } from './chorusEffects';
 import type { NeteaseChorusRange } from './chorusEffects';
-import { fetchAmllDbLyrics } from './providers/amllDbProvider';
+import { fetchAmllDbLyrics, getAmllDbMusicIds } from './providers/amllDbProvider';
 import { normalizeLyricMatchDurationMs } from './duration';
 import { calculateMatchScoreDetails } from './matchScore';
 import { buildLyricSearchQuery } from './searchQuery';
@@ -57,7 +57,7 @@ export type AutoMatchBestLyricMatch = {
     source: LyricProviderSource;
     id: number | string;
     song: SongResult;
-    matchedLyricsProviderPlatform?: 'ncm' | 'qq';
+    matchedLyricsProviderPlatform?: 'ncm';
     isPureMusic?: false;
 };
 
@@ -256,40 +256,38 @@ export async function autoMatchBestLyric(
     };
 
     const tryAmllDbCandidate = async (
-        platform: 'ncm',
         song: any,
     ): Promise<AutoMatchBestLyricMatch | null> => {
-        console.log(`[autoMatchBestLyric] Probing AMLLDB ${platform}/${song.id} for "${song.name || title}"`);
+        console.log(`[autoMatchBestLyric] Probing AMLLDB ncm/${song.id} for "${song.name || title}"`);
+        const musicIds = getAmllDbMusicIds('ncm', song);
         const lyrics = await withTimeout(
-            fetchAmllDbLyrics(platform, song.id),
-            PROVIDER_LYRIC_TIMEOUT_MS,
-            `AMLLDB lyric fetch for ${platform}/${song.id}`,
+            fetchAmllDbLyrics('ncm', musicIds),
+            PROVIDER_LYRIC_TIMEOUT_MS * Math.max(1, musicIds.length),
+            `AMLLDB lyric fetch for ncm/${song.id}`,
             null
         );
         if (!hasRenderableLyrics(lyrics)) {
-            console.log(`[autoMatchBestLyric] AMLLDB ${platform}/${song.id} returned no TTML lyrics. Continuing with the next source.`);
+            console.log(`[autoMatchBestLyric] AMLLDB ncm/${song.id} returned no TTML lyrics. Continuing with the next source.`);
             return null;
         }
         const chorusRanges = !hasChorusMarkers(lyrics)
             ? activeProviderChorusRanges.length > 0
                 ? activeProviderChorusRanges
-                : platform === 'ncm'
-                    ? (discoveredNeteaseChorusRanges.length > 0
-                        ? discoveredNeteaseChorusRanges
-                        : await getProviderChorusRanges('netease', song))
-                    : []
+                : (discoveredNeteaseChorusRanges.length > 0
+                    ? discoveredNeteaseChorusRanges
+                    : await getProviderChorusRanges('netease', song))
             : [];
         const decoratedLyrics = chorusRanges.length > 0
             ? applyNeteaseChorusByTime(lyrics, chorusRanges)
             : lyrics;
 
-        console.log(`[autoMatchBestLyric] Found AMLLDB ${lyrics.isWordByWord ? 'word-by-word' : 'line-by-line'} lyric match from ${platform}!`);
+        console.log(`[autoMatchBestLyric] Found AMLLDB ${lyrics.isWordByWord ? 'word-by-word' : 'line-by-line'} lyric match from ncm!`);
         return {
             lyrics: decoratedLyrics,
             source: 'amll',
             id: song.id,
             song,
-            matchedLyricsProviderPlatform: platform,
+            matchedLyricsProviderPlatform: 'ncm',
         };
     };
 
@@ -345,7 +343,7 @@ export async function autoMatchBestLyric(
                 }
 
                 for (const song of neteaseCandidates) {
-                    const result = await tryAmllDbCandidate('ncm', song);
+                    const result = await tryAmllDbCandidate(song);
                     if (result) {
                         if (result.lyrics.isWordByWord) {
                             return result;

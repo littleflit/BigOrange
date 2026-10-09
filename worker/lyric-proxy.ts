@@ -28,9 +28,8 @@ export async function handleLyricProxy(request: Request): Promise<Response> {
   };
   const ignoredForwardHeaders = ['host', 'connection', 'content-length', 'origin', 'referer'];
   const isAllowedLyricProxyHost = (hostname: string): boolean =>
-    hostname === 'amll-ttml-db.stevexmh.net';
-  const isAmllDbHost = (hostname: string): boolean =>
-    hostname === 'amll-ttml-db.stevexmh.net';
+    hostname === 'amll-ttml-db.stevexmh.net' ||
+    hostname === 'api.amll.dev';
 
   if (request.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -79,12 +78,6 @@ export async function handleLyricProxy(request: Request): Promise<Response> {
     }
 
     const response = await fetch(targetUrl.toString(), fetchOptions);
-    if (isAmllDbHost(hostname) && response.status === 404) {
-      return new Response(null, {
-        status: 204,
-        headers: corsHeaders,
-      });
-    }
 
     const responseHeaders = new Headers(response.headers);
     

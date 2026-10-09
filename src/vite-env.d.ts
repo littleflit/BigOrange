@@ -5,6 +5,10 @@ import type { ModExportProgress, ModFfmpegStatus, ModLogEntry, ModRuntimeInfo, M
 declare global {
   const __COMMIT_HASH__: string;
   const __GIT_BRANCH__: string;
+  /** 构建来源仓库（owner/repo），拿不到时为 'unknown'。 */
+  const __BUILD_REPO__: string;
+  /** 十六进制短 commit，拿不到时为 'dev'。 */
+  const __BUILD_COMMIT__: string;
   const __APP_VERSION__: string;
   const __APP_VERSION_LABEL__: string;
   const __APP_RELEASE_CHANNEL__: string;

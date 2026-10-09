@@ -2839,6 +2839,43 @@ export default {
         "description": "When signed in, your own private playlists now load their songs, with real paging. Self-hosted backends must run qq-music-api 3.1.2 or later; older backends fall back automatically, and a playlist that cannot be read now says it is not public instead of silently showing as empty."
       }
     },
+    "v0_7_16": {
+      "intro": "0.7.16 merges upstream improvements — AMLL lyrics via the official API, direct AMLL search in manual matching, Tab switching between home tabs, and completed local search links — plus BigOrange's own settings home grid, the removed spectrum widget, and non-selectable lyrics.",
+      "bigorange": {
+        "title": "BigOrange Updates"
+      },
+      "upstream": {
+        "title": "Upstream Updates"
+      },
+      "settingsHome": {
+        "title": "Settings Home Grid",
+        "description": "The options page now opens on a grouped card grid instead of a wall of lists. Pick a card to enter a section, and go back from the top-left of any detail page."
+      },
+      "spectrumRemoved": {
+        "title": "Spectrum Widget Removed",
+        "description": "The live 48-band spectrum in the player corner is gone. Visualizer backgrounds and the OBS spectrum feed are unaffected."
+      },
+      "lyricSelection": {
+        "title": "Lyrics Are No Longer Selectable",
+        "description": "Dragging across the player page used to select the lyrics — default browser behavior, now off. Search boxes and other inputs still select normally."
+      },
+      "amllSource": {
+        "title": "AMLL Lyrics via the Official API",
+        "description": "AMLL lyrics now come from the official AMLL API."
+      },
+      "amllSearch": {
+        "title": "More Accurate Manual AMLL Matching",
+        "description": "The AMLLDB tab in the lyric match window now searches the AMLL catalog directly and accepts your own keywords. It searches by title and artist, so a short title no longer returns every song whose lyrics contain that word. Picking an AMLL result for a local song writes only the lyrics and leaves the title, artists, and cover unchanged."
+      },
+      "gridTabKeys": {
+        "title": "Switch Home Tabs with Tab",
+        "description": "On the poster-wall home page, Tab and Shift + Tab cycle through playlists, radio, albums, local music, and Navidrome, skipping tabs that are unavailable. This makes keyboard and remote-control use easier."
+      },
+      "searchLinks": {
+        "title": "Local Search Results Keep Their Links",
+        "description": "If you search right after importing a folder, album and artist links in the results now fill in once the library finishes loading, without searching again."
+      }
+    },
     "v0_7_15": {
       "intro": "0.7.15 merges upstream improvements — better Chinese handling in local lyrics and MP3 tags, steadier QR login — plus BigOrange's own fixes for the track panel and the settings landing tab.",
       "bigorange": {
@@ -4273,7 +4310,7 @@ export default {
         "gridMap": "The All button opens GridMap for a dense overview. Click to select and activate to enter; {{mod}} + F or typing in GridMap filters collections.",
         "gridSearchResult": "Submitting the header search opens a separate song workspace. Results can be played, opened by artist or album, or added to the queue.",
         "gridCardKeys": "Left and Right change the centered poster; Enter opens it. Wheel and horizontal drag perform the same focus movement.",
-        "gridPageKeys": "{{mod}} + K opens the command window, {{mod}} + B enters Lattice when a queue exists, and Ctrl + G opens Ponder for this page.",
+        "gridPageKeys": "Tab / Shift + Tab cycle the tabs, {{mod}} + K opens the command window, {{mod}} + B enters Lattice when a queue exists, and Ctrl + G opens Ponder for this page.",
         "gridView": "A collection grid contains the songs, albums, or artists inside the card you opened. Back returns to the parent grid without losing your place.",
         "gridViewActions": "Select a card to play or open it. The page actions also expose play-all, queue, editing, and collection-specific tools when available.",
         "gridViewBack": "The top-left button leaves this collection and clears its transient navigation record. Escape also returns when no inner state remains.",
