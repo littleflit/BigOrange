@@ -2,6 +2,18 @@ const fs = require('node:fs/promises');
 const path = require('node:path');
 
 // build/afterPack.cjs
+//
+// Size trimmings that live here or in package.json `build.files`, and the rules for touching them:
+//
+// - package.json `files` negates the @google/genai EXCLUSIVE closure (computed from
+//   package-lock.json: every prod package reachable only through @google/genai) plus the
+//   renderer-bundled file-type. Neither is ever required by electron/ or shared/ - genai is
+//   Vercel-only (api-ts/generate-theme.ts), which is why the dependency itself STAYS in
+//   package.json. Re-derive the list from the lockfile when genai updates.
+// - NEVER add music-metadata to that list: electron/stageApi.cjs:806 imports it dynamically,
+//   and a require-only grep will not show it.
+// - koffi's native dir (app.asar.unpacked @koromix) is removed off darwin below: only
+//   macWallpaperController.cjs requires koffi, lazily, inside darwin-gated functions.
 
 const ONNX_BIN_RELATIVE_PATH = path.join(
   'app.asar.unpacked',
@@ -96,8 +108,20 @@ async function removeChromiumLicenseHtml(context) {
   }
 }
 
+// koffi is macOS-only (see the header): off darwin its native library is dead weight.
+async function removeUnusedKoffiNative(context) {
+  if (context.electronPlatformName === 'darwin') return;
+  const resourcesDir = context.packager.getResourcesDir(context.appOutDir);
+  const koromixDir = path.join(resourcesDir, 'app.asar.unpacked', 'node_modules', '@koromix');
+  if (await pathExists(koromixDir)) {
+    await fs.rm(koromixDir, { recursive: true, force: true });
+    console.log('[afterPack] removed unpacked @koromix (koffi native, non-darwin build)');
+  }
+}
+
 exports.default = async (context) => {
   await removeChromiumLicenseHtml(context);
+  await removeUnusedKoffiNative(context);
   await pruneOnnxRuntimeBinaries(context);
   if (context.electronPlatformName === 'darwin') {
     const { verifyBundledKoffi } = await import('../packaging/macos/prepare-koffi.mjs');
