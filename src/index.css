@@ -329,8 +329,8 @@ html[data-click-through='active'] body .click-through-interactive * {
     -webkit-backdrop-filter: blur(calc((1 - var(--lg-op)) * 24px)) saturate(1.5);
     backdrop-filter: blur(calc((1 - var(--lg-op)) * 24px)) saturate(1.5);
     background: linear-gradient(135deg,
-        color-mix(in srgb, rgba(40, 40, 48, 0.72) var(--lg-glass), #1b1b1f),
-        color-mix(in srgb, rgba(20, 20, 25, 0.66) var(--lg-glass), #1b1b1f));
+        color-mix(in srgb, rgba(40, 40, 48, 0.55) var(--lg-glass), #1b1b1f),
+        color-mix(in srgb, rgba(20, 20, 25, 0.5) var(--lg-glass), #1b1b1f));
     border: 1px solid color-mix(in srgb, rgba(255, 255, 255, 0.16) var(--lg-glass), rgba(255, 255, 255, 0.1));
     box-shadow:
         inset 0 1px 0 color-mix(in srgb, rgba(255, 255, 255, 0.28) var(--lg-glass), transparent),
@@ -353,8 +353,8 @@ html[data-click-through='active'] body .click-through-interactive * {
 .lg-pill-daylight,
 .lg-tile-daylight {
     background: linear-gradient(135deg,
-        color-mix(in srgb, rgba(255, 255, 255, 0.72) var(--lg-glass), #ffffff),
-        color-mix(in srgb, rgba(255, 255, 255, 0.6) var(--lg-glass), #ffffff));
+        color-mix(in srgb, rgba(255, 255, 255, 0.55) var(--lg-glass), #ffffff),
+        color-mix(in srgb, rgba(255, 255, 255, 0.5) var(--lg-glass), #ffffff));
     border-color: rgba(24, 24, 27, 0.1);
     box-shadow:
         inset 0 1px 0 color-mix(in srgb, rgba(255, 255, 255, 0.7) var(--lg-glass), transparent),
