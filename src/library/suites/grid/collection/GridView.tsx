@@ -70,7 +70,7 @@ import {
     useLibraryBrowseSessionStore,
 } from '../../../core/state/useLibraryBrowseSessionStore';
 import { useLocalTrackSortStore } from '../../../core/state/useLocalTrackSortStore';
-import { liquidGlassPanel } from '../../../../components/shared/liquidGlass';
+import { liquidGlassPanel, liquidGlassPill, liquidGlassTile } from '../../../../components/shared/liquidGlass';
 
 interface GridViewProps {
     title: string;
@@ -1466,11 +1466,7 @@ export const GridView: React.FC<GridViewProps> = ({
                 // 返回按钮表示看完了（onDone）：宿主清掉浏览会话、让每套 suite 忘掉布局记录（网格的 sessionStorage
                 // 记录经 entry 的 layout.forget），再返回。Escape 与浏览器后退保留（onBack）。P4.5 起不在这里清。
                 onClick={onDone}
-                className="absolute left-6 top-5 w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-lg hover:scale-105 active:scale-95 z-[70]"
-                style={{
-                    backgroundColor: isDaylight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.08)',
-                    backdropFilter: 'blur(8px)',
-                }}
+                className={`absolute left-6 top-5 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-105 active:scale-95 z-[70] ${liquidGlassTile(isDaylight)}`}
             >
                 <ChevronLeft size={20} />
             </button>
@@ -1480,8 +1476,7 @@ export const GridView: React.FC<GridViewProps> = ({
                     type="button"
                     onClick={resumeBackgroundSync}
                     disabled={!backgroundLoadError}
-                    className="absolute right-6 top-5 z-[70] flex items-center gap-2 rounded-full px-3 py-2 text-xs tabular-nums backdrop-blur-md disabled:cursor-default"
-                    style={{ backgroundColor: 'color-mix(in srgb, var(--bg-color) 65%, transparent)' }}
+                    className={`absolute right-6 top-5 z-[70] flex items-center gap-2 rounded-full px-3 py-2 text-xs tabular-nums disabled:cursor-default ${liquidGlassPill(isDaylight)}`}
                     title={backgroundLoadError
                         ? t('playlist.syncFailedHint', { error: backgroundLoadError.message })
                         : backgroundSyncLabel}
@@ -1620,10 +1615,7 @@ export const GridView: React.FC<GridViewProps> = ({
                                             void handleToggleSubscribe();
                                         }}
                                         disabled={mutationSnapshot.subscribing}
-                                        className="absolute bottom-3 right-3 w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-lg active:scale-90 z-10 border border-white/10 hover:scale-105 cursor-pointer backdrop-blur-md"
-                                        style={{
-                                            backgroundColor: isDaylight ? 'rgba(255,255,255,0.75)' : 'rgba(0,0,0,0.5)',
-                                        }}
+                                        className={`absolute bottom-3 right-3 w-10 h-10 rounded-full flex items-center justify-center transition-all active:scale-90 z-10 hover:scale-105 cursor-pointer ${liquidGlassTile(isDaylight)}`}
                                         title={playlistSubscribed ? (isOnlineAlbum ? t('options.unsubscribeAlbum') : t('options.unsubscribePlaylist')) : (isOnlineAlbum ? t('options.subscribeAlbum') : t('options.subscribePlaylist'))}
                                     >
                                         {mutationSnapshot.subscribing ? (
