@@ -18,3 +18,12 @@ export const liquidGlassPill = (isDaylight: boolean): string => (
 export const liquidGlassTile = (isDaylight: boolean): string => (
     isDaylight ? 'lg-tile lg-tile-daylight' : 'lg-tile'
 );
+
+/**
+ * Glass without the blur: tint, border and highlight only, still driven by --lg-op.
+ * For walls of dozens of cards, where a backdrop-filter per card measured as the
+ * single largest GPU cost (see PolaroidCard). Never on hero panels.
+ */
+export const liquidGlassStaticCard = (isDaylight: boolean): string => (
+    isDaylight ? 'lg-card lg-card-daylight lg-static' : 'lg-card lg-static'
+);

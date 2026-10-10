@@ -369,3 +369,14 @@ html[data-click-through='active'] body .click-through-interactive * {
         inset 0 1px 0 color-mix(in srgb, rgba(255, 255, 255, 0.8) var(--lg-glass), transparent),
         0 8px 28px rgba(24, 24, 27, 0.12);
 }
+
+/* 无模糊玻璃：只透底色、描边和高光，不糊 backdrop。给一屏几十个的卡墙用 ——
+   PolaroidCard 里量过，每卡一个 backdrop-blur 是那面墙最大的 GPU 开销。
+   照样跟随 --lg-op，拉满照样回不透明。 */
+.lg-card.lg-static,
+.lg-panel.lg-static,
+.lg-pill.lg-static,
+.lg-tile.lg-static {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}

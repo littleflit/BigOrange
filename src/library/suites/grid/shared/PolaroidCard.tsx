@@ -15,6 +15,7 @@ import {
     type GridItem,
     type PolaroidCardMode,
 } from './polaroidCardParts';
+import { liquidGlassStaticCard } from '../../../../components/shared/liquidGlass';
 
 // src/library/suites/grid/shared/PolaroidCard.tsx
 // The card the bigorange hex grids render. Two layouts share one component: the polaroid frame (square
@@ -244,7 +245,7 @@ export const PolaroidCard = React.memo<PolaroidCardProps>(
 
         return (
             <div
-                className="rounded-xl p-3 flex flex-col items-center border transition-shadow duration-300 shadow-lg hover:shadow-2xl theme-polaroid-card"
+                className={`rounded-xl p-3 flex flex-col items-center transition-shadow duration-300 ${liquidGlassStaticCard(isDaylight)}`}
                 style={{
                     width: dynamicWidth,
                     minHeight: dynamicHeight,
