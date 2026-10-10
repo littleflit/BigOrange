@@ -137,23 +137,25 @@ release tag 固定为 `vA.B.C`（跟随上游、**不加后缀**），便于和�
 - `limo`（Limo Nightly）与 `cielo`（Cielo Canary）是滚动频道，tag 固定、每次覆盖重建，不占“3 个”名额。
 - 其余 canary / nightly / rc 预发布一律删掉；本地 `release/` 下的旧 AppImage 同步删到只剩最新 3 个。
 
-先 dry-run 预览，再删除。必须做**语义化排序**，不能按字符串排（否则 `v0.7.10` 会排到 `v0.7.9` 前面）：
+先 dry-run 预览，再删除。必须做**语义化排序**，不能按字符串排（否则 `v0.7.10` 会排到 `v0.7.9` 前面）。
+所有 `gh release` 命令必须带 `--repo littleflit/BigOrange`：删库重建后，同名墓碑会把不带 repo
+的 release 请求重定向到上游仓库，不带就会删掉上游的 release：
 
 ```bash
 # 0. 预览（不删除，只列出将要删除的）
-gh release list --limit 500 --json tagName,isPrerelease
+gh release list --repo littleflit/BigOrange --limit 500 --json tagName,isPrerelease
 
 # 1. 删掉 3 个最新正式版之外的旧正式版
-gh release list --limit 500 --json tagName,isPrerelease --jq '
+gh release list --repo littleflit/BigOrange --limit 500 --json tagName,isPrerelease --jq '
   [.[] | select(.isPrerelease==false) | .tagName | select(test("^v[0-9]+\\.[0-9]+\\.[0-9]+$"))]
   | map(. as $t | ($t | sub("^v";"") | split(".") | map(tonumber)) as $v | {t: $t, v: $v})
   | sort_by(.v) | reverse | .[3:][] | .t' \
-  | xargs -r -n1 gh release delete --yes --cleanup-tag
+  | xargs -r -n1 gh release delete --repo littleflit/BigOrange --yes --cleanup-tag
 
 # 2. 删掉除 limo / cielo 之外的所有预发布
-gh release list --limit 500 --json tagName,isPrerelease --jq '
+gh release list --repo littleflit/BigOrange --limit 500 --json tagName,isPrerelease --jq '
   [.[] | select(.isPrerelease) | .tagName | select(. != "limo" and . != "cielo")][]' \
-  | xargs -r -n1 gh release delete --yes --cleanup-tag
+  | xargs -r -n1 gh release delete --repo littleflit/BigOrange --yes --cleanup-tag
 ```
 
 - 删 release 必须带 `--cleanup-tag`（历史教训：只删 tag 没删 release，曾堆到 154 个）。
