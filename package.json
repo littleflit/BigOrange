@@ -75,8 +75,8 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "chthollyphile",
-        "repo": "folia-major"
+        "owner": "littleflit",
+        "repo": "BigOrange"
       }
     ],
     "files": [
