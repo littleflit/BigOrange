@@ -4,7 +4,7 @@ import path from 'node:path';
 
 // test/unit/electron/linuxDesktopIntegration.test.ts
 // Tests Linux desktop entry metadata, WM_CLASS / app_id alignment, and packaging configuration.
-// BigOrange 只打包 AppImage：不再覆盖 deb/rpm/tar.gz、Windows、macOS 与 AUR。
+// BigOrange 打包 AppImage 与 Windows（NSIS）：不再覆盖 deb/rpm/tar.gz、macOS 与 AUR。
 
 describe('linuxDesktopIntegration', () => {
   const rootDir = path.resolve(__dirname, '../../../');
@@ -21,13 +21,12 @@ describe('linuxDesktopIntegration', () => {
     expect(pkg.build?.linux?.desktop?.entry?.StartupWMClass).toBe('folia-major');
   });
 
-  it('builds AppImage only', () => {
+  it('builds AppImage and Windows NSIS only', () => {
     const pkg = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 
     expect(pkg.build?.linux?.target).toEqual(['AppImage']);
+    expect(pkg.build?.win?.target).toEqual(['nsis']);
     expect(pkg.build?.mac).toBeUndefined();
-    expect(pkg.build?.win).toBeUndefined();
-    expect(pkg.build?.nsis).toBeUndefined();
   });
 
   it('leaves Linux desktop identity to package.json desktopName instead of electron/main.cjs', () => {
