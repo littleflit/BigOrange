@@ -64,7 +64,7 @@ export const lyricExportCommands: CommandPaletteCommand[] = [
         id: 'export-current-lyrics-fia',
         group: 'settings',
         title: 'Export current lyrics as .fia',
-        description: 'Save this song’s lyrics in Folia’s lossless format, saved word segmentation included',
+        description: 'Save this song’s lyrics in BigOrange’s lossless format, saved word segmentation included',
         keywords: ['save lyrics', 'folia lyrics file', 'fia file', '导出当前歌词', '保存歌词'],
         icon: FileJson,
         isAvailable: hasLyricsOnScreen,

@@ -68,14 +68,12 @@ const {
   buildSegmentationSystemPrompt,
   parseSegmentationResponse,
 } = require('../shared/lyricSegmentationPrompt.cjs');
-const useLinuxGraphicsDebugMode = process.env.ELECTRON_LINUX_PACKAGED_GRAPHICS === 'true';
-const isAppImageRuntime =
-  process.platform === 'linux' &&
-  (Boolean(process.env.APPIMAGE) || Boolean(process.env.APPDIR) || useLinuxGraphicsDebugMode);
+// BigOrange 与上游分歧：上游要求 AppImage 强制软渲染，本项目默认走硬件渲染（system），
+// 只有显式指定 swiftshader / software 才用软渲染。
 const linuxGraphicsMode =
   process.platform !== 'linux'
     ? 'system'
-    : (process.env.FOLIA_LINUX_GRAPHICS_MODE || (isAppImageRuntime ? 'swiftshader' : 'system'));
+    : (process.env.FOLIA_LINUX_GRAPHICS_MODE || 'system');
 
 // Every custom scheme must be registered in this one call: each
 // registerSchemesAsPrivileged call overwrites the fetch/secure/cors scheme
@@ -145,9 +143,7 @@ if (process.platform === 'linux') {
     // Hard fallback: safest, but usually slower.
     app.disableHardwareAcceleration();
   } else if (linuxGraphicsMode === 'swiftshader') {
-    // AppImage is the only runtime showing broken blur/opacity plus GPU crashes.
-    // Prefer software GL here so Chromium keeps its compositor pipeline
-    // without relying on the host Vulkan / GPU stack.
+    // 仅显式指定时使用：Chromium 合成器走软件 GL，不依赖宿主 Vulkan / GPU 栈。
     app.commandLine.appendSwitch('use-gl', 'angle');
     app.commandLine.appendSwitch('use-angle', 'swiftshader');
     app.commandLine.appendSwitch('enable-unsafe-swiftshader');
@@ -188,7 +184,7 @@ if (process.platform === 'darwin' && process.arch === 'x64') {
   app.commandLine.appendSwitch('enable-gpu-rasterization');
 }
 
-const store = new Store({ projectName: 'Folia' });
+const store = new Store({ projectName: 'BigOrange' });
 const transcodeService = createTranscodeService({
   app,
   protocol,
@@ -354,8 +350,8 @@ function reconcileWindowsWallpaperWindowTransparency() {
   recreateMainWindowWithTransparencyMode(isTransparentPlayerBackgroundEnabled(), null);
 }
 
-// The helper ships as resources/folia-wallpaper-helper.exe (built by
-// packaging/windows/build-wallpaper-helper.mjs). FOLIA_WALLPAPER_HELPER_PATH overrides it for
+// The helper ships as resources/folia-wallpaper-helper.exe in Windows packages
+// (BigOrange 只打包 Linux AppImage，不再构建该二进制）. FOLIA_WALLPAPER_HELPER_PATH overrides it for
 // non-packaged (dev) runs, mirroring FOLIA_WINDOWTOLAYER_PATH. A missing binary just disables
 // wallpaper mode (attach reports 'missing' and the renderer learns via wallpaper-mode-changed).
 function resolveWallpaperHelperPath() {
@@ -1607,7 +1603,7 @@ const mainLocale = {
     dialogImportMessage: '不能直接导入系统目录或常用用户目录。\n请选择一个专门存放音乐的文件夹。',
     dialogChooseOther: '选择其他文件夹',
     dialogCancel: '取消',
-    crashTitle: 'Folia 遇到了问题',
+    crashTitle: 'BigOrange 遇到了问题',
     crashMessage: '程序发生了一次崩溃，日志已保存。把它发给开发者能帮助定位问题。',
     crashOpenFolder: '打开日志所在文件夹',
     crashClose: '关闭',
@@ -1629,7 +1625,7 @@ const mainLocale = {
     dialogImportMessage: 'Cannot directly import system or common user directories.\nPlease choose a dedicated music folder.',
     dialogChooseOther: 'Choose Another Folder',
     dialogCancel: 'Cancel',
-    crashTitle: 'Folia ran into a problem',
+    crashTitle: 'BigOrange ran into a problem',
     crashMessage: 'The app crashed and a log has been saved. Sending it to the developer helps track the problem down.',
     crashOpenFolder: 'Open Log Folder',
     crashClose: 'Close',
@@ -1651,7 +1647,7 @@ const mainLocale = {
     dialogImportMessage: 'Folder sistem atau folder pengguna umum tidak dapat diimpor langsung.\nPilih folder khusus untuk menyimpan musik.',
     dialogChooseOther: 'Pilih Folder Lain',
     dialogCancel: 'Batal',
-    crashTitle: 'Folia mengalami masalah',
+    crashTitle: 'BigOrange mengalami masalah',
     crashMessage: 'Aplikasi mengalami crash dan log telah disimpan. Mengirimkannya ke pengembang membantu menemukan masalahnya.',
     crashOpenFolder: 'Buka Folder Log',
     crashClose: 'Tutup',
@@ -1865,7 +1861,7 @@ const FOLIA_GITHUB_REPOSITORY = {
   repo: 'folia-major',
 };
 const WINDOWS_APP_USER_MODEL_ID = 'top.izuna.foliamajor';
-const REMOTE_CONTROL_WINDOW_TITLE = 'Folia Remote';
+const REMOTE_CONTROL_WINDOW_TITLE = 'BigOrange Remote';
 const WINDOW_PLAYBACK_HANDOFF_REQUEST_TIMEOUT_MS = 800;
 const bundledAppIconPath = path.join(__dirname, '../build/icon.png');
 const extraResourceIconPath = path.join(process.resourcesPath, 'icon.png');
@@ -2725,7 +2721,7 @@ function refreshTrayMenu() {
   ]);
 
   appTray.setContextMenu(menu);
-  appTray.setToolTip('Folia');
+  appTray.setToolTip('BigOrange');
 }
 
 function ensureTray() {

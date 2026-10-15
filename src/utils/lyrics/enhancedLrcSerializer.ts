@@ -142,7 +142,7 @@ export const serializeEnhancedLrc = (lyrics: LyricData, options: EnhancedLrcSeri
     if (artist) output.push(`[ar:${sanitizeTagValue(artist)}]`);
     if (metadata.album) output.push(`[al:${sanitizeTagValue(metadata.album)}]`);
     if (metadata.durationMs && metadata.durationMs > 0) output.push(`[length:${formatLengthTag(metadata.durationMs)}]`);
-    output.push('[re:Folia]');
+    output.push('[re:BigOrange]');
 
     let previousTagMs = Number.NEGATIVE_INFINITY;
     for (const line of lyrics.lines) {

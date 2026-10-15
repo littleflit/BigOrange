@@ -181,7 +181,7 @@ export const importSyncLibraryBundle = async (
 ) => {
     const validatedBundle = parseSyncLibraryExportBundle(bundle);
     if (!validatedBundle) {
-        throw new Error('Invalid Folia sync export');
+        throw new Error('Invalid BigOrange sync export');
     }
 
     setSyncStatus({ state: 'syncing', lastError: null });

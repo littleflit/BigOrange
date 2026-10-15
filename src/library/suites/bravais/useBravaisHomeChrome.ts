@@ -129,12 +129,12 @@ export const useBravaisHomeChrome = ({
         if (hasPlayer) tools.push({ id: 'player', label: t('libraryBravaisHome.backToPlayer'), run: () => latest.current.props.onBackToPlayer() });
         // fb11：舞台开着时它单独占工具格最上面一行（图标 + 短名「舞台」），active 与 grid 的 data-stage-active 同义。
         if (hasStage) tools.push({ id: 'stage', label: t('libraryBravaisHome.stagePlayer'), shortLabel: t('libraryBravaisHome.stageShort'), active: stageActive, run: () => latest.current.props.onOpenStagePlayer?.() });
-        // 新版本说明在设置的「帮助」页（默认页）顶部，打开设置即视为看过，提示点随之消失。
+        // 新版本说明在设置的「帮助」页顶部；更新提示点的消除在设置面板挂载时触发，与默认打开哪个页无关。
         if (hasSettings) tools.push({
             id: 'settings',
             label: t('libraryBravaisHome.settings'),
             badge: updateAvailable ? t('options.updateAvailable') : undefined,
-            run: () => latest.current.props.onOpenSettings?.('help'),
+            run: () => latest.current.props.onOpenSettings?.('options'),
         });
         return tools;
     }, [hasLattice, hasPlayer, hasSettings, hasStage, stageActive, t, updateAvailable]);

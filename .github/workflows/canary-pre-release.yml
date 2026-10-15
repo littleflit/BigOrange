@@ -80,13 +80,9 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
   build:
-    name: Build Cielo on ${{ matrix.os }}
+    name: Build Cielo on ubuntu-latest
     needs: prepare
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Check out Git repository
@@ -102,29 +98,16 @@ jobs:
         run: npm ci
 
       - name: Install Rust toolchain
-        if: runner.os == 'Linux' || runner.os == 'Windows'
         uses: dtolnay/rust-toolchain@master
         with:
           toolchain: stable
 
       - name: Cache Cargo build
-        if: runner.os == 'Linux'
         uses: Swatinem/rust-cache@v2
         with:
           workspaces: .windowtolayer-src
 
-      - name: Cache wallpaper-helper Cargo build
-        if: runner.os == 'Windows'
-        uses: Swatinem/rust-cache@v2
-        with:
-          workspaces: packaging/windows/wallpaper-helper
-
-      - name: Build wallpaper helper (Windows only)
-        if: runner.os == 'Windows'
-        run: npm run build:wallpaper-helper
-
-      - name: Build windowtolayer (Linux only)
-        if: runner.os == 'Linux'
+      - name: Build windowtolayer
         run: npm run build:windowtolayer
 
       - name: Stamp Cielo package metadata
@@ -149,17 +132,11 @@ jobs:
       - name: Upload packaged artifacts
         uses: actions/upload-artifact@v6
         with:
-          name: ${{ needs.prepare.outputs.release_tag }}-${{ matrix.os }}
+          name: ${{ needs.prepare.outputs.release_tag }}-ubuntu-latest
           path: |
-            release/*.dmg
-            release/*.zip
-            release/*.exe
-            release/*.blockmap
+            release/*.AppImage
             release/*.yml
             !release/builder-debug.yml
-            release/*.deb
-            release/*.rpm
-            release/*.tar.gz
           if-no-files-found: error
           retention-days: 14
 

@@ -15,8 +15,4 @@ exports.default = async (context) => {
     "../packaging/ffmpeg/fetch-ffmpeg.mjs"
   );
   await prepareBundledFfmpeg({ platform: context.electronPlatformName, arch });
-  if (context.electronPlatformName === 'darwin') {
-    const { prepareBundledKoffi } = await import('../packaging/macos/prepare-koffi.mjs');
-    await prepareBundledKoffi({ arch, projectRoot: context.packager.projectDir });
-  }
 };

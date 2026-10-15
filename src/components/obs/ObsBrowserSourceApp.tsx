@@ -56,7 +56,7 @@ const ObsBrowserSourceApp: React.FC = () => {
         document.body.style.backgroundColor = 'transparent';
         document.documentElement.style.backgroundColor = 'transparent';
         document.body.style.overflow = 'hidden';
-        document.title = 'Folia OBS';
+        document.title = 'BigOrange OBS';
     }, []);
 
     useEffect(() => {
@@ -169,7 +169,7 @@ const ObsBrowserSourceApp: React.FC = () => {
     if (!config) {
         return (
             <div className="h-screen w-screen bg-transparent grid place-items-center text-white/70 text-sm">
-                {connected ? t('obs.waitingForPlayback', 'Waiting for Folia playback') : t('obs.connecting', 'Connecting to Folia')}
+                {connected ? t('obs.waitingForPlayback', 'Waiting for BigOrange playback') : t('obs.connecting', 'Connecting to BigOrange')}
             </div>
         );
     }

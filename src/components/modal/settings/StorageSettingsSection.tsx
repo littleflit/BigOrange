@@ -225,7 +225,7 @@ const StorageSettingsSection: React.FC<StorageSettingsSectionProps> = ({
                 ? await readSyncLibraryZipFile(file)
                 : JSON.parse(await file.text()) as unknown;
             if (!isSyncLibraryExportBundle(parsed)) {
-                throw new Error('Invalid Folia sync export');
+                throw new Error('Invalid BigOrange sync export');
             }
             const shouldImport = window.confirm(t('options.r2SyncImportConfirm') || 'Import this sync library and overwrite local sync cache?');
             if (!shouldImport) {

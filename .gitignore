@@ -29,8 +29,6 @@ dist-ssr
 dev-dist/
 example/
 release/
-packaging/aur/folia-major-bin/FIRST_RELEASE.md
-packaging/aur/folia-major-bin/README.md
 .codex
 .codex-tmp
 .wrangler/tmp
@@ -78,13 +76,8 @@ reference/
 mods/*.zip
 
 
-# Built by packaging/windows/build-wallpaper-helper.mjs (Windows wallpaper mode helper).
-build/folia-wallpaper-helper.exe
-packaging/windows/wallpaper-helper/target/
-
-# Local Rust Spout sender build artifacts.
-build/folia-spout-sender.exe
-packaging/windows/spout-sender/target/
+# Local Rust windowtolayer build artifacts.
+.windowtolayer-src/
 
 # Python bytecode from the htdemucs runner, written beside it by the downloaded runtime.
 __pycache__/

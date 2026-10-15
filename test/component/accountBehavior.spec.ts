@@ -413,7 +413,7 @@ const foldsDiagnostics = suite !== 'tui';
 const failureHelpEntry = (page: Page) => (foldsDiagnostics
     ? loginDialog(page).getByRole('button', { name: 'Still not working? Send us the diagnostics' })
     : diagnosticsButton(page));
-const tipsList = (page: Page) => loginDialog(page).getByText('Restart Folia, then scan again.');
+const tipsList = (page: Page) => loginDialog(page).getByText('Restart BigOrange, then scan again.');
 
 test.describe(`[${suite}] switching`, () => {
     test.beforeEach(async ({ page, mount }) => {
@@ -725,7 +725,7 @@ test.describe(`[${suite}] QQ diagnostics`, () => {
             await page.keyboard.press('F4');
             await expect(loginDialog(page).locator('[data-tui-login-diagnostics-copy]')).toHaveAttribute('data-tui-login-diagnostics-copy', 'copied');
             const copied = await page.evaluate(() => (window as unknown as { __copied?: string }).__copied ?? '');
-            expect(copied).toContain('### Folia QR login diagnostics');
+            expect(copied).toContain('### BigOrange QR login diagnostics');
             expect(copied).toContain(`provider: ${ACCOUNT_QQ}`);
         }
 
@@ -745,7 +745,7 @@ test.describe(`[${suite}] QQ diagnostics`, () => {
 
         // 先给简单办法（重启；换网络再重启），自检结论在它后面。
         await expect(tipsList(page)).toBeVisible();
-        await expect(loginDialog(page).getByText('Switch to another network (for example a phone hotspot), then restart Folia.')).toBeVisible();
+        await expect(loginDialog(page).getByText('Switch to another network (for example a phone hotspot), then restart BigOrange.')).toBeVisible();
         const verdict = loginDialog(page).getByText(/The connection to the Gamma servers was cut during the encryption handshake \(probe\.example 203\.0\.113\.7 \(IPv4\): ECONNRESET\)/);
         await expect(verdict).toBeVisible();
         await expect(loginDialog(page).getByText(/IPv4 connection: probe\.example: ECONNRESET \(tls\)/)).toBeVisible();

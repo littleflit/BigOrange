@@ -33,10 +33,10 @@ export const AiHelpPromptModal: React.FC<AiHelpPromptModalProps> = ({
         guideUrl: FOLIA_GUIDE_URL,
         repoUrl: FOLIA_REPOSITORY_URL,
         defaultValue: [
-            'I am using Folia and need help with a problem.',
+            'I am using BigOrange and need help with a problem.',
             '',
-            `Folia Guide: ${FOLIA_GUIDE_URL}`,
-            `Folia repository: ${FOLIA_REPOSITORY_URL}`,
+            `BigOrange Guide: ${FOLIA_GUIDE_URL}`,
+            `BigOrange repository: ${FOLIA_REPOSITORY_URL}`,
             '',
             'Please read these references as context, then help me understand and solve the problem I describe next. Ask for any missing details before making assumptions, and give me steps I can try safely.'
         ].join('\n')
@@ -94,7 +94,7 @@ export const AiHelpPromptModal: React.FC<AiHelpPromptModalProps> = ({
                             <div className="pr-10">
                                 <h2 className="text-xl font-semibold">{t('aiHelp.title', 'Need help?')}</h2>
                                 <p className={`mt-2 text-sm leading-6 ${textSecondary}`}>
-                                    {t('aiHelp.description', 'Check the Folia documentation first. If the issue remains unresolved, copy the prompt below and ask an AI model for help.')}
+                                    {t('aiHelp.description', 'Check the BigOrange documentation first. If the issue remains unresolved, copy the prompt below and ask an AI model for help.')}
                                 </p>
                             </div>
 
@@ -108,7 +108,7 @@ export const AiHelpPromptModal: React.FC<AiHelpPromptModalProps> = ({
                                     <BookOpen size={19} style={{ color: theme?.accentColor ?? '#60a5fa' }} />
                                 </span>
                                 <span className="min-w-0 flex-1">
-                                    <span className="block text-sm font-semibold">{t('aiHelp.docsTitle', 'Read the Folia documentation')}</span>
+                                    <span className="block text-sm font-semibold">{t('aiHelp.docsTitle', 'Read the BigOrange documentation')}</span>
                                     <span className={`mt-1 block text-xs leading-5 ${textSecondary}`}>
                                         {t('aiHelp.docsDescription', 'Find usage instructions, configuration details, and troubleshooting guidance.')}
                                     </span>
@@ -141,7 +141,7 @@ export const AiHelpPromptModal: React.FC<AiHelpPromptModalProps> = ({
                             <div>
                                 <h3 className="text-sm font-semibold">{t('aiHelp.askAiTitle', 'Still need help? Ask AI')}</h3>
                                 <p className={`mt-1 text-xs leading-5 ${textSecondary}`}>
-                                    {t('aiHelp.askAiDescription', 'Describe your issue, then paste this prompt so the AI can use Folia documentation and source code as context.')}
+                                    {t('aiHelp.askAiDescription', 'Describe your issue, then paste this prompt so the AI can use BigOrange documentation and source code as context.')}
                                 </p>
                             </div>
 

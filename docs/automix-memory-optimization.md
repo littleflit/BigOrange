@@ -82,7 +82,7 @@
 
 - **做什么：** htdemucs 会话设 `enable_mem_reuse=0`（仅此，不碰 beat_this）。
 - **为什么非 Python：** 该开关是 ORT **内部 C++ struct 的 bool**，只有 Python pybind 直接绑到它；onnxruntime-node（1.27）无此字段、`extra` 仅 WASM、C-API 无 setter；自编 C++ 二进制会撞同一堵墙。→ **Python 是唯一现成、不自编就能设该开关的运行时。**
-- **交付＝按需下载（不进安装包）：** app 早已把模型做成按需下载——`shared/modelManifest.json` 声明可下载件 → `%APPDATA%\Folia\models\`，走 hf-mirror→hf→github 多线 ＋ 网盘兜底（提取码），设置页 `AutomixModelsSection` 管，`modelCanRun()`＝磁盘在不在。**Python 运行时当作再加一个可下载件挂进这套系统**（~80–150MB，与 htdemucs 同量级）；stems 门＝htdemucs.onnx ＋ 运行时都在，缺则退普通交叉淡入。
+- **交付＝按需下载（不进安装包）：** app 早已把模型做成按需下载——`shared/modelManifest.json` 声明可下载件 → `%APPDATA%\BigOrange\models\`，走 hf-mirror→hf→github 多线 ＋ 网盘兜底（提取码），设置页 `AutomixModelsSection` 管，`modelCanRun()`＝磁盘在不在。**Python 运行时当作再加一个可下载件挂进这套系统**（~80–150MB，与 htdemucs 同量级）；stems 门＝htdemucs.onnx ＋ 运行时都在，缺则退普通交叉淡入。
 
 ### 5.2 备选（form B 稳不住时的保底，两条都能到 ~1GB）
 

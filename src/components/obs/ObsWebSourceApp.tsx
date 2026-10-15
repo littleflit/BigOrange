@@ -68,7 +68,7 @@ const ObsWebSourceApp: React.FC<ObsWebSourceAppProps> = ({ source, appearance, o
         document.body.style.backgroundColor = 'transparent';
         document.documentElement.style.backgroundColor = 'transparent';
         document.body.style.overflow = 'hidden';
-        document.title = 'Folia OBS';
+        document.title = 'BigOrange OBS';
     }, []);
 
     // OBS applies the Custom CSS field around page load, which may land just before or just after this

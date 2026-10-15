@@ -4,7 +4,7 @@
 
 import { scrubCredentials, truncateHeadTail } from './sanitize.mjs';
 
-const REPORT_RE = /### Folia QR login diagnostics\s*```[^\n]*\n([\s\S]*?)```/g;
+const REPORT_RE = /### (?:Folia|BigOrange) QR login diagnostics\s*```[^\n]*\n([\s\S]*?)```/g;
 const ID_RE = /^[a-z0-9-]+$/;
 
 // 校验已知原因表并预编译匹配规则；结构不对直接 throw，与 config.json 的处理一致。
@@ -40,7 +40,7 @@ export function extractQrReport(texts) {
     return last || null;
 }
 
-export const stripQrReports = text => String(text ?? '').replace(REPORT_RE, '').replace(/### Folia QR login diagnostics/g, '');
+export const stripQrReports = text => String(text ?? '').replace(REPORT_RE, '').replace(/### (?:Folia|BigOrange) QR login diagnostics/g, '');
 
 // 确定性匹配：返回命中的已知原因 id，按表内顺序。
 export function matchPlaybook(report, provider, playbook) {

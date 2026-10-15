@@ -134,7 +134,7 @@ export const buildHomeModel = ({
             onStatusMessage,
             focusedPlaylistIndex,
             setFocusedPlaylistIndex,
-            onOpenSettings: openSettings,
+            onOpenSettings: (tab) => openSettings(tab ?? 'options'),
             onSearchCommitted: (query, sourceTab, replace = false) => {
                 navigateToSearch({ query, sourceTab: resolveSearchSource(sourceTab), replace });
             },

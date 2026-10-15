@@ -247,7 +247,7 @@ export default {
     "closeToQuit": "Menutup jendela akan keluar dari aplikasi",
     "wallpaperModeOn": "Mode wallpaper diaktifkan",
     "wallpaperModeOff": "Mode wallpaper dimatikan",
-    "macWallpaperInputMonitoringNeeded": "Mode wallpaper memerlukan izin Input Monitoring: izinkan Folia di Pengaturan Sistem → Privasi & Keamanan → Input Monitoring, lalu aktifkan ulang mode wallpaper",
+    "macWallpaperInputMonitoringNeeded": "Mode wallpaper memerlukan izin Input Monitoring: izinkan BigOrange di Pengaturan Sistem → Privasi & Keamanan → Input Monitoring, lalu aktifkan ulang mode wallpaper",
     "macWallpaperAutohideDockOn": "Sembunyikan Dock otomatis diaktifkan",
     "macWallpaperAutohideDockOff": "Sembunyikan Dock otomatis dimatikan",
     "voiceInputPauseOn": "Fitur jeda saat input suara diaktifkan",
@@ -628,8 +628,8 @@ export default {
       "settings-local-lyric-format-order": { "title": "Prioritas format file lirik lokal", "description": "Pilih format yang digunakan saat satu lagu memiliki beberapa file lirik" },
       "settings-integration": { "title": "Pengaturan integrasi", "description": "Buka pengaturan Stage, Now Playing, dan Navidrome" },
       "automix-toggle": { "title": "Transisi pintar", "description": "Aktifkan atau nonaktifkan transisi pintar FOLIA" },
-      "transition-mode-crossfade": { "title": "Mode transisi: Folia Crossfade", "description": "Gunakan crossfade sederhana satu keluar satu masuk" },
-      "transition-mode-automix": { "title": "Mode transisi: Folia Automix", "description": "Menganalisis kedua trek dan mencampurnya otomatis" },
+      "transition-mode-crossfade": { "title": "Mode transisi: BigOrange Crossfade", "description": "Gunakan crossfade sederhana satu keluar satu masuk" },
+      "transition-mode-automix": { "title": "Mode transisi: BigOrange Automix", "description": "Menganalisis kedua trek dan mencampurnya otomatis" },
       "transition-performance-toggle": { "title": "Mode performa transisi", "description": "Alihkan transisi yang lebih agresif (perlu model stem)" },
       "settings-discord-presence": { "title": "Status pemutaran Discord", "description": "Buka pengaturan Discord Rich Presence" },
       "lyric-staff-policy-cycle": { "title": "Penanganan kredit pembuka", "description": "Ganti cara blok kredit di awal lirik ditangani" },
@@ -642,7 +642,7 @@ export default {
       "settings-r2-sync": { "title": "Pengaturan server sinkronisasi", "description": "Buka pengaturan server sinkronisasi" },
       "sync-now": { "title": "Sinkronkan sekarang", "description": "Sinkronkan tema AI" },
       "export-lyric-cache": { "title": "Ekspor lirik tersimpan", "description": "Simpan semua lirik di perangkat ini sebagai .fia dan LRC enhanced dalam satu zip" },
-      "export-current-lyrics-fia": { "title": "Ekspor lirik saat ini sebagai .fia", "description": "Simpan lirik lagu ini dalam format lossless Folia, termasuk segmentasi kata yang disimpan" },
+      "export-current-lyrics-fia": { "title": "Ekspor lirik saat ini sebagai .fia", "description": "Simpan lirik lagu ini dalam format lossless BigOrange, termasuk segmentasi kata yang disimpan" },
       "export-current-lyrics-lrc": { "title": "Ekspor lirik saat ini sebagai LRC", "description": "Simpan lirik lagu ini sebagai LRC enhanced yang bisa dibaca pemutar lain" },
       "settings-local-library-watch": { "title": "Pengaturan pantauan folder lokal", "description": "Buka pengaturan pemindaian otomatis untuk folder lokal yang diimpor" },
       "local-library-auto-scan-toggle": { "title": "Pindai otomatis folder lokal", "description": "Aktifkan atau matikan pemindaian ulang otomatis folder lokal yang diimpor" },
@@ -986,10 +986,10 @@ export default {
     "scopeOnlineDesc": "Lirik yang tersimpan untuk lagu online yang pernah diputar",
     "scopeLocal": "Pustaka lokal",
     "scopeLocalDesc": "Lirik hasil pencocokan online untuk lagu lokal, dinamai sesuai berkas audionya di folder aslinya, siap diletakkan di sebelahnya",
-    "formatFia": ".fia (Folia, lossless)",
-    "formatFiaDesc": "Menyimpan timing per kata, terjemahan, vokal latar, dan segmentasi Anda; bisa langsung diimpor kembali ke Folia",
+    "formatFia": ".fia (BigOrange, lossless)",
+    "formatFiaDesc": "Menyimpan timing per kata, terjemahan, vokal latar, dan segmentasi Anda; bisa langsung diimpor kembali ke BigOrange",
     "formatLrc": "LRC enhanced",
-    "formatLrcDesc": "Bisa dibaca pemutar lain; data khusus Folia seperti vokal latar dan segmentasi hilang",
+    "formatLrcDesc": "Bisa dibaca pemutar lain; data khusus BigOrange seperti vokal latar dan segmentasi hilang",
     "includeTranslationDesc": "Ditulis sebagai baris berikutnya dengan timestamp yang sama",
     "includeRomanizationDesc": "Ditulis setelah terjemahan",
     "resolveOnline": "Cari judul yang hilang secara online",
@@ -1019,7 +1019,7 @@ export default {
     "descriptionExportOnly": "Simpan lirik yang sedang tampil untuk lagu ini sebagai berkas.",
     "importHeading": "Impor",
     "importChoose": "Pilih berkas lirik",
-    "importFormats": "lrc, vtt, ttml, qrc, yrc, krc, txt, atau .fia hasil ekspor Folia",
+    "importFormats": "lrc, vtt, ttml, qrc, yrc, krc, txt, atau .fia hasil ekspor BigOrange",
     "exportHeading": "Ekspor lagu ini",
     "batchTitle": "Ekspor semua lirik di perangkat ini",
     "batchDesc": "Membuka ekspor massal di palet perintah"
@@ -1123,7 +1123,7 @@ export default {
       "install-too-many-files": "Paket mod berisi terlalu banyak berkas (maks 2000)",
       "install-main-missing": "Paket tidak memiliki berkas main yang dideklarasikan di mod.json",
       "install-client-missing": "Paket tidak memiliki berkas client yang dideklarasikan di mod.json",
-      "host-version-mismatch": "Mod ini memakai API internal dan tidak mendukung versi Folia ini",
+      "host-version-mismatch": "Mod ini memakai API internal dan tidak mendukung versi BigOrange ini",
       "enable-failed": "Gagal mengaktifkan mod: {{value}}",
       "mod-not-found": "Mod tidak ditemukan",
       "mod-content-unverifiable": "Berkas mod tidak dapat diverifikasi (terlalu banyak atau terlalu besar), jadi tidak akan diaktifkan",
@@ -1254,7 +1254,7 @@ export default {
     "statusFailed": "Gagal mengganti mode FM Pribadi"
   },
   "home": {
-    "welcome": "Selamat datang di Folia",
+    "welcome": "Selamat datang di BigOrange",
     "lattice": "Kolase antrean",
     "latticeLabel": "Kolase antrean",
     "latticeBack": "Tombol kiri atas kembali. {{mod}} + B juga menutup Lattice; Escape lebih dulu menutup poster atau fokus, lalu kembali pada tekanan berikutnya.",
@@ -1307,7 +1307,7 @@ export default {
     "qrExpired": "Kode QR kedaluwarsa. Muat ulang untuk mencoba lagi.",
     "qrCanceledOnDevice": "Login dibatalkan di ponsel Anda. Anda dapat mengambil kode QR baru.",
     "qrCanceledOnDeviceCooldown": "Login dibatalkan di ponsel Anda. Kode QR baru dapat diambil dalam {{seconds}} detik.",
-    "qrConnectionReset": "Koneksi diputus oleh NetEase. Coba lagi; jika masih gagal, ganti jaringan atau mulai ulang Folia.",
+    "qrConnectionReset": "Koneksi diputus oleh NetEase. Coba lagi; jika masih gagal, ganti jaringan atau mulai ulang BigOrange.",
     "qrRetryCooldown": "Terlalu banyak percobaan. Coba lagi dalam {{seconds}} detik.",
     "qrScanned": "Dipindai! Konfirmasi di ponsel Anda.",
     "loginSuccess": "Login Berhasil!",
@@ -1317,13 +1317,13 @@ export default {
     "restartingBackend": "Memulai ulang…",
     "retryQr": "Muat ulang kode QR",
     "qrTipsTitle": "Coba dulu",
-    "qrTipRestart": "Mulai ulang Folia, lalu pindai lagi.",
-    "qrTipSwitchNetwork": "Ganti ke jaringan lain (misalnya hotspot ponsel), lalu mulai ulang Folia.",
+    "qrTipRestart": "Mulai ulang BigOrange, lalu pindai lagi.",
+    "qrTipSwitchNetwork": "Ganti ke jaringan lain (misalnya hotspot ponsel), lalu mulai ulang BigOrange.",
     "qrDeviceLimit": "Akun QQ Music ini sudah mencapai batas perangkat yang masuk. Hapus perangkat lama terlebih dahulu.",
     "qrDeviceLimitTipsTitle": "Hapus perangkat yang masuk terlebih dahulu",
     "qrDeviceLimitTipRemove": "Buka aplikasi resmi QQ Music, masuk ke Pengaturan → Manajemen Perangkat (paling bawah di Pengaturan), lalu hapus perangkat yang tidak lagi dipakai.",
     "qrDeviceLimitTipQuota": "QQ Music membatasi jumlah perangkat yang masuk bersamaan: 1 untuk akun gratis, 3 untuk Green Diamond, 5 untuk Super VIP.",
-    "qrDeviceLimitTipRescan": "Setelah itu kembali ke Folia dan pindai ulang.",
+    "qrDeviceLimitTipRescan": "Setelah itu kembali ke BigOrange dan pindai ulang.",
     "qrDiagnosticsToggle": "Masih belum berhasil? Kirimkan info diagnostik kepada kami",
     "qrDiagnosticsToggleElsewhere": "Masih belum berhasil? Lihat info diagnostik",
     "qrDiagnosticsPrompt": "Salin info diagnostik dan kirimkan kepada kami agar penyebabnya bisa ditemukan.",
@@ -1333,20 +1333,20 @@ export default {
     "qrDiagnosticsCopied": "Tersalin",
     "qrDiagnosticsCopyFailed": "Gagal menyalin",
     "qrDiagnosticsReport": "Laporkan di GitHub",
-    "qrDiagnosticsPasteHint": "Tempel info diagnostik yang disalin Folia di sini, dan jelaskan singkat apa yang terjadi (jaringan, apakah proxy aktif, dll.).",
-    "qrReportWebDeployment": "Ini masalah pada deployment web ini: situs ini belum mengatur API platform musik, atau tidak bisa menjangkaunya. Berikan info diagnostik kepada pihak yang men-deploy situs ini; jika itu kamu, periksa VITE_*_API_BASE sesuai dokumentasi deployment lalu build ulang. Jika hanya ingin memakai Folia, unduh aplikasi desktop resmi.",
-    "qrReportUnofficialBuild": "Kamu tidak memakai build resmi Folia maupun cara self-hosting yang terdokumentasi (mungkin dikemas ulang atau dimodifikasi orang lain). Laporkan masalah kepada pihak yang menyediakannya. Build resmi ada di GitHub Releases.",
+    "qrDiagnosticsPasteHint": "Tempel info diagnostik yang disalin BigOrange di sini, dan jelaskan singkat apa yang terjadi (jaringan, apakah proxy aktif, dll.).",
+    "qrReportWebDeployment": "Ini masalah pada deployment web ini: situs ini belum mengatur API platform musik, atau tidak bisa menjangkaunya. Berikan info diagnostik kepada pihak yang men-deploy situs ini; jika itu kamu, periksa VITE_*_API_BASE sesuai dokumentasi deployment lalu build ulang. Jika hanya ingin memakai BigOrange, unduh aplikasi desktop resmi.",
+    "qrReportUnofficialBuild": "Kamu tidak memakai build resmi BigOrange maupun cara self-hosting yang terdokumentasi (mungkin dikemas ulang atau dimodifikasi orang lain). Laporkan masalah kepada pihak yang menyediakannya. Build resmi ada di GitHub Releases.",
     "qrSelfCheckTitle": "Pemeriksaan otomatis",
     "qrSelfCheckRunning": "Memeriksa jaringan dan layanan lokal…",
     "qrSelfCheckFailed": "Pemeriksaan otomatis tidak selesai: {{message}}",
-    "qrSelfCheckBackendDown": "Layanan lokal {{provider}} tidak berjalan dengan benar ({{detail}}). Mulai ulang Folia lalu coba lagi.",
+    "qrSelfCheckBackendDown": "Layanan lokal {{provider}} tidak berjalan dengan benar ({{detail}}). Mulai ulang BigOrange lalu coba lagi.",
     "qrSelfCheckRemoteUnreachable": "Tidak dapat menghubungi server API ({{detail}}). Periksa alamat deployment dan jaringan Anda.",
-    "qrSelfCheckCredentialStore": "Keyring sistem tidak tersedia ({{detail}}), sehingga sesi QQ Music tidak dapat disimpan terenkripsi. Pasang dan buka GNOME Keyring atau KWallet, lalu mulai ulang Folia.",
-    "qrSelfCheckDnsFailed": "Nama server {{provider}} tidak dapat di-resolve ({{detail}}). Periksa jaringan atau pengaturan DNS, atau ganti jaringan lalu mulai ulang Folia.",
-    "qrSelfCheckTlsReset": "Koneksi ke server {{provider}} terputus saat jabat tangan enkripsi ({{detail}}). Biasanya disebabkan proxy, akselerator, firewall, atau jaringan itu sendiri: ganti jaringan atau matikan proxy, lalu mulai ulang Folia dan coba lagi.",
-    "qrSelfCheckUnreachable": "Tidak dapat menghubungi server {{provider}} ({{detail}}). Periksa koneksi jaringan, atau ganti jaringan lalu mulai ulang Folia.",
+    "qrSelfCheckCredentialStore": "Keyring sistem tidak tersedia ({{detail}}), sehingga sesi QQ Music tidak dapat disimpan terenkripsi. Pasang dan buka GNOME Keyring atau KWallet, lalu mulai ulang BigOrange.",
+    "qrSelfCheckDnsFailed": "Nama server {{provider}} tidak dapat di-resolve ({{detail}}). Periksa jaringan atau pengaturan DNS, atau ganti jaringan lalu mulai ulang BigOrange.",
+    "qrSelfCheckTlsReset": "Koneksi ke server {{provider}} terputus saat jabat tangan enkripsi ({{detail}}). Biasanya disebabkan proxy, akselerator, firewall, atau jaringan itu sendiri: ganti jaringan atau matikan proxy, lalu mulai ulang BigOrange dan coba lagi.",
+    "qrSelfCheckUnreachable": "Tidak dapat menghubungi server {{provider}} ({{detail}}). Periksa koneksi jaringan, atau ganti jaringan lalu mulai ulang BigOrange.",
     "qrSelfCheckIpv6Failed": "Koneksi ke server {{provider}} lewat IPv6 gagal, sedangkan IPv4 berfungsi ({{detail}}). Matikan IPv6 atau Teredo di pengaturan sistem lalu coba lagi.",
-    "qrSelfCheckHttpsFailed": "Server {{provider}} dapat dihubungi, tetapi permintaannya gagal ({{detail}}). Ganti jaringan, mulai ulang Folia, lalu coba lagi.",
+    "qrSelfCheckHttpsFailed": "Server {{provider}} dapat dihubungi, tetapi permintaannya gagal ({{detail}}). Ganti jaringan, mulai ulang BigOrange, lalu coba lagi.",
     "qrSelfCheckClockSkew": "Jam sistem Anda selisih sekitar {{detail}} menit dari waktu server. Perbaiki waktu sistem lalu coba lagi.",
     "qrSelfCheckNetworkOk": "Pemeriksaan jaringan tidak menemukan masalah.",
     "qrSelfCheckProxyFakeIp": "Proxy mode TUN (fake-ip) sedang menangani koneksi. Jika masih gagal, biarkan domain {{provider}} terhubung langsung lalu coba lagi.",
@@ -1395,9 +1395,9 @@ export default {
     "gridFolderCreatePlaylistDescription": "Buat playlist dengan {{count}} trek lokal terpilih.",
     "gridFolderPlaylistNamePlaceholder": "Nama playlist",
     "gridFolderRemoveSelectedTitle": "Hapus trek terpilih?",
-    "gridFolderRemoveSelectedDescription": "Ini akan menghapus {{count}} trek dari Folia dan playlist-nya. File di disk tidak akan dihapus.",
+    "gridFolderRemoveSelectedDescription": "Ini akan menghapus {{count}} trek dari BigOrange dan playlist-nya. File di disk tidak akan dihapus.",
     "gridFolderRemoveRootTitle": "Hapus root yang diimpor?",
-    "gridFolderRemoveRootDescription": "Hapus {{path}} dan semua trek-nya dari Folia? File di disk tidak akan dihapus.",
+    "gridFolderRemoveRootDescription": "Hapus {{path}} dan semua trek-nya dari BigOrange? File di disk tidak akan dihapus.",
     "login": "Login",
     "welcomeBack": "Selamat Datang Kembali",
     "guestTitle": "Coba cari beberapa lagu dulu",
@@ -1473,17 +1473,11 @@ export default {
     "openCommandPaletteQueue": "Buka antrean di palette perintah",
     "browserFullscreen": "Layar penuh",
     "madeBy": "Proyek:",
-    "joinCommunity": "Gabung komunitas",
-    "communityDiscord": "Server Discord",
-    "communityDiscordHint": "Buka tautan undangan",
-    "communityQq": "Grup bantuan mandiri QQ",
-    "communityQqHint": "{{number}} · klik untuk menyalin",
-    "qqGroupNumberCopied": "Nomor grup disalin",
     "releaseNotes": "Yang baru",
     "releaseNotesDescription": "Lihat perubahan pada versi ini",
     "majorUpdateLabel": "{{codename}} Update · Pembaruan besar",
     "ponder": "Ponder Bantuan",
-    "ponderDescription": "Pelajari kontrol dasar dan cara kerja Folia",
+    "ponderDescription": "Pelajari kontrol dasar dan cara kerja BigOrange",
     "version": "versi"
   },
   "lyricProvider": {
@@ -1610,12 +1604,12 @@ export default {
     "replayGainSettings": "Penguatan audio",
     "replayGainMode": "Mode ReplayGain (Penyeimbang Kenyaringan)",
     "replayGainModeDesc": "Normalisasi kenyaringan pemutaran menggunakan metadata ReplayGain trek atau album bila tersedia.",
-    "transitionSettings": "Transisi Folia",
+    "transitionSettings": "Transisi BigOrange",
     "transitionEnable": "Campur",
     "transitionMode": "Mode transisi",
-    "transitionCrossfade": "Folia Crossfade",
+    "transitionCrossfade": "BigOrange Crossfade",
     "transitionCrossfadeDesc": "Satu fade out ke satu fade in.",
-    "transitionAutomix": "Folia Automix",
+    "transitionAutomix": "BigOrange Automix",
     "transitionAutomixDesc": "Menganalisis kedua trek dan mencampurnya secara otomatis.",
     "transitionActive": "Aktif",
     "transitionFellBack": "Memakai crossfade",
@@ -1663,7 +1657,7 @@ export default {
     "modelManualCode": "Kode",
     "modelManualCodeCopied": "Tersalin",
     "modelReminderTitle": "Model analisis belum diunduh",
-    "modelReminderDesc": "Mesin transisi Folia penuh memerlukan model jaringan sarafnya, sekitar 249MB seluruhnya.",
+    "modelReminderDesc": "Mesin transisi BigOrange penuh memerlukan model jaringan sarafnya, sekitar 249MB seluruhnya.",
     "modelReminderDownload": "Unduh",
     "modelReminderLater": "Mengerti",
     "modelReminderNever": "Jangan ingatkan lagi",
@@ -1696,7 +1690,7 @@ export default {
     "desktopSettingsPanelDesc": "Perilaku jendela desktop, pemeriksaan pembaruan, pembaruan otomatis, dan konfigurasi AI.",
     "languageSettings": "Bahasa",
     "appLanguage": "Bahasa antarmuka",
-    "appLanguageDesc": "Atur manual bahasa antarmuka Folia, atau kembali mengikuti sistem.",
+    "appLanguageDesc": "Atur manual bahasa antarmuka BigOrange, atau kembali mengikuti sistem.",
     "appLanguageSystem": "Ikuti sistem",
     "appLanguageZhCN": "Tionghoa Sederhana",
     "appLanguageEnUS": "Inggris",
@@ -1866,7 +1860,7 @@ export default {
     "memoryByProcess": "Per proses",
     "memorySeriesUnavailable": "Tidak dilaporkan di platform ini",
     "reduceMotionSection": "Kurangi gerakan",
-    "reduceMotionSectionDesc": "Folia memutar animasi penuh secara bawaan dan tidak lagi mengikuti pengaturan animasi sistem dengan sendirinya. Turunkan permukaan mana pun yang ingin Anda buat lebih tenang.",
+    "reduceMotionSectionDesc": "BigOrange memutar animasi penuh secara bawaan dan tidak lagi mengikuti pengaturan animasi sistem dengan sendirinya. Turunkan permukaan mana pun yang ingin Anda buat lebih tenang.",
     "reduceMotionFollowSystem": "Ikuti pengaturan sistem",
     "reduceMotionFollowSystemDesc": "Biarkan pengaturan animasi sistem operasi mengurangi gerakan di mana saja, seperti perilaku versi sebelumnya.",
     "reduceMotionForcedBySystem": "Saat ini dikurangi oleh pengaturan sistem di atas.",
@@ -1948,11 +1942,11 @@ export default {
     "hidePlayerTranslationSubtitleDesc": "Tidak memengaruhi mode visualizer yang merender subtitle mandiri.",
     "hidePlayerRightPanelButton": "Sembunyikan tombol sisi kanan pemutar",
     "transparentPlayerBackground": "Latar belakang pemutar transparan",
-    "transparentPlayerBackgroundDesc": "Hanya berlaku di halaman pemutar. Saat diaktifkan, Folia beralih ke mode jendela transparan untuk sumber browser OBS atau overlay chroma key.",
+    "transparentPlayerBackgroundDesc": "Hanya berlaku di halaman pemutar. Saat diaktifkan, BigOrange beralih ke mode jendela transparan untuk sumber browser OBS atau overlay chroma key.",
     "enablePlayerPageNativeBlur": "Aktifkan Blur Asli Halaman Pemutar",
     "enablePlayerPageNativeBlurDesc": "Saat diaktifkan, latar belakang tema, gambar, Monet, dan lainnya disembunyikan dan diganti dengan blur asli sistem. Hanya berlaku dalam mode non-transparan di desktop; efek asli menggunakan lebih banyak sumber daya dan mungkin lambat saat memindahkan jendela.",
     "nativeBlurConfirmTitle": "Efek kaca sistem",
-    "nativeBlurConfirmDesc": "Ini mengubah jendela menjadi latar belakang tembus pandang menggunakan efek kaca sistem. Latar belakang Folia tidak akan ditampilkan.",
+    "nativeBlurConfirmDesc": "Ini mengubah jendela menjadi latar belakang tembus pandang menggunakan efek kaca sistem. Latar belakang BigOrange tidak akan ditampilkan.",
     "nativeBlurConfirmAction": "Saya mengerti",
     "nativeBlurBackgroundNotice": "Blur glassmorphism asli diaktifkan; pengaturan latar belakang animasi lirik saat ini ditimpa.",
     "autoHidePlayerChrome": "Sembunyikan otomatis kontrol pemutar",
@@ -2007,9 +2001,9 @@ export default {
     "openPlayerOnLaunchDesc": "Membuka tampilan pemutaran saat aplikasi dimulai. Mengikuti \"Tampilan yang dibuka Putar\": jika Lattice dipilih, peluncuran membuka kolase antrean.",
     "wallpaperMode": "Mode wallpaper",
     "wallpaperModeDesc": "Turunkan jendela aplikasi ke dasar desktop dan pertahankan selalu terlihat sebagai wallpaper lirik. Input keyboard tidak tersedia.",
-    "wallpaperModeMacPermissionHint": "Mode wallpaper Mac memerlukan Input Monitoring: aktifkan Folia di Pengaturan Sistem → Privasi & Keamanan → Input Monitoring, lalu mulai ulang aplikasi.",
+    "wallpaperModeMacPermissionHint": "Mode wallpaper Mac memerlukan Input Monitoring: aktifkan BigOrange di Pengaturan Sistem → Privasi & Keamanan → Input Monitoring, lalu mulai ulang aplikasi.",
     "wallpaperEnterConfirmTitle": "Masuk ke mode wallpaper?",
-    "wallpaperEnterConfirmDesc": "Jendela akan turun ke dasar desktop dan tetap di sana sebagai wallpaper lirik. Jendela tidak dapat lagi ditutup, diminimalkan, atau dipindahkan, dan keyboard tidak dapat menjangkau aplikasi.\n\nUntuk keluar, buka menu Folia di system tray (bilah menu di macOS) lalu klik \"Mode Wallpaper\" lagi.",
+    "wallpaperEnterConfirmDesc": "Jendela akan turun ke dasar desktop dan tetap di sana sebagai wallpaper lirik. Jendela tidak dapat lagi ditutup, diminimalkan, atau dipindahkan, dan keyboard tidak dapat menjangkau aplikasi.\n\nUntuk keluar, buka menu BigOrange di system tray (bilah menu di macOS) lalu klik \"Mode Wallpaper\" lagi.",
     "wallpaperEnterConfirmAction": "Masuk ke mode wallpaper",
     "wallpaperMacAutohideDock": "Sembunyikan Dock otomatis",
     "wallpaperMacAutohideDockDesc": "Dock disembunyikan otomatis selama mode wallpaper",
@@ -2061,7 +2055,7 @@ export default {
     "stageNotRunning": "Silakan jalankan layanan now-playing di mesin ini dan pastikan pemutar sedang memutar.",
     "discordRichPresence": "Discord Rich Presence",
     "enableDiscordRichPresence": "Aktifkan status pemutaran Discord",
-    "discordRichPresenceDesc": "Tampilkan trek Folia saat ini di Discord desktop. Folia terhubung dengan identitas aplikasi bawaannya.",
+    "discordRichPresenceDesc": "Tampilkan trek BigOrange saat ini di Discord desktop. BigOrange terhubung dengan identitas aplikasi bawaannya.",
     "discordPresenceDisabled": "Dinonaktifkan",
     "discordPresenceConnected": "Terhubung",
     "discordPresenceDisconnected": "Terputus",
@@ -2074,7 +2068,7 @@ export default {
     "obsBrowserSourceGuideStep1": "Di OBS, tambahkan sumber Browser pada bagian Sources.",
     "obsBrowserSourceGuideStep2": "Tempel URL OBS di atas ke kolom URL.",
     "obsBrowserSourceGuideStep3": "Atur ukuran ke 1920x1080 (1080x1920 untuk potret). Ukuran lebih besar seperti 3840x2160 memperbesar tata letak secara proporsional agar teks lebih tajam.",
-    "obsBrowserSourceGuideStep4": "Sumber browser hanya merender gambar dan tidak memutar suara. Untuk merekam audio, gunakan Desktop Audio atau Application Audio Capture di OBS untuk Folia.",
+    "obsBrowserSourceGuideStep4": "Sumber browser hanya merender gambar dan tidak memutar suara. Untuk merekam audio, gunakan Desktop Audio atau Application Audio Capture di OBS untuk BigOrange.",
     "obsBrowserSourceGuideStep5": "Pengaturan visual seperti tema, font, dan animasi disinkronkan ke OBS. Latar di OBS menjadi transparan jika jendela utama memakai latar pemutar transparan atau latar blur native pada halaman pemutar.",
     "obsBrowserSourceGuideStep6": "Jumlah klien di atas 0 berarti OBS sudah terhubung. Membuat ulang token membatalkan URL lama, jadi perbarui URL di OBS.",
     "obsBrowserSourceAddress": "URL OBS",
@@ -2565,7 +2559,7 @@ export default {
     "monetGroupFiltersPostProcessing": "Filter & Pasca-pemrosesan",
     "monetGroupColorTintWash": "Pewarnaan & Cuci Warna",
     "importExportTitle": "Cadangkan & Impor",
-    "importExportDesc": "Impor atau ekspor tema kustom dan pengaturan visual menggunakan JSON standar atau shortcode khusus Folia.",
+    "importExportDesc": "Impor atau ekspor tema kustom dan pengaturan visual menggunakan JSON standar atau shortcode khusus BigOrange.",
     "importPlaceholder": "Tempel kode konfigurasi, JSON, atau URL OBS di sini...",
     "importBtn": "Impor Konfigurasi",
     "exportBtn": "Salin Konfigurasi Saat Ini",
@@ -2683,8 +2677,8 @@ export default {
     "linuxManualUpdateNotice": "Linux tidak mendukung pembaruan otomatis. Unduh paket deb, rpm, atau tar.gz lengkap untuk memperbarui secara manual; hanya instalasi AUR stabil yang boleh memperbarui folia-major-bin melalui pengelola paket.",
     "manualUpdateNotice": "Catatan: Pembaruan otomatis tidak didukung di platform ini. Silakan unduh paket secara manual.",
     "versionCopiedHint": "Klik untuk menyalin info versi",
-    "unofficialBuildNotice": "Build tidak resmi: versi ini tidak dibangun oleh CI repositori Folia maupun di-deploy lewat cara self-hosting yang terdokumentasi (Docker, Vercel, Cloudflare), dan mungkin telah dimodifikasi atau tidak memiliki layanan backend. Hubungi pihak yang menyediakannya terlebih dahulu; build resmi ada di GitHub Releases.",
-    "selfHostedBuildNotice": "Self-hosted: dibangun dan di-hosting oleh pihak yang men-deploy, termasuk layanan backend platform musik. Hubungi pihak tersebut terlebih dahulu, dan laporkan di GitHub jika memang masalah Folia.",
+    "unofficialBuildNotice": "Build tidak resmi: versi ini tidak dibangun oleh CI repositori BigOrange maupun di-deploy lewat cara self-hosting yang terdokumentasi (Docker, Vercel, Cloudflare), dan mungkin telah dimodifikasi atau tidak memiliki layanan backend. Hubungi pihak yang menyediakannya terlebih dahulu; build resmi ada di GitHub Releases.",
+    "selfHostedBuildNotice": "Self-hosted: dibangun dan di-hosting oleh pihak yang men-deploy, termasuk layanan backend platform musik. Hubungi pihak tersebut terlebih dahulu, dan laporkan di GitHub jika memang masalah BigOrange.",
     "versionCopiedToast": "Disalin",
     "stageConnected": "Stage terhubung",
     "nowPlayingConnectedStatus": "Now Playing terhubung",
@@ -2746,8 +2740,8 @@ export default {
     "v0_7_1": {
       "intro": "Selamat datang di 0.7.1, Pleiades Update—rilis besar untuk pemutaran, ekstensi, integrasi desktop, dan visual.",
       "pleiadesAutomix": {
-        "title": "Transisi Cerdas Folia Automix",
-        "description": "Folia menganalisis ketukan, tempo, nada dasar, kelantangan, dan bagian lagu untuk memilih beat cut, pertukaran bass, tail ride, atau blend. Pengguna desktop dapat mengunduh model opsional untuk beat grid yang presisi, perpindahan stem, dan mode Performance."
+        "title": "Transisi Cerdas BigOrange Automix",
+        "description": "BigOrange menganalisis ketukan, tempo, nada dasar, kelantangan, dan bagian lagu untuk memilih beat cut, pertukaran bass, tail ride, atau blend. Pengguna desktop dapat mengunduh model opsional untuk beat grid yang presisi, perpindahan stem, dan mode Performance."
       },
       "modsPlatform": {
         "title": "Sistem Mod Bergaya Forge (Eksperimental)",
@@ -2755,7 +2749,7 @@ export default {
       },
       "windowsWallpaper": {
         "title": "Mode Wallpaper Desktop Windows",
-        "description": "Folia kini dapat berada di bawah ikon desktop Windows sebagai wallpaper lirik permanen, dengan kontrol tray dan palet perintah, penerusan tetikus, serta pemulihan kegagalan otomatis. Input papan ketik tidak tersedia dalam mode ini."
+        "description": "BigOrange kini dapat berada di bawah ikon desktop Windows sebagai wallpaper lirik permanen, dengan kontrol tray dan palet perintah, penerusan tetikus, serta pemulihan kegagalan otomatis. Input papan ketik tidak tersedia dalam mode ini."
       },
       "sleepTimer": {
         "title": "Timer Tidur yang Tahan Restart",
@@ -2824,7 +2818,7 @@ export default {
       },
       "macWallpaperMode": {
         "title": "Mode Wallpaper di macOS",
-        "description": "Mac kini dapat menenggelamkan Folia di bawah ikon desktop sebagai wallpaper lirik, beralih langsung tanpa memulai ulang aplikasi, dengan opsi menyembunyikan Dock secara otomatis selama mode aktif. Penerusan mouse membutuhkan Folia dicentang di Pengaturan Sistem → Privasi & Keamanan → Pemantauan Input; papan ketik tetap tidak tersedia dalam mode ini."
+        "description": "Mac kini dapat menenggelamkan BigOrange di bawah ikon desktop sebagai wallpaper lirik, beralih langsung tanpa memulai ulang aplikasi, dengan opsi menyembunyikan Dock secara otomatis selama mode aktif. Penerusan mouse membutuhkan BigOrange dicentang di Pengaturan Sistem → Privasi & Keamanan → Pemantauan Input; papan ketik tetap tidak tersedia dalam mode ini."
       },
       "transcodeFallback": {
         "title": "Audio yang Tak Terdekode Tetap Diputar",
@@ -2832,7 +2826,7 @@ export default {
       },
       "localFolderAutoScan": {
         "title": "Folder Impor Memindai Ulang Sendiri",
-        "description": "Setelah diaktifkan, Folia memantau folder lokal yang sudah diimpor dan menjalankan pemindaian bertahap setiap kali berkas ditambah, diubah, atau dihapus — tanpa impor ulang manual. Fitur ini mati secara bawaan, dan pengaturan penyimpanan menampilkan status pemantauan tiap folder; sebagian lingkungan hanya bisa memantau lapisan teratas folder."
+        "description": "Setelah diaktifkan, BigOrange memantau folder lokal yang sudah diimpor dan menjalankan pemindaian bertahap setiap kali berkas ditambah, diubah, atau dihapus — tanpa impor ulang manual. Fitur ini mati secara bawaan, dan pengaturan penyimpanan menampilkan status pemantauan tiap folder; sebagian lingkungan hanya bisa memantau lapisan teratas folder."
       },
       "lyricFilterPersistence": {
         "title": "Pola Filter Lirik Tidak Hilang",
@@ -2847,7 +2841,7 @@ export default {
       "intro": "Versi 0.7.5 memberi Anda kendali lebih besar atas tampilan tujuan pemutaran, menghadirkan tindakan kisi dan pengaturan ke panel perintah, serta meningkatkan keandalan desktop.",
       "playbackEntryChoice": {
         "title": "Pilih Tampilan Tujuan Pemutaran",
-        "description": "Pilih apakah tombol Putar membuka pemutar visualizer atau kolase antrean Lattice. Folia menanyakannya sekali setelah catatan rilis, dan pilihan tetap dapat diubah di pengaturan Antarmuka. Personal FM tetap membuka pemutar standar karena tidak dapat berjalan di Lattice."
+        "description": "Pilih apakah tombol Putar membuka pemutar visualizer atau kolase antrean Lattice. BigOrange menanyakannya sekali setelah catatan rilis, dan pilihan tetap dapat diubah di pengaturan Antarmuka. Personal FM tetap membuka pemutar standar karena tidak dapat berjalan di Lattice."
       },
       "commandPaletteGridActions": {
         "title": "Tindakan Kisi di Panel Perintah",
@@ -2863,7 +2857,7 @@ export default {
       },
       "desktopReliability": {
         "title": "Pembaruan dan Laporan Crash yang Lebih Jelas",
-        "description": "Versi macOS dan Linux kini dapat memeriksa rilis baru lalu membuka installer lengkap atau AUR, sedangkan Windows tetap mendukung pembaruan otomatis. Saat Folia crash, log diagnostik disimpan dan foldernya dapat dibuka; uninstaller Windows juga dapat menghapus data pengguna jika diminta."
+        "description": "Versi macOS dan Linux kini dapat memeriksa rilis baru lalu membuka installer lengkap atau AUR, sedangkan Windows tetap mendukung pembaruan otomatis. Saat BigOrange crash, log diagnostik disimpan dan foldernya dapat dibuka; uninstaller Windows juga dapat menghapus data pengguna jika diminta."
       },
       "visualizerRefinements": {
         "title": "Visualizer yang Lebih Ringan dan Jelas",
@@ -2901,7 +2895,7 @@ export default {
       },
       "motionControls": {
         "title": "Kontrol Gerakan per Bagian",
-        "description": "Folia kini memutar animasi penuh secara bawaan, alih-alih mengubahnya menjadi lompatan instan saat animasi sistem dimatikan. Bagian Kurangi gerakan yang baru di pengaturan Lab memungkinkan Anda meredam lattice antrean, transisi automix, transisi pembukaan koleksi, pergerakan latar Monet, gerakan mikro antarmuka, dan gulir halus di Pengaturan secara terpisah. Aktifkan Ikuti pengaturan sistem jika Anda lebih suka perilaku sebelumnya."
+        "description": "BigOrange kini memutar animasi penuh secara bawaan, alih-alih mengubahnya menjadi lompatan instan saat animasi sistem dimatikan. Bagian Kurangi gerakan yang baru di pengaturan Lab memungkinkan Anda meredam lattice antrean, transisi automix, transisi pembukaan koleksi, pergerakan latar Monet, gerakan mikro antarmuka, dan gulir halus di Pengaturan secara terpisah. Aktifkan Ikuti pengaturan sistem jika Anda lebih suka perilaku sebelumnya."
       },
       "wallpaperMultiMonitor": {
         "title": "Mode Wallpaper di Monitor Mana Pun",
@@ -2913,7 +2907,7 @@ export default {
       }
     },
     "v0_7_19": {
-      "intro": "0.7.19 mengubah halaman artis dan album di Bravais menjadi poster bergaya Tempera. Saat lagu online gagal diputar, Folia kini menyebutkan alasan sebenarnya, tidak lagi selalu menyebutnya dihapus; visualizer per kata seperti Tempera memotong lirik Tionghoa dan Jepang dengan lebih wajar; dan versi web kembali bisa dibuka tanpa jaringan.",
+      "intro": "0.7.19 mengubah halaman artis dan album di Bravais menjadi poster bergaya Tempera. Saat lagu online gagal diputar, BigOrange kini menyebutkan alasan sebenarnya, tidak lagi selalu menyebutnya dihapus; visualizer per kata seperti Tempera memotong lirik Tionghoa dan Jepang dengan lebih wajar; dan versi web kembali bisa dibuka tanpa jaringan.",
       "artistPoster": {
         "title": "Halaman Artis Menjadi Poster",
         "description": "Strip info lengkap di halaman artis Bravais kini digambar sebagai poster bergaya Tempera yang tersemat di kiri dinding. Tata letaknya tetap untuk tiap artis, warnanya diambil dari tiga album terpopuler artis tersebut, dan nama menyesuaikan lebar tanpa meluap. Dinding album di kanan ikut miring, dan Anda tetap bisa menyeret dan menggulir saat dinding miring."
@@ -2924,7 +2918,7 @@ export default {
       },
       "playbackFailure": {
         "title": "Kegagalan Putar Kini Ada Alasannya",
-        "description": "Lagu online yang gagal diputar tidak lagi selalu ditandai \"lagu dihapus\". Folia kini membedakan lagu yang dihapus, jaringan terputus atau waktu habis, gangguan layanan atau batas permintaan, lagu yang memerlukan login, keanggotaan, atau pembelian, serta pembatasan wilayah. Hanya lagu yang benar-benar dihapus yang menghitung mundur ke lagu berikutnya dan mencari versi lain; saat jaringan terputus, pemutaran berhenti dan antrean tetap utuh sehingga Anda bisa mencoba lagi atau melewati; kasus login, keanggotaan, dan pembelian hanya ditampilkan tanpa dicoba berulang kali. Berlaku untuk NetEase, QQ Music, KuGou, dan Bodian."
+        "description": "Lagu online yang gagal diputar tidak lagi selalu ditandai \"lagu dihapus\". BigOrange kini membedakan lagu yang dihapus, jaringan terputus atau waktu habis, gangguan layanan atau batas permintaan, lagu yang memerlukan login, keanggotaan, atau pembelian, serta pembatasan wilayah. Hanya lagu yang benar-benar dihapus yang menghitung mundur ke lagu berikutnya dan mencari versi lain; saat jaringan terputus, pemutaran berhenti dan antrean tetap utuh sehingga Anda bisa mencoba lagi atau melewati; kasus login, keanggotaan, dan pembelian hanya ditampilkan tanpa dicoba berulang kali. Berlaku untuk NetEase, QQ Music, KuGou, dan Bodian."
       },
       "lyricSegmenter": {
         "title": "Pemotongan Kata Tionghoa dan Jepang Lebih Wajar",
@@ -2967,14 +2961,14 @@ export default {
       }
     },
     "v0_7_17": {
-      "intro": "Selamat datang di 0.7.17, Spica Update—sebuah rilis besar. Pustaka mendapat antarmuka baru bernama Bravais: dinding poster yang bisa digeser. Setelah pembaruan, Folia menanyakan sekali apakah Anda memakai Bravais atau grid klasik; tampilan yang dibuka Putar mendapat opsi \"Tetap di sini\", dan lagu lokal kini bisa ditandai sebagai instrumental.",
+      "intro": "Selamat datang di 0.7.17, Spica Update—sebuah rilis besar. Pustaka mendapat antarmuka baru bernama Bravais: dinding poster yang bisa digeser. Setelah pembaruan, BigOrange menanyakan sekali apakah Anda memakai Bravais atau grid klasik; tampilan yang dibuka Putar mendapat opsi \"Tetap di sini\", dan lagu lokal kini bisa ditandai sebagai instrumental.",
       "bravais": {
         "title": "Bravais, Antarmuka Pustaka Baru",
         "description": "Pustaka menjadi dinding poster: saat membuka playlist, album, atau artis, poster di dinding berbalik menampilkan isi baru, sementara info halaman dan tindakannya ada di sebuah strip yang terbuka di dinding. Geser untuk menjelajah, pakai tombol panah, atau langsung ketik untuk menyaring halaman saat ini. Grid klasik tetap tersedia di Opsi → Antarmuka → Antarmuka pustaka."
       },
       "chooseLibrary": {
         "title": "Pilih Antarmuka, Tetap di Tempat",
-        "description": "Setelah pembaruan, Folia menanyakan sekali apakah Anda memakai Bravais atau grid klasik (instalasi baru juga ditanya tampilan mana yang dibuka Putar). Opsi baru \"Tetap di sini\" membuat Anda tetap di tempat saat menekan Putar, dan kartu yang sedang diputar berubah menjadi jeda / lanjutkan."
+        "description": "Setelah pembaruan, BigOrange menanyakan sekali apakah Anda memakai Bravais atau grid klasik (instalasi baru juga ditanya tampilan mana yang dibuka Putar). Opsi baru \"Tetap di sini\" membuat Anda tetap di tempat saat menekan Putar, dan kartu yang sedang diputar berubah menjadi jeda / lanjutkan."
       },
       "wallLook": {
         "title": "Dinding yang Bisa Diatur",
@@ -2982,7 +2976,7 @@ export default {
       },
       "pureMusic": {
         "title": "Tandai Lagu Lokal sebagai Instrumental",
-        "description": "Di jendela pencocokan lirik (Cocokkan Online di tab lokal panel pemutar, atau Kecocokan Online Manual di pustaka), pilih \"Tandai sebagai instrumental\" dan Folia berhenti mencocokkan lirik lagu itu secara otomatis; pilih lagi untuk membatalkan. Palet perintah juga bisa mengubahnya."
+        "description": "Di jendela pencocokan lirik (Cocokkan Online di tab lokal panel pemutar, atau Kecocokan Online Manual di pustaka), pilih \"Tandai sebagai instrumental\" dan BigOrange berhenti mencocokkan lirik lagu itu secara otomatis; pilih lagi untuk membatalkan. Palet perintah juga bisa mengubahnya."
       },
       "navidromePreset": {
         "title": "Akun Navidrome Bawaan untuk Docker",
@@ -3016,7 +3010,7 @@ export default {
       "intro": "0.7.15 meningkatkan penanganan teks Tionghoa pada lirik lokal dan tag MP3, membuat login QR lebih stabil dengan bantuan yang lebih jelas saat gagal, mendukung pintasan dari input simulasi, serta memperbaiki riwayat kembali yang terus memanjang antara halaman artis dan album dan transkode di Apple Silicon.",
       "localLyrics": {
         "title": "File Lirik Lokal Lebih Kompatibel",
-        "description": "Lirik KRC kini didekripsi, encoding GBK dikenali, dan akhir baris diseragamkan, sehingga lirik dari alat lama tidak lagi terbaca kosong. Baris kosong tidak lagi mendorong lirik asli ke jalur terjemahan. Jika LRC dwibahasa menaruh terjemahan pada waktu yang salah, Folia memberi tahu saat diputar dan menjelaskan cara memperbaikinya di tab Lokal pada panel pemutaran."
+        "description": "Lirik KRC kini didekripsi, encoding GBK dikenali, dan akhir baris diseragamkan, sehingga lirik dari alat lama tidak lagi terbaca kosong. Baris kosong tidak lagi mendorong lirik asli ke jalur terjemahan. Jika LRC dwibahasa menaruh terjemahan pada waktu yang salah, BigOrange memberi tahu saat diputar dan menjelaskan cara memperbaikinya di tab Lokal pada panel pemutaran."
       },
       "mp3Tags": {
         "title": "Tag MP3 Tionghoa Tidak Lagi Rusak",
@@ -3024,7 +3018,7 @@ export default {
       },
       "qrLogin": {
         "title": "Login QR Lebih Stabil dan Bantuan Lebih Jelas",
-        "description": "Login QR NetEase mencoba lagi dengan identitas baru saat koneksi terputus di tengah login dan menampilkan penyebab sebenarnya saat gagal. Setelah gagal, langkah sederhana seperti memulai ulang Folia atau berganti jaringan muncul di samping kode QR, dengan diagnostik di bawahnya. Diagnostik QQ Music kembali tersedia, dan setelah Anda membatalkan di ponsel, coba lagi menunggu masa jeda backend selesai."
+        "description": "Login QR NetEase mencoba lagi dengan identitas baru saat koneksi terputus di tengah login dan menampilkan penyebab sebenarnya saat gagal. Setelah gagal, langkah sederhana seperti memulai ulang BigOrange atau berganti jaringan muncul di samping kode QR, dengan diagnostik di bawahnya. Diagnostik QQ Music kembali tersedia, dan setelah Anda membatalkan di ponsel, coba lagi menunggu masa jeda backend selesai."
       },
       "injectedShortcuts": {
         "title": "Pintasan Mendukung Input Simulasi",
@@ -3268,7 +3262,7 @@ export default {
     "exportPlaylist": "Ekspor M3U8",
     "playlistImportSuccess": "Diimpor “{{name}}” dengan {{count}} trek.",
     "playlistImportPartial": "Diimpor {{count}} trek ke “{{name}}”; {{skipped}} path tidak ditemukan atau ambigu.",
-    "playlistImportNoMatches": "Tidak ada path playlist yang cocok dengan lagu lokal yang saat ini diimpor ke Folia.",
+    "playlistImportNoMatches": "Tidak ada path playlist yang cocok dengan lagu lokal yang saat ini diimpor ke BigOrange.",
     "playlistImportFailed": "Impor playlist gagal. Pastikan file adalah playlist M3U atau M3U8 yang valid.",
     "playlistExportSuccess": "Diekspor “{{name}}”.",
     "entityInfo": "Info {{kind}}",
@@ -3404,8 +3398,8 @@ export default {
     "cloudDriveDesc": "NetEase Cloud Music Drive"
   },
   "unifiedPanel": {
-    "nowPlayingStageDescription": "Now Playing dikendalikan oleh pemutar eksternal. Folia hanya bertanggung jawab menampilkan lirik dan efek visual.",
-    "stageLocalInputDescription": "Stage dalam mode input tunggal lokal. Perangkat eksternal dapat mengirim lirik atau media, tetapi pemutaran dan tampilan dikendalikan oleh Folia itu sendiri."
+    "nowPlayingStageDescription": "Now Playing dikendalikan oleh pemutar eksternal. BigOrange hanya bertanggung jawab menampilkan lirik dan efek visual.",
+    "stageLocalInputDescription": "Stage dalam mode input tunggal lokal. Perangkat eksternal dapat mengirim lirik atau media, tetapi pemutaran dan tampilan dikendalikan oleh BigOrange itu sendiri."
   },
   "libraryBravaisArtist": {
     "playTopSongs": "Putar lagu populer",
@@ -3439,8 +3433,8 @@ export default {
     "noTopSongsToQueue": "Tidak ada lagu teratas yang bisa diantrekan",
   },
   "obs": {
-    "connecting": "Menghubungkan ke Folia",
-    "waitingForPlayback": "Menunggu pemutaran Folia"
+    "connecting": "Menghubungkan ke BigOrange",
+    "waitingForPlayback": "Menunggu pemutaran BigOrange"
   },
   "queue": {
     "remove": "Hapus dari antrean",
@@ -3537,7 +3531,7 @@ export default {
     }
   },
   "userGuide": {
-    "title": "Selamat datang di Folia",
+    "title": "Selamat datang di BigOrange",
     "subtitle": "Berikut beberapa tips untuk membantu Anda menavigasi.",
     "commandPalette": {
       "title": "Palette Perintah",
@@ -3559,15 +3553,15 @@ export default {
     },
     "theme": {
       "title": "Tema warna",
-      "desc": "Sesuaikan Folia dengan tema warna terang dan gelap Anda sendiri, atau hasilkan tema AI dari lagu saat ini.",
+      "desc": "Sesuaikan BigOrange dengan tema warna terang dan gelap Anda sendiri, atau hasilkan tema AI dari lagu saat ini.",
       "customDesc": "Buka Theme Park dari pengaturan visual atau palette perintah untuk mengedit dan menyimpan warna terang dan gelap kustom.",
-      "aiDesc": "Saat pengaturan tema AI dikonfigurasi, Folia dapat membuat warna yang peka lagu dan secara opsional menerapkan otomatis tema lagu yang di-cache."
+      "aiDesc": "Saat pengaturan tema AI dikonfigurasi, BigOrange dapat membuat warna yang peka lagu dan secara opsional menerapkan otomatis tema lagu yang di-cache."
     },
     "clickThrough": {
       "title": "Pemulihan klik-tembus",
       "desc": "Saat klik-tembus diaktifkan, Anda dapat menggunakan ikon tray sistem untuk mengalihkannya jika kontrol jendela disembunyikan atau sulit dijangkau.",
       "trayTitle": "Gunakan ikon tray",
-      "trayDesc": "Klik kanan ikon tray sistem Folia, lalu pilih opsi klik-tembus untuk mengaktifkan atau menonaktifkannya.",
+      "trayDesc": "Klik kanan ikon tray sistem BigOrange, lalu pilih opsi klik-tembus untuk mengaktifkan atau menonaktifkannya.",
       "lockTitle": "Gunakan tombol kunci",
       "lockDesc": "Anda juga dapat bergerak ke hotspot titlebar atas untuk mengungkap tombol kunci, lalu klik untuk menonaktifkan klik-tembus."
     },
@@ -3586,7 +3580,7 @@ export default {
     "commandsDesc": "Anda dapat memicu perintah dengan mengetik bahasa Inggris, karakter Tionghoa, atau Pinyin.",
     "ready": {
       "title": "Siap Digunakan",
-      "subtitle": "Nikmati perjalanan musik Anda bersama Folia."
+      "subtitle": "Nikmati perjalanan musik Anda bersama BigOrange."
     }
   },
   "remote": {
@@ -3656,21 +3650,21 @@ export default {
   "aiHelp": {
     "openButton": "Butuh bantuan?",
     "title": "Butuh bantuan?",
-    "description": "Periksa dokumentasi Folia terlebih dahulu. Jika masalah tetap belum terselesaikan, salin prompt di bawah dan tanyakan ke model AI untuk bantuan.",
-    "docsTitle": "Baca dokumentasi Folia",
+    "description": "Periksa dokumentasi BigOrange terlebih dahulu. Jika masalah tetap belum terselesaikan, salin prompt di bawah dan tanyakan ke model AI untuk bantuan.",
+    "docsTitle": "Baca dokumentasi BigOrange",
     "docsDescription": "Temukan petunjuk penggunaan, detail konfigurasi, dan panduan pemecahan masalah.",
     "openDocs": "Buka dokumen",
     "discordTitle": "Tanya di komunitas Discord",
     "discordDescription": "Pecahkan masalah bersama pengguna lain dan para pengembang, dan dapatkan kabar rilis baru lebih dulu.",
     "openDiscord": "Gabung",
     "askAiTitle": "Masih butuh bantuan? Tanya AI",
-    "askAiDescription": "Jelaskan masalah Anda, lalu tempel prompt ini agar AI dapat menggunakan dokumentasi dan kode sumber Folia sebagai konteks.",
+    "askAiDescription": "Jelaskan masalah Anda, lalu tempel prompt ini agar AI dapat menggunakan dokumentasi dan kode sumber BigOrange sebagai konteks.",
     "usageHint": "Cara menggunakannya: buka situs resmi untuk model yang Anda gunakan, jelaskan masalah spesifik Anda terlebih dahulu, lalu tempel prompt ini di bawah pertanyaan Anda dan kirim keduanya bersamaan.",
     "copyPrompt": "Salin prompt",
     "copyPromptTitle": "1. Salin Prompt AI",
     "copyPromptDesc": "Salin prompt dan tempelkan ke model AI apa pun untuk menghasilkan tema Anda.",
     "importJsonTitle": "2. Tempel Hasil JSON",
-    "prompt": "Saya menggunakan pemutar musik folia-major di GitHub dan perlu bantuan untuk masalah.\n\nPanduan Folia: {{guideUrl}}\nRepositori Folia: {{repoUrl}}\n\nHarap gunakan referensi ini sebagai konteks, lalu bantu saya memahami dan menyelesaikan masalah yang saya jelaskan berikutnya. Jika ada informasi yang kurang, tanyakan apa yang harus saya berikan sebelum membuat asumsi yang tidak pasti."
+    "prompt": "Saya menggunakan pemutar musik folia-major di GitHub dan perlu bantuan untuk masalah.\n\nPanduan BigOrange: {{guideUrl}}\nRepositori BigOrange: {{repoUrl}}\n\nHarap gunakan referensi ini sebagai konteks, lalu bantu saya memahami dan menyelesaikan masalah yang saya jelaskan berikutnya. Jika ada informasi yang kurang, tanyakan apa yang harus saya berikan sebelum membuat asumsi yang tidak pasti."
   },
   "ponder": {
     "openPage": "Ponder halaman ini",
@@ -3683,7 +3677,7 @@ export default {
     },
     "summaries": {
       "bravais_seam": "Celah di tengah dinding: tiga lebarnya, tab dan alat di beranda, serta beda menyaring dan mencari.",
-      "queue_shuffle": "Folia tidak punya mode acak; yang ada adalah mengacak antrean. Ini empat cara melakukannya.",
+      "queue_shuffle": "BigOrange tidak punya mode acak; yang ada adalah mengacak antrean. Ini empat cara melakukannya.",
       "audio_equalizer": "Sepuluh pita dan satu rantai efek \u2014 dan satu tarikan menimpa slot kustom.",
       "vis_playground": "Ada tiga area klik tak terlihat di atas pratinjau.",
       "lyric_style": "Pengaturan khusus tiap gaya, menyembunyikan elemen Monet, memadukan latar, dan subtitel bersama.",
@@ -4200,7 +4194,7 @@ export default {
         "palette": "Command palette"
       },
       "grid": {
-        "help": "Folia dan Bantuan",
+        "help": "BigOrange dan Bantuan",
         "tabs": "Tab sumber konten",
         "search": "Pencarian lagu",
         "map": "Peta semua koleksi",
@@ -4269,7 +4263,7 @@ export default {
       "panelAccountTab": "Panel \u00b7 Tab akun",
       "latticePage": "Halaman Lattice",
       "bravaisWall": "Dinding Bravais",
-      "helpPage": "Mengenal Folia",
+      "helpPage": "Mengenal BigOrange",
       "ponderBasics": "Cara kerja Ponder",
       "foliaTransport": "Pemutaran dan tombol media",
       "foliaShortcuts": "Pintasan yang akan kamu pakai",
@@ -4459,7 +4453,7 @@ export default {
         "toolsAppearance": "Paling bawah adalah tampilan dinding: transparansi bergiliran di tiga tingkat, ditambah warna poster dan lampu nyala / mati. Geser tombol ini ke kiri untuk langsung membuka palet perintah."
       },
       "queueShuffle": {
-        "noMode": "Folia tidak menyediakan mode putar acak tradisional, dan tombol ulang tidak akan beralih ke acak. Untuk mendengar secara acak, acak antrean saat ini.",
+        "noMode": "BigOrange tidak menyediakan mode putar acak tradisional, dan tombol ulang tidak akan beralih ke acak. Untuk mendengar secara acak, acak antrean saat ini.",
         "once": "Mengacak adalah satu tindakan: antrean saat ini diacak di tempat lalu diputar dengan urutan baru. Acak lagi untuk urutan lain.",
         "command": "Cara tercepat adalah perintah: saat jendela perintah tertutup dan tidak ada kolom teks yang fokus, tekan titik dua untuk masuk mode eksekusi, lalu tekan r. Kamu juga bisa mencari “Acak antrean” di jendela perintah.",
         "slot": "Kalau sering dipakai, pilih “Acak antrean” di “Tombol bilah progres” pada Pengaturan · Pengaturan umum, maka bilah kontrol mendapat tombol acak.",
@@ -4525,7 +4519,7 @@ export default {
       "customShortcut": {
         "alt": "Separuh kiri baris ini adalah dua tuts, dan hanya yang kedua milikmu. Alt digambar sudah tertekan karena memang tidak bisa diubah: pintasan ini selalu Alt plus satu huruf, jadi kombinasi seperti Ctrl+Shift+X tidak bisa direkam di sini.",
         "capture": "Klik tuts kedua dan ia mulai mendengarkan; tombol berikutnya yang kamu tekan menjadi hurufnya. Tombol pengubah yang ditahan di tengah jalan diabaikan, dan Esc keluar tanpa merekam apa pun.",
-        "taken": "Huruf yang sudah dipakai untuk membuka sesuatu langsung ditolak, dengan alasannya dalam warna merah di bawah tuts. S dan Ctrl+K milik jendela perintah itu sendiri, dan setiap hotkey di registri memesan hurufnya sendiri \u2014 jadi daftar huruf terpakai ini tumbuh sendiri seiring Folia menambah pintasan.",
+        "taken": "Huruf yang sudah dipakai untuk membuka sesuatu langsung ditolak, dengan alasannya dalam warna merah di bawah tuts. S dan Ctrl+K milik jendela perintah itu sendiri, dan setiap hotkey di registri memesan hurufnya sendiri \u2014 jadi daftar huruf terpakai ini tumbuh sendiri seiring BigOrange menambah pintasan.",
         "clear": "Begitu satu huruf terekam, muncul \u2715 kecil di sebelah tuts. Itu menghapus ikatannya, dan pintasan itu lalu tidak menjalankan apa pun sampai kamu merekam huruf baru.",
         "filtered": "Pilihan di kanan tidak memuat semua perintah. Pintasan bisa ditekan dari mana saja, jadi hanya perintah yang berlaku di mana saja yang boleh diikat \u2014 apa pun yang menuntut halaman atau panel tertentu ditinggalkan. Karena itu perintah yang kamu temukan di jendela perintah bisa saja tidak ada di sini, dan layar tidak menjelaskan selisihnya.",
         "goesQuiet": "Pemeriksaan yang sama juga berjalan saat tombolnya ditekan, bukan hanya saat memilih. Kalau sebuah perintah kemudian menuntut syarat tertentu, atau hurufmu diambil registri, ikatannya diam saja alih-alih menjalankan sesuatu yang lain \u2014 jadi pintasan yang berhenti bekerja layak dipilih ulang di sini."
@@ -4538,14 +4532,14 @@ export default {
         "empty": "Jadi keduanya berguna untuk hal yang berbeda: daftar untuk apa pun yang kebetulan kamu butuhkan, tiga tombol itu untuk yang ingin selalu ada di tempat yang sama."
       },
       "replayGain": {
-        "off": "ReplayGain adalah tag kenyaringan yang ditulis di dalam berkasnya sendiri. Dengan ini mati, Folia mengabaikannya dan memutar setiap lagu pada level masteringnya \u2014 itu sebabnya satu album bisa jauh lebih keras daripada album berikutnya.",
+        "off": "ReplayGain adalah tag kenyaringan yang ditulis di dalam berkasnya sendiri. Dengan ini mati, BigOrange mengabaikannya dan memutar setiap lagu pada level masteringnya \u2014 itu sebabnya satu album bisa jauh lebih keras daripada album berikutnya.",
         "trackAlbum": "\u201cPer lagu\u201d meratakan setiap lagu terhadap semua lagu lain, jadi antrean acak tetap rata. \u201cPer album\u201d memakai satu angka untuk seluruh album, sehingga lagu yang pelan tetap pelan dan yang keras tetap keras seperti saat dicampur. Keduanya tidak mengodekan ulang apa pun \u2014 yang berubah hanya volume pemutaran.",
         "sameValue": "Tab sumber di panel kontrol punya tiga tombol yang sama, dan itu bukan pengaturan kedua: keduanya membaca dan menulis satu nilai, jadi mengubahnya di salah satu tempat mengubahnya di mana-mana. Tidak ada satu pun dari keduanya yang menyebutkan hal ini.",
         "summary": "Yang dipunyai tab sumber sebagai tambahan adalah baris ini: tag milik lagu yang sedang diputar, sebagai T dan A dalam dB, atau \u201ctidak tersedia\u201d kalau berkasnya tidak membawa apa-apa. Kalau modenya sudah dipilih tapi tidak terdengar bedanya, di sinilah alasannya terlihat \u2014 tanpa tag, tidak ada yang bisa diterapkan."
       },
       "importExport": {
-        "scope": "Bagian ini membawa tampilan Folia: tema warna, animasi lirik beserta penyetelan tiap perender, subtitel dan fon, latar, dan kartu lagu. Hanya itu daftarnya.",
-        "notBackup": "Jadi meski namanya cadangan, ini bukan cadangan Folia. Daftar putar, pustaka lokal, pengaturan pemutaran, pintasan, dan akun semuanya di luar itu \u2014 memulihkan dari salah satu ini sambil berharap musikmu kembali adalah kesalahan yang diundang nama tersebut.",
+        "scope": "Bagian ini membawa tampilan BigOrange: tema warna, animasi lirik beserta penyetelan tiap perender, subtitel dan fon, latar, dan kartu lagu. Hanya itu daftarnya.",
+        "notBackup": "Jadi meski namanya cadangan, ini bukan cadangan BigOrange. Daftar putar, pustaka lokal, pengaturan pemutaran, pintasan, dan akun semuanya di luar itu \u2014 memulihkan dari salah satu ini sambil berharap musikmu kembali adalah kesalahan yang diundang nama tersebut.",
         "themeChoice": "Sebelum mengekspor, pilih tema mana yang ikut: yang dari AI, yang kamu racik sendiri, atau tidak sama sekali. \u201cTidak ada\u201d tetap membawa pengaturan visual dan meninggalkan warnamu, yang cocok ketika kamu membagikan setelan animasi lirik dan bukan sebuah palet.",
         "clipboard": "Tombolnya menyalin, bukan menyimpan berkas: satu memberi kode pendek, satu lagi hal yang sama dalam JSON yang bisa dibaca. Tempel ke mana saja \u2014 pesan, catatan \u2014 dan itulah seluruh konfigurasinya.",
         "paste": "Impor berjalan ke arah sebaliknya lewat kotak yang sama: tempel kode orang lain di sini dan tombol impor di kanan menyala.",
@@ -4568,13 +4562,13 @@ export default {
         "hold": "Tetap tahan dan sapuannya memenuhi kapsul dari kiri ke kanan; begitu sampai ujung kamu sudah berada di dalam tutorial komponen itu \u2014 satu layar penuh seperti ini. Lepas terlalu cepat dan ia batal tanpa terjadi apa-apa.",
         "wholePage": "Kamu tidak harus mencari komponen: tahan Ctrl + G di mana saja dan kamu dapat seluruh halaman \u2014 apa yang ada di sana, letak tiap bagian, dan apa yang bisa dilakukan.",
         "touchBulb": "Layar sentuh tidak punya hover, jadi seluruh jalur itu tidak tersedia. Gantinya adalah bohlam di sudut kanan atas ini, dan ia hanya muncul di perangkat sentuh \u2014 wajar kalau kamu tidak menemukannya dengan tetikus. Ia menampakkan diri beberapa detik saat kamu tiba atau berganti halaman lalu melipat pergi agar tidak menghalangi; ketuk sudut kanan atas untuk memanggilnya kembali.",
-        "mediaKeys": "Pemutaran melewati sesi media sistem \u2014 SMTC di Windows, MPRIS di Linux. Artinya tombol putar / sebelumnya / berikutnya di keyboardmu langsung berfungsi, jadi kamu tak perlu kembali ke Folia saat sedang bekerja di jendela lain. Popup media sistem juga menampilkan lagu yang sedang diputar.",
+        "mediaKeys": "Pemutaran melewati sesi media sistem \u2014 SMTC di Windows, MPRIS di Linux. Artinya tombol putar / sebelumnya / berikutnya di keyboardmu langsung berfungsi, jadi kamu tak perlu kembali ke BigOrange saat sedang bekerja di jendela lain. Popup media sistem juga menampilkan lagu yang sedang diputar.",
         "inAppTransport": "Di dalam aplikasi: Space memutar dan menjeda, {{mod}} + \u2190 / \u2192 berpindah lagu. Di halaman pemutar, tombol panah polos memindai lima detik. Selebihnya ada di jendela perintah, atau satu titik dua menuju mode eksekusi.",
-        "shortcutK": "{{mod}} + K membuka jendela perintah. Folia menaruh seluruh urusan \u201cmencari fitur\u201d di sini \u2014 perintah dan pengaturan sama-sama bisa dicari lewat nama, jadi kamu tak perlu ingat sesuatu diarsipkan di level mana.",
+        "shortcutK": "{{mod}} + K membuka jendela perintah. BigOrange menaruh seluruh urusan \u201cmencari fitur\u201d di sini \u2014 perintah dan pengaturan sama-sama bisa dicari lewat nama, jadi kamu tak perlu ingat sesuatu diarsipkan di level mana.",
         "shortcutP": "{{mod}} + P membuka antrean putar. Ia juga jendela perintah: baris masukannya adalah kotak pencarian antrean, dan hal seperti @artist: mempersempitnya sebelum aksi massal.",
         "shortcutB": "{{mod}} + B menuju Lattice, yang membentangkan seluruh antrean putar sebagai dinding poster. Tekan di dalam Lattice dan ia kembali.",
         "shortcutG": "Ctrl + G adalah yang baru saja kamu lakukan: membuka tutorial untuk halaman saat ini. Kapan pun kamu tersesat, tekan ini dulu.",
-        "hintSettings": "Sudah paham betul cara pakai Folia? Kamu bisa mematikan petunjuk Ponder di pengaturan, atau menyisakannya hanya di tempat yang belum kamu lihat \u2014 sakelarnya ada di Pengaturan \u00b7 Umum, \u201cPetunjuk tutorial Ponder\u201d, dengan tiga posisi: selalu tampil, hanya yang belum dilihat, dan mati. Tombol di bawah membawamu langsung ke sana.",
+        "hintSettings": "Sudah paham betul cara pakai BigOrange? Kamu bisa mematikan petunjuk Ponder di pengaturan, atau menyisakannya hanya di tempat yang belum kamu lihat \u2014 sakelarnya ada di Pengaturan \u00b7 Umum, \u201cPetunjuk tutorial Ponder\u201d, dengan tiga posisi: selalu tampil, hanya yang belum dilihat, dan mati. Tombol di bawah membawamu langsung ke sana.",
         "docs": "Empat bab ini baru pembuka. Perintah, pintasan, sumber daring, pustaka lokal, visualizer dan tema semuanya punya penjelasan lebih lengkap di situs dokumentasi \u2014 tombol di bawah membukanya."
       },
       "pages": {
@@ -4615,7 +4609,7 @@ export default {
         "playerCommandArgument": "Perintah yang butuh argumen tidak langsung jalan. Ketik namanya, tekan spasi, dan ia melipat jadi satu label di baris masukan sementara kursor menunggu di belakangnya. Isi argumennya, lalu Enter.",
         "playerExecuteCloseFirst": "Mode eksekusi dimasuki saat jendela perintah tertutup. Tekan Esc untuk menutupnya dulu: saat jendela terbuka, titik dua hanya masuk ke baris masukan.",
         "playerExecuteMode": "Kembali di halaman pemutar, dengan fokus di luar kotak teks, tekan tombol titik dua: jendela perintah langsung terbuka di mode eksekusi. Di dalamnya satu tombol menjalankan satu perintah: r mengacak antrean, v volume, o pengaturan, h bantuan.",
-        "playerShuffleNoSwitch": "Folia tidak punya sakelar acak. Kamu tidak menemukannya di bilah kontrol karena acak bukan mode yang menyala terus \u2014 ia satu tindakan: mengocok ulang antrean saat ini di tempat.",
+        "playerShuffleNoSwitch": "BigOrange tidak punya sakelar acak. Kamu tidak menemukannya di bilah kontrol karena acak bukan mode yang menyala terus \u2014 ia satu tindakan: mengocok ulang antrean saat ini di tempat.",
         "playerShuffleHow": "Cara tercepat justru tanpa membuka apa pun: tekan tombol titik dua di halaman pemutar \u2014 jendelanya terbuka di mode eksekusi \u2014 lalu tekan r. Urutan barunya langsung berlaku; jalankan lagi untuk urutan lain.",
         "playerShuffleSlot": "Kalau sering dipakai, taruh \u201cAcak antrean\u201d di salah satu dari dua posisi kanan bilah kontrol, dan ia jadi satu tekanan saja.",
         "lattice": "Lattice menyusun seluruh antrean putar sebagai satu bidang poster. Bergeraklah di bidang itu untuk melihat antrean dan pilih poster untuk bertindak pada lagu tersebut.",
@@ -4629,15 +4623,15 @@ export default {
         "latticeLights": "Lampu mati meredupkan dinding namun mempertahankan strukturnya. Ini hanya tampilan; pemutaran dan urutan antrean tidak berubah.",
         "latticePosterKeys": "Enter atau Spasi memperluas poster tertutup. Setelah terbuka, Enter memutar atau menjeda, Spasi mengubah kontrol, dan Escape menutup serta membersihkan fokus.",
         "latticePageKeys": ": + C memfokuskan lagu aktif, {{mod}} + P membuka antrean, {{mod}} + B kembali, {{mod}} + K membuka jendela perintah; tombol panah memindahkan fokus poster.",
-        "help": "Folia memisahkan penelusuran, pemutaran, perintah, dan opsi. Ctrl+G menjelaskan halaman terdepan; panduan komponen tersedia terpisah saat suatu komponen memiliki perilaku khusus.",
+        "help": "BigOrange memisahkan penelusuran, pemutaran, perintah, dan opsi. Ctrl+G menjelaskan halaman terdepan; panduan komponen tersedia terpisah saat suatu komponen memiliki perilaku khusus.",
         "helpCommands": "{{mod}} + K mencari semua perintah dan pengaturan. Untuk opsi yang tersembunyi jauh, mencari namanya biasanya lebih cepat daripada mengingat letaknya.",
         "helpOperatingModel": "Pilih musik di kisi, lalu pemutaran berlanjut secara mandiri di Player atau Lattice. Bilah bawah mengontrol pemutaran di semua halaman; Bantuan dan Opsi adalah lapisan di atas halaman saat ini.",
         "settings": "Sisi kiri mengelompokkan opsi berdasarkan tampilan, antarmuka, pemutaran, interaksi, integrasi, penyimpanan, desktop, grafis, mod, dan lab. Sisi kanan berisi pengaturan grup terpilih.",
-        "settingsDirectNavigation": "Anda tidak perlu menelusuri setiap kategori: cari nama pengaturan di palette perintah dan Folia membuka bagian serta jangkar yang tepat."
+        "settingsDirectNavigation": "Anda tidak perlu menelusuri setiap kategori: cari nama pengaturan di palette perintah dan BigOrange membuka bagian serta jangkar yang tepat."
       },
       "playerBar": {
         "basicsAutoExpand": "Bukan hanya menggantung penunjuk yang membukanya. Selama pemutaran dijeda dan kamu sedang tidak di layar beranda, kapsulnya tetap terbentang sendiri \u2014 saat kamu paling mungkin ingin menjangkau kontrolnya, justru saat itu ia berhenti menyembunyikannya. Putar lagi, atau kembali ke beranda, dan ia mengurus lagi.",
-        "basicsIntro": "Kontrol pemutaran Folia hanya kapsul ini. Deretan tombol permanen yang dipasang pemutar lain di bawah — sebelumnya, berikutnya, acak, ulang, volume — tidak punya tempat tetap di sini.",
+        "basicsIntro": "Kontrol pemutaran BigOrange hanya kapsul ini. Deretan tombol permanen yang dipasang pemutar lain di bawah — sebelumnya, berikutnya, acak, ulang, volume — tidak punya tempat tetap di sini.",
         "basicsPlay": "Satu-satunya tombol yang selalu ada adalah putar / jeda. Pada jendela lebar ia di paling kiri; saat barisnya terlalu sempit untuk satu baris, ia pindah ke tengah baris kedua, dengan dua slot di kedua sisinya.",
         "basicsTitle": "Ganti lagu lewat judul, bukan tombol. Arahkan penunjuk ke judul, panah muncul di kedua sisi dan mempratinjau nama lagu sebelumnya dan berikutnya — kamu memilih sambil membaca, bukan menekan buta.",
         "basicsProgress": "Seret atau klik bilah kemajuan untuk melompat. Mengklik bagian kapsul yang lain bukan jeda: itu membuka halaman pemutar, atau di Lattice menarik tampilan kembali ke lagu saat ini.",
@@ -4649,7 +4643,7 @@ export default {
         "slotsIntro": "Dua tombol di kanan bilah progres ini tidak tetap, dan tiap slot berdiri sendiri.",
         "slotsWhere": "Pilih di pengaturan: ulang, acak, suka, antrean, volume, pengatur waktu tidur, dan empat lainnya; langsung berlaku.",
         "shuffleIntro": "Acak di sini tidak seperti di tempat lain - ia bukan mode yang terus menyala.",
-        "shuffleOnce": "Tekan dan Folia mengacak antrean saat ini di tempat, sekali; urutan itulah yang berlaku. Ingin lain? Tekan lagi.",
+        "shuffleOnce": "Tekan dan BigOrange mengacak antrean saat ini di tempat, sekali; urutan itulah yang berlaku. Ingin lain? Tekan lagi.",
         "volumeIntro": "Bilah kontrol bawah tidak punya penggeser volume permanen.",
         "volumeOpens": "Menekan di sini membuka panel volume di dalam command palette, bukan penggeser kecil di tempat."
       },
@@ -4716,7 +4710,7 @@ export default {
         "sourceLyrics": "Dua ikon kecil di kanan baris lirik: satu mengimpor atau mengekspor berkas lirik (lrc / vtt / ttml / qrc / yrc / krc / txt / fia), satu mencocokkan secara daring. Strip di bawahnya menyebut mana yang sedang dipakai; setelah kamu mengimpor, muncul kotak kedua untuk beralih kembali.",
         "sourceOffset": "\u201cOffset linimasa\u201d di paling bawah melangkah 250ms, atau menerima angka yang diketik; nilai positif membuat lirik muncul lebih lambat. Ia hanya sementara untuk pemutaran ini \u2014 untuk perubahan permanen ada offset global di pengaturan, dan keduanya dijumlahkan.",
         "sourceLyricsFile": "Ikon kiri di baris lirik adalah impor / ekspor: keduanya ada di satu jendela, pilih setelah jendelanya terbuka.",
-        "sourceExportFormats": "Bagian atas jendela untuk impor: lrc, vtt, ttml, qrc, yrc, krc, txt, dan berkas .fia hasil ekspor Folia. Lagu Navidrome tidak bisa diimpor, jadi jendelanya hanya untuk ekspor. Dua kotak di bawahnya menyimpan lagu ini: .fia mempertahankan timing per kata, terjemahan, vokal latar, dan segmentasi yang kamu simpan, serta bisa diimpor kembali apa adanya; .lrc adalah LRC enhanced yang bisa dibaca pemutar lain, tetapi detail khusus Folia itu hilang.",
+        "sourceExportFormats": "Bagian atas jendela untuk impor: lrc, vtt, ttml, qrc, yrc, krc, txt, dan berkas .fia hasil ekspor BigOrange. Lagu Navidrome tidak bisa diimpor, jadi jendelanya hanya untuk ekspor. Dua kotak di bawahnya menyimpan lagu ini: .fia mempertahankan timing per kata, terjemahan, vokal latar, dan segmentasi yang kamu simpan, serta bisa diimpor kembali apa adanya; .lrc adalah LRC enhanced yang bisa dibaca pemutar lain, tetapi detail khusus BigOrange itu hilang.",
         "sourceExportBatch": "Baris paling bawah adalah ekspor massal: membuka halaman ekspor di palet perintah dan menyimpan semua lirik tersimpan sekaligus. Baris lirik di Pengaturan · Penyimpanan punya pintu masuk yang sama.",
         "coverTab": "Tab sampul berisi teks lagu saat ini: judul, artis dan album, tersusun rata tengah. Sampul besarnya bukan bagian tab ini \u2014 ia selalu ada di atas panel.",
         "coverTabDetail": "Artis dan album keduanya tautan ke koleksinya. Mengklik judul menyalin \u201cjudul - artis - album\u201d beserta tautan halaman sumbernya; Ctrl+klik malah membuka halaman lagu ini di platform sumbernya.",
@@ -4734,7 +4728,7 @@ export default {
         "notice": "Penyebab biasanya cache media yang dibutuhkan automix sedang mati. Strip kuning ini menyebut persis itu, dan teks bergaris bawah di dalamnya menyalakan cache di tempat, tanpa pergi ke pengaturan penyimpanan."
       },
       "libraryWatch": {
-        "enable": "Dengan ini menyala, Folia mengawasi folder lokal yang kamu impor dan menjalankan pemindaian inkremental setiap kali berkasnya berubah \u2014 tak perlu kembali memindai manual setiap menambah musik.",
+        "enable": "Dengan ini menyala, BigOrange mengawasi folder lokal yang kamu impor dan menjalankan pemindaian inkremental setiap kali berkasnya berubah \u2014 tak perlu kembali memindai manual setiap menambah musik.",
         "roots": "Daftarnya baru terbuka di bawah sakelar, satu baris per folder akar yang dipantau, dengan jalur aslinya di baris kecil di bawahnya.",
         "warning": "Perhatikan ikon di kiri tiap baris: mata berarti sedang mengawasi; segitiga kuning berarti pantauan folder itu sudah berhenti bekerja \u2014 jalur yang hilang, izin yang berubah. Setelah itu pemindaiannya sekadar berhenti terjadi, dan ikon ini satu-satunya tanda.",
         "recheck": "Saat kamu melihat segitiga, tekan \u201cperiksa ulang\u201d di kanan; ia memasang ulang ke semua folder yang diimpor. Baris kecil di sebelahnya adalah kapan pemindaian otomatis terakhir berjalan."
@@ -4744,7 +4738,7 @@ export default {
         "next": "Ubah ke \u201csetelah lagu yang diputar\u201d dan yang kamu tambahkan menyelip tepat di belakang lagu yang sedang berjalan, jadi ia berikutnya. Ini mengubah semua pintu tambah-ke-antrean di aplikasi \u2014 tombol di kartu, yang muncul di baris antrean, perintah di palette."
       },
       "lyricsSource": {
-        "autoBest": "Dengan \u201cpilih yang terbaik otomatis\u201d menyala, Folia mencari lagu ini di NetEase, AMLLDB, QQ dan KuGou lalu mengambil versi per-kata yang cocok sempurna bila ada. Harganya, ia menimpa sumber yang kamu pilih manual di tab sumber \u2014 kalau pilihan manualmu tidak bertahan, biasanya inilah sebabnya.",
+        "autoBest": "Dengan \u201cpilih yang terbaik otomatis\u201d menyala, BigOrange mencari lagu ini di NetEase, AMLLDB, QQ dan KuGou lalu mengambil versi per-kata yang cocok sempurna bila ada. Harganya, ia menimpa sumber yang kamu pilih manual di tab sumber \u2014 kalau pilihan manualmu tidak bertahan, biasanya inilah sebabnya.",
         "priority": "Dua kartu di bawah menentukan lirik lokal atau daring yang menang. Saat berkas lokal membawa lirik dan hasil daring juga ada, inilah yang memutuskan.",
         "globalOffset": "\u201cOffset linimasa global\u201d membuka penggaris satu layar penuh yang menggeser lirik semua lagu lebih awal atau lebih lambat \u2014 biasanya untuk mengimbangi keterlambatan tetap kartu suara atau Bluetooth.",
         "offsetSum": "Ia bernama sama dengan offset \u00b1250ms di tab sumber tetapi bukan hal yang sama: yang itu hanya untuk lagu saat ini dan hilang saat kamu berganti lagu, yang ini global dan bertahan. Keduanya dijumlahkan, jadi ketika satu lagu meleset jauh, periksa keduanya."
@@ -4756,7 +4750,7 @@ export default {
       "lyricExport": {
         "whatItIs": "Halaman ini mengemas lirik yang sudah ada di perangkat ini menjadi satu zip. Ia tidak mengunduh lirik baru.",
         "effective": "Cache online mencakup lagu online yang pernah diputar, diekspor seperti yang tampil saat diputar, jadi lirik yang kamu impor atau cocokkan sendiri diutamakan. Pustaka lokal hanya mengekspor lirik hasil pencocokan online: tiap berkas dinamai sesuai berkas audionya dan ditaruh di folder local dalam zip mengikuti susunan folder pustaka, jadi mengekstraknya ke folder yang berisi pustakamu menaruh setiap berkas di sebelah lagunya. Instrumental dan lagu tanpa lirik dilewati dan dicatat di manifest.json.",
-        "formats": ".fia lossless dan bisa langsung diimpor kembali ke Folia; LRC bisa dipakai di mana saja tetapi kehilangan vokal latar dan segmentasi. Centang keduanya dan zip berisi dua folder.",
+        "formats": ".fia lossless dan bisa langsung diimpor kembali ke BigOrange; LRC bisa dipakai di mana saja tetapi kehilangan vokal latar dan segmentasi. Centang keduanya dan zip berisi dua folder.",
         "names": "Cache lirik online tidak menyimpan judul lagu sendiri. Lagu yang diputar mencatat judulnya saat diputar, dan itu dipakai lebih dulu; setelah itu nama diambil dari playlist dan antrean yang tersimpan di perangkat ini, lalu baru dari layanan musik secara online, dan jawabannya diingat untuk lain kali. Jika pencarian dimatikan, lagu tanpa judul diberi nama ID.",
         "running": "Setelah dimulai, progres tampil di sini dan tombolnya berubah menjadi Batal. Menutup palet juga membatalkan: ekspor tidak berlanjut di latar belakang."
       },
@@ -4772,7 +4766,7 @@ export default {
         "windowNormal": "Perbedaan terbesar antara versi desktop dan peramban ada pada tiga hal ini, dan tak satu pun berada di dalam aplikasi: satu mengubah posisi jendela di desktop, satu tinggal di system tray, satu lagi jendela kedua. Mulai dari jendela utama biasa ini.",
         "wallpaper": "Mode wallpaper menenggelamkannya ke dasar desktop: bingkai dan bilah judul hilang, lirik terhampar langsung di desktop, dengan ikon dan jendela lain menumpuk di atasnya seperti biasa. Harganya tertulis di pengaturan \u2014 keyboard tidak lagi menjangkaunya dalam mode ini.",
         "wallpaperExit": "Artinya kamu tidak bisa keluar dari mode wallpaper dengan mengklik jendelanya. Gunakan \u201cMode Wallpaper\u201d di menu tray, atau cari perintah yang sama di jendela perintah.",
-        "trayIcon": "Yang di sudut bilah tugas ini adalah ikon tray Folia. Pengaturan \u00b7 Desktop bisa membuat minimize langsung masuk ke tray \u2014 jendela utamanya meninggalkan bilah tugas, tetapi pemutaran tidak berhenti dan tombol media sistem tetap bekerja.",
+        "trayIcon": "Yang di sudut bilah tugas ini adalah ikon tray BigOrange. Pengaturan \u00b7 Desktop bisa membuat minimize langsung masuk ke tray \u2014 jendela utamanya meninggalkan bilah tugas, tetapi pemutaran tidak berhenti dan tombol media sistem tetap bekerja.",
         "trayMenu": "Mengklik ikon tray membuka kolom ini: semua yang bisa dilakukan tanpa membuka jendela utama \u2014 tampilkan/sembunyikan jendela, buka jendela remote, latar transparan, klik tembus, selalu di atas, sembunyikan ikon bilah tugas, lirik desktop, mode wallpaper, reset jendela, keluar. Dalam mode wallpaper, inilah satu-satunya jalan keluar.",
         "remote": "Jendela remote adalah jendela kecil kedua; cari \u201cjendela remote\u201d di jendela perintah untuk membukanya, atau lewat menu tray. Ia tetap di atas bahkan saat jendela utama diminimalkan, atau tenggelam jadi wallpaper.",
         "remoteChrome": "Ia membawa set sakelar jendelanya sendiri: selalu di atas, latar transparan, klik tembus (tetikus menembus langsung ke apa pun di bawahnya), sembunyikan ikon bilah tugas, dan UI yang menyembunyikan diri. Dibuat sebagai jendela terpisah alih-alih sudut jendela utama justru supaya sakelar-sakelar itu bisa berdiri sendiri."
@@ -4799,8 +4793,8 @@ export default {
       },
       "localGridControls": {
         "sources": "Baris ini mengganti pustaka lokal antara folder, album, artis, dan playlist lokal. Ini mengubah isi rel Grid3D, bukan berpindah ke penyedia daring.",
-        "foldersAndPlaylists": "Folder mempertahankan struktur direktori impor. Playlist lokal disimpan oleh Folia dan terpisah dari playlist daring maupun Navidrome.",
-        "imports": "Impor folder menambahkan musik dari direktori. Impor playlist membaca M3U atau M3U8 dan membuat playlist lokal dari lagu yang bisa ditemukan Folia.",
+        "foldersAndPlaylists": "Folder mempertahankan struktur direktori impor. Playlist lokal disimpan oleh BigOrange dan terpisah dari playlist daring maupun Navidrome.",
+        "imports": "Impor folder menambahkan musik dari direktori. Impor playlist membaca M3U atau M3U8 dan membuat playlist lokal dari lagu yang bisa ditemukan BigOrange.",
         "refresh": "Segarkan memindai ulang akar impor untuk berkas baru, berubah, atau hilang. Ini tidak membuat salinan pustaka baru."
       },
       "onlineCollectionActions": {

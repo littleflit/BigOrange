@@ -294,8 +294,8 @@ export default async function viteConfig(_config: ConfigEnv): Promise<UserConfig
           navigateFallbackDenylist: [/^\/api(?:\/|$)/, /^\/__folia_cover\//]
         },
         manifest: {
-          name: 'Folia Music',
-          short_name: 'Folia',
+          name: 'BigOrange Music',
+          short_name: 'BigOrange',
           description: 'A beautiful AI-themed music player',
           theme_color: '#09090b',
           background_color: '#09090b',
