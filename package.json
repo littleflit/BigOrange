@@ -51,6 +51,7 @@
     "dev:electron:dist:software": "cross-env ELECTRON_DEV=false ELECTRON=true ELECTRON_LINUX_PACKAGED_GRAPHICS=true FOLIA_LINUX_GRAPHICS_MODE=software FOLIA_WINDOWTOLAYER_PATH=build/windowtolayer vite build && electron .",
     "build:electron:dir": "cross-env ELECTRON_DEV=false ELECTRON=true vite build && npm run build:windowtolayer && electron-builder --linux dir",
     "build:electron": "cross-env ELECTRON_DEV=false ELECTRON=true vite build && npm run build:windowtolayer && electron-builder --linux",
+    "build:electron:win": "cross-env ELECTRON_DEV=false ELECTRON=true vite build && electron-builder --win",
     "build:windowtolayer": "node packaging/linux/build-windowtolayer.mjs",
     "build:ffmpeg": "node packaging/ffmpeg/fetch-ffmpeg.mjs",
     "contributors:add": "npx all-contributors-cli add",
@@ -147,6 +148,20 @@
           "StartupWMClass": "folia-major"
         }
       }
+    },
+    "win": {
+      "artifactName": "${name}-${version}-win-${arch}.${ext}",
+      "target": [
+        "nsis"
+      ],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "artifactName": "${name}-${version}-win-${arch}.${ext}",
+      "shortcutName": "BigOrange",
+      "uninstallDisplayName": "BigOrange",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
     }
   },
   "dependencies": {
