@@ -131,11 +131,11 @@ jobs:
           workspaces: .windowtolayer-src
 
       - name: Build windowtolayer from upstream + patch
-          # Shared with local `npm run build:electron*`: fetches the pinned upstream source,
-          # applies packaging/linux/patches/windowtolayer-popup-resilience.patch (git apply fails loudly instead
-          # of shipping a broken build if the revision drifts) and produces
-          # build/windowtolayer + build/windowtolayer-COPYING for extraResources.
-          node packaging/linux/build-windowtolayer.mjs
+        # Shared with local `npm run build:electron*`: fetches the pinned upstream source,
+        # applies packaging/linux/patches/windowtolayer-popup-resilience.patch (git apply fails loudly instead
+        # of shipping a broken build if the revision drifts) and produces
+        # build/windowtolayer + build/windowtolayer-COPYING for extraResources.
+        run: node packaging/linux/build-windowtolayer.mjs
 
       - name: Stamp Realeco package metadata
         shell: bash
