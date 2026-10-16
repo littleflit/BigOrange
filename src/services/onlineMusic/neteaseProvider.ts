@@ -320,6 +320,14 @@ export const neteaseProvider: OnlineMusicProvider = {
             const total = Number(response.result?.songCount || items.length);
             return { items, total, hasMore: offset + items.length < total, nextOffset: offset + items.length };
         },
+        // 网易云 `/cloudsearch?type=1002` 搜用户：`result.userprofiles` + `result.userprofileCount`。
+        async searchUsers(query, limit, offset) {
+            const response = await neteaseApi.cloudSearch(query, limit, offset, 1002);
+            const rawItems = response?.result?.userprofiles || response?.result?.users || [];
+            const items = rawItems.map(normalizeUser).filter((user: ProviderUser) => user.nickname);
+            const total = Number(response?.result?.userprofileCount ?? response?.result?.userCount ?? items.length);
+            return { items, total, hasMore: offset + items.length < total, nextOffset: offset + items.length };
+        },
     },
     playback: {
         async getSongDetail(id) {

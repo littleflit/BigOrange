@@ -310,6 +310,8 @@ export class OnlineProviderError extends Error {
 
 export interface OnlineSearchProvider {
     searchSongs(query: string, limit: number, offset: number): Promise<ProviderPage<UnifiedSong>>;
+    /** 按昵称搜用户。网易云先实现；没有该能力的 provider 不声明，Omni 回空页。 */
+    searchUsers?(query: string, limit: number, offset: number): Promise<ProviderPage<ProviderUser>>;
 }
 
 export interface OnlinePlaybackProvider {

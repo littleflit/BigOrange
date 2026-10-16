@@ -847,8 +847,9 @@ export const neteaseApi = {
   getUnavailableSongReplacement,
 
   // --- Search ---
-  cloudSearch: async (keywords: string, limit = 30, offset = 0) => {
-    const res = await fetchWithCreds(`/cloudsearch?keywords=${encodeURIComponent(keywords)}&limit=${limit}&offset=${offset}`);
+  cloudSearch: async (keywords: string, limit = 30, offset = 0, type?: number) => {
+    const typeParam = type === undefined ? '' : `&type=${type}`;
+    const res = await fetchWithCreds(`/cloudsearch?keywords=${encodeURIComponent(keywords)}&limit=${limit}&offset=${offset}${typeParam}`);
     if (res.result) {
       res.result.songs = mergeSongsWithPrivileges(res.result.songs, res.result.privileges ?? res.privileges);
     }

@@ -211,6 +211,17 @@ export const omni = {
         return provider.search.searchSongs(query, page.limit, page.offset);
     },
 
+    /** 按昵称搜用户（普通调用走 active provider）。没有 searchUsers 的 provider 回空页，不抛错。 */
+    async searchUsers(query: string, page: PageInput): Promise<OmniPage<OmniUser>> {
+        return withActiveProvider(async provider => provider.search?.searchUsers?.(query, page.limit, page.offset) ?? emptyPage(page.offset));
+    },
+
+    async searchProviderUsers(providerId: OmniProviderId, query: string, page: PageInput): Promise<OmniPage<OmniUser>> {
+        const searchUsers = requireOnlineMusicProvider(providerId).search?.searchUsers;
+        if (!searchUsers) return emptyPage(page.offset);
+        return searchUsers(query, page.limit, page.offset);
+    },
+
     async getLoginStatus(providerId: OmniProviderId): Promise<OmniUser | null> {
         const provider = requireOnlineMusicProvider(providerId);
         if (!provider.auth) return unsupported(providerId, 'auth');

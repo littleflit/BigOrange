@@ -64,7 +64,7 @@ import { createQueueMutations } from './components/app/player-panel/createQueueM
 import { Album, Artist, LyricData, Theme, PlayerState, SongResult, ReplayGainMode, StatusMessage, PlaybackContext, StageLoopMode, UnifiedSong } from './types';
 import type { LocalSong } from './types';
 import { getLocalSongArrayBuffer } from './services/localMusicService';
-import type { MediaId, OnlineProviderId, ProviderCollection } from './types/onlineMusic';
+import type { MediaId, OmniCollection, OnlineProviderId, ProviderCollection } from './types/onlineMusic';
 import { resolveSongCatalogRef } from './services/onlineMusic/catalogRefs';
 import { omni } from './services/onlineMusic/omni';
 import { consumeProgrammaticPause, playbackFade } from './services/playbackFade';
@@ -1107,6 +1107,21 @@ export default function App() {
         }
         setStatusMsg({ type: 'error', text: t('search.catalogUnavailable') });
     }, [navigateToCollection, setStatusMsg, t]);
+    // 搜索到的用户的公开歌单：OmniCollection 直转集合页（契约字段与 GridView 描述一致）。
+    const handleSearchResultPlaylistOpen = useCallback((collection: OmniCollection) => {
+        navigateToCollection({
+            source: 'online',
+            providerId: collection.providerId,
+            id: collection.id,
+            name: collection.name,
+            type: collection.type,
+            coverUrl: collection.coverUrl,
+            description: collection.description,
+            trackCount: collection.trackCount,
+            creator: collection.creator,
+            providerData: collection.providerData,
+        }, 'search');
+    }, [navigateToCollection]);
 
     usePlaybackUiEffects({
         statusMsg,
@@ -2300,6 +2315,7 @@ export default function App() {
         handleSearchResultAddToQueue,
         handleSearchResultArtistOpen,
         handleSearchResultAlbumOpen,
+        handleSearchResultPlaylistOpen,
         resolveSearchResultDisplay,
         devDebugSnapshot,
         effectiveLoopMode,
