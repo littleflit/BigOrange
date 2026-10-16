@@ -1,5 +1,5 @@
 param(
-    [string]$SourceAppId = 'top.izuna.foliamajor',
+    [string]$SourceAppId = 'com.littleflit.bigorange',
     [ValidateRange(100, 60000)]
     [int]$IntervalMs = 500,
     [switch]$AllSessions,
