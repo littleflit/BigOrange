@@ -236,7 +236,7 @@ function createWindowsWallpaperController(options = {}) {
         break;
       case 'error':
         if (attached) {
-          // The structured `kind` is the contract for the window-destroyed case: the Folia
+          // The structured `kind` is the contract for the window-destroyed case: the BigOrange
           // window was destroyed together with its WorkerW, so the main process must rebuild
           // it — a plain re-attach of the same hwnd would be pointless. Either way the helper
           // has nothing useful left to do.

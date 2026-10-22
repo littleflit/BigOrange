@@ -2,13 +2,13 @@ import type { MediaId, ProviderLikedSongIds } from '../../../types/onlineMusic';
 
 // src/services/onlineMusic/account/keptAfterRead.ts
 // The one rule by which a read of what an account keeps on its platform (its liked songs) meets
-// what the listener pressed in Folia meanwhile. No store and no clock in here: omni hands in what
+// what the listener pressed in BigOrange meanwhile. No store and no clock in here: omni hands in what
 // is held, what was read and what was pressed, and writes what comes back.
 //
 // - An item with a press not settled, or whose request the platform took since PRESS_GRACE_MS
-//   before the read began, keeps what Folia holds: the read may have been made before or after
+//   before the read began, keeps what BigOrange holds: the read may have been made before or after
 //   that request reached the platform. A request that failed or was given up shields nothing:
-//   what Folia holds for the item is then no newer than the read.
+//   what BigOrange holds for the item is then no newer than the read.
 // - Every other item takes the read's answer.
 // - A read that is not whole only adds: an item it does not show may lie past where it stopped.
 //   A check of some items (likedChecks.ts) also names the ones that are not kept: those it takes away.
@@ -49,7 +49,7 @@ export type KeptAfterRead =
         ids: MediaId[];
         added: number;
         removed: number;
-        /** The keys of the items that kept what Folia holds because they were pressed. */
+        /** The keys of the items that kept what BigOrange holds because they were pressed. */
         pressed: ReadonlySet<string>;
     }
     /** The read changes nothing, and why. */
@@ -61,7 +61,7 @@ export const keptAfterRead = ({ read, answer, notKept = [], held, signedInUserId
     answer: ProviderLikedSongIds;
     /** With an answer that is not whole: the items the platform said it does not keep. */
     notKept?: MediaId[];
-    /** What Folia holds for the account now. */
+    /** What BigOrange holds for the account now. */
     held: MediaId[];
     /** Who is signed in to the platform now. */
     signedInUserId: MediaId | null | undefined;

@@ -11,7 +11,7 @@ export class LocalFileLyricAdapter implements LyricAdapter<RawLocalFileLyric> {
     async parse(source: RawLocalFileLyric, options: LyricProcessingOptions = {}): Promise<LyricData | null> {
         if (!source.lrcContent) return null;
 
-        // Folia 自己导出的 `.fia` 已经是解析好的 LyricData，直接加载，不再过解析器。
+        // BigOrange 自己导出的 `.fia` 已经是解析好的 LyricData，直接加载，不再过解析器。
         const foliaLyrics = parseFoliaLyricDocument(source.lrcContent);
         if (foliaLyrics) return foliaLyrics;
 

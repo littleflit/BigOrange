@@ -44,7 +44,7 @@ const isElectronDevRuntime = () => process.env.ELECTRON_DEV === 'true' || proces
 const createExportService = ({ app, BrowserWindow, resolveFfmpeg, getModClients }) => {
     let activeSession = null;
 
-    const getExportDirectory = () => path.join(app.getPath('videos'), 'Folia Exports');
+    const getExportDirectory = () => path.join(app.getPath('videos'), 'BigOrange Exports');
 
     /*
      * Builds the render spec from two sources that never mix:
@@ -331,7 +331,7 @@ const createExportService = ({ app, BrowserWindow, resolveFfmpeg, getModClients 
             // ends, which may be never: cancelling ends the wait. Once the wait
             // has lasted a moment the user is told which mod it is for (a
             // 'waiting' progress with the mod's name), so the cancel is in reach.
-            // A style of Folia's own waits for nothing that has no end.
+            // A style of BigOrange's own waits for nothing that has no end.
             const styleModId = renderSpec.visualizerMode.startsWith('mod:') ? renderSpec.visualizerMode.split(':')[1] : null;
             const styleMod = styleModId ? modClients.find((mod) => mod && mod.id === styleModId) : null;
             const configuring = exportWindow.webContents.executeJavaScript(

@@ -5,7 +5,7 @@
 //
 // On the native Wayland backend there is no way to grab a key: Chromium hands the shortcuts to the
 // desktop's GlobalShortcuts portal instead, and the desktop decides which keys trigger them. The
-// listener binds them in their desktop's own settings, so the keys picked in Folia are only a
+// listener binds them in their desktop's own settings, so the keys picked in BigOrange are only a
 // suggestion there and a refusal cannot be seen.
 
 const { resolveLinuxOzonePlatform } = require('./windowAlwaysOnTopSupport.cjs');

@@ -63,7 +63,7 @@ describe('enhancedLrcSerializer', () => {
         });
         const lines = text.trimEnd().split('\n');
 
-        expect(lines.slice(0, 5)).toEqual(['[ti:Song  x]', '[ar:Artist]', '[al:Album]', '[length:03:20]', '[re:Folia]']);
+        expect(lines.slice(0, 5)).toEqual(['[ti:Song  x]', '[ar:Artist]', '[al:Album]', '[length:03:20]', '[re:BigOrange]']);
         expect(lines[5]).toBe('[00:01.00]<00:01.000>Hello <00:01.500><00:01.700>world<00:02.400>');
         expect(lines[6]).toBe('[00:01.00]你好世界');
     });

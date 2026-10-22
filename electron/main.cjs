@@ -6,6 +6,9 @@ for (const repair of require('./tempDirEnvironment.cjs').repairTempDirEnvironmen
 const fs = require('fs');
 const http = require('http');
 const path = require('path');
+// 用户数据固定在 ~/.config/BigOrange（上游 Folia 用 ~/.config/Folia），与上游安装共存互不干扰。
+// 必须早于 electron-store、session、日志等任何读取 userData 的模块。
+app.setPath('userData', path.join(app.getPath('appData'), 'BigOrange'));
 const { spawn } = require('child_process');
 const Store = require('electron-store').default || require('electron-store');
 const crypto = require('crypto');
@@ -107,14 +110,12 @@ const {
   buildSegmentationSystemPrompt,
   parseSegmentationResponse,
 } = require('../shared/lyricSegmentationPrompt.cjs');
-const useLinuxGraphicsDebugMode = process.env.ELECTRON_LINUX_PACKAGED_GRAPHICS === 'true';
-const isAppImageRuntime =
-  process.platform === 'linux' &&
-  (Boolean(process.env.APPIMAGE) || Boolean(process.env.APPDIR) || useLinuxGraphicsDebugMode);
+// fork(BigOrange): AppImage 不再固定走 SwiftShader，默认用宿主 GPU。软件渲染只能在显式指定时启用：
+// FOLIA_LINUX_GRAPHICS_MODE=swiftshader（ANGLE + SwiftShader）或 =software（关闭硬件加速）。
 const linuxGraphicsMode =
   process.platform !== 'linux'
     ? 'system'
-    : (process.env.FOLIA_LINUX_GRAPHICS_MODE || (isAppImageRuntime ? 'swiftshader' : 'system'));
+    : (process.env.FOLIA_LINUX_GRAPHICS_MODE || 'system');
 
 // Every custom scheme must be registered in this one call: each
 // registerSchemesAsPrivileged call overwrites the fetch/secure/cors scheme
@@ -202,9 +203,9 @@ if (process.platform === 'linux') {
     // Hard fallback: safest, but usually slower.
     app.disableHardwareAcceleration();
   } else if (linuxGraphicsMode === 'swiftshader') {
-    // AppImage is the only runtime showing broken blur/opacity plus GPU crashes.
-    // Prefer software GL here so Chromium keeps its compositor pipeline
-    // without relying on the host Vulkan / GPU stack.
+    // Opt-in only (FOLIA_LINUX_GRAPHICS_MODE=swiftshader): upstream used to force this on every
+    // AppImage because that packaging showed broken blur/opacity plus GPU crashes. The fork keeps
+    // the host GPU by default; set the variable when testing on a machine where that regresses.
     app.commandLine.appendSwitch('use-gl', 'angle');
     app.commandLine.appendSwitch('use-angle', 'swiftshader');
     app.commandLine.appendSwitch('enable-unsafe-swiftshader');
@@ -246,7 +247,7 @@ if (process.platform === 'darwin' && process.arch === 'x64') {
   app.commandLine.appendSwitch('enable-gpu-rasterization');
 }
 
-const store = new Store({ projectName: 'Folia' });
+const store = new Store({ projectName: 'BigOrange' });
 const transcodeService = createTranscodeService({
   app,
   protocol,
@@ -323,7 +324,7 @@ const WALLPAPER_ZGUARD_SETTING_KEY = 'wallpaper_zguard';
 // disables even a bottom Dock. Exiting wallpaper mode or quitting restores the user's original Dock
 // state either way.
 const WALLPAPER_MAC_AUTOHIDE_DOCK_SETTING_KEY = 'wallpaper_mac_autohide_dock';
-// Set once Folia has asked macOS for the Accessibility grant (issue #698), so a user who declined
+// Set once BigOrange has asked macOS for the Accessibility grant (issue #698), so a user who declined
 // is not asked again on every launch.
 const WALLPAPER_MAC_ACCESSIBILITY_ASKED_KEY = 'wallpaper_mac_accessibility_asked';
 
@@ -342,7 +343,7 @@ function isWallpaperModeSupportedPlatform() {
 // X11 wallpaper mode: the main window is a _NET_WM_WINDOW_TYPE_DESKTOP window. It shares the
 // desktop layer with the KDE desktop window, and because desktop windows are rendered unredirected
 // there is no composited backdrop behind them. Click-through is therefore unavailable there: it
-// would let clicks reach the KDE desktop window, which KWin then raises above Folia (both are
+// would let clicks reach the KDE desktop window, which KWin then raises above BigOrange (both are
 // desktop-type, the topmost wins), covering the wallpaper.
 function isX11WallpaperMode() {
   return wallpaperWatchdogModule.isX11WallpaperMode({
@@ -370,7 +371,7 @@ function resolveWindowToLayerPath() {
   return fs.existsSync(candidate) ? candidate : null;
 }
 
-// Enables wallpaper mode on Wayland: spawn windowtolayer wrapping a fresh Folia child, then the
+// Enables wallpaper mode on Wayland: spawn windowtolayer wrapping a fresh BigOrange child, then the
 // old process exits once the wrapper has spawned. Spawn failure (ENOENT/EACCES) arrives on the
 // async 'error' event, never as a synchronous throw, so we revert the setting instead of crashing.
 function launchWrappedSelf({ onError } = {}) {
@@ -577,7 +578,7 @@ const windowsWallpaper = windowsWallpaperModule.createWindowsWallpaperController
 });
 
 // Renderer crash / WorkerW teardown broke the wallpaper session: attach the helper to a live
-// window, or rebuild one first when the Folia window was destroyed together with the WorkerW.
+// window, or rebuild one first when the BigOrange window was destroyed together with the WorkerW.
 function rebuildWindowsWallpaperSession() {
   if (process.platform !== 'win32' || !isWindowsWallpaperMode()) {
     return;
@@ -968,7 +969,7 @@ let macWallpaperHitPanelsInstance = null;
 let macWallpaperHitRects = [];
 // Stage Manager (issue #698). With the desktop items hidden while it is on: one catcher over the
 // whole wallpaper (macWallpaperHitPanels.cjs), no grant needed. With the icons shown: the click
-// guard library (macDesktopClickGuard.cjs) once Folia holds the Accessibility grant, else the
+// guard library (macDesktopClickGuard.cjs) once BigOrange holds the Accessibility grant, else the
 // catchers over the controls only and a one-time hint. Stage Manager's settings and the grant are
 // re-read on a slow timer while the wallpaper takes input, so changes apply without a restart.
 let macWallpaperStageState = { enabled: false, hidesDesktopItems: false, trusted: false };
@@ -1830,8 +1831,8 @@ function syncMacWallpaperHitPanels() {
     } else if (macWallpaperClickGuardInstance) {
       macWallpaperClickGuardInstance.stop();
     }
-    // Granted while Folia was running: macOS can report the grant but refuse the tap until Folia
-    // restarts. Same one-time hint, which says to restart Folia.
+    // Granted while BigOrange was running: macOS can report the grant but refuse the tap until BigOrange
+    // restarts. Same one-time hint, which says to restart BigOrange.
     const staleGrant = wantsGuard && stage.trusted && !guardRunning
       && macWallpaperClickGuardInstance?.lastFailure() === 'tap-failed';
     if (staleGrant && !macWallpaperAccessibilityHinted) {
@@ -1854,7 +1855,7 @@ function syncMacWallpaperHitPanels() {
   }
 }
 
-// Stage Manager's switch and "hide desktop items", plus whether Folia holds the Accessibility
+// Stage Manager's switch and "hide desktop items", plus whether BigOrange holds the Accessibility
 // grant the click guard needs. Both cheap: CFPreferences and AXIsProcessTrusted, no child process.
 function readMacWallpaperStageState() {
   const stage = readStageManagerDesktop() || { enabled: false, hidesDesktopItems: false };
@@ -1881,7 +1882,7 @@ function getMacWallpaperClickGuard() {
   return macWallpaperClickGuardInstance;
 }
 
-// Stage Manager is on with the desktop icons shown and Folia lacks the Accessibility grant: clicks
+// Stage Manager is on with the desktop icons shown and BigOrange lacks the Accessibility grant: clicks
 // on the bare wallpaper still send the stage aside. Asked once per session; never turns the
 // wallpaper off.
 function notifyMacWallpaperAccessibilitySuggested() {
@@ -2087,7 +2088,7 @@ const mainLocale = {
     dialogImportMessage: '不能直接导入系统目录或常用用户目录。\n请选择一个专门存放音乐的文件夹。',
     dialogChooseOther: '选择其他文件夹',
     dialogCancel: '取消',
-    crashTitle: 'Folia 遇到了问题',
+    crashTitle: 'BigOrange 遇到了问题',
     crashMessage: '程序发生了一次崩溃，日志已保存。把它发给开发者能帮助定位问题。',
     crashOpenFolder: '打开日志所在文件夹',
     crashClose: '关闭',
@@ -2113,7 +2114,7 @@ const mainLocale = {
     dialogImportMessage: '不能直接匯入系統目錄或常用使用者目錄。\n請選擇一個專門存放音樂的資料夾。',
     dialogChooseOther: '選擇其他資料夾',
     dialogCancel: '取消',
-    crashTitle: 'Folia 遇到了問題',
+    crashTitle: 'BigOrange 遇到了問題',
     crashMessage: '程式發生了一次崩潰，日誌已儲存。把它發給開發者能幫助定位問題。',
     crashOpenFolder: '開啟日誌所在資料夾',
     crashClose: '關閉',
@@ -2139,7 +2140,7 @@ const mainLocale = {
     dialogImportMessage: 'Cannot directly import system or common user directories.\nPlease choose a dedicated music folder.',
     dialogChooseOther: 'Choose Another Folder',
     dialogCancel: 'Cancel',
-    crashTitle: 'Folia ran into a problem',
+    crashTitle: 'BigOrange ran into a problem',
     crashMessage: 'The app crashed and a log has been saved. Sending it to the developer helps track the problem down.',
     crashOpenFolder: 'Open Log Folder',
     crashClose: 'Close',
@@ -2165,7 +2166,7 @@ const mainLocale = {
     dialogImportMessage: 'Folder sistem atau folder pengguna umum tidak dapat diimpor langsung.\nPilih folder khusus untuk menyimpan musik.',
     dialogChooseOther: 'Pilih Folder Lain',
     dialogCancel: 'Batal',
-    crashTitle: 'Folia mengalami masalah',
+    crashTitle: 'BigOrange mengalami masalah',
     crashMessage: 'Aplikasi mengalami crash dan log telah disimpan. Mengirimkannya ke pengembang membantu menemukan masalahnya.',
     crashOpenFolder: 'Buka Folder Log',
     crashClose: 'Tutup',
@@ -2454,7 +2455,7 @@ const FOLIA_GITHUB_REPOSITORY = {
   repo: 'folia-major',
 };
 const WINDOWS_APP_USER_MODEL_ID = 'top.izuna.foliamajor';
-const REMOTE_CONTROL_WINDOW_TITLE = 'Folia Remote';
+const REMOTE_CONTROL_WINDOW_TITLE = 'BigOrange Remote';
 const WINDOW_PLAYBACK_HANDOFF_REQUEST_TIMEOUT_MS = 800;
 const bundledAppIconPath = path.join(__dirname, '../build/icon.png');
 const extraResourceIconPath = path.join(process.resourcesPath, 'icon.png');
@@ -3324,7 +3325,7 @@ function refreshTrayMenu() {
   ]);
 
   appTray.setContextMenu(menu);
-  appTray.setToolTip('Folia');
+  appTray.setToolTip('BigOrange');
 }
 
 function ensureTray() {
@@ -4073,7 +4074,7 @@ async function checkForManualUpdateAvailability() {
     const response = await ses.fetch(discovery.url, {
       headers: {
         Accept: 'text/yaml, text/plain',
-        'User-Agent': `Folia/${app.getVersion()}`,
+        'User-Agent': `BigOrange/${app.getVersion()}`,
       },
       signal: controller.signal,
     });

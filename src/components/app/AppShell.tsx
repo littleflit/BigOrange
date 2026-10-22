@@ -36,7 +36,7 @@ const titlebarRevealArea = (bounds: FoliumLayoutRect): FoliumLayoutRect => ({
 });
 
 // 透明播放窗口的圆角应该跟宿主系统的窗口圆角一致。Windows 11 原生窗口圆角是 8px，
-// 之前写死的 18px 让 Folia 窗口和桌面其他窗口看着不像同一套；其余平台沿用原来的半径。
+// 之前写死的 18px 让 BigOrange 窗口和桌面其他窗口看着不像同一套；其余平台沿用原来的半径。
 export const resolveWindowCornerRadius = (platform: string): string => (
     platform === 'win32' ? '8px' : '18px'
 );

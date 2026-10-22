@@ -14,7 +14,7 @@ import {
 import { EntityEditorWorkspace } from '../local-library-entity/EntityEditorWorkspace';
 
 // src/components/modal/LocalLibraryEntityPanel.tsx
-// Orchestrates entity mutations in Folia's context-aware editor.
+// Orchestrates entity mutations in BigOrange's context-aware editor.
 
 interface LocalLibraryEntityPanelProps {
   entity: LocalLibraryEntity;

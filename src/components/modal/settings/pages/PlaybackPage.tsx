@@ -15,7 +15,7 @@ import AudioOutputDeviceRow from './AudioOutputDeviceRow';
 import { useSettingsPage } from './settingsPageContext';
 
 // src/components/modal/settings/pages/PlaybackPage.tsx
-// The 播放控制 page: how one song hands over to the next (Folia transitions), where the sound goes
+// The 播放控制 page: how one song hands over to the next (BigOrange transitions), where the sound goes
 // and how loud it is, what play and add-to-queue do, and (desktop app) the folded group of the
 // analysis models the full transition engine needs.
 

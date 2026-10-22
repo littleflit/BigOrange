@@ -4,7 +4,7 @@ import { errorMessage } from '../../../utils/errorText';
 // src/services/onlineMusic/account/likedChecks.ts
 // The hearts of the songs being played and queued, asked of the platform for those songs alone,
 // where the account's liked list was not read to the end (`getLikedSongIds` answered not whole:
-// its read stops at a limit of its own, say). Past that point Folia holds only what it held
+// its read stops at a limit of its own, say). Past that point BigOrange holds only what it held
 // before, and a song liked or unliked there in the platform's own app shows the heart it had.
 //
 // - A read of the liked ids is the adapter's `getLikedSongIds` or the read of the account's own
@@ -14,7 +14,7 @@ import { errorMessage } from '../../../utils/errorText';
 //   for the account it was read for, and only of an adapter with `library.areSongsLiked`.
 // - Each song is asked once after each such read, and not again until the next: a read of the
 //   liked ids follows the moments at which the list may have been changed elsewhere
-//   (readMoments.ts), the sync button and sign-in. A heart pressed in Folia needs no asking.
+//   (readMoments.ts), the sync button and sign-in. A heart pressed in BigOrange needs no asking.
 // - One request at a time for a platform, LIKED_CHECK_SLICE songs to a request. Each request
 //   takes the songs in play not asked yet, in the order they are in play when it is sent (the one
 //   playing first); a song that left play before its turn is not asked. Each answer is settled by

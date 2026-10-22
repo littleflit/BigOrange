@@ -6,7 +6,7 @@ import { getPlaybackSongKey } from '../../../../utils/appPlaybackGuards';
 import { recentPlaysOf, replayedSongsOf, watchRecentPlays } from './recentPlays';
 
 // src/components/app/home/explore/ownSections.ts
-// The explore page's own sections: what Folia itself knows of the listener, the same under
+// The explore page's own sections: what BigOrange itself knows of the listener, the same under
 // every provider. Both are read from its own record of the songs played here (recentPlays.ts),
 // for the provider and the account the page is shown for:
 //  - "recently played": the songs played here in the last seven days, newest first;

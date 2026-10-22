@@ -154,7 +154,7 @@ export const settingsCommands: CommandPaletteCommand[] = [
         id: 'transition-mode-crossfade',
         isAvailable: context => (context ? context.settings.transitionMode !== 'crossfade' : true),
         group: 'settings',
-        title: 'Transition mode: Folia Crossfade',
+        title: 'Transition mode: BigOrange Crossfade',
         description: 'Use the simple one-out one-in crossfade',
         keywords: ['crossfade', 'folia crossfade', 'transition mode crossfade', '交叉淡化', '过渡模式交叉淡化', 'gdmscf'],
         execute: (_input, context) => {
@@ -167,7 +167,7 @@ export const settingsCommands: CommandPaletteCommand[] = [
         id: 'transition-mode-automix',
         isAvailable: context => (context ? context.settings.transitionMode !== 'automix' : true),
         group: 'settings',
-        title: 'Transition mode: Folia Automix',
+        title: 'Transition mode: BigOrange Automix',
         description: 'Analyse both tracks and mix them automatically',
         keywords: ['automix', 'folia automix', 'transition mode automix', '自动混音', '过渡模式自动混音', 'gdmsauto'],
         execute: (_input, context) => {

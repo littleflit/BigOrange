@@ -43,7 +43,7 @@ const toMediaId = (value: string): string | number => (
 );
 
 // 候选的 id 用平台 ID（优先网易云，其次 QQ），与按平台 ID 取歌词、已保存的匹配记录保持一致；
-// 两个平台都没有的条目 Folia 无法关联，跳过。
+// 两个平台都没有的条目 BigOrange 无法关联，跳过。
 // artistNames / musicNames / albumNames 是同一对象的多语言别名，不是合作歌手列表：
 // 这里全部放进 artists 只为匹配评分能认出译名，不能当作歌曲元数据写入本地库（见 sourceProvidesSongMetadata）。
 export function toAmllDbSongResult(item: AmllApiSongItem): SongResult | null {

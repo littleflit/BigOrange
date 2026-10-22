@@ -2,13 +2,13 @@
 // Drives libfolia_click_guard.dylib (packaging/macos/desktop-click-guard/ClickGuard.swift) for the
 // macOS wallpaper while Stage Manager is on and the desktop icons are shown (issue #698): the
 // library keeps a click on the bare wallpaper away from Finder, so Stage Manager does not send the
-// stage aside, and leaves clicks on icons alone. Folia's own listen-only tap still forwards the
+// stage aside, and leaves clicks on icons alone. BigOrange's own listen-only tap still forwards the
 // click into the wallpaper.
 //
-// The library is loaded into Folia's main process through koffi, so the Accessibility grant its
-// active tap needs is Folia's own (a helper process was judged by its own identity and stayed
+// The library is loaded into BigOrange's main process through koffi, so the Accessibility grant its
+// active tap needs is BigOrange's own (a helper process was judged by its own identity and stayed
 // untrusted). Its tap runs on a native thread and decides in native code; no JavaScript is on the
-// click path. Without the grant Folia falls back to the click catchers over the controls
+// click path. Without the grant BigOrange falls back to the click catchers over the controls
 // (macWallpaperHitPanels.cjs). No Electron imports: the library loader is injectable for headless
 // tests.
 
@@ -29,7 +29,7 @@ function loadClickGuardLibrary(file) {
 }
 
 let trustFn = null;
-// AXIsProcessTrusted() through koffi: whether Folia holds the Accessibility grant. false when the
+// AXIsProcessTrusted() through koffi: whether BigOrange holds the Accessibility grant. false when the
 // bridge is missing.
 function isAccessibilityTrusted() {
   if (process.platform !== 'darwin') return false;
@@ -112,7 +112,7 @@ function createMacDesktopClickGuard({
     lib.clearRegion();
   }
 
-  // Shows macOS' Accessibility prompt for Folia.
+  // Shows macOS' Accessibility prompt for BigOrange.
   function requestAccess() {
     const l = getLibrary();
     if (!l) return false;

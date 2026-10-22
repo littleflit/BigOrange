@@ -16,7 +16,7 @@ import {
 // src/services/lyricExport/collectLocalLyrics.ts
 // Gathers the online-matched lyrics of local-library songs, named after their audio files.
 //
-// What a listener wants from exporting a local library is the lyrics Folia found online, as files
+// What a listener wants from exporting a local library is the lyrics BigOrange found online, as files
 // they can keep next to the audio. Lyrics that came from a sidecar file or the audio's own tags are
 // already on disk, and exporting them again would only produce a duplicate that clashes with the
 // existing .lrc when put back. So only songs whose active source is the online match are exported;

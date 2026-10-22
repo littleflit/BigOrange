@@ -158,7 +158,7 @@ export const readTemperaImageArchiveFile = async (
     const files = await runUnzip(bytes);
     const meta = readJsonEntry(files, 'meta.json') as { kind?: unknown; schemaVersion?: unknown };
     if (meta.kind !== ARCHIVE_KIND || meta.schemaVersion !== SCHEMA_VERSION) {
-        throw new Error('Not a Folia canvas-image backup');
+        throw new Error('Not a BigOrange canvas-image backup');
     }
 
     // Older backups also wrote `layerImageDepth` / `layerImageFrequency` here. Ignored rather than

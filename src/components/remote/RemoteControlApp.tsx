@@ -37,7 +37,7 @@ import './remote.css';
 // (with the switch "expand cover" on) the card turns into a sleeve: the cover large on the left,
 // the song and the line on the right. This file holds the window's state and puts the parts together.
 
-const REMOTE_CONTROL_DOCUMENT_TITLE = 'Folia Remote';
+const REMOTE_CONTROL_DOCUMENT_TITLE = 'BigOrange Remote';
 const REMOTE_BACKGROUND_MODE_STORAGE_KEY = 'remote_background_mode';
 /** What the pointer lit stays lit this long after the pointer leaves. */
 const LIT_LINGER_MS = 800;
@@ -71,7 +71,7 @@ const RemoteControlApp: React.FC = () => {
     const primaryDisabled = snapshot.controlsDisabled || !snapshot.hasTrack;
     const exportState = snapshot.exportState ?? idleVideoExportState();
     const exportBusy = isRemoteExportBusy(exportState.status);
-    const title = snapshot.title || (snapshot.hasTrack ? 'Folia' : t('remote.noTrack'));
+    const title = snapshot.title || (snapshot.hasTrack ? 'BigOrange' : t('remote.noTrack'));
     const artist = snapshot.artist || (snapshot.hasTrack ? t('remote.unknownArtist') : '');
 
     const clock = useRemoteClock({

@@ -6,7 +6,7 @@ import { useOnlineProviderAccountStore } from '../../../../stores/useOnlineProvi
 import { getPlaybackSongKey, getPlaybackSourceRef } from '../../../../utils/appPlaybackGuards';
 
 // src/components/app/home/explore/useRecentPlaysRecorder.ts
-// Writes Folia's own record of the songs played here (recentPlays.ts). A song of an online
+// Writes BigOrange's own record of the songs played here (recentPlays.ts). A song of an online
 // platform is reported in two ways, by how much of it has really sounded: as played after a few
 // seconds, and as listened to after half of it (four minutes of a long one). Each further length
 // of it that sounds after that is one more listening: a song on repeat, or taken back to its

@@ -5,7 +5,7 @@ import { finalizeParsedLyricLines, findTranslationsForSortedStartTimes, type Tim
 import { isRomanizationCandidate, hasCjkScript } from './timelineSplitter';
 import type { LyricProcessingOptions } from './types';
 
-// Converts OpenSubsonic songLyrics v2 cue timing into Folia's native lyric timeline.
+// Converts OpenSubsonic songLyrics v2 cue timing into BigOrange's native lyric timeline.
 const pickMainCueLines = (lyrics: StructuredLyric): StructuredLyricCueLine[] => {
     const mainAgentIds = new Set(
         lyrics.agents?.filter(agent => agent.role === 'main').map(agent => agent.id) ?? []
@@ -211,7 +211,7 @@ export const parseNavidromeStructuredLyrics = (
     };
 };
 
-// Merges the official enhanced response tracks into Folia's single display timeline.
+// Merges the official enhanced response tracks into BigOrange's single display timeline.
 export const parseNavidromeStructuredLyricsCollection = (
     lyricsList: StructuredLyric[],
     options: LyricProcessingOptions = {}

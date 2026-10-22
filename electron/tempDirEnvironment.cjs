@@ -3,7 +3,7 @@
 // electron/tempDirEnvironment.cjs
 // Windows 上 TEMP / TMP 有时被存成不展开的字符串类型（优化工具或手动改注册表），值里留着字面的
 // %USERPROFILE%。os.tmpdir() 原样返回它，path.resolve 再把它拼到当前目录下，变成一个不存在的
-// 相对路径（#690：D:\ruanjian\Folia\%USERPROFILE%\AppData\Local\Temp）。网易上游、分析 sidecar
+// 相对路径（#690：D:\ruanjian\BigOrange\%USERPROFILE%\AppData\Local\Temp）。网易上游、分析 sidecar
 // 都按 os.tmpdir() 取临时目录，所以在 main.cjs 最前面就地展开，而不是在各处另选目录。
 
 // os.tmpdir() 在 Windows 上依次读 TEMP、TMP。

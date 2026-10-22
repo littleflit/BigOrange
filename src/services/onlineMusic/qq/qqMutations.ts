@@ -80,7 +80,7 @@ const updatePlaylistTracks: NonNullable<OnlineMutationProvider['updatePlaylistTr
     if (tid === null) throw new OnlineProviderError('invalid-response', 'QQ playlist has no tid', 'qq');
     if (tracks.length === 0) return;
 
-    // `type: 0` 是调用方明确确认的普通曲库歌曲；Folia 里能加进歌单的 QQ 歌都来自曲库，不沿用读取条目里的 type。
+    // `type: 0` 是调用方明确确认的普通曲库歌曲；BigOrange 里能加进歌单的 QQ 歌都来自曲库，不沿用读取条目里的 type。
     const songIds = [...new Set(await Promise.all(tracks.map(resolveQqSongId)))];
     for (let start = 0; start < songIds.length; start += QQ_TRACKS_PER_WRITE) {
         const songs = songIds.slice(start, start + QQ_TRACKS_PER_WRITE).map(id => ({ id, type: 0 }));

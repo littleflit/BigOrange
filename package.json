@@ -1,7 +1,7 @@
 {
-  "name": "folia-major",
-  "productName": "Folia",
-  "desktopName": "folia-major.desktop",
+  "name": "bigorange",
+  "productName": "BigOrange",
+  "desktopName": "bigorange.desktop",
   "description": "Lyrics Reimagine",
   "author": {
     "name": "chthollyphile",
@@ -63,8 +63,8 @@
     "manual:ai-probe": "node test/manual/ai_probe.mjs"
   },
   "build": {
-    "appId": "top.izuna.foliamajor",
-    "productName": "Folia",
+    "appId": "top.izuna.bigorange",
+    "productName": "BigOrange",
     "beforePack": "build/beforePack.cjs",
     "afterPack": "build/afterPack.cjs",
     "electronLanguages": [
@@ -133,8 +133,8 @@
         "to": "trayTemplate@2x.png"
       },
       {
-        "from": "packaging/linux/folia-major.desktop",
-        "to": "linux/folia-major.desktop"
+        "from": "packaging/linux/bigorange.desktop",
+        "to": "linux/bigorange.desktop"
       },
       {
         "from": "packaging/linux/README-LINUX.txt",
@@ -218,11 +218,11 @@
       },
       "icon": "build/icon.png",
       "category": "AudioVideo",
-      "executableName": "folia-major",
+      "executableName": "bigorange",
       "syncDesktopName": true,
       "desktop": {
         "entry": {
-          "StartupWMClass": "folia-major"
+          "StartupWMClass": "bigorange"
         }
       }
     }

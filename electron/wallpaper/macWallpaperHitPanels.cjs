@@ -8,7 +8,7 @@
 // (PR #709). Instead, while the wallpaper's controls (bottom capsule, panel toggle, panel, toasts)
 // are on screen, a fully transparent, borderless, non-activating NSPanel is placed over each one,
 // one level above the Finder icons and below every normal window: the click lands on our own
-// panel, which never activates Folia, Finder never sees it, and Stage Manager does not react
+// panel, which never activates BigOrange, Finder never sees it, and Stage Manager does not react
 // (measured on macOS 15.3 with Stage Manager on, 2026-10-19). The tap still sees the click and
 // forwards it as before: isDesktopPoint lets our own desktop-adjacent windows through.
 //
@@ -159,7 +159,7 @@ function createMacWallpaperHitPanels({ level, primaryHeight, logWarn = console.w
     );
     if (!panel) return null;
     s.msgSend_v_bool(panel, s.SEL('setReleasedWhenClosed:'), false);
-    // Folia is never the active app in wallpaper mode; a panel hiding on deactivate would vanish.
+    // BigOrange is never the active app in wallpaper mode; a panel hiding on deactivate would vanish.
     s.msgSend_v_bool(panel, s.SEL('setHidesOnDeactivate:'), false);
     s.msgSend_v_bool(panel, s.SEL('setOpaque:'), false);
     s.msgSend_v_ptr(panel, s.SEL('setBackgroundColor:'), s.msgSend_ptr(s.objc_getClass('NSColor'), s.SEL('clearColor')));

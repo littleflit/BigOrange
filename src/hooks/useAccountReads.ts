@@ -17,7 +17,7 @@ import type { SongResult } from '../types';
 // - The home screen is entered (home with no collection open on top of it: the lists behind an
 //   open collection are not what is being looked at): the playlists of the platform shown are read
 //   again, and its liked songs where their count has moved.
-// - Folia's window is returned to: the liked songs, where their count has moved. The page's own
+// - BigOrange's window is returned to: the liked songs, where their count has moved. The page's own
 //   `focus` (the desktop window keeps counting as visible while it is hidden or minimised, so
 //   there it is the only sign) and its turning visible again (a browser tab).
 // - The song playing or the queue changes: the hearts of those songs, where a platform's liked

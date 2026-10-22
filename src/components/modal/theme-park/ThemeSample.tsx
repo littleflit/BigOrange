@@ -30,7 +30,7 @@ export const ThemeSampleCard: React.FC = () => (
         <img src={SAMPLE_SONG.coverUrl} alt="" draggable={false} className="h-9 w-9 shrink-0 rounded-lg object-cover" />
         <span className="min-w-0">
             <span className={`${SAMPLE_COLOR_MOTION_CLASS} block truncate text-[13px] font-semibold leading-[18px] text-[color:var(--ts-fg)]`}>{SAMPLE_SONG.title}</span>
-            <span className={`${SAMPLE_COLOR_MOTION_CLASS} block truncate text-xs leading-4 text-[color:var(--ts-muted)]`}>Folia</span>
+            <span className={`${SAMPLE_COLOR_MOTION_CLASS} block truncate text-xs leading-4 text-[color:var(--ts-muted)]`}>BigOrange</span>
         </span>
     </div>
 );

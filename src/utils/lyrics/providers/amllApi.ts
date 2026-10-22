@@ -66,14 +66,14 @@ export const buildAmllApiSearchUrl = (params: AmllApiSearchParams, pageSize: num
     return `${AMLL_API_BASE_URL}/v1/lyrics/search?${search}`;
 };
 
-// 例：Folia/0.7.16-537fa57 (chthollyphile/folia-major)。单测等没有构建常量的环境返回 null。
+// 例：BigOrange/0.7.16-537fa57 (chthollyphile/folia-major)。单测等没有构建常量的环境返回 null。
 function getAmllApiUserAgent(): string | null {
     if (typeof __APP_VERSION__ === 'undefined') {
         return null;
     }
     const commit = typeof __BUILD_COMMIT__ === 'undefined' ? 'dev' : __BUILD_COMMIT__;
     const repo = typeof __BUILD_REPO__ === 'undefined' ? 'unknown' : __BUILD_REPO__;
-    return `Folia/${__APP_VERSION__}-${commit} (${repo})`;
+    return `BigOrange/${__APP_VERSION__}-${commit} (${repo})`;
 }
 
 async function requestAmllApi(url: string): Promise<{ status: number; bodyText: string }> {

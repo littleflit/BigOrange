@@ -104,7 +104,7 @@ describe('what a report contains and does', () => {
 
         const body = fs.readFileSync(file, 'utf8');
         expect(body).toContain('Kind       uncaughtException');
-        expect(body).toContain('Folia      9.9.9');
+        expect(body).toContain('BigOrange      9.9.9');
         expect(body).toContain('Error: boom');
         expect(dialog.showMessageBoxSync).toHaveBeenCalledTimes(1);
         expect(shell.showItemInFolder).toHaveBeenCalledWith(file);

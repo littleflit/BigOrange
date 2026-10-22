@@ -65,7 +65,7 @@ export const isNeteaseNetworkFailure = (error: unknown): boolean => (
 
 // Thrown when the Electron backend could not start because the network is down (it had no stored key
 // to start without). Read as "cannot reach NetEase", not as a stopped service: the backend starts
-// again when a request next needs it, so restarting Folia is not the way out.
+// again when a request next needs it, so restarting BigOrange is not the way out.
 export const NETEASE_API_OFFLINE = 'NETEASE_API_OFFLINE';
 
 // Thrown for a sign-in request the local backend answered with an HTTP error, so the sign-in stops at

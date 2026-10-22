@@ -337,7 +337,7 @@ const beginLikedRead = (providerId: OmniProviderId, userId: MediaId): LikedListR
 // the one rule (account/keptAfterRead.ts), and the account store is written where that changes
 // what is held. Says whether it was applied, whether the liked ids changed (saving the snapshot is
 // the caller's), and whether the account now holds what the answer held: it was applied and no
-// song kept what Folia held because it was pressed. `notLiked`: the answer is a check of some
+// song kept what BigOrange held because it was pressed. `notLiked`: the answer is a check of some
 // songs (account/likedChecks.ts), and these it found not liked.
 const applyLikedRead = (
     read: LikedListRead,
@@ -669,7 +669,7 @@ export const omni = {
         return accountReads.signOut(providerId);
     },
 
-    // Reads the playlists of the account shown again, after a change made to one in Folia and
+    // Reads the playlists of the account shown again, after a change made to one in BigOrange and
     // when the home screen is entered, and keeps them with the account. Rejects where they could
     // not be read.
     refreshProviderPlaylists(providerId: OmniProviderId): Promise<OmniCollection[]> {

@@ -83,7 +83,7 @@ export const buildSonnetStaffView = (
     
     containerLayer.addChild(wrapper);
 
-    /** Draws the fixed La Folia phrase and advances its playback cursor on a normal time loop. */
+    /** Draws the fixed La BigOrange phrase and advances its playback cursor on a normal time loop. */
     const updateAnimation = (time: number) => {
         const cycleElapsed = positiveModulo(time - shotStartTime, LA_FOLIA_CYCLE_SECONDS);
         const beatPosition = (cycleElapsed / LA_FOLIA_CYCLE_SECONDS) * LA_FOLIA_TOTAL_BEATS;

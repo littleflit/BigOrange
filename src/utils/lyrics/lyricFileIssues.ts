@@ -1,5 +1,5 @@
 // src/utils/lyrics/lyricFileIssues.ts
-// Detects sidecar lyric files whose layout Folia reads but cannot interpret correctly, so the UI can
+// Detects sidecar lyric files whose layout BigOrange reads but cannot interpret correctly, so the UI can
 // tell the user the file itself is at fault instead of silently showing misaligned lyrics.
 //
 // Only one layout is recognised so far: bilingual LRC that stamps each translation with the END time
@@ -76,7 +76,7 @@ const isTranslationShiftedToEndTime = (content: string): boolean => {
     return shiftedPairs / bilingualPairs.length >= MIN_SHIFTED_PAIR_RATIO;
 };
 
-/** Issues in a sidecar LRC that make Folia show it wrong. Formats other than plain LRC are not checked. */
+/** Issues in a sidecar LRC that make BigOrange show it wrong. Formats other than plain LRC are not checked. */
 export const detectLyricFileIssues = (content: string | undefined, format?: string): LyricFileIssue[] => {
     if (!content || (format && format !== 'lrc')) {
         return [];

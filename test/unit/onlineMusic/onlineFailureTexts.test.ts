@@ -50,7 +50,7 @@ describe('the texts of the cases', () => {
     it('fills in the platform\'s name, and says 已下架 for no case', () => {
         const label = omni.getProviderLabel('netease');
         expect(onlineFailureMessage(failure({ case: 'unreachable' }), zhT)).toEqual({ title: `无法连接${label}`, note: '请检查网络' });
-        expect(onlineFailureMessage(failure({ case: 'local-service-stopped' }), zhT).note).toBe('请重启 Folia');
+        expect(onlineFailureMessage(failure({ case: 'local-service-stopped' }), zhT).note).toBe('请重启 BigOrange');
         // 「要求稍后再试」的标题自己说了该做什么；不知道平台时标题只剩「播放失败」，要补上这一句。
         expect(onlineFailureMessage(failure({ case: 'retry-later' }), zhT).note).toBeUndefined();
         expect(onlineFailureMessage(failure({ case: 'retry-later' }, 'audio', null), zhT)).toEqual({ title: '播放失败', note: '请稍后重试' });

@@ -40,7 +40,7 @@ export const readSyncLibraryZipFile = async (file: File): Promise<SyncLibraryExp
     const files = unzipSync(new Uint8Array(await file.arrayBuffer()));
     const meta = parseZipJson(files, 'meta.json') as { kind?: unknown; schemaVersion?: unknown; exportedAt?: unknown } | null;
     if (!meta || meta.kind !== ARCHIVE_KIND || meta.schemaVersion !== SYNC_SCHEMA_VERSION || typeof meta.exportedAt !== 'string') {
-        throw new Error('Invalid Folia sync zip export');
+        throw new Error('Invalid BigOrange sync zip export');
     }
 
     const bundle = parseSyncLibraryExportBundle({
@@ -51,7 +51,7 @@ export const readSyncLibraryZipFile = async (file: File): Promise<SyncLibraryExp
         themes: parseZipJson(files, 'themes/themes.json'),
     });
     if (!bundle) {
-        throw new Error('Invalid Folia sync zip export');
+        throw new Error('Invalid BigOrange sync zip export');
     }
     return bundle;
 };

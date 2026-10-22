@@ -28,7 +28,7 @@ export interface ExportableLyric {
     /**
      * Local songs only: the audio file's path relative to the library root, without its extension
      * (`Music/Album/01 Song`). Exported files are named and placed after it so they can be dropped
-     * next to the audio as sidecars, which is how Folia's own scan and other players find lyrics.
+     * next to the audio as sidecars, which is how BigOrange's own scan and other players find lyrics.
      */
     localPath?: string;
 }

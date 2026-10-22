@@ -20,7 +20,7 @@ import { mergeUrlBackgroundList } from '../../../../../utils/urlBackground';
 // src/components/modal/settings/pages/storage/visualConfigTransfer.ts
 // The visual settings as one config: building it for a config code, working out what a pasted one
 // would change, and applying the changes a person picked. Every visual setting that can be carried
-// from one Folia to another passes through here, so a new one is added in buildVisualSettingsConfig
+// from one BigOrange to another passes through here, so a new one is added in buildVisualSettingsConfig
 // (what is written) and in applyImportedConfig below (what is read back).
 // The settings are read from and written to their stores when a function runs; the theme, which
 // the app shell owns, is handed in.

@@ -27,7 +27,7 @@ import { errorMessage } from '../../../utils/errorText';
 //
 // When it runs (omni is told by src/hooks/useAccountReads.ts and useOnlineProviderPlatform.ts):
 // app start, a completed sign-in, a platform switch, the sync button. The playlists alone are read
-// again after a change made to one in Folia and when the home screen is entered.
+// again after a change made to one in BigOrange and when the home screen is entered.
 //
 // One guard for a platform:
 // - A read asked for while one is under way joins it; no second one is made. A completed sign-in
@@ -66,7 +66,7 @@ export type AccountReadReason = 'start' | 'sign-in' | 'switch' | 'sync';
  * - 'not read': somebody is signed in and their playlists could not be read.
  * - 'unknown': who is signed in could not be asked, or the read was given up.
  * - 'nobody': nobody is signed in.
- * - 'ran out': the sign-in Folia showed is no longer valid, and the account left.
+ * - 'ran out': the sign-in BigOrange showed is no longer valid, and the account left.
  * - 'not asked': the home screen was entered and nothing was read (see `readAtHome`).
  */
 export type AccountReadOutcome = 'read' | 'not read' | 'unknown' | 'nobody' | 'ran out' | 'not asked';
@@ -316,7 +316,7 @@ export const createAccountReads = <R>(deps: AccountReadsDeps<R>) => {
             if (shown && String(shown.id) === String(user.id)) {
                 store().updateAccount(providerId, { status: 'authenticated', user, hydration: 'ready', error: undefined });
             } else {
-                // What Folia shows is another user's, or nobody's. Another user's goes at once,
+                // What BigOrange shows is another user's, or nobody's. Another user's goes at once,
                 // with the hearts pressed for it; what was kept of this user is shown while the
                 // platform is read.
                 if (shown) {
@@ -382,7 +382,7 @@ export const createAccountReads = <R>(deps: AccountReadsDeps<R>) => {
     };
 
     // Reads the playlists of the account shown again, and nothing else of it: after a change made
-    // to one in Folia, and when the home screen is entered. Answers with the playlists read;
+    // to one in BigOrange, and when the home screen is entered. Answers with the playlists read;
     // rejects where they could not be read, with the account marked as failed.
     const readPlaylists = async (providerId: OnlineProviderId): Promise<ProviderCollection[]> => {
         const provider = getOnlineMusicProvider(providerId);

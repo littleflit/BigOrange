@@ -31,12 +31,12 @@ const SCOPES = [
 
 // The page the browser is left on. It is the only text of the app shown outside its window.
 const PAGE_TEXT = Object.freeze({
-  'zh-CN': { done: '已登录 Spotify，可以回到 Folia 了。', refused: '未授权。请回到 Folia 重试。', failed: '登录未完成。请回到 Folia 重试。' },
-  'zh-TW': { done: '已登入 Spotify，可以回到 Folia 了。', refused: '未授權。請回到 Folia 重試。', failed: '登入未完成。請回到 Folia 重試。' },
-  en: { done: 'Signed in to Spotify. You can go back to Folia.', refused: 'Not authorized. Try again in Folia.', failed: 'Sign-in not completed. Try again in Folia.' },
-  in: { done: 'Sudah masuk ke Spotify. Anda bisa kembali ke Folia.', refused: 'Tidak diizinkan. Coba lagi di Folia.', failed: 'Proses masuk belum selesai. Coba lagi di Folia.' },
+  'zh-CN': { done: '已登录 Spotify，可以回到 BigOrange 了。', refused: '未授权。请回到 BigOrange 重试。', failed: '登录未完成。请回到 BigOrange 重试。' },
+  'zh-TW': { done: '已登入 Spotify，可以回到 BigOrange 了。', refused: '未授權。請回到 BigOrange 重試。', failed: '登入未完成。請回到 BigOrange 重試。' },
+  en: { done: 'Signed in to Spotify. You can go back to BigOrange.', refused: 'Not authorized. Try again in BigOrange.', failed: 'Sign-in not completed. Try again in BigOrange.' },
+  in: { done: 'Sudah masuk ke Spotify. Anda bisa kembali ke BigOrange.', refused: 'Tidak diizinkan. Coba lagi di BigOrange.', failed: 'Proses masuk belum selesai. Coba lagi di BigOrange.' },
 });
-const pageOf = text => `<!doctype html><meta charset="utf-8"><title>Folia</title><body style="margin:0;display:grid;place-items:center;height:100vh;background:#121212;color:#fff;font:16px system-ui,sans-serif">${text}</body>`;
+const pageOf = text => `<!doctype html><meta charset="utf-8"><title>BigOrange</title><body style="margin:0;display:grid;place-items:center;height:100vh;background:#121212;color:#fff;font:16px system-ui,sans-serif">${text}</body>`;
 const PAGE_HEADERS = Object.freeze({ 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', Connection: 'close' });
 // The reason word for the `error` Spotify sends the browser back with in place of a code (the
 // words of OAuth 2.0, RFC 6749 4.1.2.1). Any other word Spotify gives is a refusal; with none,

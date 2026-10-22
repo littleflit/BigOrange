@@ -8,12 +8,12 @@ import type {
   PlayerCapTextDetailed,
 } from '../types/playerCap';
 
-// Pure mapping from PlayerCap events to Folia shapes (black-box consumption, no side effects, unit-testable).
+// Pure mapping from PlayerCap events to BigOrange shapes (black-box consumption, no side effects, unit-testable).
 // The time basis is chosen by the timeBasis switch; both modes clock on progress×duration (realtime, offset-independent):
 //   - 'play_time' (default): lines/words use play_time (already includes each PlayerCap player's offset tuning).
 //     Since PlayerCap only pushes lyric_update when realtime≈play_time, lines keyed on play_time align naturally
-//     with the progress clock, matching PlayerCap's display timing — no need to recompute offset on the Folia side.
-//   - 'timestamp': lines/words use the raw timestamp (on-beat, ignores PlayerCap offset; can be fine-tuned via Folia's own offset control).
+//     with the progress clock, matching PlayerCap's display timing — no need to recompute offset on the BigOrange side.
+//   - 'timestamp': lines/words use the raw timestamp (on-beat, ignores PlayerCap offset; can be fine-tuned via BigOrange's own offset control).
 
 export type PlayerCapTimeBasis = 'timestamp' | 'play_time';
 
@@ -34,7 +34,7 @@ function lineContentEnd(line: PlayerCapLyricLine, basis: PlayerCapTimeBasis, sta
   return hasWords(td) ? td.words.reduce((end, w) => Math.max(end, w[basis] + w.duration), start) : start;
 }
 
-// A single PlayerCap lyric line → Folia Line. Word-by-word lines use the words' timing; line-level lines degrade to one Word for the whole line.
+// A single PlayerCap lyric line → BigOrange Line. Word-by-word lines use the words' timing; line-level lines degrade to one Word for the whole line.
 // startTime/nextStart are computed uniformly by buildLyricLines (already monotonic-start-converged) and passed in; basis selects timestamp or play_time.
 function buildLine(line: PlayerCapLyricLine, basis: PlayerCapTimeBasis, startTime: number, nextStart: number | undefined): Line {
   const detailed = hasWords(line.text_detailed) ? line.text_detailed : null;
@@ -44,7 +44,7 @@ function buildLine(line: PlayerCapLyricLine, basis: PlayerCapTimeBasis, startTim
   } else if (nextStart === undefined) {
     rawEnd = startTime + LAST_LINE_FALLBACK_SEC;
   } else {
-    // Line-level lines have no internal duration: cap at Folia's native parseLRC reading duration (text.length×0.5+2,
+    // Line-level lines have no internal duration: cap at BigOrange's native parseLRC reading duration (text.length×0.5+2,
     // capping only when the gap exceeds both that value and 5s), so long instrumental gaps leave room for
     // attachInterludes to insert "……", matching native LRC rendering; short gaps are still snapped below to the next line's start.
     const gap = nextStart - startTime;
@@ -77,7 +77,7 @@ function buildLine(line: PlayerCapLyricLine, basis: PlayerCapTimeBasis, startTim
 export function buildLyricLines(data: PlayerCapAllLyricsData, basis: PlayerCapTimeBasis = DEFAULT_TIME_BASIS): Line[] {
   // Pass platform lyrics through as-is: the contract states "downstream can neither assume the first lines are metadata
   // (lyricist/composer/Written by…) nor assume they are not", so we do no heuristic stripping here; users who want to remove
-  // credit lines use Folia's existing lyric-filtering regex.
+  // credit lines use BigOrange's existing lyric-filtering regex.
   const usable = (data.lyrics ?? []).filter((l) => l.index >= 0);
   // Monotonic start convergence: PlayerCap's line-level play_time/timestamp and the word-by-word (text_detailed) timings are
   // two separate clocks with inconsistent lead times, so the next line's line-level start (especially a line-level line with no
@@ -133,7 +133,7 @@ export function toCoverSrc(coverBase64: string, coverUrl: string): string {
   return coverUrl || '';
 }
 
-// song_info_update → Folia track snapshot. Read name/singer directly for title/artist; do not parse title.
+// song_info_update → BigOrange track snapshot. Read name/singer directly for title/artist; do not parse title.
 export function mapSongInfoToTrack(data: PlayerCapSongInfoData): PlayerCapTrack {
   return {
     name: data.name || data.title || '',

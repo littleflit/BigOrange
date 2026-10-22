@@ -10,7 +10,7 @@ import { OnlineRequestTimeout } from './onlineRequestLimit';
 // 由那个平台的 adapter 说（`describeFailure`）。新增一个平台不用改这个文件。
 
 // 一次失败的全部事实：provider 交出来的，加上抛出的错的共用代码。抛出的错自己的那句话不在里面：它多半是
-// Folia 自己的英文，只进日志（logOnlineFailure）。
+// BigOrange 自己的英文，只进日志（logOnlineFailure）。
 export interface OnlineFailureFacts extends OnlineFailureDetail {
     // 抛出的是 OnlineProviderError 时它的 code。
     errorCode?: ProviderErrorCode;

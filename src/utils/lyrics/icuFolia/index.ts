@@ -2,7 +2,7 @@ import type { LyricData } from '../../../types';
 import { segmentWithIcuFolia, type IcuFoliaEngines } from './segmenter';
 
 // src/utils/lyrics/icuFolia/index.ts
-// icu-folia: Folia's default word segmenter for lyrics. ICU (Intl.Segmenter) with its Chinese and
+// icu-folia: BigOrange's default word segmenter for lyrics. ICU (Intl.Segmenter) with its Chinese and
 // Japanese replaced by jieba and BudouX; see segmenter.ts for how a line is cut.
 //
 // Its output is baked onto each Line as `autoWordSegments` by the lyric setter, rather than computed

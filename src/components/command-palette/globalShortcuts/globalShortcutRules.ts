@@ -28,7 +28,7 @@ export const GLOBAL_SHORTCUT_MODIFIER_LABELS: ReadonlyArray<string> = isMacPlatf
 
 /**
  * Only playback controls: a system-wide key is pressed while another program has the screen, so it
- * may only do what makes sense without looking at Folia. Like is left out on purpose: it toggles,
+ * may only do what makes sense without looking at BigOrange. Like is left out on purpose: it toggles,
  * and its result is shown only inside the window, so a press in the background could quietly take
  * a song back out of the favourites.
  */

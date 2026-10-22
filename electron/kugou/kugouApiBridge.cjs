@@ -50,7 +50,7 @@ const isRecord = value => Boolean(value) && typeof value === 'object' && !Array.
 
 /**
  * Electron may expose Linux's `basic_text` password backend as available even though it only
- * obfuscates data. Refusing it keeps KuGou account tokens out of Folia's plaintext config file.
+ * obfuscates data. Refusing it keeps KuGou account tokens out of BigOrange's plaintext config file.
  */
 function assertEncryptionAvailable(safeStorage, platform) {
   if (!safeStorage || typeof safeStorage.isEncryptionAvailable !== 'function') {

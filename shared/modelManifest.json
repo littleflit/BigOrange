@@ -13,7 +13,7 @@
     "used as it is; a build machine without one tries the mirrors in order, first match wins.",
     "",
     "Both models are MIT, which is what makes shipping and hosting our own copies allowed at all. A",
-    "CC-BY-NC model could never be listed here while Folia is AGPL-3.0 - see the licence field.",
+    "CC-BY-NC model could never be listed here while BigOrange is AGPL-3.0 - see the licence field.",
     "",
     "Two files, each read by both runtimes: the renderer's WebGPU path and the analysis worker's MNN",
     "(native/folia-mnn, built into the app), which builds each network over the same tensors. The",

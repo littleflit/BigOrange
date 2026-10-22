@@ -6,7 +6,7 @@ import type { PonderAnchorSource, PonderRelativeRect, PonderSceneScript, PonderT
 //
 // 这三样的共同点是它们都不在应用界面里 —— 一个把窗口沉到桌面最底层，一个住在系统托盘，
 // 一个是另开的窗口。在应用里翻遍设置也看不到它们长什么样，所以这一章的示意图画的是
-// 一整块桌面，而不是 Folia 自己的界面。
+// 一整块桌面，而不是 BigOrange 自己的界面。
 //
 // 只在桌面版存在，所以整个目标挂 isAvailable：浏览器里讲一遍三个打不开的功能是纯噪声。
 
@@ -67,7 +67,7 @@ const wallpaper: PonderSceneScript = {
     ],
 };
 
-/** 第二章：系统托盘。窗口关掉之后 Folia 还在的那个地方。 */
+/** 第二章：系统托盘。窗口关掉之后 BigOrange 还在的那个地方。 */
 const tray: PonderSceneScript = {
     id: 'folia-desktop-tray',
     titleKey: 'ponder.scenes.foliaDesktopTray',

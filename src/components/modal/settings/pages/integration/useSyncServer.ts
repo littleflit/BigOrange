@@ -158,7 +158,7 @@ export const useSyncServer = () => {
                 ? await readSyncLibraryZipFile(file)
                 : JSON.parse(await file.text()) as unknown;
             if (!isSyncLibraryExportBundle(parsed)) {
-                throw new Error('Invalid Folia sync export');
+                throw new Error('Invalid BigOrange sync export');
             }
             setPendingImport(parsed);
         } catch (error) {

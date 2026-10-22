@@ -37,10 +37,10 @@ export const AiHelpPromptModal: React.FC<AiHelpPromptModalProps> = ({
         guideUrl: FOLIA_GUIDE_URL,
         repoUrl: FOLIA_REPOSITORY_URL,
         defaultValue: [
-            'I am using Folia and need help with a problem.',
+            'I am using BigOrange and need help with a problem.',
             '',
-            `Folia Guide: ${FOLIA_GUIDE_URL}`,
-            `Folia repository: ${FOLIA_REPOSITORY_URL}`,
+            `BigOrange Guide: ${FOLIA_GUIDE_URL}`,
+            `BigOrange repository: ${FOLIA_REPOSITORY_URL}`,
             '',
             'Please read these references as context, then help me understand and solve the problem I describe next. Ask for any missing details before making assumptions, and give me steps I can try safely.'
         ].join('\n')

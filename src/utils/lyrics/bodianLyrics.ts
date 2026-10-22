@@ -5,7 +5,7 @@ import type { BodianLyricsPayload } from 'bodian-music-api';
 
 // src/utils/lyrics/bodianLyrics.ts
 
-// The API package decodes platform timing. Folia only maps standard lyric text to its shared model.
+// The API package decodes platform timing. BigOrange only maps standard lyric text to its shared model.
 export function parseBodianLyrics({ mainText, wordByWordText }: BodianLyricsPayload): ProviderLyricsResult {
     const wordLyrics = wordByWordText ? parseAwlrc(wordByWordText) : null;
     const lyrics = wordLyrics?.lines.length ? wordLyrics : parseLyricsByFormat('lrc', mainText);

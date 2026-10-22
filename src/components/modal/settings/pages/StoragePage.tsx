@@ -13,7 +13,7 @@ import FolderWatchGroup from './storage/FolderWatchGroup';
 import { BACKUP, CACHE_ROWS, CACHES, MEDIA, O } from './storage/options';
 
 // src/components/modal/settings/pages/StoragePage.tsx
-// The 存储与备份 page: what Folia keeps on disk and how to carry its look to another Folia. The
+// The 存储与备份 page: what BigOrange keeps on disk and how to carry its look to another BigOrange. The
 // song cache first (on or off, and in the desktop app where it is and how large it may grow), then
 // what each kind of cache takes with a button to clear it, the watch on imported folders, and a
 // folded group for copying and pasting the visual settings as a config code. The cache sizes and

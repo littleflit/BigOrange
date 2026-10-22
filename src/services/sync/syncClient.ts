@@ -14,7 +14,7 @@ import {
 } from './syncSchema';
 
 // src/services/sync/syncClient.ts
-// HTTP adapter for Folia's user-hosted sync API.
+// HTTP adapter for BigOrange's user-hosted sync API.
 
 export class SyncClientError extends Error {
     status: number;

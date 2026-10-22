@@ -3,7 +3,7 @@ import { ensureLyricDataRenderHints } from './renderHints';
 import { isValidWordSegmentation } from './wordSegmentation';
 
 // src/utils/lyrics/foliaLyricDocument.ts
-// Folia 自有歌词格式 `.fia`：把歌词流水线的产物 LyricData 原样装进一个带版本号的 JSON 信封，
+// BigOrange 自有歌词格式 `.fia`：把歌词流水线的产物 LyricData 原样装进一个带版本号的 JSON 信封，
 // 导入时跳过所有解析器直接加载。
 //
 // 装进去的是「解析之后、setter 之前」的数据，再加上用户保存的分词（wordSegments）。合唱效果、

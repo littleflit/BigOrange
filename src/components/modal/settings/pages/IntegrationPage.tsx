@@ -12,7 +12,7 @@ import SyncServerRows from './integration/SyncServerRows';
 import { useSettingsPage } from './settingsPageContext';
 
 // src/components/modal/settings/pages/IntegrationPage.tsx
-// The 连接与集成 page: what Folia connects to and what it shows to other programs. Services first
+// The 连接与集成 page: what BigOrange connects to and what it shows to other programs. Services first
 // (Navidrome, the sync server, Discord, the NetEase listening report), then streaming and stage
 // (the transparent player background, the OBS browser source, the lyric interface, stage mode).
 // Discord, OBS and the lyric interface exist in the desktop app only. The rows of Navidrome, the

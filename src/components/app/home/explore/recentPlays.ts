@@ -3,7 +3,7 @@ import type { OnlineProviderId } from '../../../../types/onlineMusic';
 import { getPlaybackSongKey, getPlaybackSourceRef } from '../../../../utils/appPlaybackGuards';
 
 // src/components/app/home/explore/recentPlays.ts
-// Folia's own record of the songs played here from an online platform: each song once, with
+// BigOrange's own record of the songs played here from an online platform: each song once, with
 // when it was last played and how many listenings of it each day had, newest first. It is what
 // the explore page's own sections are made of (ownSections.ts): the songs played lately, and the
 // songs listened to more than once. What an account played on a platform's own apps is no part

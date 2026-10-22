@@ -7,7 +7,7 @@ export interface SonnetStaffNote {
     accidental?: 'sharp';
 }
 
-// La Folia's public-domain D-minor theme, transcribed from its 3/4 LilyPond notation.
+// La BigOrange's public-domain D-minor theme, transcribed from its 3/4 LilyPond notation.
 export const LA_FOLIA_STAFF_NOTES: readonly SonnetStaffNote[] = [
     { pitch: 'D5', staffStep: 6, beats: 1 },
     { pitch: 'D5', staffStep: 6, beats: 1.5 },

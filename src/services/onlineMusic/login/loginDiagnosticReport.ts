@@ -186,7 +186,7 @@ export const formatLoginDiagnosticReport = ({
     selfCheck?: LoginReportSelfCheck | null;
     providerLines: readonly LoginDiagnosticLine[];
 }): string => [
-    '### Folia QR login diagnostics',
+    '### BigOrange QR login diagnostics',
     '',
     '```text',
     `generated: ${new Date(generatedAt).toISOString()}`,

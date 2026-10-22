@@ -270,7 +270,7 @@ describe('a note left over from the last start', () => {
         create().start();
         expect(dialogs.asked).toHaveLength(1);
         expect(dialogs.asked[0]).toMatchObject({
-            message: 'Folia did not finish starting last time.',
+            message: 'BigOrange did not finish starting last time.',
             buttons: ['Start without mods', 'Start as usual'],
             defaultId: 0,
             cancelId: 0,
@@ -407,7 +407,7 @@ describe('reopening the window without mods', () => {
 
         const waiting = system!.askReopenWithoutMods(null);
         expect(dialogs.asked[0]).toMatchObject({
-            message: 'The Folia window has stopped answering.',
+            message: 'The BigOrange window has stopped answering.',
             buttons: ['Keep waiting', 'Reopen without mods'],
             defaultId: 0,
             cancelId: 0,

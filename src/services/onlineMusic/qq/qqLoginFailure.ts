@@ -35,7 +35,7 @@ export const qqCheckFailure = (response: any, wait = false): LoginFailureDetail 
     };
 };
 
-// 平台拒绝了这次登录、原因在账号本身的那几种（被封、受限、绑定有问题）：登录窗口用 Folia 自己的话说
+// 平台拒绝了这次登录、原因在账号本身的那几种（被封、受限、绑定有问题）：登录窗口用 BigOrange 自己的话说
 // 怎么回事、该做什么（qqProvider.ts 的 caseNotes），不引后端的英文预设，也不说稍后重试会好。
 const QQ_ACCOUNT_HINT_NOTES: Readonly<Record<string, string>> = {
     'login.account-banned': 'home.loginCaseQqAccountBanned',

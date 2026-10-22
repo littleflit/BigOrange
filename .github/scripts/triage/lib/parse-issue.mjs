@@ -5,7 +5,8 @@
 import { stripHtmlComments } from './sanitize.mjs';
 
 const QR_TITLE = /^\s*\[QR login\]\s*(\w+)\s+login failed/i;
-const QR_HEADING = '### Folia QR login diagnostics';
+// fork 后应用名是 BigOrange；上游 Folia 提交的报告仍要能解析，所以两种标题都认。
+const QR_HEADINGS = ['### Folia QR login diagnostics', '### BigOrange QR login diagnostics'];
 
 // 从模板文件内容里取出可比对的行（去掉 front matter 和空行），用于识别「没改过的模板文字」。
 export function templateLinesFrom(templateSources) {
@@ -34,7 +35,7 @@ export function detectKind(title, labels) {
 export function parseQr(title, body) {
     const titleMatch = QR_TITLE.exec(title ?? '');
     const text = String(body ?? '');
-    const hasDiagnostics = text.includes(QR_HEADING);
+    const hasDiagnostics = QR_HEADINGS.some((heading) => text.includes(heading));
     if (!titleMatch && !hasDiagnostics) return null;
     // 正文和补充评论里可能有多份报告，取最后一份的字段。
     const line = key => [...text.matchAll(new RegExp(`^${key}:\\s*(.+)$`, 'gm'))].at(-1)?.[1].trim() ?? null;
@@ -53,7 +54,7 @@ export function parseQr(title, body) {
 
 // 去掉模板原文、示例、标题行、隐藏注释和 QR 诊断块后剩下的「用户真正写的内容」。
 export function effectiveText(body, templateLines) {
-    const withoutQr = stripHtmlComments(body).replace(/### Folia QR login diagnostics\s*```[\s\S]*?```/g, '');
+    const withoutQr = stripHtmlComments(body).replace(/### (?:Folia|BigOrange) QR login diagnostics\s*```[\s\S]*?```/g, '');
     return withoutQr
         .split('\n')
         .filter(line => {
@@ -68,8 +69,8 @@ export function effectiveText(body, templateLines) {
 }
 
 const VERSION_PATTERNS = [
-    /folia-major\s+v?(\d+\.\d+\.\d+(?:-[\w.]+)?)/i,
-    /\bFolia\/(\d+\.\d+\.\d+(?:-[\w.]+)?)/,
+    /(?:folia-major|bigorange)\s+v?(\d+\.\d+\.\d+(?:-[\w.]+)?)/i,
+    /\b(?:Folia|BigOrange)\/(\d+\.\d+\.\d+(?:-[\w.]+)?)/,
     /^app:\s*(\d+\.\d+\.\d+(?:-[\w.]+)?)/m,
     /版本[号]?\s*[:：]?\s*v?(\d+\.\d+\.\d+(?:-[\w.]+)?)/,
     /\bv(\d+\.\d+\.\d+(?:-[\w.]+)?)\b/,

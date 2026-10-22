@@ -95,7 +95,7 @@ const MAX_REQUESTS_PER_CALL = 400;
 
 interface Walk<T> { items: T[]; continuation?: string; done: boolean; touchedAt: number; queue: Promise<unknown> }
 
-// Folia pages by offset, YouTube by an opaque token. A walk remembers how far one list has been
+// BigOrange pages by offset, YouTube by an opaque token. A walk remembers how far one list has been
 // read, so consecutive offsets cost one request each. An offset with no walk behind it (a sync
 // resumed after a restart, or after the token went stale) replays the list from its start.
 export const createYtmPager = <T>(now: () => number = Date.now) => {

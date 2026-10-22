@@ -252,8 +252,8 @@ export default {
     "closeToQuit": "关闭窗口将退出应用",
     "wallpaperModeOn": "已开启壁纸模式",
     "wallpaperModeOff": "已关闭壁纸模式",
-    "macWallpaperInputMonitoringNeeded": "壁纸模式需要“输入监控”权限：请在 系统设置 → 隐私与安全性 → 输入监控 中勾选 Folia，然后重新开启壁纸模式",
-    "macWallpaperAccessibilitySuggested": "开着台前调度时，点壁纸也会被当成点桌面，把窗口收到一边。在 系统设置 → 隐私与安全性 → 辅助功能 中允许 Folia 并重启 Folia 后就不会了，桌面图标照常能点",
+    "macWallpaperInputMonitoringNeeded": "壁纸模式需要“输入监控”权限：请在 系统设置 → 隐私与安全性 → 输入监控 中勾选 BigOrange，然后重新开启壁纸模式",
+    "macWallpaperAccessibilitySuggested": "开着台前调度时，点壁纸也会被当成点桌面，把窗口收到一边。在 系统设置 → 隐私与安全性 → 辅助功能 中允许 BigOrange 并重启 BigOrange 后就不会了，桌面图标照常能点",
     "macWallpaperAutohideDockOn": "已开启：自动隐藏 Dock 栏",
     "macWallpaperAutohideDockOff": "已关闭：不再自动隐藏 Dock 栏",
     "voiceInputPauseOn": "语音输入时暂停已开启",
@@ -621,8 +621,8 @@ export default {
       "settings-local-lyric-format-order": { "title": "本地歌词文件格式优先级", "description": "调整同名歌词文件按哪种格式优先选用" },
       "settings-integration": { "title": "集成设置", "description": "打开 Stage、Now Playing 和 Navidrome 设置" },
       "automix-toggle": { "title": "智能过渡", "description": "开启或关闭 FOLIA 智能过渡" },
-      "transition-mode-crossfade": { "title": "过渡模式：Folia Crossfade", "description": "使用简单的一淡出一淡入交叉淡化" },
-      "transition-mode-automix": { "title": "过渡模式：Folia Automix", "description": "分析两首曲目并自动混音" },
+      "transition-mode-crossfade": { "title": "过渡模式：BigOrange Crossfade", "description": "使用简单的一淡出一淡入交叉淡化" },
+      "transition-mode-automix": { "title": "过渡模式：BigOrange Automix", "description": "分析两首曲目并自动混音" },
       "transition-performance-toggle": { "title": "过渡表现模式", "description": "切换更激进的过渡（需要人声分离模型）" },
       "settings-discord-presence": { "title": "Discord 播放状态", "description": "打开 Discord Rich Presence 设置" },
       "lyric-staff-policy-cycle": { "title": "开头制作人员信息", "description": "轮换歌词开头署名块的处理方式" },
@@ -635,7 +635,7 @@ export default {
       "settings-r2-sync": { "title": "同步服务设置", "description": "打开同步服务设置" },
       "sync-now": { "title": "立即同步", "description": "同步 AI 主题" },
       "export-lyric-cache": { "title": "导出歌词缓存", "description": "把本机所有歌词打包成 .fia 和增强型 LRC 的 zip" },
-      "export-current-lyrics-fia": { "title": "导出当前歌词为 .fia", "description": "以 Folia 无损格式保存这首歌的歌词，含你保存的分词" },
+      "export-current-lyrics-fia": { "title": "导出当前歌词为 .fia", "description": "以 BigOrange 无损格式保存这首歌的歌词，含你保存的分词" },
       "export-current-lyrics-lrc": { "title": "导出当前歌词为 LRC", "description": "保存为其他播放器也能读的增强型 LRC" },
       "settings-local-library-watch": { "title": "本地文件夹监视设置", "description": "打开已导入本地文件夹的自动扫描设置" },
       "local-library-auto-scan-toggle": { "title": "自动扫描本地文件夹", "description": "开启或关闭已导入本地文件夹的自动重新扫描" },
@@ -1006,10 +1006,10 @@ export default {
     "scopeOnlineDesc": "播放过的在线歌曲缓存下来的歌词",
     "scopeLocal": "本地曲库",
     "scopeLocalDesc": "本地歌曲在线匹配到的歌词，按音频文件名和原目录导出，解压后可直接放回歌曲旁边",
-    "formatFia": ".fia（Folia 无损）",
-    "formatFiaDesc": "完整保留逐字时间轴、翻译、背景和声和你保存的分词，可以直接导回 Folia",
+    "formatFia": ".fia（BigOrange 无损）",
+    "formatFiaDesc": "完整保留逐字时间轴、翻译、背景和声和你保存的分词，可以直接导回 BigOrange",
     "formatLrc": "增强型 LRC",
-    "formatLrcDesc": "其他播放器也能读；背景和声、分词等 Folia 专有信息会丢失",
+    "formatLrcDesc": "其他播放器也能读；背景和声、分词等 BigOrange 专有信息会丢失",
     "includeTranslationDesc": "翻译写成与原文同一时间戳的下一行",
     "includeRomanizationDesc": "罗马音写在翻译之后",
     "resolveOnline": "联网补全歌名",
@@ -1039,7 +1039,7 @@ export default {
     "descriptionExportOnly": "把这首歌当前显示的歌词存成文件。",
     "importHeading": "导入",
     "importChoose": "选择歌词文件",
-    "importFormats": "lrc、vtt、ttml、qrc、yrc、krc、txt，或 Folia 导出的 .fia",
+    "importFormats": "lrc、vtt、ttml、qrc、yrc、krc、txt，或 BigOrange 导出的 .fia",
     "exportHeading": "导出这首歌",
     "batchTitle": "批量导出本机歌词",
     "batchDesc": "在命令面板里一次导出所有缓存的歌词"
@@ -1081,7 +1081,7 @@ export default {
     "market": "模组市场",
     "trustRevoked": "该模组的文件在你上次确认之后发生了变化，已自动禁用。请确认来源无误后重新启用。",
     "devSourceHint": "开发目录中的模组：确认后修改文件不会撤销授权（仅开发版）。",
-    "platformReadHint": "可以用你在 Folia 登录的账号读取{{platforms}}上的数据，例如听歌记录（实验接口 platform.raw）。",
+    "platformReadHint": "可以用你在 BigOrange 登录的账号读取{{platforms}}上的数据，例如听歌记录（实验接口 platform.raw）。",
     "platformWriteHint": "还可以用你的账号改动{{platforms}}账号里的内容，例如点赞、歌单和关注。",
     "queueReplaced": "「{{name}}」替换了播放队列",
     "queueReplaceUndo": "撤销",
@@ -1150,8 +1150,8 @@ export default {
     "faultNoticeOpen": "去看看",
     "faultNoticeMute": "出错和启动慢都不再提示",
     "faultNoticeSwitch": "这个模组出错或启动慢时提示我",
-    "skippedThisRun": "这次没有启动。下次打开 Folia 时照常启动。",
-    "startSkippedBanner": "这次模组都没有启动。下次打开 Folia 时照常启动。",
+    "skippedThisRun": "这次没有启动。下次打开 BigOrange 时照常启动。",
+    "startSkippedBanner": "这次模组都没有启动。下次打开 BigOrange 时照常启动。",
     "cost": {
       "title": "用了多少时间",
       "start": "启动用了 {{seconds}} 秒",
@@ -1167,7 +1167,7 @@ export default {
       "noFailures": "没有出错",
       "main": "后台部分一共用了 {{total}} 毫秒，最长一次 {{longest}} 毫秒",
       "slow": "慢",
-      "slowHint": "这个模组启动慢，或者运行时用的时间多。Folia 不会因此关掉它。"
+      "slowHint": "这个模组启动慢，或者运行时用的时间多。BigOrange 不会因此关掉它。"
     },
     "commandUnavailable": "该模组命令已不可用。",
     "cancelExport": "取消",
@@ -1201,7 +1201,7 @@ export default {
       "install-too-many-files": "模组包文件数量超出限制（最多 2000 个）",
       "install-main-missing": "模组包缺少 mod.json 中声明的 main 文件",
       "install-client-missing": "模组包缺少 mod.json 中声明的 client 文件",
-      "host-version-mismatch": "该模组使用内部接口，不支持当前 Folia 版本",
+      "host-version-mismatch": "该模组使用内部接口，不支持当前 BigOrange 版本",
       "enable-failed": "启用模组失败：{{value}}",
       "mod-not-found": "未找到该模组",
       "mod-content-unverifiable": "无法校验模组文件（文件过多或过大），出于安全考虑不予启用",
@@ -1405,7 +1405,7 @@ export default {
     "audioUnplayable": "音频无法播放",
     "refused": "请求被{{provider}}拒绝",
     "noteCheckNetwork": "请检查网络",
-    "noteRestartApp": "请重启 Folia",
+    "noteRestartApp": "请重启 BigOrange",
     "noteRetryLater": "请稍后重试",
     "noteSignIn": "请重新登录",
     "noteUnknown": "未知错误",
@@ -1416,7 +1416,7 @@ export default {
     "signIn": "登录"
   },
   "home": {
-    "welcome": "欢迎使用 Folia",
+    "welcome": "欢迎使用 BigOrange",
     "lattice": "队列拼贴",
     "latticeLabel": "队列拼贴",
     "latticeExplore": "探索拼贴",
@@ -1463,7 +1463,7 @@ export default {
     "loginCaseSpotifyDenied": "请在 Spotify 页面点“同意”",
     "loginCaseSpotifyPort": "端口 5588 已被占用",
     "loginCaseYtmUnfinished": "请登录后再关闭浏览器",
-    "loginCaseQqRestart": "请重启 Folia 后重试",
+    "loginCaseQqRestart": "请重启 BigOrange 后重试",
     "loginCaseQqWrongScanApp": "用 QQ 音乐 App 扫码的话，请改选「QQ 音乐 App 扫码」；也可以用手机 QQ 扫这个二维码",
     "loginCaseQqWrongScanAppMobileOnly": "这里的 QQ 扫码只能用手机 QQ 扫，请用手机 QQ 扫这个二维码",
     "loginCaseQqDeviceLimit": "请打开 QQ 音乐 App，进入「设置」，滑到最下面点「设备管理」，移除不用的设备后再扫码",
@@ -1495,13 +1495,13 @@ export default {
     "restartingBackend": "正在重启…",
     "retryQr": "刷新二维码",
     "qrTipsTitle": "可以先试试",
-    "qrTipRestart": "重启 Folia，再重新扫码。",
-    "qrTipSwitchNetwork": "换一个网络（例如手机热点），再重启 Folia。",
+    "qrTipRestart": "重启 BigOrange，再重新扫码。",
+    "qrTipSwitchNetwork": "换一个网络（例如手机热点），再重启 BigOrange。",
     "qrDeviceLimit": "这个 QQ 音乐账号的登录设备数已达上限，需要先移除旧设备。",
     "qrDeviceLimitTipsTitle": "先清理登录设备",
     "qrDeviceLimitTipRemove": "打开 QQ 音乐官方客户端，进入「设置 → 设备管理」（在设置页最下面），移除不再使用的登录设备。",
     "qrDeviceLimitTipQuota": "QQ 音乐限制同时登录的设备数：免费用户 1 台，绿钻 3 台，超级会员 5 台。",
-    "qrDeviceLimitTipRescan": "移除后回到 Folia，重新扫码登录。",
+    "qrDeviceLimitTipRescan": "移除后回到 BigOrange，重新扫码登录。",
     "qrDiagnosticsToggle": "还是不行？把诊断信息发给我们",
     "qrDiagnosticsToggleElsewhere": "还是不行？查看诊断信息",
     "qrDiagnosticsPrompt": "复制诊断信息反馈给我们，能帮助定位原因。",
@@ -1509,20 +1509,20 @@ export default {
     "qrDiagnosticsDisclosure": "诊断信息包含：应用与系统版本、网卡与 IP 地址、代理设置、登录请求的记录与错误原文、网络检查结果。不含账号密码、cookie 和 token。",
     "qrDiagnosticsCopy": "复制诊断信息",
     "qrDiagnosticsReport": "去 GitHub 反馈",
-    "qrDiagnosticsPasteHint": "请把 Folia 复制的诊断信息粘贴在这里，并简单描述当时的情况（网络环境、是否开了代理等）。",
+    "qrDiagnosticsPasteHint": "请把 BigOrange 复制的诊断信息粘贴在这里，并简单描述当时的情况（网络环境、是否开了代理等）。",
     "qrReportWebDeployment": "这是网页版部署的问题：这个网站没有配置音乐平台的 API 服务，或者连不上它。请把诊断报告交给这个网站的部署者；如果你就是部署者，请按部署文档检查 VITE_*_API_BASE 并重新构建。只想直接使用的话，可以下载官方桌面版。",
-    "qrReportUnofficialBuild": "你正在使用的不是 Folia 官方构建的版本，也不是文档里的自部署方式（可能是他人打包或修改过的版本），问题请反馈给提供这个版本的人。官方版本请从 GitHub Releases 下载。",
+    "qrReportUnofficialBuild": "你正在使用的不是 BigOrange 官方构建的版本，也不是文档里的自部署方式（可能是他人打包或修改过的版本），问题请反馈给提供这个版本的人。官方版本请从 GitHub Releases 下载。",
     "qrSelfCheckTitle": "自动检查",
     "qrSelfCheckRunning": "正在检查网络与本地服务…",
     "qrSelfCheckFailed": "自动检查没能完成：{{message}}",
-    "qrSelfCheckBackendDown": "{{provider}}本地服务没有正常运行（{{detail}}）。重启 Folia 后再试。",
+    "qrSelfCheckBackendDown": "{{provider}}本地服务没有正常运行（{{detail}}）。重启 BigOrange 后再试。",
     "qrSelfCheckRemoteUnreachable": "连不上 API 服务器（{{detail}}）。请检查部署地址与网络。",
-    "qrSelfCheckCredentialStore": "系统钥匙串不可用（{{detail}}），QQ 登录态无法加密保存。请安装并解锁 GNOME Keyring 或 KWallet，然后重启 Folia。",
-    "qrSelfCheckDnsFailed": "无法解析{{provider}}服务器的域名（{{detail}}）。请检查网络或 DNS 设置，或换个网络后重启 Folia。",
-    "qrSelfCheckTlsReset": "连接{{provider}}服务器时在加密握手阶段被断开（{{detail}}）。常见原因是代理、加速器、防火墙或网络环境的干扰：换个网络或关闭代理后，重启 Folia 再试。",
-    "qrSelfCheckUnreachable": "连不上{{provider}}服务器（{{detail}}）。请检查网络连接，或换个网络后重启 Folia。",
+    "qrSelfCheckCredentialStore": "系统钥匙串不可用（{{detail}}），QQ 登录态无法加密保存。请安装并解锁 GNOME Keyring 或 KWallet，然后重启 BigOrange。",
+    "qrSelfCheckDnsFailed": "无法解析{{provider}}服务器的域名（{{detail}}）。请检查网络或 DNS 设置，或换个网络后重启 BigOrange。",
+    "qrSelfCheckTlsReset": "连接{{provider}}服务器时在加密握手阶段被断开（{{detail}}）。常见原因是代理、加速器、防火墙或网络环境的干扰：换个网络或关闭代理后，重启 BigOrange 再试。",
+    "qrSelfCheckUnreachable": "连不上{{provider}}服务器（{{detail}}）。请检查网络连接，或换个网络后重启 BigOrange。",
     "qrSelfCheckIpv6Failed": "通过 IPv6 连接{{provider}}服务器失败，IPv4 正常（{{detail}}）。可以在系统里关闭 IPv6 或 Teredo 后重试。",
-    "qrSelfCheckHttpsFailed": "能连上{{provider}}服务器，但请求失败（{{detail}}）。换个网络后重启 Folia 再试。",
+    "qrSelfCheckHttpsFailed": "能连上{{provider}}服务器，但请求失败（{{detail}}）。换个网络后重启 BigOrange 再试。",
     "qrSelfCheckClockSkew": "系统时间与服务器相差约 {{detail}} 分钟。请校准系统时间后重试。",
     "qrSelfCheckNetworkOk": "网络检查没有发现问题。",
     "qrSelfCheckProxyFakeIp": "检测到 TUN 模式代理（fake-ip）接管了连接。如果仍然失败，可以让{{provider}}的域名直连后再试。",
@@ -1575,7 +1575,7 @@ export default {
     "gridFolderRemoveSelectedTitle": "移除已选歌曲？",
     "gridFolderRemoveSelectedDescription": "移除 {{count}} 首歌曲。根目录直接移除，完整选中的子文件夹忽略扫描。磁盘文件不变。",
     "gridFolderRemoveRootTitle": "移除导入根目录？",
-    "gridFolderRemoveRootDescription": "从 Folia 移除 {{path}} 及其中全部歌曲？不会删除磁盘文件。",
+    "gridFolderRemoveRootDescription": "从 BigOrange 移除 {{path}} 及其中全部歌曲？不会删除磁盘文件。",
     "login": "登录",
     "welcomeBack": "欢迎回来",
     "guestTitle": "先搜几首喜欢的歌试试看",
@@ -1689,7 +1689,7 @@ export default {
     "releaseNotesDescription": "查看这个版本带来的变化",
     "majorUpdateLabel": "{{codename}} Update · 重大更新",
     "ponder": "思索帮助页",
-    "ponderDescription": "了解 Folia 的基本操作与运行逻辑",
+    "ponderDescription": "了解 BigOrange 的基本操作与运行逻辑",
     "version": "版本"
   },
   "lyricProvider": {
@@ -1854,7 +1854,7 @@ export default {
     "customShortcutTaken": "这个键已经被别的快捷键占用了",
     "customShortcutLettersOnly": "只支持 A–Z",
     "globalShortcuts": "全局快捷键",
-    "globalShortcutsDesc": "Folia 在后台时也能按的快捷键：播放控制，以及模组提供的命令。",
+    "globalShortcutsDesc": "BigOrange 在后台时也能按的快捷键：播放控制，以及模组提供的命令。",
     "globalShortcutsNote": "修饰键固定为 Ctrl+Alt+Shift（macOS 上是 Control+Option+Shift），你只选最后一个键。被别的程序占用的组合会在对应行标出。",
     "globalShortcutsPortalDesc": "Wayland 下由桌面环境分配按键。",
     "globalShortcutsPortalNote": "注册后，按桌面环境的说明为每一项绑定按键。下面是每项附带的建议键：",
@@ -1873,12 +1873,12 @@ export default {
     "globalShortcutModCommandMissing": "模组现在没有提供这条命令",
     "replayGainMode": "ReplayGain 模式 (响度平衡) ",
     "replayGainModeDesc": "检测到增益数据时，按单曲或专辑 ReplayGain 统一播放响度。",
-    "transitionSettings": "Folia 智能过渡",
+    "transitionSettings": "BigOrange 智能过渡",
     "transitionEnable": "过渡",
     "transitionMode": "过渡模式",
-    "transitionCrossfade": "Folia Crossfade",
+    "transitionCrossfade": "BigOrange Crossfade",
     "transitionCrossfadeDesc": "固定的淡出淡入。",
-    "transitionAutomix": "Folia Automix",
+    "transitionAutomix": "BigOrange Automix",
     "transitionAutomixDesc": "分析歌曲并自动混音。",
     "transitionFellBack": "已退回淡化",
     "crossfadeMaxSeconds": "过渡最长时长",
@@ -1887,7 +1887,7 @@ export default {
     "transitionEngineFull": "完全体",
     "transitionEngineLite": "兼容模式",
     "transitionEngineLiteDesc": "浏览器里的混音效果约为桌面版的一半。",
-    "transitionEngineNeedsModels": "这次安装缺少分析模型，请重新安装 Folia 以使用完全体。",
+    "transitionEngineNeedsModels": "这次安装缺少分析模型，请重新安装 BigOrange 以使用完全体。",
     "legacyModelsTitle": "清理旧版 automix 模型",
     "legacyModelsDesc": "新版已内置 automix 的分析模型，旧版下载的模型和运行环境不再使用。你之前选择的模型目录里还留着 {{files}} 项，共 {{size}}：{{dir}}。删除只会移除这些旧文件，不会动文件夹里的其他内容。",
     "legacyModelsDelete": "删除",
@@ -1897,7 +1897,7 @@ export default {
     "transitionPerformance": "表现模式",
     "transitionPerformanceDesc": "更激进的过渡表现。",
     "transitionPerformanceNeedsStems": "浏览器端技术限制无法开启。",
-    "transitionPerformanceNeedsModel": "这次安装缺少音轨分离模型，请重新安装 Folia。",
+    "transitionPerformanceNeedsModel": "这次安装缺少音轨分离模型，请重新安装 BigOrange。",
     "transitionAnimation": "过渡动画",
     "transitionAnimationDesc": "混音时把这次过渡画出来。过渡短于 5 秒不显示。",
     "transitionAnimationRing": "屏幕圆环",
@@ -2089,7 +2089,7 @@ export default {
     "memoryByProcess": "分进程",
     "memorySeriesUnavailable": "当前系统不提供这个数据",
     "reduceMotionSection": "降低动态效果",
-    "reduceMotionSectionDesc": "Folia 默认播放完整动画。打开某一项，那一处的动效就会降低。",
+    "reduceMotionSectionDesc": "BigOrange 默认播放完整动画。打开某一项，那一处的动效就会降低。",
     "reduceMotionFollowSystem": "跟随系统设置",
     "reduceMotionFollowSystemDesc": "由系统的动画设置决定全部动效",
     "reduceMotionForcedBySystem": "当前正被上面的系统设置压低。",
@@ -2179,7 +2179,7 @@ export default {
     "enablePlayerPageNativeBlurHint": "用系统毛玻璃替代播放页背景，更耗性能",
     "enablePlayerPageNativeBlurDesc": "仅在桌面版的非透明模式下生效；移动窗口时可能卡顿。",
     "nativeBlurConfirmTitle": "系统毛玻璃效果",
-    "nativeBlurConfirmDesc": "开启后，窗口会变为系统毛玻璃效果的半透明背景，Folia 的各种背景将不再显示。如果系统不支持，则会显示为白色不透明背景。",
+    "nativeBlurConfirmDesc": "开启后，窗口会变为系统毛玻璃效果的半透明背景，BigOrange 的各种背景将不再显示。如果系统不支持，则会显示为白色不透明背景。",
     "nativeBlurConfirmAction": "我明白，这会让背景调整无效",
     "nativeBlurBackgroundNotice": "当前已开启原生毛玻璃背景，背景设置无效",
     "autoHidePlayerChrome": "自动隐藏控制栏",
@@ -2230,7 +2230,7 @@ export default {
     "closeToTrayDesc": "点关闭按钮时不退出，隐藏到托盘继续播放",
     "hideTaskbarIcon": "隐藏任务栏图标",
     "hideTaskbarIconDesc": "即使主窗口仍然打开，也不在任务栏中显示应用入口。开启后主要通过系统托盘找回窗口。",
-    "hideTaskbarIconNotice": "窗口只能从系统托盘里的 Folia 图标找回",
+    "hideTaskbarIconNotice": "窗口只能从系统托盘里的 BigOrange 图标找回",
     "remoteControlGroup": "Remote Control",
     "remoteControlGroupDefault": "默认",
     "remoteControlGroupOn": "已改 {{count}} 项",
@@ -2247,9 +2247,9 @@ export default {
     "openPlayerOnLaunchDesc": "应用启动时自动进入播放界面。跟随“播放后进入的视图”：选择 Lattice 时，启动后进入队列拼贴。",
     "wallpaperMode": "壁纸模式",
     "wallpaperModeDesc": "窗口沉到桌面最底层，作为歌词壁纸。键盘不可用",
-    "wallpaperModeMacPermissionHint": "Mac 壁纸模式需要“输入监控”权限：请在 系统设置 → 隐私与安全性 → 输入监控 中勾选 Folia 然后重启应用。",
+    "wallpaperModeMacPermissionHint": "Mac 壁纸模式需要“输入监控”权限：请在 系统设置 → 隐私与安全性 → 输入监控 中勾选 BigOrange 然后重启应用。",
     "wallpaperEnterConfirmTitle": "进入壁纸模式？",
-    "wallpaperEnterConfirmDesc": "窗口会沉到桌面最底层，作为歌词壁纸常驻显示。进入后窗口无法关闭、最小化或移动，键盘也无法操作应用。\n\n要退出，请打开系统托盘（macOS 为菜单栏）中的 Folia 菜单，再次点击“壁纸模式”。",
+    "wallpaperEnterConfirmDesc": "窗口会沉到桌面最底层，作为歌词壁纸常驻显示。进入后窗口无法关闭、最小化或移动，键盘也无法操作应用。\n\n要退出，请打开系统托盘（macOS 为菜单栏）中的 BigOrange 菜单，再次点击“壁纸模式”。",
     "wallpaperEnterConfirmAction": "进入壁纸模式",
     "wallpaperDisplay": "壁纸显示器",
     "wallpaperDisplayDesc": "壁纸模式用哪一块显示器",
@@ -2302,7 +2302,7 @@ export default {
     "stageConnectionError": "未能连接到 ws://localhost:9863/api/ws/lyric，请确认 now-playing 服务已在本机运行",
     "stageNotRunning": "请在本机启动 now-playing 服务，并确保播放器正在播放",
     "discordRichPresence": "Discord 播放状态",
-    "discordRichPresenceDesc": "在 Discord 桌面端展示 Folia 当前播放歌曲。",
+    "discordRichPresenceDesc": "在 Discord 桌面端展示 BigOrange 当前播放歌曲。",
     "discordPresenceDisabled": "未启用",
     "discordPresenceConnected": "已连接",
     "discordPresenceDisconnected": "未连接",
@@ -2314,7 +2314,7 @@ export default {
     "obsBrowserSourceGuideStep1": "在 OBS 的「来源」中添加「浏览器」。",
     "obsBrowserSourceGuideStep2": "把上方的 OBS 地址粘贴到 URL 栏。",
     "obsBrowserSourceGuideStep3": "宽高建议设为 1920×1080（竖屏为 1080×1920）。设得更大（如 3840×2160）时，布局按比例放大，文字更清晰。",
-    "obsBrowserSourceGuideStep4": "浏览器源只渲染画面，不播放声音。需要声音时，请用 OBS 的桌面音频或应用音频捕获来采集 Folia。",
+    "obsBrowserSourceGuideStep4": "浏览器源只渲染画面，不播放声音。需要声音时，请用 OBS 的桌面音频或应用音频捕获来采集 BigOrange。",
     "obsBrowserSourceGuideStep5": "歌词的主题、字体、动画等视觉设置会同步到 OBS。主窗口开启透明播放器背景或播放页原生毛玻璃时，OBS 中的背景是透明的。",
     "obsBrowserSourceGuideStep6": "「连接数」大于 0 表示 OBS 已连接。重新生成 Token 后，旧地址会失效，需要在 OBS 中更新。",
     "obsBrowserSourceAddress": "OBS 地址",
@@ -2513,7 +2513,7 @@ export default {
     "beatEffectsNeedSmartBeat": "在「全局」页打开智能动感模式后，这些效果才会生效。",
     "beatEffectsOpenSmartBeat": "前往「全局」",
     "beatEffectStrength": "强度",
-    "beatEffectNeedsDrums": "这次安装缺少 HTDemucs 模型，请重新安装 Folia。没有鼓的歌也不出效果。",
+    "beatEffectNeedsDrums": "这次安装缺少 HTDemucs 模型，请重新安装 BigOrange。没有鼓的歌也不出效果。",
     "beatEffect_sonnetLensTear": "推镜裂光",
     "beatEffect_sonnetLensTearDesc": "跟着 beat_this 识别的节拍：每拍镜头推近，小节第一拍撕裂并泛起辉光。",
     "beatEffect_dioramaRipple": "水镜涟漪",
@@ -2935,7 +2935,7 @@ export default {
     "obsThemeModeBuiltin": "动态·内置",
     "obsThemeModeAi": "动态·AI",
     "obsThemeModeStaticHint": "把当前主题烧进链接，OBS 里永远固定不变。",
-    "obsThemeModeBuiltinHint": "OBS 按封面从 Folia 内置库逐曲挑最合适的配色。",
+    "obsThemeModeBuiltinHint": "OBS 按封面从 BigOrange 内置库逐曲挑最合适的配色。",
     "obsThemeModeAiHint": "逐曲用 AI 生成主题，AI 不可用时回退内置。",
     "importSuccess": "配置导入成功！",
     "importFailed": "配置导入失败，请检查格式是否正确。",
@@ -3031,8 +3031,8 @@ export default {
     "macManualUpdateNotice": "提示：macOS 版本需要下载完整安装包手动覆盖更新。",
     "linuxManualUpdateNotice": "提示：Linux 不支持自动更新。请下载完整的 deb、rpm 或 tar.gz 包手动升级；仅正式版且通过 AUR 安装的用户可使用包管理器升级 folia-major-bin。",
     "manualUpdateNotice": "提示：当前平台暂不支持自动更新，请下载安装包手动覆盖更新。",
-    "unofficialBuildNotice": "非官方构建：这个版本既不是 Folia 仓库的 CI 构建的，也不是文档里的自部署方式（Docker、Vercel、Cloudflare），可能经过他人修改或缺少后端服务。遇到问题请先联系提供者，官方版本请从 GitHub Releases 下载。",
-    "selfHostedBuildNotice": "自部署版本：由部署者自行构建并托管，音乐平台的后端服务也由部署者配置。遇到问题请先联系部署者；确认是 Folia 本身的问题再到 GitHub 反馈。",
+    "unofficialBuildNotice": "非官方构建：这个版本既不是 BigOrange 仓库的 CI 构建的，也不是文档里的自部署方式（Docker、Vercel、Cloudflare），可能经过他人修改或缺少后端服务。遇到问题请先联系提供者，官方版本请从 GitHub Releases 下载。",
+    "selfHostedBuildNotice": "自部署版本：由部署者自行构建并托管，音乐平台的后端服务也由部署者配置。遇到问题请先联系部署者；确认是 BigOrange 本身的问题再到 GitHub 反馈。",
     "nowPlayingStatusHint": "固定连接 ws://localhost:9863/api/ws/lyric，请先在本机启动 now-playing 服务。",
     "globalLyricTimelineOffset": "全局时间偏移",
     "settingsHeadingLyricTiming": "时间与过滤",
@@ -3064,7 +3064,7 @@ export default {
     "v0_7_1": {
       "intro": "欢迎来到 0.7.1「Pleiades Update」：这是一次覆盖播放、扩展、桌面与视觉体验的大型更新。",
       "pleiadesAutomix": {
-        "title": "Folia Automix 智能过渡",
+        "title": "BigOrange Automix 智能过渡",
         "description": "根据节拍、速度、调性、响度和歌曲段落自动选择切拍、低频交接、尾奏承接或淡化；桌面端可按需下载模型，获得更精准的节拍对齐、音轨分离和表现模式。"
       },
       "modsPlatform": {
@@ -3073,7 +3073,7 @@ export default {
       },
       "windowsWallpaper": {
         "title": "Windows 桌面壁纸模式",
-        "description": "Windows 现可将 Folia 沉入桌面图标下方，作为常驻歌词壁纸，并提供托盘与命令面板切换、鼠标转发和异常自动恢复；该模式下键盘不可用。"
+        "description": "Windows 现可将 BigOrange 沉入桌面图标下方，作为常驻歌词壁纸，并提供托盘与命令面板切换、鼠标转发和异常自动恢复；该模式下键盘不可用。"
       },
       "sleepTimer": {
         "title": "可恢复的睡眠定时",
@@ -3142,7 +3142,7 @@ export default {
       },
       "macWallpaperMode": {
         "title": "macOS 壁纸模式",
-        "description": "Mac 现在也能把 Folia 沉到桌面图标下方作为歌词壁纸，无需重启应用即可切换，并可选择壁纸模式期间自动隐藏 Dock 栏。需要在 系统设置 → 隐私与安全性 → 输入监控 中授权 Folia 才能转发鼠标；该模式下键盘不可用。"
+        "description": "Mac 现在也能把 BigOrange 沉到桌面图标下方作为歌词壁纸，无需重启应用即可切换，并可选择壁纸模式期间自动隐藏 Dock 栏。需要在 系统设置 → 隐私与安全性 → 输入监控 中授权 BigOrange 才能转发鼠标；该模式下键盘不可用。"
       },
       "transcodeFallback": {
         "title": "自动转换无法播放的音频",
@@ -3165,7 +3165,7 @@ export default {
       "intro": "0.7.5 带来可自选的播放入口、更完整的命令面板操作，以及更可靠的桌面端诊断与更新体验。",
       "playbackEntryChoice": {
         "title": "选择播放后进入的视图",
-        "description": "点击播放时可选择进入可视化播放器或 Lattice 队列拼贴。更新说明结束后 Folia 会询问一次，此后仍可在界面设置中修改。由于 Lattice 不支持私人 FM，启动私人 FM 时仍会进入标准播放器。"
+        "description": "点击播放时可选择进入可视化播放器或 Lattice 队列拼贴。更新说明结束后 BigOrange 会询问一次，此后仍可在界面设置中修改。由于 Lattice 不支持私人 FM，启动私人 FM 时仍会进入标准播放器。"
       },
       "commandPaletteGridActions": {
         "title": "命令面板接管网格操作",
@@ -3181,7 +3181,7 @@ export default {
       },
       "desktopReliability": {
         "title": "更清晰的桌面更新与崩溃报告",
-        "description": "macOS 和 Linux 现在也能检查新版本，并引导下载完整安装包或通过 AUR 升级；Windows 继续支持自动更新。Folia 崩溃时会保存诊断日志并可打开所在目录，Windows 卸载程序也可按需清除用户数据。"
+        "description": "macOS 和 Linux 现在也能检查新版本，并引导下载完整安装包或通过 AUR 升级；Windows 继续支持自动更新。BigOrange 崩溃时会保存诊断日志并可打开所在目录，Windows 卸载程序也可按需清除用户数据。"
       },
       "visualizerRefinements": {
         "title": "更轻、更清晰的视觉器",
@@ -3219,7 +3219,7 @@ export default {
       },
       "motionControls": {
         "title": "可单独调低的动态效果",
-        "description": "Folia 默认播放完整动画，不再因为系统关闭了动画效果就把整套动效变成瞬移。实验室设置新增「降低动态效果」，可以分别调低队列拼贴、混音过渡、歌单展开转场、Monet 背景漂移、界面微动效和设置页平滑滚动；需要时也可以开启「跟随系统设置」。"
+        "description": "BigOrange 默认播放完整动画，不再因为系统关闭了动画效果就把整套动效变成瞬移。实验室设置新增「降低动态效果」，可以分别调低队列拼贴、混音过渡、歌单展开转场、Monet 背景漂移、界面微动效和设置页平滑滚动；需要时也可以开启「跟随系统设置」。"
       },
       "wallpaperMultiMonitor": {
         "title": "壁纸模式支持多显示器",
@@ -3269,7 +3269,7 @@ export default {
       },
       "videoExport": {
         "title": "视频导出更可靠",
-        "description": "桌面版导出视频改为边录边写入磁盘，4K 等大文件不再在最后一步失败；改为直接录制 Folia 自己的页面，Linux（包括 Wayland）下不再找不到录制源，窗口被遮挡也照样录得到，4K 录制帧率明显提升。导出的 MP4 现在能正确显示时长。"
+        "description": "桌面版导出视频改为边录边写入磁盘，4K 等大文件不再在最后一步失败；改为直接录制 BigOrange 自己的页面，Linux（包括 Wayland）下不再找不到录制源，窗口被遮挡也照样录得到，4K 录制帧率明显提升。导出的 MP4 现在能正确显示时长。"
       },
       "automixIntelMac": {
         "title": "Intel Mac 支持人声分离",
@@ -3277,7 +3277,7 @@ export default {
       },
       "modHomePages": {
         "title": "模组可以在首页添加页面",
-        "description": "Folium 1.5：模组可以在首页添加自己的页面，与原生页签并列切换；能读取和调整音量、静音、循环模式，查看并点播播放队列，还能感知播放失败。模组面板会显示每个模组占用的空间，可以一键清空缓存；模组设置里的下拉框换成与 Folia 一致的样式。社区「先行测试」渠道的模组会以紫色标记，并在启用前提示风险。"
+        "description": "Folium 1.5：模组可以在首页添加自己的页面，与原生页签并列切换；能读取和调整音量、静音、循环模式，查看并点播播放队列，还能感知播放失败。模组面板会显示每个模组占用的空间，可以一键清空缓存；模组设置里的下拉框换成与 BigOrange 一致的样式。社区「先行测试」渠道的模组会以紫色标记，并在启用前提示风险。"
       },
       "stabilityFixes": {
         "title": "更稳定的细节",
@@ -3396,7 +3396,7 @@ export default {
       },
       "qrLogin": {
         "title": "扫码登录更稳，失败时有办法",
-        "description": "网易云扫码中途连接被重置时会换身份重试，失败时显示真实原因。登录失败后，二维码旁先给出重启 Folia、换网络等办法，诊断信息收在下方；QQ 音乐恢复诊断入口，在手机上取消后会等后端冷却结束再允许重试。"
+        "description": "网易云扫码中途连接被重置时会换身份重试，失败时显示真实原因。登录失败后，二维码旁先给出重启 BigOrange、换网络等办法，诊断信息收在下方；QQ 音乐恢复诊断入口，在手机上取消后会等后端冷却结束再允许重试。"
       },
       "injectedShortcuts": {
         "title": "快捷键支持模拟输入",
@@ -3778,8 +3778,8 @@ export default {
     "qqCloudDriveDesc": "微云音乐网盘",
   },
   "unifiedPanel": {
-    "nowPlayingStageDescription": "Now Playing 正由外部播放器控制，Folia 只负责展示歌词和视觉效果。",
-    "stageLocalInputDescription": "Stage 现在是本地单项输入模式。外部可以推送一份完整歌词对象或一段媒体，播放与展示仍由 Folia 自己控制。",
+    "nowPlayingStageDescription": "Now Playing 正由外部播放器控制，BigOrange 只负责展示歌词和视觉效果。",
+    "stageLocalInputDescription": "Stage 现在是本地单项输入模式。外部可以推送一份完整歌词对象或一段媒体，播放与展示仍由 BigOrange 自己控制。",
   },
   "libraryBravaisArtist": {
     "playTopSongs": "播放热门",
@@ -3813,8 +3813,8 @@ export default {
     "noTopSongsToQueue": "没有可加入队列的热门歌曲",
   },
   "obs": {
-    "connecting": "正在连接 Folia",
-    "waitingForPlayback": "等待 Folia 播放"
+    "connecting": "正在连接 BigOrange",
+    "waitingForPlayback": "等待 BigOrange 播放"
   },
   "queue": {
     "remove": "从队列中删除",
@@ -3910,7 +3910,7 @@ export default {
     }
   },
   "userGuide": {
-    "title": "欢迎使用 Folia",
+    "title": "欢迎使用 BigOrange",
     "subtitle": "这里有一些提示，希望能帮到你。",
     "commandPalette": {
       "title": "命令面板",
@@ -3934,13 +3934,13 @@ export default {
       "title": "配色主题",
       "desc": "可以手动定制亮色 / 暗色配色，也可以根据当前歌曲生成 AI 主题。",
       "customDesc": "从视觉设置或命令面板打开主题乐园，编辑并保存自定义亮色与暗色配色。",
-      "aiDesc": "配置 AI 主题设置后，Folia 可以根据歌曲生成配色，并可自动应用已缓存的歌曲主题。"
+      "aiDesc": "配置 AI 主题设置后，BigOrange 可以根据歌曲生成配色，并可自动应用已缓存的歌曲主题。"
     },
     "clickThrough": {
       "title": "点击穿透恢复",
       "desc": "开启点击穿透后，如果窗口控件被隐藏或不方便触达，可以通过系统托盘图标切换点击穿透。",
       "trayTitle": "使用托盘图标",
-      "trayDesc": "右键点击 Folia 的系统托盘图标，在菜单中选择点击穿透选项，即可开启或关闭。",
+      "trayDesc": "右键点击 BigOrange 的系统托盘图标，在菜单中选择点击穿透选项，即可开启或关闭。",
       "lockTitle": "使用锁定按钮",
       "lockDesc": "也可以把鼠标移到顶部标题栏热点，唤出锁定按钮后点击关闭点击穿透。"
     },
@@ -4028,7 +4028,7 @@ export default {
   "aiHelp": {
     "openButton": "遇到问题？",
     "title": "遇到问题？",
-    "docsTitle": "先查看 Folia 文档",
+    "docsTitle": "先查看 BigOrange 文档",
     "openDocs": "打开文档",
     "discordTitle": "去 Discord 社区问问",
     "openDiscord": "加入",
@@ -4052,7 +4052,7 @@ export default {
     },
     "summaries": {
       "bravais_seam": "墙中间那道缝：三档开合、首页的页签与工具格、过滤和搜索的区别。",
-      "queue_shuffle": "Folia 没有随机播放模式，而是打乱队列；以及打乱队列的四个入口。",
+      "queue_shuffle": "BigOrange 没有随机播放模式，而是打乱队列；以及打乱队列的四个入口。",
       "audio_equalizer": "十段均衡和效果链；拖动推子会改写自定义槽。",
       "vis_playground": "预览上的三块隐藏点击区。",
       "lyric_style": "每种样式的专属设置、莫奈部件的隐藏、背景搭配和通用副字幕。",
@@ -4370,8 +4370,8 @@ export default {
       "transition": {
         "panel": "设置 · 过渡",
         "enable": "过渡总开关",
-        "crossfade": "Folia Crossfade",
-        "automix": "Folia Automix",
+        "crossfade": "BigOrange Crossfade",
+        "automix": "BigOrange Automix",
         "badge": "运行状态",
         "detail": "当前模式的参数",
         "notice": "缺条件时的提示"
@@ -4569,7 +4569,7 @@ export default {
         "palette": "命令面板"
       },
       "grid": {
-        "help": "Folia 与帮助入口",
+        "help": "BigOrange 与帮助入口",
         "tabs": "内容来源页签",
         "search": "歌曲搜索",
         "map": "全部集合地图",
@@ -4662,7 +4662,7 @@ export default {
       "panelAccountTab": "面板 · 音质页",
       "latticePage": "Lattice 页面",
       "bravaisWall": "Bravais 墙",
-      "helpPage": "认识 Folia",
+      "helpPage": "认识 BigOrange",
       "ponderBasics": "思索怎么用",
       "foliaTransport": "播放控制与媒体键",
       "foliaShortcuts": "常用快捷键",
@@ -4858,7 +4858,7 @@ export default {
         "toolsAppearance": "最下面是墙面外观：透光在三档之间轮换，还有海报叠色和开灯 / 关灯。向左滑这颗按钮，直接打开命令面板。"
       },
       "queueShuffle": {
-        "noMode": "Folia 不提供传统的随机播放模式，循环按钮也不会切到随机。想随机听，就打乱当前队列。",
+        "noMode": "BigOrange 不提供传统的随机播放模式，循环按钮也不会切到随机。想随机听，就打乱当前队列。",
         "once": "打乱是一次操作：当前队列原地洗一次牌，之后按新顺序播放。想换个顺序，再打乱一次。",
         "command": "最快的是命令：命令窗口关着、焦点不在输入框时按冒号进入执行模式，再按 r。也可以在命令窗口里搜「打乱队列」。",
         "slot": "常用的话，在设置 · 播放页的「进度条右侧按钮」里选「随机队列」，控制条上就多一颗打乱按钮。",
@@ -5008,13 +5008,13 @@ export default {
         "playerToggleWhere": "侧边手柄贴在屏幕右缘，底边和控制条对齐。它是一颗圆按钮，按一下展开右侧控制面板。",
         "playerPanelWhere": "面板从手柄上方展开，贴着右侧。打开时是这首歌的封面页，最底下一排是封面、控制、播放列表、音质等标签页。",
         "playerPaletteSlide": "手柄背后还藏着一条向左的滑轨。按住手柄往左拖，越过判定线再松手，打开的是命令窗口，不是面板。",
-        "playerPaletteOpened": "命令窗口从屏幕上方落下，水平居中。Folia 把「找功能」这件事全部收在这里。",
+        "playerPaletteOpened": "命令窗口从屏幕上方落下，水平居中。BigOrange 把「找功能」这件事全部收在这里。",
         "playerPaletteOtherWays": "{{mod}} + K 可随时打开命令窗口。播放页焦点不在输入框时，按 S 也可以；触屏先点右缘唤出手柄。",
         "playerCommandFilter": "窗口开着就直接打字，它按名字、别名和关键词一起筛。↑↓ 选，Enter 执行 —— 不必先想清楚这条命令归在哪一类。",
         "playerCommandArgument": "需要参数的命令不会立刻跑。打完命令名按空格，它收成输入行里的一枚标签，光标留在后面等你补参数，补完再 Enter。",
         "playerExecuteCloseFirst": "执行模式要在命令窗口关闭时进入。先按 Esc 关掉窗口：窗口开着时按冒号，只会把冒号打进输入框。",
         "playerExecuteMode": "回到播放页，焦点不在输入框时按冒号，命令窗口会直接以执行模式打开。进入后按 r/v/o/h 执行命令。",
-        "playerShuffleNoSwitch": "Folia 没有常驻的随机播放开关；它是一次操作，按下后会打乱当前队列。",
+        "playerShuffleNoSwitch": "BigOrange 没有常驻的随机播放开关；它是一次操作，按下后会打乱当前队列。",
         "playerShuffleHow": "播放页按冒号进入执行模式，再按 r 打乱队列；再次执行可换顺序。",
         "playerShuffleSlot": "如果你常用它，把「随机队列」放进控制条右边那两个位置之一，以后按一下就行。",
         "lattice": "Lattice 把整条播放队列铺成一面海报墙。你可以在墙上移动查看队列，并选中海报来操作那首歌。从探索页打开时，铺开的是探索页的专辑、歌单、歌手和歌曲。",
@@ -5028,11 +5028,11 @@ export default {
         "latticeLights": "灯光关闭后海报退暗，只保留必要层次；这是显示设置，不会暂停播放或修改队列。",
         "latticePosterKeys": "收起时 Enter/Space 展开；展开后 Enter 播放/暂停，Space 显示控制，Esc 收起。",
         "latticePageKeys": ": + C 当前歌曲；{{mod}} + P 队列；{{mod}} + B 返回；{{mod}} + K 命令；方向键移动。",
-        "help": "Folia 分开处理浏览、播放、命令和设置。Ctrl+G 说明当前页面，有特殊操作的组件也有独立教程。",
+        "help": "BigOrange 分开处理浏览、播放、命令和设置。Ctrl+G 说明当前页面，有特殊操作的组件也有独立教程。",
         "helpCommands": "{{mod}} + K 可以搜索全部命令和设置。对于藏得较深的选项，直接搜名称通常比记住它在哪一级更快。",
         "helpOperatingModel": "网格选歌，Player 或 Lattice 播放；底部控制条负责播放，帮助和设置覆盖当前页面。",
         "settings": "左侧按界面、音乐、应用和高级分组列出类别；右侧显示当前类别里的具体设置。",
-        "settingsDirectNavigation": "不必逐层翻找：在命令面板搜索设置名称，Folia 会直接打开对应分组并滚到准确位置。"
+        "settingsDirectNavigation": "不必逐层翻找：在命令面板搜索设置名称，BigOrange 会直接打开对应分组并滚到准确位置。"
       },
       "playerBar": {
         "basicsAutoExpand": "暂停且不在首页时，控制条会自动展开。恢复播放或回到首页后，它会收起。",
@@ -5048,7 +5048,7 @@ export default {
         "slotsIntro": "进度条右边这两个按钮不是固定的，两个位置各自独立。",
         "slotsWhere": "在设置里挑：循环、随机、喜爱、队列、音量、睡眠定时等十个动作里任选，选完立刻生效。",
         "shuffleIntro": "这个随机和别处的不一样 —— 它不是一个开着就一直生效的模式。",
-        "shuffleOnce": "按一下，Folia 把当前队列原地洗一次牌，洗完这个顺序就定下来了。想换个顺序就再按一次。",
+        "shuffleOnce": "按一下，BigOrange 把当前队列原地洗一次牌，洗完这个顺序就定下来了。想换个顺序就再按一次。",
         "volumeIntro": "底部控制条上没有常驻的音量滑块。",
         "volumeOpens": "按这里打开的是命令面板里的音量面板，不是就地弹一个小滑块。"
       },
@@ -5115,7 +5115,7 @@ export default {
         "sourceLyrics": "歌词这一行右端是这首歌现有的几种歌词，点一段就换；只有一种时只写着它的名字。",
         "sourceOffset": "时间轴偏移按 250ms 调整，也可以直接输入。它只对当前播放生效；设置里的全局偏移会与它相加。",
         "sourceLyricsFile": "「导入 / 导出歌词」这颗把两件事合在一个窗口里，点开再选。它左边的「在线匹配」打开匹配歌词的窗口。",
-        "sourceExportFormats": "窗口上面是导入，接受 lrc、vtt、ttml、qrc、yrc、krc、txt 和 Folia 导出的 .fia；Navidrome 的歌曲不能导入，窗口里只有导出。中间两块把这一首导成文件：.fia 保留逐字时间轴、翻译、背景和声和你保存的分词，能原样导回来；.lrc 是增强型 LRC，别的播放器也能读，但这些 Folia 专有的信息会丢掉。",
+        "sourceExportFormats": "窗口上面是导入，接受 lrc、vtt、ttml、qrc、yrc、krc、txt 和 BigOrange 导出的 .fia；Navidrome 的歌曲不能导入，窗口里只有导出。中间两块把这一首导成文件：.fia 保留逐字时间轴、翻译、背景和声和你保存的分词，能原样导回来；.lrc 是增强型 LRC，别的播放器也能读，但这些 BigOrange 专有的信息会丢掉。",
         "sourceExportBatch": "最底下一行是批量导出：它会打开命令面板里的导出页，一次导出本机缓存的所有歌词。设置 · 存储与备份「缓存详情」里「歌词」那一行也有同一个入口。",
         "coverTab": "封面页就是这首歌：大封面，下面是歌名、歌手和专辑，再下面一行动作。这一页没有别的内容。",
         "coverTabDetail": "点击歌手或专辑可进入对应集合。点击歌名复制歌曲信息，按住 Ctrl 点击可打开来源页面。",
@@ -5128,12 +5128,12 @@ export default {
       },
       "transition": {
         "enable": "这一组管的是两首歌之间怎么接上。最上面是总开关 —— 它和控制页里「智能过渡」那一格是同一个值，两处改的是同一件事。",
-        "modes": "「过渡模式」有两段：Folia Crossfade 淡化切换歌曲，Folia Automix 分析音频后选择接点。",
+        "modes": "「过渡模式」有两段：BigOrange Crossfade 淡化切换歌曲，BigOrange Automix 分析音频后选择接点。",
         "badge": "两段左边那一小块字是运行状态：「完全体」或「兼容模式」表示自动混音正在运行；「已退回淡化」表示条件不足，系统改用淡化。",
         "notice": "自动混音需要歌曲缓存；提示右端的「开启歌曲缓存」可以就地打开它。"
       },
       "libraryWatch": {
-        "enable": "打开后，Folia 会监视已导入的本地文件夹并自动增量扫描。",
+        "enable": "打开后，BigOrange 会监视已导入的本地文件夹并自动增量扫描。",
         "roots": "开关底下才展开这张列表，一行一个被监视的根文件夹，下面那行小字是它的真实路径。",
         "warning": "眼睛表示监视正常；黄色三角表示路径或权限有问题，文件夹已停止自动扫描。",
         "recheck": "看到三角就按右边这颗「重新检查文件夹」，它会重新挂一遍所有导入过的文件夹。旁边那行小字是上一次自动扫描的时间。"
@@ -5155,7 +5155,7 @@ export default {
       "lyricExport": {
         "whatItIs": "这一页把本机已有的歌词打成一个 zip，不联网下载新的歌词。",
         "effective": "在线缓存是播放过的在线歌曲，导出的是播放时实际显示的版本，你导入或手动匹配的优先。本地曲库只导出在线匹配到的歌词：文件按音频文件名命名，按原目录结构放在 zip 的 local 文件夹里，解压到曲库所在的上一级目录，就会落在每首歌旁边。纯音乐和没有歌词的歌曲会跳过，并写进 manifest.json。",
-        "formats": ".fia 无损，可以直接导回 Folia；LRC 通用，但会丢掉背景和声和分词。两种都勾上，zip 里就是两个文件夹。",
+        "formats": ".fia 无损，可以直接导回 BigOrange；LRC 通用，但会丢掉背景和声和分词。两种都勾上，zip 里就是两个文件夹。",
         "names": "在线歌词缓存本身不带歌名。播放过的歌会顺手记下歌名，这是第一来源；没有的再从本机缓存过的歌单和队列里找，最后才联网问音乐平台，查到的结果会记下来，下次不用再问。关掉联网，查不到歌名的歌曲就以 ID 命名。",
         "running": "开始后这里显示进度，按钮变成取消。关掉命令面板也等于取消：导出不会在后台继续跑。"
       },
@@ -5198,8 +5198,8 @@ export default {
       },
       "localGridControls": {
         "sources": "这一排在本地曲库内部切换文件夹、专辑、艺术家和本地歌单。它换的是 Grid3D 轨道里的集合类型，不是切换在线音乐来源。",
-        "foldersAndPlaylists": "「文件夹」保留导入时的目录结构；「歌单」是 Folia 保存在本地的歌单，和在线歌单、Navidrome 歌单彼此独立。",
-        "imports": "「导入文件夹」从目录加入音乐；「导入歌单」读取 M3U/M3U8，并用 Folia 能解析到的曲目建立本地歌单。",
+        "foldersAndPlaylists": "「文件夹」保留导入时的目录结构；「歌单」是 BigOrange 保存在本地的歌单，和在线歌单、Navidrome 歌单彼此独立。",
+        "imports": "「导入文件夹」从目录加入音乐；「导入歌单」读取 M3U/M3U8，并用 BigOrange 能解析到的曲目建立本地歌单。",
         "refresh": "「刷新」重新扫描已经导入的根目录，找出新增、变化和丢失的文件；它不会再复制一份曲库。"
       },
       "onlineCollectionActions": {

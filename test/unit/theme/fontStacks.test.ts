@@ -69,7 +69,7 @@ describe('fontStacks', () => {
         const stack = resolveThemeTranslationFontStack(theme);
 
         expect(stack.startsWith('"SF Pro Display",')).toBe(true);
-        expect(stack).toContain('"Folia Noto Serif SC"');
+        expect(stack).toContain('"BigOrange Noto Serif SC"');
         expect(stack).toContain('Georgia');
         expect(stack).toContain('"Times New Roman"');
         expect(stack).toContain('"Noto Serif CJK SC"');

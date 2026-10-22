@@ -950,7 +950,7 @@ function createMacWallpaperController(options = {}) {
       return listenAccessGranted();
     },
     // Surfaces the macOS Input Monitoring prompt (only effective once per app identity). The
-    // user must enable Folia in System Settings if the preflight still reports false.
+    // user must enable BigOrange in System Settings if the preflight still reports false.
     requestPermission() {
       const s = initEventTap();
       if (!s.ok) return false;

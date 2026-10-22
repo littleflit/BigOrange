@@ -6,7 +6,7 @@
 // only the new names: this file reads the old ones where a mod hands them in.
 // Its client half is src/mods/folium/deprecated/.
 //
-// Step 2 (Folium 2, Folia 0.8.0) deletes this file, src/mods/folium/deprecated/,
+// Step 2 (Folium 2, BigOrange 0.8.0) deletes this file, src/mods/folium/deprecated/,
 // and these connection points, and nothing else:
 //   - electron/modSystem/manifest.cjs: the require of this file, and the
 //     `raw = readOldManifest(raw, manifest)` line in validateManifest (an

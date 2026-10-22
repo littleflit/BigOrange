@@ -3,7 +3,7 @@ import { settingsPanel, settingsRegion } from './settingsSectionShared';
 import type { PonderAnchorSource, PonderSceneScript, PonderTargetDefinition } from '../../../../types/ponder';
 
 // src/components/ponder/targets/settings/transitionSettings.target.ts
-// 设置 · 播放控制里的「Folia 智能过渡」。
+// 设置 · 播放控制里的「BigOrange 智能过渡」。
 //
 // 这一组有一处最容易看走眼：选中 automix 不等于它真的在跑。缺条件时它会悄悄退回
 // 淡化，而唯一的提示是选中那张卡右上角那一小块字 —— 从「使用中」变成「已退回淡化」。

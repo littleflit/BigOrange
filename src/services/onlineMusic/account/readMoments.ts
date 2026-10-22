@@ -5,9 +5,9 @@ import { errorMessage } from '../../../utils/errorText';
 // src/services/onlineMusic/account/readMoments.ts
 // The one place that decides whether the liked songs of a signed-in account are read again from
 // its platform at a moment when they may have been changed in the platform's own app, so that
-// such a change shows in Folia without a restart.
+// such a change shows in BigOrange without a restart.
 //
-// The moments (src/hooks/useAccountReads.ts hears of them and tells omni): Folia's window is
+// The moments (src/hooks/useAccountReads.ts hears of them and tells omni): BigOrange's window is
 // returned to, and the home screen is entered. At each, the platform is asked how many songs its
 // liked list holds (one request, the adapter's `getLikedSongCount`), and the liked ids are read
 // whole only when that count is not the one held. A like and an unlike made together elsewhere
@@ -19,18 +19,18 @@ import { errorMessage } from '../../../utils/errorText';
 // ids whole every time. A moment that falls into a read of the whole account joins its liked part
 // and reads no second time (omni hands that in as `readLikedWhole`).
 //
-// The count held is the number of liked ids Folia holds plus `ahead`: by how much the platform's
-// count differed from that number after the last read made here that left Folia holding what the
+// The count held is the number of liked ids BigOrange holds plus `ahead`: by how much the platform's
+// count differed from that number after the last read made here that left BigOrange holding what the
 // platform's list held. The two can differ for good (a platform may count songs its list no longer
 // shows), and compared this way that costs one read a session and not one a check. A like made in
-// Folia moves both alike, so it starts no read. A read that did not leave the two alike (the one
-// rule refused it, or a song pressed meanwhile kept what Folia held) writes no `ahead`: the count
+// BigOrange moves both alike, so it starts no read. A read that did not leave the two alike (the one
+// rule refused it, or a song pressed meanwhile kept what BigOrange held) writes no `ahead`: the count
 // asked before it says nothing of what is held after it, and a wrong `ahead` would hide the next
 // change made elsewhere. The next moment then reads again. A count of 0 goes with the read: the
 // rule takes an empty list only where the platform counted it as empty too (keptAfterRead.ts).
 // `ahead` is kept in memory only.
 
-/** A moment at which an account's liked songs may have been changed outside Folia. */
+/** A moment at which an account's liked songs may have been changed outside BigOrange. */
 export type AccountMoment = 'window-returned' | 'home-entered';
 
 export type LikedReadDecision = 'read whole' | 'ask for the count' | 'do nothing';
@@ -75,7 +75,7 @@ export const decideLikedRead = (known: LikedReadKnown): LikedReadDecision => {
 };
 
 export interface AccountMomentsDeps {
-    /** Who is signed in to the platform and how many liked ids Folia holds for them; null where nobody is. */
+    /** Who is signed in to the platform and how many liked ids BigOrange holds for them; null where nobody is. */
     account(providerId: OnlineProviderId): { userId: MediaId; likedHeld: number } | null;
     /**
      * The platform's count of the account's liked list (`getLikedSongCount` of its adapter):
@@ -84,8 +84,8 @@ export interface AccountMomentsDeps {
     likedCount(providerId: OnlineProviderId, userId: MediaId): Promise<number | null> | undefined;
     /**
      * Reads the account's liked ids whole and settles them by the one rule; rejects where the read
-     * failed. True where Folia then holds what the platform's list held: the answer was applied and
-     * no song kept what Folia held because it was pressed meanwhile. `countedEmpty`: the count
+     * failed. True where BigOrange then holds what the platform's list held: the answer was applied and
+     * no song kept what BigOrange held because it was pressed meanwhile. `countedEmpty`: the count
      * just given was 0.
      */
     readLikedWhole(providerId: OnlineProviderId, userId: MediaId, countedEmpty: boolean): Promise<boolean>;
@@ -131,7 +131,7 @@ export const createAccountMoments = (deps: AccountMomentsDeps) => {
             const signedIn = now !== null && String(now.userId) === userKey;
             const ahead = platform.ahead?.userId === userKey ? platform.ahead.by : 0;
             const held = (now?.likedHeld ?? 0) + ahead;
-            // What the log says of the two sides: the ids Folia holds, and `ahead` where it is not 0.
+            // What the log says of the two sides: the ids BigOrange holds, and `ahead` where it is not 0.
             const heldSaid = `${now?.likedHeld ?? 0} held${ahead === 0 ? '' : ` and ${ahead} ahead at the last read`}`;
             const decision = decideLikedRead({ ...known, signedIn, count: { held, read } });
             if (decision !== 'read whole' || read === null) {

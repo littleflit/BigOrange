@@ -9,7 +9,7 @@ import {
     publishMediaSessionTrack,
 } from '../utils/mediaSessionSync';
 
-// Bridges Folia playback state to the browser Media Session API.
+// Bridges BigOrange playback state to the browser Media Session API.
 type UseMediaSessionBridgeOptions = {
     audioRef: RefObject<HTMLAudioElement | null>;
     /**

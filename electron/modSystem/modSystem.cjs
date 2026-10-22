@@ -399,7 +399,7 @@ const createModSystem = ({ app, BrowserWindow, getMainWindow, getLocaleKey, isFe
                 nextMods.set(modId, runtime);
                 return;
             }
-            // A mod that names the Folia versions it needs (manifest "folia")
+            // A mod that names the BigOrange versions it needs (manifest "folia")
             // never runs on a host outside that range.
             const range = runtime.manifest.folia;
             if (range && !satisfiesHostRange(hostVersion, range)) {

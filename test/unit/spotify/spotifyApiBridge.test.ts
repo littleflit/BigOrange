@@ -86,7 +86,7 @@ describe('Spotify sign-in from the browser', () => {
         // A request that does not carry this attempt's state is not its answer: it is told the
         // sign-in did not complete, and nothing is exchanged or recorded.
         const stranger = await server.visit('/login?code=stolen&state=wrong');
-        expect(stranger).toMatchObject({ status: 200, body: expect.stringContaining('登录未完成。请回到 Folia 重试。') });
+        expect(stranger).toMatchObject({ status: 200, body: expect.stringContaining('登录未完成。请回到 BigOrange 重试。') });
         expect(fetch).not.toHaveBeenCalled();
         expect(server.closed).toBe(0);
         expect(await bridge.request('login_check', { key })).toEqual({ ok: true, data: { state: 'waiting' } });
@@ -136,7 +136,7 @@ describe('Spotify sign-in from the browser', () => {
         await bridge.request('login_open', { key: second });
         const closedBefore = server.closed;
         const old = await server.visit(`/login?code=the-old-code&state=${encodeURIComponent(oldState)}`);
-        expect(old).toMatchObject({ status: 200, body: expect.stringContaining('登录未完成。请回到 Folia 重试。') });
+        expect(old).toMatchObject({ status: 200, body: expect.stringContaining('登录未完成。请回到 BigOrange 重试。') });
         expect(fetch).not.toHaveBeenCalled();
         expect(server.closed).toBe(closedBefore);
         expect(await bridge.request('login_check', { key: second })).toEqual({ ok: true, data: { state: 'waiting' } });

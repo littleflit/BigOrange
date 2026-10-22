@@ -296,7 +296,7 @@ export const buildObsCustomCss = async (): Promise<BuildObsCustomCssResult | nul
   }
 
   const css = [
-    '/* Folia OBS custom assets. Paste into OBS Browser Source -> Custom CSS. */',
+    '/* BigOrange OBS custom assets. Paste into OBS Browser Source -> Custom CSS. */',
     'body { background-color: rgba(0, 0, 0, 0); margin: 0; overflow: hidden; }',
     ':root {',
     ...declarations,
